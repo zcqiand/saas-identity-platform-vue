@@ -59,8 +59,10 @@ export function useTable<Q extends Record<string, unknown> = Record<string, unkn
   function reset(): void {
     state.page = 1
     state.keyword = ''
-    Object.keys(state.query).forEach((k) => {
-      ;(state.query as Record<string, unknown>)[k] = (options.initialQuery ?? {})[k]
+    const initial = (options.initialQuery ?? {}) as Record<string, unknown>
+    const target = state.query as Record<string, unknown>
+    Object.keys(target).forEach((k) => {
+      target[k] = initial[k]
     })
   }
 

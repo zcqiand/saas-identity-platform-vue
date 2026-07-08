@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // ch41 用户列表：useTable（分页/搜索）+ useResource（user store）+ 角色分配
-import { onMounted, watch } from 'vue'
+import { computed, onMounted, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '../../stores/user'
 import { useTable } from '../../composables/useTable'
@@ -12,6 +12,11 @@ const { users, total, loading, error } = storeToRefs(userStore)
 const table = useTable<{ role?: string; status?: string; orgId?: string }>({
   initialPageSize: 10,
 })
+
+// 把 table 内的 ref 暴露为 computed，模板直接用（避免 table.xxx ref 不自动解包）
+const currentPage = computed(() => table.state.page)
+const totalPages = computed(() => table.totalPages.value)
+const keyword = computed(() => table.state.keyword)
 
 async function load(): Promise<void> {
   const query: UserQuery = {
@@ -40,6 +45,14 @@ async function onRoleChange(userId: string, e: Event): Promise<void> {
   await userStore.assignRoles(userId, [value])
 }
 
+function nextPage(): void {
+  table.nextPage()
+}
+
+function prevPage(): void {
+  table.prevPage()
+}
+
 const roleOptions: UserRole[] = ['admin', 'manager', 'member', 'viewer']
 </script>
 
@@ -49,7 +62,7 @@ const roleOptions: UserRole[] = ['admin', 'manager', 'member', 'viewer']
       <h2 class="text-2xl font-bold">用户管理</h2>
       <input
         data-testid="keyword-input"
-        :value="table.state.keyword"
+        :value="keyword"
         type="text"
         placeholder="搜索用户名/姓名/邮箱"
         class="border rounded px-3 py-1.5 text-sm w-64"
@@ -108,17 +121,17 @@ const roleOptions: UserRole[] = ['admin', 'manager', 'member', 'viewer']
       <div class="flex gap-2">
         <button
           class="px-3 py-1 border rounded disabled:opacity-50"
-          :disabled="table.state.page <= 1"
-          @click="table.prevPage()"
+          :disabled="currentPage <= 1"
+          @click="prevPage"
         >
           上一页
         </button>
-        <span class="px-2 py-1">第 {{ table.state.page }} / {{ table.totalPages }} 页</span>
+        <span class="px-2 py-1">第 {{ currentPage }} / {{ totalPages }} 页</span>
         <button
           data-testid="next-page"
           class="px-3 py-1 border rounded disabled:opacity-50"
-          :disabled="table.state.page >= table.totalPages"
-          @click="table.nextPage()"
+          :disabled="currentPage >= totalPages"
+          @click="nextPage"
         >
           下一页
         </button>

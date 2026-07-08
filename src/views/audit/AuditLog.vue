@@ -19,7 +19,7 @@ const scrollTop = ref(0)
 const VIEWPORT_HEIGHT = 480
 const ITEM_HEIGHT = 48
 
-const { visibleItems, startIndex, endIndex, totalHeight, offsetY } = useVirtualList<AuditLog>(logs, {
+const { visibleItems, totalHeight, offsetY } = useVirtualList<AuditLog>(logs, {
   itemHeight: ITEM_HEIGHT,
   viewportHeight: VIEWPORT_HEIGHT,
   scrollTop,
@@ -116,7 +116,7 @@ function extractErrorMessage(err: unknown, fallback: string): string {
               </thead>
               <tbody>
                 <tr
-                  v-for="(log, idx) in visibleItems"
+                  v-for="log in visibleItems"
                   :key="log.id"
                   data-testid="audit-row"
                   class="border-t hover:bg-gray-50"

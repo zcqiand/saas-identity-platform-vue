@@ -1,7 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
 import { useAuthStore } from '../../src/stores/auth'
-import { getTenantId } from '../../src/api/client'
 
 describe('auth store (ch40)', () => {
   beforeEach(() => {

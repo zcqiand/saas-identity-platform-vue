@@ -24,11 +24,13 @@ describe('v-permission directive (ch40)', () => {
   }
 
   function mountWith(code: string) {
+    const pinia = getActivePinia()
+    if (!pinia) throw new Error('pinia not active')
     return mount(Host, {
       props: { code },
       global: {
         directives: { permission: permissionDirective },
-        plugins: [getActivePinia()],
+        plugins: [pinia],
       },
     })
   }

@@ -27,13 +27,13 @@ export function clearTheme(): void {
 }
 
 /** provide 当前主题 ref（根组件使用） */
-export function provideTheme(themeRef: Ref<ThemeConfig | null>) {
+export function provideTheme(themeRef: Ref<ThemeConfig | null>): void {
   provide(TENANT_THEME_KEY, readonly(themeRef))
 }
 
 /** inject 当前主题 ref（任意后代组件使用） */
 export function useTheme(): Ref<ThemeConfig | null> {
-  const theme = inject<Ref<ThemeConfig | null>>(TENANT_THEME_KEY, null)
+  const theme = inject<Ref<ThemeConfig | null> | null>(TENANT_THEME_KEY, null)
   if (theme === null) {
     throw new Error('useTheme 必须在 provideTheme 之后使用')
   }

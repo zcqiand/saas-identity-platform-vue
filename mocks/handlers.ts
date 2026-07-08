@@ -190,6 +190,14 @@ export const handlers = [
     return HttpResponse.json(result)
   }),
 
+  // —— ch42：错误/web-vitals 上报接收（mock）——
+  http.post('*/api/vitals', () => {
+    return new HttpResponse(null, { status: 204 })
+  }),
+  http.post('*/vitals', () => {
+    return new HttpResponse(null, { status: 204 })
+  }),
+
   // —— 平台租户管理 CRUD（ch39 列表/详情已含；此处补增改删）——
   http.get('*/tenants', ({ request }) => {
     const url = new URL(request.url)

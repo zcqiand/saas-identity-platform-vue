@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { listTenants, findTenant } from '../msw/db'
+import { listTenants, findTenant } from '../mocks/db'
 
 describe('smoke', () => {
   it('mock db seeds tenants', () => {

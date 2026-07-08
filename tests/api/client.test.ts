@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { http, HttpResponse } from 'msw'
-import { server } from '../../msw/server'
+import { server } from '../../mocks/server'
 import { apiClient, setTenantId, setToken, getTenantId, resetApiClient } from '../../src/api/client'
 
 // 通过 MSW handler 观测实际发出的请求头（最贴近真实契约）。

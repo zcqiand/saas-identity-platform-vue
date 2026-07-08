@@ -34,7 +34,6 @@ export function createAppRouter(): Router {
 
   // ch39：beforeEach 守卫 — 解析租户 → init store → 注册动态路由 → 继续
   // ch40：在 tenant 守卫后追加 RBAC 校验（由 useAuthStore + usePermissionStore 完成）
-  let lastTenantId: string | null = null
   router.beforeEach(async (to) => {
     // 公共路由放行（无需租户上下文）
     if (to.name === 'login' || to.name === 'forbidden' || to.path === '/' || to.path === '/403') return true
@@ -56,7 +55,6 @@ export function createAppRouter(): Router {
       if (tenantStore.current) {
         setupDynamicRoutes(router, tenantStore.current)
       }
-      lastTenantId = tenantStore.current?.id ?? null
     }
 
     if (tenantStore.error) {
