@@ -24,6 +24,71 @@ export const staticRoutes = [
     name: 'dashboard',
     component: PlaceholderView,
   },
+  {
+    path: '/platform/apps',
+    name: 'platform-apps',
+    component: () => import('../views/platform/AppList.vue'),
+  },
+  {
+    path: '/platform/apps/:appId/menus',
+    name: 'platform-app-menus',
+    component: () => import('../views/platform/MenuList.vue'),
+  },
+  {
+    path: '/:tenantId/positions',
+    name: 'tenant-positions',
+    component: () => import('../views/positions/PositionsList.vue'),
+  },
+  {
+    path: '/:tenantId/user-groups',
+    name: 'tenant-user-groups',
+    component: () => import('../views/user-groups/UserGroupsList.vue'),
+  },
+  {
+    path: '/:tenantId/permission-groups',
+    name: 'tenant-permission-groups',
+    component: () => import('../views/permission-groups/PermissionGroupsList.vue'),
+  },
+  {
+    path: '/:tenantId/login-methods',
+    name: 'tenant-login-methods',
+    component: () => import('../views/auth/LoginMethodsList.vue'),
+  },
+  {
+    path: '/:tenantId/token-config',
+    name: 'tenant-token-config',
+    component: () => import('../views/auth/TokenConfigForm.vue'),
+  },
+  {
+    path: '/:tenantId/api-keys',
+    name: 'tenant-api-keys',
+    component: () => import('../views/auth/ApiKeysList.vue'),
+  },
+  {
+    path: '/:tenantId/login-security',
+    name: 'tenant-login-security',
+    component: () => import('../views/security/LoginSecurityForm.vue'),
+  },
+  {
+    path: '/:tenantId/password-policy',
+    name: 'tenant-password-policy',
+    component: () => import('../views/security/PasswordPolicyForm.vue'),
+  },
+  {
+    path: '/:tenantId/risk-control',
+    name: 'tenant-risk-control',
+    component: () => import('../views/security/RiskControlForm.vue'),
+  },
+  {
+    path: '/:tenantId/notification-config',
+    name: 'tenant-notification-config',
+    component: () => import('../views/security/NotificationConfigForm.vue'),
+  },
+  {
+    path: '/platform/open-platform',
+    name: 'platform-open-platform',
+    component: () => import('../views/platform/OpenPlatformConfigForm.vue'),
+  },
 ] as const
 
 export function createAppRouter(): Router {
