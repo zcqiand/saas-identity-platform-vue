@@ -66,15 +66,16 @@ export const useTenantStore = defineStore('tenant', () => {
     error.value = null
   }
 
-  /** 拉取租户列表（分页） */
+  /** 拉取租户列表（分页）。兼容 {items:[]} 与裸数组两种响应 shape */
   async function fetchTenants(keyword?: string): Promise<void> {
     loading.value = true
     error.value = null
     try {
-      const res = await apiClient.get<{ items: TenantConfig[] }>('/tenants', {
+      const res = await apiClient.get<{ items: TenantConfig[] } | TenantConfig[]>('/tenants', {
         params: keyword ? { keyword } : undefined,
       })
-      list.value = res.data.items
+      const data = res.data as { items?: TenantConfig[] } | TenantConfig[]
+      list.value = Array.isArray(data) ? data : (data.items ?? [])
     } catch (err) {
       error.value = extractErrorMessage(err, '租户列表加载失败')
     } finally {
