@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": []
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "mocks/**/*.ts"],
+  "exclude": ["vite.config.ts", "vitest.config.ts", "node_modules", "dist", "coverage", "tests"]
+}
