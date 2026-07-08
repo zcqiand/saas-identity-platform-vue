@@ -5,6 +5,7 @@ import App from './App.vue'
 import { createAppRouter } from './router'
 import { installErrorHandler } from './app/errorHandler'
 import { permissionDirective } from './directives/permission'
+import { initMonitoring } from './monitoring'
 import './index.css'
 
 async function enableMockWorker(): Promise<void> {
@@ -23,4 +24,6 @@ enableMockWorker().finally(() => {
   // ch42：全局错误捕获 + 上报 stub
   installErrorHandler(app)
   app.mount('#app')
+  // ch42：Sentry + Web Vitals 监控（DSN 为空时 no-op）
+  initMonitoring()
 })

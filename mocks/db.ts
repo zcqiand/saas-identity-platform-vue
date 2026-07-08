@@ -353,6 +353,9 @@ export function queryAuditLogs(opts: {
   action?: string
   operator?: string
   ip?: string
+  startDate?: string
+  endDate?: string
+  type?: 'login' | 'security' | 'operation'
 }): { items: AuditLog[]; total: number; page: number; pageSize: number } {
   let filtered = [...auditLogs]
   if (opts.action) {
@@ -364,6 +367,21 @@ export function queryAuditLogs(opts: {
   }
   if (opts.ip) {
     filtered = filtered.filter((l) => l.ip.includes(opts.ip!))
+  }
+  if (opts.startDate) {
+    filtered = filtered.filter((l) => l.timestamp >= opts.startDate!)
+  }
+  if (opts.endDate) {
+    filtered = filtered.filter((l) => l.timestamp <= opts.endDate!)
+  }
+  if (opts.type) {
+    const typeMap: Record<string, string[]> = {
+      login: ['login'],
+      security: ['login', 'logout', 'permission_change'],
+      operation: ['create', 'update', 'delete'],
+    }
+    const allowed = typeMap[opts.type] ?? [opts.type]
+    filtered = filtered.filter((l) => allowed.includes(l.action))
   }
   // 倒序
   filtered.sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1))
