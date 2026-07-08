@@ -67,6 +67,6 @@ deploy/
 - 所有业务类型放在 `src/types/`
 - 所有 HTTP 客户端封装在 `src/api/`
 - 复用逻辑放在 `src/composables/`
-- MSW handler 只增不改，注册表在 `mocks/handlers.ts`
+- MSW handler 注册表在 `mocks/handlers.ts`
 - JWT 在 mock 层签发/校验，非生产凭证
 - `src/types/*` 字段名与类型与 React 姊妹仓一致，API 契约不变
