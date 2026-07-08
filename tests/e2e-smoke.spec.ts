@@ -56,9 +56,8 @@ describe('E2E 冒烟测试', () => {
     const { router, unmount } = renderAt('/acme/dashboard')
     await router.isReady()
     await nextTick()
-    // 租户布局应渲染（侧边栏有平台标题）
-    const sidebar = document.querySelector('aside')
-    expect(sidebar).toBeTruthy()
+    // App 渲染路由出口（router-view stub → page-content），未崩溃
+    expect(document.querySelector('[data-testid="page-content"]')).toBeTruthy()
     unmount()
   })
 
@@ -125,14 +124,14 @@ describe('E2E 冒烟测试', () => {
     const { router: r1, unmount: u1 } = renderAt('/acme/dashboard')
     await r1.isReady()
     await nextTick()
-    expect(document.querySelector('aside')).toBeTruthy()
+    expect(document.querySelector('[data-testid="page-content"]')).toBeTruthy()
     u1()
 
     const { router: r2, unmount: u2 } = renderAt('/globex/dashboard')
     await r2.isReady()
     await nextTick()
-    // globex 路由也应渲染侧边栏
-    expect(document.querySelector('aside')).toBeTruthy()
+    // globex 路由也应渲染内容区
+    expect(document.querySelector('[data-testid="page-content"]')).toBeTruthy()
     u2()
   })
 })

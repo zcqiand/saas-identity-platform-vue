@@ -14,12 +14,12 @@ const defaultReport: ReportCallback = (name, metric) => {
     id: metric.id,
     timestamp: Date.now(),
   })
-  // 使用 sendBeacon 避免阻塞页面（不可用时降级 fetch）
-  if (navigator.sendBeacon) {
-    navigator.sendBeacon('/api/vitals', body)
-  } else {
-    fetch('/api/vitals', { method: 'POST', body, keepalive: true }).catch(() => {})
-  }
+  // 用 fetch + keepalive 而非 navigator.sendBeacon：
+  // (1) keepalive 同样保证页面卸载时请求不丢（sendBeacon 的主要优点）；
+  // (2) MSW Service Worker 能可靠拦截 fetch，命中 mocks 里的 http.post('*/api/vitals') → 204；
+  //     而 sendBeacon 在 MSW 下常被漏网，会落到 vite dev proxy（target http://backend:8080）
+  //     触发 ENOTFOUND。生产环境无 MSW，由 nginx 反代到后端。
+  fetch('/api/vitals', { method: 'POST', body, keepalive: true }).catch(() => {})
 }
 
 /**

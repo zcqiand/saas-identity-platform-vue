@@ -4,6 +4,15 @@ import { useTenantStore } from '../stores/tenant'
 import { useAuthStore } from '../stores/auth'
 import { setupDynamicRoutes, teardownDynamicRoutes } from './dynamicRoutes'
 
+// 懒加载路由组件（eager 默认 false，是静态字面量 → vitest 的 import-glob 可解析）。
+// dev 下 main.ts 会在 MSW 注册 Service Worker 之前把这些模块全部预加载（进入浏览器缓存），
+// 从而绕开 MSW SW 对 /src/* 动态导入的 404 拦截；生产构建不走 MSW，保持按需分块。
+export const routeModuleLoaders = import.meta.glob('../views/**/*.vue')
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function view(p: string): any {
+  return routeModuleLoaders[p]
+}
+
 export const staticRoutes: RouteRecordRaw[] = [
   { path: '/', redirect: '/acme/dashboard' },
   { path: '/login', name: 'login', component: { template: '<div class="p-4">登录页</div>' } },
@@ -12,39 +21,39 @@ export const staticRoutes: RouteRecordRaw[] = [
   // 平台管理（无租户上下文）：PlatformLayout 作父路由，子页面经 RouterView 渲染
   {
     path: '/platform',
-    component: () => import('../views/platform/PlatformLayout.vue'),
+    component: view('../views/platform/PlatformLayout.vue'),
     children: [
       { path: '', redirect: '/platform/config' },
-      { path: 'config', name: 'platform-config', component: () => import('../views/platform/PlatformConfigForm.vue') },
-      { path: 'tenants', name: 'platform-tenants', component: () => import('../views/tenant/TenantList.vue') },
-      { path: 'tenants/:tenantId', name: 'platform-tenant-detail', component: () => import('../views/tenant/TenantDetail.vue') },
-      { path: 'apps', name: 'platform-apps', component: () => import('../views/platform/AppList.vue') },
-      { path: 'apps/:appId/menus', name: 'platform-app-menus', component: () => import('../views/platform/MenuList.vue') },
-      { path: 'open-platform', name: 'platform-open-platform', component: () => import('../views/platform/OpenPlatformConfigForm.vue') },
+      { path: 'config', name: 'platform-config', component: view('../views/platform/PlatformConfigForm.vue') },
+      { path: 'tenants', name: 'platform-tenants', component: view('../views/tenant/TenantList.vue') },
+      { path: 'tenants/:tenantId', name: 'platform-tenant-detail', component: view('../views/tenant/TenantDetail.vue') },
+      { path: 'apps', name: 'platform-apps', component: view('../views/platform/AppList.vue') },
+      { path: 'apps/:appId/menus', name: 'platform-app-menus', component: view('../views/platform/MenuList.vue') },
+      { path: 'open-platform', name: 'platform-open-platform', component: view('../views/platform/OpenPlatformConfigForm.vue') },
     ],
   },
 
   // 租户布局（/:tenantId 作为父路由，子路由平铺）
   {
     path: '/:tenantId',
-    component: () => import('../views/tenant/TenantLayout.vue'),
+    component: view('../views/tenant/TenantLayout.vue'),
     children: [
-      { path: 'dashboard', name: 'dashboard', component: () => import('../views/Dashboard.vue') },
-      { path: 'users', name: 'users', component: () => import('../views/user/UserList.vue') },
-      { path: 'org', name: 'org', component: () => import('../views/OrgInfo.vue') },
-      { path: 'positions', name: 'tenant-positions', component: () => import('../views/positions/PositionsList.vue') },
-      { path: 'roles', name: 'roles', component: () => import('../views/roles/RolesList.vue') },
-      { path: 'menu-permissions', name: 'menu-permissions', component: () => import('../views/roles/MenuPermissions.vue') },
-      { path: 'user-groups', name: 'tenant-user-groups', component: () => import('../views/user-groups/UserGroupsList.vue') },
-      { path: 'permission-groups', name: 'tenant-permission-groups', component: () => import('../views/permission-groups/PermissionGroupsList.vue') },
-      { path: 'audit', name: 'audit', component: () => import('../views/audit/AuditLog.vue') },
-      { path: 'login-methods', name: 'tenant-login-methods', component: () => import('../views/auth/LoginMethodsList.vue') },
-      { path: 'token-config', name: 'tenant-token-config', component: () => import('../views/auth/TokenConfigForm.vue') },
-      { path: 'api-keys', name: 'tenant-api-keys', component: () => import('../views/auth/ApiKeysList.vue') },
-      { path: 'login-security', name: 'tenant-login-security', component: () => import('../views/security/LoginSecurityForm.vue') },
-      { path: 'password-policy', name: 'tenant-password-policy', component: () => import('../views/security/PasswordPolicyForm.vue') },
-      { path: 'risk-control', name: 'tenant-risk-control', component: () => import('../views/security/RiskControlForm.vue') },
-      { path: 'notification-config', name: 'tenant-notification-config', component: () => import('../views/security/NotificationConfigForm.vue') },
+      { path: 'dashboard', name: 'dashboard', component: view('../views/Dashboard.vue') },
+      { path: 'users', name: 'users', component: view('../views/user/UserList.vue') },
+      { path: 'org', name: 'org', component: view('../views/OrgInfo.vue') },
+      { path: 'positions', name: 'tenant-positions', component: view('../views/positions/PositionsList.vue') },
+      { path: 'roles', name: 'roles', component: view('../views/roles/RolesList.vue') },
+      { path: 'menu-permissions', name: 'menu-permissions', component: view('../views/roles/MenuPermissions.vue') },
+      { path: 'user-groups', name: 'tenant-user-groups', component: view('../views/user-groups/UserGroupsList.vue') },
+      { path: 'permission-groups', name: 'tenant-permission-groups', component: view('../views/permission-groups/PermissionGroupsList.vue') },
+      { path: 'audit', name: 'audit', component: view('../views/audit/AuditLog.vue') },
+      { path: 'login-methods', name: 'tenant-login-methods', component: view('../views/auth/LoginMethodsList.vue') },
+      { path: 'token-config', name: 'tenant-token-config', component: view('../views/auth/TokenConfigForm.vue') },
+      { path: 'api-keys', name: 'tenant-api-keys', component: view('../views/auth/ApiKeysList.vue') },
+      { path: 'login-security', name: 'tenant-login-security', component: view('../views/security/LoginSecurityForm.vue') },
+      { path: 'password-policy', name: 'tenant-password-policy', component: view('../views/security/PasswordPolicyForm.vue') },
+      { path: 'risk-control', name: 'tenant-risk-control', component: view('../views/security/RiskControlForm.vue') },
+      { path: 'notification-config', name: 'tenant-notification-config', component: view('../views/security/NotificationConfigForm.vue') },
     ],
   },
 
