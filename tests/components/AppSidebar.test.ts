@@ -74,8 +74,43 @@ describe('AppSidebar.vue (ch39/ch40)', () => {
     const wrapper = mount(AppSidebar, {
       global: { plugins: [router] },
     })
-    // 当前路由对应的菜单项有 active class
+    // 当前路由对应的菜单项被标记为激活（isActive 加 bg-slate-700 高亮类）
     const html = wrapper.html()
-    expect(html).toMatch(/审计[\s\S]*?active|active[\s\S]*?审计/)
+    expect(html).toMatch(/审计[\s\S]*?bg-slate-700|bg-slate-700[\s\S]*?审计/)
+  })
+
+  // 对齐 React Layout.tsx：身份管理分组顺序为
+  // 组织管理 → 岗位管理 → 角色管理 → 权限组别 → 菜单权限 → 用户组别 → 用户管理（用户管理末位）
+  it('身份管理分组顺序对齐 React（组织管理在用户管理之前，用户管理末位）', async () => {
+    const auth = useAuthStore()
+    auth.user = { id: 'u4', name: '管理员', role: 'admin', roleId: 'role-admin' } as never
+    auth.permissions = [
+      'dashboard:read', 'user:read', 'org:read', 'position:read', 'role:read',
+      'permission-group:read', 'menu:read', 'user-group:read',
+    ] as never
+    await router.push('/acme/dashboard')
+    await router.isReady()
+    const wrapper = mount(AppSidebar, { global: { plugins: [router] } })
+    const text = wrapper.text()
+    // 组织管理 必须出现在 用户管理 之前
+    expect(text.indexOf('组织管理')).toBeLessThan(text.indexOf('用户管理'))
+    // 岗位管理 必须出现在 角色管理 之前
+    expect(text.indexOf('岗位管理')).toBeLessThan(text.indexOf('角色管理'))
+    // 身份管理分组的 7 个 label 必须都在首页之后
+    expect(text.indexOf('身份管理')).toBeLessThan(text.indexOf('组织管理'))
+  })
+
+  // 平台 nav 顺序对齐 React PlatformLayout：租户 → 应用 → 开放平台 → 平台配置
+  it('平台 nav 顺序对齐 React（租户/应用/开放平台/平台配置）', async () => {
+    const auth = useAuthStore()
+    auth.user = { id: 'u5', name: '管理员', role: 'admin', roleId: 'role-admin' } as never
+    auth.permissions = ['platform:read'] as never
+    await router.push('/acme/dashboard')
+    await router.isReady()
+    const wrapper = mount(AppSidebar, { global: { plugins: [router] } })
+    const text = wrapper.text()
+    expect(text.indexOf('租户管理')).toBeLessThan(text.indexOf('应用管理'))
+    expect(text.indexOf('应用管理')).toBeLessThan(text.indexOf('开放平台'))
+    expect(text.indexOf('开放平台')).toBeLessThan(text.indexOf('平台配置'))
   })
 })

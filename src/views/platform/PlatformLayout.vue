@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import { platformNavItems as navItems } from '@/router/nav'
 
 // 平台级布局（ch42 平台运营）：
-// - 顶部平台侧边栏：平台配置 / 租户管理 / 应用管理 / 开放平台
+// - 平台侧边栏：单一来源 platformNavItems（对齐 React PlatformLayout.tsx）
 // - 内容区渲染嵌套 RouterView
-const navItems = [
-  { label: '平台配置',     to: '/platform/config' },
-  { label: '租户管理',     to: '/platform/tenants' },
-  { label: '应用管理',     to: '/platform/apps' },
-  { label: '开放平台',     to: '/platform/open-platform' },
-]
 </script>
 
 <template>
