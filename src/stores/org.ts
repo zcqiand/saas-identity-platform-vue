@@ -1,4 +1,5 @@
 // ch42 组织架构扩展 store：岗位 / 用户组 / 权限组（与 React 姊妹仓 appStore 对齐）
+// ch41/终批：追加组织树 CRUD（与 React 姊妹仓 orgStore 对齐，只增不改既有方法）
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { apiClient } from '../api/client'
@@ -13,11 +14,14 @@ import type {
   PermissionGroupCreateInput,
   PermissionGroupUpdateInput,
 } from '../types/org'
+import type { OrgNode } from '../types/user'
 
 export const useOrgStore = defineStore('org', () => {
   const positions = ref<Position[]>([])
   const userGroups = ref<UserGroup[]>([])
   const permissionGroups = ref<PermissionGroup[]>([])
+  // 组织树（单根）：与 React orgStore.tree 对齐
+  const tree = ref<OrgNode | null>(null)
   const loading = ref(false)
   const error = ref<string | null>(null)
 
@@ -118,13 +122,61 @@ export const useOrgStore = defineStore('org', () => {
     } catch (err) { error.value = extractErrorMessage(err, '权限组删除失败'); return false }
   }
 
+  // —— 组织树（ch41/终批，与 React orgStore 对齐，只增）——
+  async function fetchOrgTree(): Promise<void> {
+    loading.value = true
+    error.value = null
+    try {
+      const { data } = await apiClient.get<OrgNode>('/orgs')
+      tree.value = data
+    } catch (err) {
+      error.value = extractErrorMessage(err, '组织架构加载失败')
+    } finally {
+      loading.value = false
+    }
+  }
+  async function createOrgNode(name: string, parentId: string): Promise<void> {
+    loading.value = true
+    error.value = null
+    try {
+      await apiClient.post('/orgs', { name, parentId })
+      await fetchOrgTree()
+    } catch (err) {
+      loading.value = false
+      error.value = extractErrorMessage(err, '组织节点创建失败')
+    }
+  }
+  async function updateOrgNode(id: string, name: string): Promise<void> {
+    loading.value = true
+    error.value = null
+    try {
+      await apiClient.put(`/orgs/${id}`, { name })
+      await fetchOrgTree()
+    } catch (err) {
+      loading.value = false
+      error.value = extractErrorMessage(err, '组织节点更新失败')
+    }
+  }
+  async function deleteOrgNode(id: string): Promise<void> {
+    loading.value = true
+    error.value = null
+    try {
+      await apiClient.delete(`/orgs/${id}`)
+      await fetchOrgTree()
+    } catch (err) {
+      loading.value = false
+      error.value = extractErrorMessage(err, '组织节点删除失败')
+    }
+  }
+
   function clearError(): void { error.value = null }
 
   return {
-    positions, userGroups, permissionGroups, loading, error,
+    positions, userGroups, permissionGroups, tree, loading, error,
     fetchPositions, createPosition, updatePosition, removePosition,
     fetchUserGroups, createUserGroup, updateUserGroup, removeUserGroup,
     fetchPermissionGroups, createPermissionGroup, updatePermissionGroup, removePermissionGroup,
+    fetchOrgTree, createOrgNode, updateOrgNode, deleteOrgNode,
     clearError,
   }
 })
