@@ -490,14 +490,14 @@ const DEFAULT_APPS: App[] = [
 ]
 
 const DEFAULT_MENUS: MenuItem[] = [
-  { id: 'm-console-users', name: '用户管理', path: '/users', appId: 'app-console', parentId: null, sort: 1, enabled: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
-  { id: 'm-console-orgs', name: '组织架构', path: '/org', appId: 'app-console', parentId: null, sort: 2, enabled: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
-  { id: 'm-console-roles', name: '角色权限', path: '/roles', appId: 'app-console', parentId: null, sort: 3, enabled: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
-  { id: 'm-console-audit', name: '审计日志', path: '/audit', appId: 'app-console', parentId: null, sort: 4, enabled: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
-  { id: 'm-portal-profile', name: '我的资料', path: '/profile', appId: 'app-portal', parentId: null, sort: 1, enabled: true, createdAt: '2026-01-02T00:00:00.000Z', updatedAt: '2026-01-02T00:00:00.000Z' },
-  { id: 'm-portal-leave', name: '请假申请', path: '/leave', appId: 'app-portal', parentId: null, sort: 2, enabled: true, createdAt: '2026-01-02T00:00:00.000Z', updatedAt: '2026-01-02T00:00:00.000Z' },
-  { id: 'm-tenant-list', name: '租户列表', path: '/tenants', appId: 'app-tenant', parentId: null, sort: 1, enabled: true, createdAt: '2026-01-03T00:00:00.000Z', updatedAt: '2026-01-03T00:00:00.000Z' },
-  { id: 'm-tenant-bill', name: '账单', path: '/billing', appId: 'app-tenant', parentId: null, sort: 2, enabled: true, createdAt: '2026-01-03T00:00:00.000Z', updatedAt: '2026-01-03T00:00:00.000Z' },
+  { id: 'm-console-users',  name: '用户管理', path: '/users',   icon: 'users',  appId: 'app-console', parentId: null, sort: 1, enabled: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
+  { id: 'm-console-orgs',   name: '组织架构', path: '/org',     icon: 'org',    appId: 'app-console', parentId: null, sort: 2, enabled: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
+  { id: 'm-console-roles',  name: '角色权限', path: '/roles',   icon: 'shield', appId: 'app-console', parentId: null, sort: 3, enabled: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
+  { id: 'm-console-audit',  name: '审计日志', path: '/audit',   icon: 'log',    appId: 'app-console', parentId: null, sort: 4, enabled: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
+  { id: 'm-portal-profile', name: '我的资料', path: '/profile', icon: 'user',   appId: 'app-portal',  parentId: null, sort: 1, enabled: true, createdAt: '2026-01-02T00:00:00.000Z', updatedAt: '2026-01-02T00:00:00.000Z' },
+  { id: 'm-portal-leave',   name: '请假申请', path: '/leave',   icon: 'cal',    appId: 'app-portal',  parentId: null, sort: 2, enabled: true, createdAt: '2026-01-02T00:00:00.000Z', updatedAt: '2026-01-02T00:00:00.000Z' },
+  { id: 'm-tenant-list',    name: '租户列表', path: '/tenants', icon: 'building', appId: 'app-tenant', parentId: null, sort: 1, enabled: true, createdAt: '2026-01-03T00:00:00.000Z', updatedAt: '2026-01-03T00:00:00.000Z' },
+  { id: 'm-tenant-bill',    name: '账单',     path: '/billing', icon: 'card',  appId: 'app-tenant',  parentId: null, sort: 2, enabled: true, createdAt: '2026-01-03T00:00:00.000Z', updatedAt: '2026-01-03T00:00:00.000Z' },
 ]
 
 let apps: App[] = [...DEFAULT_APPS]
