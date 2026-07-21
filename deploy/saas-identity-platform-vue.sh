@@ -40,7 +40,7 @@ echo "→ docker run"
 docker run -d \
   --name saas-identity-platform-vue \
   --restart unless-stopped \
-  -p "127.0.0.1:8062:80" \
+  -p "127.0.0.1:8063:80" \
   "$IMAGE"
 
 echo "→ docker image prune"

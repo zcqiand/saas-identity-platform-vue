@@ -40,7 +40,7 @@ sh saas-identity-platform-vue.sh <DOCKER_USER> <DOCKER_PAT> v1.3-011   # ← 老
 │   反代 gateway（public-facing）                            │
 └─────────────────────────────────────────────────────────┘
    │
-   │  http://127.0.0.1:8062   （docker run -p 决定端口；React 仓用 8061）
+   │  http://127.0.0.1:8063   （docker run -p 决定端口；React 仓用 8061）
    ▼
 ┌─────────────────────────────────────────────────────────┐
 │ 容器内 nginx                       nginx/1.31 (alpine)  │ ←── SPA 静态 serve + 缓存
@@ -53,7 +53,7 @@ sh saas-identity-platform-vue.sh <DOCKER_USER> <DOCKER_PAT> v1.3-011   # ← 老
 
 两层反向代理是公开 SaaS 的标准做法：**外部 TLS / HSTS / 域名前缀 / 反代**放在 VPS 这一层；**SPA 静态文件、缓存、gzip、未来 API 反代**放容器里。两层职责彻底分开。
 
-与 React 仓的差异只在端口：Vue 用 **8062**，React 用 **8061**。同 VPS 共存时不冲突。
+与 React 仓的差异只在端口：Vue 用 **8063**，React 用 **8061**。同 VPS 共存时不冲突。
 
 ---
 
@@ -171,7 +171,7 @@ Vue 仓直接复用 React 仓踩出的全部经验；以下是与 Vue 特定差�
 - **症状**：docker run 起不来 / VPS nginx 502
 - **根因**：Vue / React 都用 `127.0.0.1:8061:80`，VPS vhost 反代到这个端口只能命中先起的那个
 - **修法**：
-  - Vue 用 **8062**（`deploy/saas-identity-platform-vue.sh` + `deploy/nginx-vps.conf.example` 同步锁死）
+  - Vue 用 **8063**（`deploy/saas-identity-platform-vue.sh` + `deploy/nginx-vps.conf.example` 同步锁死）
   - React 用 **8061**（姊妹仓）
   - 端口变动要 grep 至少两个文件：`deploy/saas-identity-platform-vue.sh` 和 VPS nginx vhost
 
@@ -194,7 +194,7 @@ Vue 仓直接复用 React 仓踩出的全部经验；以下是与 Vue 特定差�
 ```
 .github/workflows/ci.yml            # workflow：test → docker build & push → ssh deploy
 deploy/nginx.conf                   # 容器内 nginx（serve SPA + cache + gzip，/api/vitals 返 204）
-deploy/nginx-vps.conf.example       # VPS nginx 参考模板（含 cert / proxy_pass 占位，端口 8062）
+deploy/nginx-vps.conf.example       # VPS nginx 参考模板（含 cert / proxy_pass 占位，端口 8063）
 deploy/saas-identity-platform-vue.sh # VPS deploy 脚本（CI ssh 调用，跑容器切换）
 deploy/setup-vps.sh                 # VPS bootstrap 脚本（一次性）
 deploy/DELIVERY-CHECKLIST.md        # ch42 交付清单（已有）

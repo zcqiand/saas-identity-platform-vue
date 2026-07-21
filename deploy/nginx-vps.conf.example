@@ -17,10 +17,10 @@
 #   - vue-id.YOUR_DOMAIN 的 HTTP 301 到 HTTPS
 #   - 其它域名的 HTTP 直接关连接（return 444）
 #   - HTTPS 终结在 VPS（持 cert）
-#   - proxy_pass 到本机容器端口（默认 8062，由 docker run -p 决定）
+#   - proxy_pass 到本机容器端口（默认 8063，由 docker run -p 决定）
 #
 # 与 React 姊妹仓 saas-identity-platform 的 deploy/nginx-vps.conf.example 同构（双栈对照）。
-# 端口差异：Vue 用 8062、React 用 8061，避免同 VPS 共存时端口冲突。
+# 端口差异：Vue 用 8063、React 用 8061，避免同 VPS 共存时端口冲突。
 
 server {
     listen 80;
@@ -54,7 +54,7 @@ server {
     location / {
         # VPS 暴露端口（容器内 nginx-alpine 永远 :80）
         # 改：匹配 docker run -p 127.0.0.1:XXXX:80 中那个 XXXX
-        proxy_pass http://127.0.0.1:8062;
+        proxy_pass http://127.0.0.1:8063;
 
         proxy_http_version 1.1;
         proxy_set_header Host              $host;
