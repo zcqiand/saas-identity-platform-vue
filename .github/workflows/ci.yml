@@ -70,4 +70,18 @@ jobs:
           # drone-ssh 会去比其中一把和你 secret 里那把常常对不上；
           # 走 TOFU：第一次 ssh handshake 自动 trust + 写 sidecar 的 known_hosts，
           # 之后 run 默认用同一份
-          script: cd /home/deploy/saas-identity-platform-vue && sh saas-identity-platform-vue.sh "${{ secrets.DOCKER_USERNAME }}" "${{ secrets.DOCKER_PASSWORD }}" "${{ github.ref_name }}"
+          script: |
+            # 先从 GitHub raw 拉一份**本次 tag 对应的** deploy 脚本到 /tmp，
+            # 避免 VPS 本地的旧脚本（端口 / 镜像名 / 容器名过时）跑偏。
+            # raw.githubusercontent.com 不需要 token，public 仓可直接 curl。
+            set -eu
+            SCRIPT_URL="https://raw.githubusercontent.com/zcqiand/saas-identity-platform-vue/${{ github.ref_name }}/deploy/saas-identity-platform-vue.sh"
+            echo "→ fetch $SCRIPT_URL"
+            curl -fsSL "$SCRIPT_URL" -o /tmp/saas-identity-platform-vue.sh
+            chmod +x /tmp/saas-identity-platform-vue.sh
+
+            # VPS 工作目录（cd 一次，仅用于放 cert / ssh key 等老状态；脚本本身在 /tmp）
+            cd /home/deploy/saas-identity-platform-vue
+
+            # 跑脚本（不用 sh 直跑是为了让她自己打印参数诊断）
+            sh /tmp/saas-identity-platform-vue.sh "${{ secrets.DOCKER_USERNAME }}" "${{ secrets.DOCKER_PASSWORD }}" "${{ github.ref_name }}"

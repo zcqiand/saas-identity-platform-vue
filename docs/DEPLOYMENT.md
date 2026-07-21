@@ -187,6 +187,26 @@ Vue 仓直接复用 React 仓踩出的全部经验；以下是与 Vue 特定差�
 - **根因**：`vue-tsc` 类型检查比 `tsc` 重，CI runner 内存吃紧时（默认 7GB）偶发卡顿
 - **修法**：保持 package.json 当前 `"build": "vue-tsc --noEmit -p tsconfig.app.json && vite build"` 不动；CI runner 用 ubuntu-latest 默认配置一般够用；若仍 OOM 可在 workflow 加 `runs-on: ubuntu-latest-4-cores` 或把 vue-tsc 拆到独立 job
 
+### Vue 坑 5：CI ssh 后跑的是 VPS 本地脚本，不是 image 里的
+
+- **症状**：tag push 触发部署 → docker login / pull 都成功 → `docker run` 报 `Bind for 127.0.0.1:8062 failed: port is already allocated`（或者 8080 / 别的旧端口）
+- **根因**：CI ssh 到 VPS 后跑 `cd /home/deploy/saas-identity-platform-vue && sh saas-identity-platform-vue.sh ...`——**这个脚本是 VPS 本地的**，从首次 setup 时（或手动 scp / git clone）落盘后就一直在那儿。后面 image / 端口 / 镜像名改了，VPS 上的脚本不会自动跟着变
+- **症状具体演变**：
+  1. v1.4-011 部署成功（脚本端口 8062，容器跑在 8062）
+  2. v1.5-011 改了端口到 8063，但 `git tag v1.5-011 && git push origin v1.5-011` 触发的 ci.yml 还是 ssh + 跑 VPS 本地脚本
+  3. VPS 本地脚本**还是 8062**（没自动同步），同时 v1.4-011 容器在 8062 跑着
+  4. `docker stop saas-identity-platform-vue` 杀掉旧容器释放 8062 之后，新 `docker run -p 8062` **应该**能成功，但若 VPS 上有别的进程 / 别的项目占着 8062 就直接撞
+- **修法**：让 CI 不依赖 VPS 本地脚本——**ssh 后从 raw.githubusercontent.com 拉本次 tag 对应的脚本到 /tmp，再跑 /tmp 里那份**。这样端口 / 镜像名 / 容器名任何改动，CI 跑的都是 git 里最新的
+  ```yaml
+  script: |
+    set -eu
+    SCRIPT_URL="https://raw.githubusercontent.com/zcqiand/saas-identity-platform-vue/${{ github.ref_name }}/deploy/saas-identity-platform-vue.sh"
+    curl -fsSL "$SCRIPT_URL" -o /tmp/saas-identity-platform-vue.sh
+    chmod +x /tmp/saas-identity-platform-vue.sh
+    sh /tmp/saas-identity-platform-vue.sh "${{ secrets.DOCKER_USERNAME }}" "${{ secrets.DOCKER_PASSWORD }}" "${{ github.ref_name }}"
+  ```
+- **配套**：第一次 setup VPS 时不必 scp 脚本，直接让 setup-vps.sh 创建空目录 + vhost 即可；后续 CI 会自己拉
+
 ---
 
 ## 10. 文件索引
