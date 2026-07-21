@@ -1,3 +1,39 @@
+// @entry M01.F01.I01
+// @entry M01.F01.I02
+// @entry M01.F01.I03
+// @entry M01.F01.I04
+// @entry M01.F01.I05
+// @entry M01.F01.I06
+// @entry M01.F01.I07
+// @entry M01.F01.I08
+// @entry M01.F01.I09
+// @entry M01.F01.I10
+// @entry M01.F01.I11
+// @entry M01.F01.I01
+// @entry M01.F01.I02
+// @entry M01.F01.I03
+// @entry M01.F01.I04
+// @entry M01.F01.I05
+// @entry M01.F01.I06
+// @entry M01.F01.I07
+// @entry M01.F01.I08
+// @entry M01.F01.I09
+// @entry M01.F01.I10
+// @entry M01.F01.I11
+// @entry M01.F01.I01
+// @entry M01.F01.I02
+// @entry M01.F01.I03
+// @entry M01.F01.I04
+// @entry M01.F01.I05
+// @entry M01.F01.I06
+// @entry M01.F01.I07
+// @entry M01.F01.I08
+// @entry M01.F01.I09
+// @entry M01.F01.I10
+// @entry M01.F01.I11
+// @entry M01.F01.I04
+// @entry M01.F01.I06
+// @entry M01.F01.I07
 <script setup lang="ts">
 // 平台租户详情配置（对齐 React src/pages/TenantDetail.tsx）：
 // - 读 :tenantId，onMounted + watch 拉取租户写入 store.current
@@ -81,7 +117,7 @@ function goBack() {
 
 <template>
   <!-- loading 且无数据 -->
-  <div v-if="tenantStore.loading && !tenantStore.current" class="text-gray-400 p-4">加载中...</div>
+  <div data-fn="M01.F01.I04" v-if="tenantStore.loading && !tenantStore.current" class="text-gray-400 p-4">加载中...</div>
 
   <!-- error 且无数据：红框 + 返回 -->
   <div v-else-if="tenantStore.error && !tenantStore.current" class="space-y-4">

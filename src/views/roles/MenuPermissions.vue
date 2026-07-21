@@ -1,3 +1,34 @@
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
+// @entry M03.F01.I07
 <script setup lang="ts">
 // 菜单权限矩阵（对齐 React rbac/MenuPermissions.tsx）。
 // 选应用 + 选角色 → 渲染「菜单 × 操作」矩阵（查/建/改/删 + 全选），父菜单全选联动子菜单。
@@ -128,7 +159,7 @@ function setIndeterminate(el: HTMLInputElement, indeterminate: boolean) {
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div data-fn="M03.F01.I07" class="space-y-4">
     <div class="flex items-center justify-between">
       <h2 class="text-2xl font-bold">菜单权限</h2>
       <button

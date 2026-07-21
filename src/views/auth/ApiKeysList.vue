@@ -1,3 +1,19 @@
+// @entry M04.F02.I01
+// @entry M04.F02.I02
+// @entry M04.F02.I03
+// @entry M04.F02.I04
+// @entry M04.F02.I01
+// @entry M04.F02.I02
+// @entry M04.F02.I03
+// @entry M04.F02.I04
+// @entry M04.F02.I01
+// @entry M04.F02.I02
+// @entry M04.F02.I03
+// @entry M04.F02.I04
+// @entry M04.F02.I01
+// @entry M04.F02.I02
+// @entry M04.F02.I03
+// @entry M04.F02.I04
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useSecurityStore } from '@/stores/security'
@@ -28,7 +44,7 @@ async function toggle(id: string, enabled: boolean) {
 </script>
 
 <template>
-  <section data-testid="api-keys-list">
+  <section data-fn="M04.F02.I01" data-testid="api-keys-list">
     <header class="flex items-center justify-between mb-4">
       <h2 class="text-lg font-semibold">API Key</h2>
       <button class="px-3 py-1.5 bg-blue-600 text-white rounded text-sm" @click="showForm = true">新建 API Key</button>

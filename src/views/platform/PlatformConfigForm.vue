@@ -1,10 +1,14 @@
+// @entry M06.F08.I01
+// @entry M06.F08.I01
+// @entry M06.F08.I01
+// @entry M06.F08.I01
 <script setup lang="ts">
 // 平台配置（对齐 React PlatformConfig.tsx）：平台信息只读展示。
 // 静态只读（与 React 仓一致）；后续可接 /platform/config 接口做可编辑配置。
 </script>
 
 <template>
-  <div class="space-y-6 max-w-2xl">
+  <div data-fn="M06.F08.I01" class="space-y-6 max-w-2xl">
     <h2 class="text-2xl font-bold">平台配置</h2>
 
     <!-- 平台信息只读展示 -->

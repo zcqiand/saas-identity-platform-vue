@@ -1,3 +1,34 @@
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
+// @entry M03.F01.I06
 <script setup lang="ts">
 // 角色新建/编辑弹窗（对齐 React rbac/RoleFormModal.tsx）。
 // 表单：name + 资源权限（ALL_PERMISSIONS 多选）+ 菜单权限（选 app→勾菜单）。
@@ -143,7 +174,7 @@ function setIndeterminate(el: HTMLInputElement, indeterminate: boolean) {
 </script>
 
 <template>
-  <Teleport to="body">
+  <Teleport data-fn="M03.F01.I06" to="body">
     <div v-if="visible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
       <form
         data-testid="role-form"

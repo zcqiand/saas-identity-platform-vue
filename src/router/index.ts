@@ -15,7 +15,8 @@ function view(p: string): any {
 
 export const staticRoutes: RouteRecordRaw[] = [
   { path: '/', redirect: '/acme/dashboard' },
-  { path: '/login', name: 'login', component: { template: '<div class="p-4">登录页</div>' } },
+  { path: '/login', name: 'login', component: view('../views/auth/Login.vue') },
+  { path: '/sso-callback', name: 'sso-callback', component: view('../views/auth/SsoCallback.vue') },
   { path: '/403', name: 'forbidden', component: { template: '<div class="p-4 text-red-600">无权限</div>' } },
 
   // 平台管理（无租户上下文）：PlatformLayout 作父路由，子页面经 RouterView 渲染

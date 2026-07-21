@@ -25,7 +25,12 @@
     "@vue/test-utils": "2.x",
     "jsdom": "25.x",
     "@types/jsdom": "21.x",
-    "msw": "2.x (mock IdP / SSO / OAuth 回调)"
+    "msw": "2.x (mock IdP / SSO / OAuth 回调)",
+    "prettier": "3.x (L1 门格式)",
+    "eslint": "9.x (L2 门静态检查)",
+    "eslint-plugin-vue": "9.x",
+    "vue-eslint-parser": "10.x",
+    "typescript-eslint": "8.x"
   },
   "locked_from": "package.json @ v1.3-011",
   "_note": "实际钉死走 package.json 范围 + package-lock.json；本文件为人类可读的「允许版本面」，是 CLAUDE.md「不引入 lock 外的库」的判定依据。新增依赖须先加入 version_lock 并与 CLAUDE.md 技术栈段同步。与 React 姊妹仓 saas-identity-platform 共享 API 契约 + MSW fixtures。"

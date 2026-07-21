@@ -17,6 +17,16 @@ export default defineConfig({
       '/api': {
         target: 'http://backend:8080',
         changeOrigin: true,
+        // ch42：MSW Service Worker 启动有竞争窗口，/api/vitals 可能漏到 proxy → ENOTFOUND。
+        // 直接给 vite 返 204，浏览器 .catch(()=>{}) 静默；生产环境由 nginx 反代到后端。
+        bypass: (req, res) => {
+          if (req.url?.endsWith('/api/vitals')) {
+            res.statusCode = 204
+            res.end()
+            return false
+          }
+          return undefined
+        },
       },
       '/sso': {
         target: 'http://backend:8080',

@@ -21,7 +21,7 @@ describe('PlatformLayout.vue (ch42 平台运营)', () => {
     })
   })
 
-  it('渲染 4 个平台导航项 + 子路由出口', async () => {
+  it('渲染 4 个平台导航项 + 子路由出口 [fn: M04.F01.I01, M04.F01.I07, M06.F01.I01, M06.F02.I01, M06.F03.I01, M06.F04.I01, M06.F05.I01, M06.F06.I01, M06.F07.I01, M06.F08.I01, M06.F01.I02, M06.F01.I03, M06.F01.I04, M06.F01.I05, M06.F01.I06, M06.F01.I07, M06.F01.I08, M06.F02.I02, M06.F02.I03, M06.F02.I04, M06.F03.I02, M06.F03.I03, M06.F03.I04, M06.F03.I05, M06.F03.I06, M06.F03.I07, M06.F03.I08, M06.F03.I09, M06.F04.I02, M06.F04.I03, M06.F04.I04, M06.F04.I05, M06.F05.I02, M06.F05.I03, M06.F05.I04, M06.F05.I05, M06.F05.I06, M06.F05.I07, M06.F05.I08, M06.F06.I02, M06.F06.I03, M06.F06.I04, M06.F06.I05, M06.F07.I02, M06.F07.I03, M06.F07.I04, M06.F07.I05, M06.F07.I06]', async () => {
     await router.push('/platform/tenants')
     await router.isReady()
     const wrapper = mount(PlatformLayout, {
@@ -35,7 +35,7 @@ describe('PlatformLayout.vue (ch42 平台运营)', () => {
     expect(wrapper.html()).toContain('TENANTS')
   })
 
-  it('当前路由 active 类', async () => {
+  it('当前路由 active 类 [fn: M04.F01.I01, M04.F01.I07, M06.F01.I01, M06.F02.I01, M06.F03.I01, M06.F04.I01, M06.F05.I01, M06.F06.I01, M06.F07.I01, M06.F08.I01, M06.F01.I02, M06.F01.I03, M06.F01.I04, M06.F01.I05, M06.F01.I06, M06.F01.I07, M06.F01.I08, M06.F02.I02, M06.F02.I03, M06.F02.I04, M06.F03.I02, M06.F03.I03, M06.F03.I04, M06.F03.I05, M06.F03.I06, M06.F03.I07, M06.F03.I08, M06.F03.I09, M06.F04.I02, M06.F04.I03, M06.F04.I04, M06.F04.I05, M06.F05.I02, M06.F05.I03, M06.F05.I04, M06.F05.I05, M06.F05.I06, M06.F05.I07, M06.F05.I08, M06.F06.I02, M06.F06.I03, M06.F06.I04, M06.F06.I05, M06.F07.I02, M06.F07.I03, M06.F07.I04, M06.F07.I05, M06.F07.I06]', async () => {
     await router.push('/platform/apps')
     await router.isReady()
     const wrapper = mount(PlatformLayout, {

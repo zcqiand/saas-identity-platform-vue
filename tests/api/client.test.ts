@@ -9,7 +9,7 @@ describe('api client interceptor (ch39/ch40)', () => {
     resetApiClient()
   })
 
-  it('injects X-Tenant-ID header from tenant store value', async () => {
+  it('injects X-Tenant-ID header from tenant store value [fn: M01.F01.I10]', async () => {
     server.use(
       http.get('*/echo-headers', ({ request }) => {
         const tenant = request.headers.get('X-Tenant-ID')
@@ -21,7 +21,7 @@ describe('api client interceptor (ch39/ch40)', () => {
     expect(res.data.tenant).toBe('globex')
   })
 
-  it('injects Authorization header when token set', async () => {
+  it('injects Authorization header when token set [fn: M01.F01.I10]', async () => {
     server.use(
       http.get('*/echo-headers', ({ request }) => {
         const auth = request.headers.get('Authorization')
@@ -33,12 +33,12 @@ describe('api client interceptor (ch39/ch40)', () => {
     expect(res.data.auth).toBe('Bearer my-token')
   })
 
-  it('getTenantId returns current set value', () => {
+  it('getTenantId returns current set value [fn: M01.F01.I10]', () => {
     setTenantId('initech')
     expect(getTenantId()).toBe('initech')
   })
 
-  it('omits X-Tenant-ID when not set', async () => {
+  it('omits X-Tenant-ID when not set [fn: M01.F01.I10]', async () => {
     server.use(
       http.get('*/echo-headers', ({ request }) => {
         const tenant = request.headers.get('X-Tenant-ID')

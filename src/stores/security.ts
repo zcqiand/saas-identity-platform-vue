@@ -1,4 +1,51 @@
 // ch40 安全/认证配置 store：登录方式 / SSO / OAuth2 / Token / API Key
+// @entry M06.F01.I01
+// @entry M06.F04.I01
+// @entry M06.F01.I01
+// @entry M06.F01.I02
+// @entry M06.F01.I03
+// @entry M06.F01.I04
+// @entry M06.F01.I05
+// @entry M06.F01.I06
+// @entry M06.F01.I07
+// @entry M06.F01.I08
+// @entry M06.F04.I01
+// @entry M06.F04.I02
+// @entry M06.F04.I03
+// @entry M06.F04.I04
+// @entry M06.F04.I05
+// @entry M06.F01.I01
+// @entry M06.F04.I01
+// @entry M06.F01.I01
+// @entry M06.F01.I02
+// @entry M06.F01.I03
+// @entry M06.F01.I04
+// @entry M06.F01.I05
+// @entry M06.F01.I06
+// @entry M06.F01.I07
+// @entry M06.F01.I08
+// @entry M06.F04.I01
+// @entry M06.F04.I02
+// @entry M06.F04.I03
+// @entry M06.F04.I04
+// @entry M06.F04.I05
+// @entry M06.F01.I01
+// @entry M06.F04.I01
+// @entry M06.F01.I01
+// @entry M06.F01.I02
+// @entry M06.F01.I03
+// @entry M06.F01.I04
+// @entry M06.F01.I05
+// @entry M06.F01.I06
+// @entry M06.F01.I07
+// @entry M06.F01.I08
+// @entry M06.F04.I01
+// @entry M06.F04.I02
+// @entry M06.F04.I03
+// @entry M06.F04.I04
+// @entry M06.F04.I05
+// @entry M06.F01.I01
+// @entry M06.F04.I01
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { apiClient } from '../api/client'

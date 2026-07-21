@@ -1,3 +1,37 @@
+// @entry M02.F01.I01
+// @entry M02.F01.I02
+// @entry M02.F01.I03
+// @entry M02.F01.I04
+// @entry M02.F01.I05
+// @entry M02.F01.I06
+// @entry M02.F01.I07
+// @entry M02.F01.I08
+// @entry M02.F01.I09
+// @entry M02.F01.I01
+// @entry M02.F01.I02
+// @entry M02.F01.I03
+// @entry M02.F01.I04
+// @entry M02.F01.I05
+// @entry M02.F01.I06
+// @entry M02.F01.I07
+// @entry M02.F01.I08
+// @entry M02.F01.I09
+// @entry M02.F01.I01
+// @entry M02.F01.I02
+// @entry M02.F01.I03
+// @entry M02.F01.I04
+// @entry M02.F01.I05
+// @entry M02.F01.I06
+// @entry M02.F01.I07
+// @entry M02.F01.I08
+// @entry M02.F01.I09
+// @entry M02.F01.I01
+// @entry M02.F01.I02
+// @entry M02.F01.I03
+// @entry M02.F01.I04
+// @entry M02.F01.I05
+// @entry M02.F01.I06
+// @entry M02.F01.I08
 <script setup lang="ts">
 // 组织管理页（对齐 React OrgTree.tsx + Orgs.tsx）：
 // - 挂载拉组织树 → 用 OrgTreeNode 递归渲染
@@ -127,7 +161,7 @@ const deleteMessage = computed(() => {
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div data-fn="M02.F01.I01" class="space-y-4">
     <div class="flex items-center justify-between">
       <h2 class="text-2xl font-bold">组织管理</h2>
       <button

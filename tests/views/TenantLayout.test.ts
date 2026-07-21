@@ -23,7 +23,7 @@ describe('TenantLayout.vue (ch39 多租户架构)', () => {
     })
   })
 
-  it('正常拉取：渲染侧边栏 + 子路由出口（dashboard）', async () => {
+  it('正常拉取：渲染侧边栏 + 子路由出口（dashboard） [fn: M01.F01.I08]', async () => {
     await router.push('/acme/dashboard')
     await router.isReady()
     const wrapper = mount(TenantLayout, {
@@ -36,7 +36,7 @@ describe('TenantLayout.vue (ch39 多租户架构)', () => {
     expect(wrapper.find('[data-testid="tenant-layout"]').exists()).toBe(true)
   })
 
-  it('空 tenantId：渲染空状态', async () => {
+  it('空 tenantId：渲染空状态 [fn: M01.F01.I08]', async () => {
     await router.push('/dashboard')
     await router.isReady()
     const wrapper = mount(TenantLayout, {

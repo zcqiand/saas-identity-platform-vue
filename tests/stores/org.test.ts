@@ -13,14 +13,14 @@ describe('useOrgStore — 组织树 CRUD（对齐 React orgStore）', () => {
     setActivePinia(createPinia())
   })
 
-  it('初始状态：tree=null, loading=false, error=null', () => {
+  it('初始状态：tree=null, loading=false, error=null [fn: M02.F01.I01, M02.F01.I07]', () => {
     const store = useOrgStore()
     expect(store.tree).toBeNull()
     expect(store.loading).toBe(false)
     expect(store.error).toBeNull()
   })
 
-  it('fetchOrgTree 拉取组织树（根 org-root）', async () => {
+  it('fetchOrgTree 拉取组织树（根 org-root） [fn: M02.F01.I01, M02.F01.I07]', async () => {
     const store = useOrgStore()
     await store.fetchOrgTree()
     expect(store.tree).not.toBeNull()
@@ -31,7 +31,7 @@ describe('useOrgStore — 组织树 CRUD（对齐 React orgStore）', () => {
     expect(store.error).toBeNull()
   })
 
-  it('createOrgNode 在指定父节点下新增子节点并刷新树', async () => {
+  it('createOrgNode 在指定父节点下新增子节点并刷新树 [fn: M02.F01.I01, M02.F01.I07]', async () => {
     const store = useOrgStore()
     await store.fetchOrgTree()
     const before = store.tree?.children?.find((c) => c.id === 'org-acme')?.children?.length ?? 0
@@ -42,7 +42,7 @@ describe('useOrgStore — 组织树 CRUD（对齐 React orgStore）', () => {
     expect(parent?.children?.some((c) => c.name === '新事业部')).toBe(true)
   })
 
-  it('createOrgNode 不给 parentId 时默认挂到 org-root', async () => {
+  it('createOrgNode 不给 parentId 时默认挂到 org-root [fn: M02.F01.I01, M02.F01.I07]', async () => {
     const store = useOrgStore()
     await store.fetchOrgTree()
     const before = store.tree?.children?.length ?? 0
@@ -52,7 +52,7 @@ describe('useOrgStore — 组织树 CRUD（对齐 React orgStore）', () => {
     expect(store.tree?.children?.some((c) => c.name === '新分部')).toBe(true)
   })
 
-  it('updateOrgNode 更新节点名称并刷新树', async () => {
+  it('updateOrgNode 更新节点名称并刷新树 [fn: M02.F01.I01, M02.F01.I07]', async () => {
     const store = useOrgStore()
     await store.fetchOrgTree()
     await store.updateOrgNode('org-tech', '技术研发部')
@@ -61,7 +61,7 @@ describe('useOrgStore — 组织树 CRUD（对齐 React orgStore）', () => {
     expect(node?.name).toBe('技术研发部')
   })
 
-  it('deleteOrgNode 删除非根节点并刷新树', async () => {
+  it('deleteOrgNode 删除非根节点并刷新树 [fn: M02.F01.I01, M02.F01.I07]', async () => {
     const store = useOrgStore()
     await store.fetchOrgTree()
     const before = store.tree?.children?.find((c) => c.id === 'org-acme')?.children?.length ?? 0
@@ -72,7 +72,7 @@ describe('useOrgStore — 组织树 CRUD（对齐 React orgStore）', () => {
     expect(parent?.children?.some((c) => c.id === 'org-sales')).toBe(false)
   })
 
-  it('deleteOrgNode 对根节点失败并设置 error（mock 返回 400）', async () => {
+  it('deleteOrgNode 对根节点失败并设置 error（mock 返回 400） [fn: M02.F01.I01, M02.F01.I07]', async () => {
     const store = useOrgStore()
     await store.fetchOrgTree()
     await store.deleteOrgNode('org-root')
@@ -81,7 +81,7 @@ describe('useOrgStore — 组织树 CRUD（对齐 React orgStore）', () => {
     expect(store.tree).not.toBeNull()
   })
 
-  it('clearError 清空错误', async () => {
+  it('clearError 清空错误 [fn: M02.F01.I01, M02.F01.I07]', async () => {
     const store = useOrgStore()
     await store.fetchOrgTree()
     await store.deleteOrgNode('org-root')

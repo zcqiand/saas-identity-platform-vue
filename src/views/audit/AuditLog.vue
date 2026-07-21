@@ -1,3 +1,37 @@
+// @entry M05.F01.I01
+// @entry M05.F01.I02
+// @entry M05.F01.I03
+// @entry M05.F01.I04
+// @entry M05.F01.I05
+// @entry M05.F01.I06
+// @entry M05.F01.I07
+// @entry M05.F01.I08
+// @entry M05.F01.I09
+// @entry M05.F01.I01
+// @entry M05.F01.I02
+// @entry M05.F01.I03
+// @entry M05.F01.I04
+// @entry M05.F01.I05
+// @entry M05.F01.I06
+// @entry M05.F01.I07
+// @entry M05.F01.I08
+// @entry M05.F01.I09
+// @entry M05.F01.I01
+// @entry M05.F01.I02
+// @entry M05.F01.I03
+// @entry M05.F01.I04
+// @entry M05.F01.I05
+// @entry M05.F01.I06
+// @entry M05.F01.I07
+// @entry M05.F01.I08
+// @entry M05.F01.I09
+// @entry M05.F01.I01
+// @entry M05.F01.I02
+// @entry M05.F01.I03
+// @entry M05.F01.I04
+// @entry M05.F01.I05
+// @entry M05.F01.I06
+// @entry M05.F01.I07
 <script setup lang="ts">
 // ch41 审计日志：shallowRef 大数据 + 虚拟滚动 + 分页 + action 过滤
 import { onMounted, ref, shallowRef, watch, computed } from 'vue'
@@ -73,7 +107,7 @@ function extractErrorMessage(err: unknown, fallback: string): string {
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div data-fn="M05.F01.I01" class="space-y-4">
     <div class="flex items-center justify-between">
       <h2 class="text-2xl font-bold">审计日志</h2>
       <select

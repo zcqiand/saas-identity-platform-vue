@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import PlatformConfigForm from '@/views/platform/PlatformConfigForm.vue'
 
 describe('PlatformConfigForm.vue（对齐 React PlatformConfig）', () => {
-  it('渲染平台配置标题与平台信息只读展示', () => {
+  it('渲染平台配置标题与平台信息只读展示 [fn: M06.F08.I01]', () => {
     const wrapper = mount(PlatformConfigForm)
     expect(wrapper.text()).toContain('平台配置')
     expect(wrapper.text()).toContain('平台信息')

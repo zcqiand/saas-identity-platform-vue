@@ -1,3 +1,44 @@
+// @entry M04.F01.I01
+// @entry M04.F01.I02
+// @entry M04.F01.I03
+// @entry M04.F01.I04
+// @entry M04.F01.I05
+// @entry M04.F01.I06
+// @entry M04.F01.I07
+// @entry M04.F01.I08
+// @entry M04.F01.I09
+// @entry M04.F01.I10
+// @entry M04.F01.I11
+// @entry M04.F01.I12
+// @entry M04.F01.I01
+// @entry M04.F01.I02
+// @entry M04.F01.I03
+// @entry M04.F01.I04
+// @entry M04.F01.I05
+// @entry M04.F01.I06
+// @entry M04.F01.I07
+// @entry M04.F01.I08
+// @entry M04.F01.I09
+// @entry M04.F01.I10
+// @entry M04.F01.I11
+// @entry M04.F01.I12
+// @entry M04.F01.I01
+// @entry M04.F01.I02
+// @entry M04.F01.I03
+// @entry M04.F01.I04
+// @entry M04.F01.I05
+// @entry M04.F01.I06
+// @entry M04.F01.I07
+// @entry M04.F01.I08
+// @entry M04.F01.I09
+// @entry M04.F01.I10
+// @entry M04.F01.I11
+// @entry M04.F01.I12
+// @entry M04.F01.I07
+// @entry M04.F01.I08
+// @entry M04.F01.I09
+// @entry M04.F01.I10
+// @entry M04.F01.I11
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
@@ -45,7 +86,7 @@ async function remove(id: string) {
 </script>
 
 <template>
-  <section data-testid="menu-list">
+  <section data-fn="M04.F01.I07" data-testid="menu-list">
     <header class="flex items-center justify-between mb-4">
       <div>
         <h2 class="text-lg font-semibold">菜单管理</h2>

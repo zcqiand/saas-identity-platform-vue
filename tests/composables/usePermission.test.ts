@@ -8,7 +8,7 @@ describe('usePermission composable (ch40)', () => {
     setActivePinia(createPinia())
   })
 
-  it('hasPermission returns true when action matches', () => {
+  it('hasPermission returns true when action matches [fn: M03.F01.I09]', () => {
     const store = useAuthStore()
     store.permissions = ['user:read', 'user:create']
     const { hasPermission } = usePermission()
@@ -16,14 +16,14 @@ describe('usePermission composable (ch40)', () => {
     expect(hasPermission('user:create')).toBe(true)
   })
 
-  it('hasPermission returns false when action missing', () => {
+  it('hasPermission returns false when action missing [fn: M03.F01.I09]', () => {
     const store = useAuthStore()
     store.permissions = ['user:read']
     const { hasPermission } = usePermission()
     expect(hasPermission('user:delete')).toBe(false)
   })
 
-  it('hasAnyPermission returns true if any code matches', () => {
+  it('hasAnyPermission returns true if any code matches [fn: M03.F01.I09]', () => {
     const store = useAuthStore()
     store.permissions = ['user:read']
     const { hasAnyPermission } = usePermission()
@@ -31,7 +31,7 @@ describe('usePermission composable (ch40)', () => {
     expect(hasAnyPermission(['user:delete', 'user:create'])).toBe(false)
   })
 
-  it('hasRole returns true when role name present', () => {
+  it('hasRole returns true when role name present [fn: M03.F01.I09]', () => {
     const store = useAuthStore()
     store.roles = [{ id: 'r1', name: 'admin', permissions: [], menuPermissions: [] }]
     const { hasRole } = usePermission()

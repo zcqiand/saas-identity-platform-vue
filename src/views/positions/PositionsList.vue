@@ -1,3 +1,23 @@
+// @entry M02.F03.I01
+// @entry M02.F03.I02
+// @entry M02.F03.I03
+// @entry M02.F03.I04
+// @entry M02.F03.I05
+// @entry M02.F03.I01
+// @entry M02.F03.I02
+// @entry M02.F03.I03
+// @entry M02.F03.I04
+// @entry M02.F03.I05
+// @entry M02.F03.I01
+// @entry M02.F03.I02
+// @entry M02.F03.I03
+// @entry M02.F03.I04
+// @entry M02.F03.I05
+// @entry M02.F03.I01
+// @entry M02.F03.I02
+// @entry M02.F03.I03
+// @entry M02.F03.I04
+// @entry M02.F03.I05
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useOrgStore } from '@/stores/org'
@@ -20,7 +40,7 @@ async function remove(id: string) {
 </script>
 
 <template>
-  <section data-testid="positions-list">
+  <section data-fn="M02.F03.I01" data-testid="positions-list">
     <header class="flex items-center justify-between mb-4">
       <h2 class="text-lg font-semibold">岗位</h2>
       <button class="px-3 py-1.5 bg-blue-600 text-white rounded text-sm" @click="showForm = true">新建岗位</button>

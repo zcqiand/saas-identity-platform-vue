@@ -25,7 +25,7 @@ describe('RolesList.vue', () => {
     return document.body.querySelector(`[data-testid="${id}"]`) as HTMLInputElement | null
   }
 
-  it('挂载后展示默认角色列表', async () => {
+  it('挂载后展示默认角色列表 [fn: M03.F01.I01, M03.F01.I02, M03.F01.I03, M03.F01.I04, M03.F01.I05, M03.F01.I06, M03.F01.I07, M03.F01.I08, M03.F01.I09, M03.F01.I10]', async () => {
     const wrapper = mountList()
     await flushPromises()
     const rows = wrapper.findAll('[data-testid="role-row"]')
@@ -33,7 +33,7 @@ describe('RolesList.vue', () => {
     expect(wrapper.text()).toContain('admin')
   })
 
-  it('点「新建角色」显示表单弹窗', async () => {
+  it('点「新建角色」显示表单弹窗 [fn: M03.F01.I01, M03.F01.I02, M03.F01.I03, M03.F01.I04, M03.F01.I05, M03.F01.I06, M03.F01.I07, M03.F01.I08, M03.F01.I09, M03.F01.I10]', async () => {
     const wrapper = mountList()
     await flushPromises()
     expect(byTestId('role-form')).toBeNull()
@@ -42,7 +42,7 @@ describe('RolesList.vue', () => {
     expect(byTestId('role-form')).not.toBeNull()
   })
 
-  it('新建表单提交后列表新增一行', async () => {
+  it('新建表单提交后列表新增一行 [fn: M03.F01.I01, M03.F01.I02, M03.F01.I03, M03.F01.I04, M03.F01.I05, M03.F01.I06, M03.F01.I07, M03.F01.I08, M03.F01.I09, M03.F01.I10]', async () => {
     const wrapper = mountList()
     await flushPromises()
     const before = wrapper.findAll('[data-testid="role-row"]').length
@@ -62,7 +62,7 @@ describe('RolesList.vue', () => {
     expect(wrapper.text()).toContain('QA')
   })
 
-  it('行内「编辑」打开预填表单', async () => {
+  it('行内「编辑」打开预填表单 [fn: M03.F01.I01, M03.F01.I02, M03.F01.I03, M03.F01.I04, M03.F01.I05, M03.F01.I06, M03.F01.I07, M03.F01.I08, M03.F01.I09, M03.F01.I10]', async () => {
     const wrapper = mountList()
     await flushPromises()
     await wrapper.find('[data-testid="btn-edit-role"]').trigger('click')
@@ -72,7 +72,7 @@ describe('RolesList.vue', () => {
     expect(nameInput.value).not.toBe('')
   })
 
-  it('行内「删除」打开确认弹窗，确认后该行消失', async () => {
+  it('行内「删除」打开确认弹窗，确认后该行消失 [fn: M03.F01.I01, M03.F01.I02, M03.F01.I03, M03.F01.I04, M03.F01.I05, M03.F01.I06, M03.F01.I07, M03.F01.I08, M03.F01.I09, M03.F01.I10]', async () => {
     const wrapper = mountList()
     await flushPromises()
     const before = wrapper.findAll('[data-testid="role-row"]').length

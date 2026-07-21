@@ -35,14 +35,14 @@ describe('v-permission directive (ch40)', () => {
     })
   }
 
-  it('keeps element in real DOM when permission is present', async () => {
+  it('keeps element in real DOM when permission is present [fn: M03.F01.I09]', async () => {
     authWith(['user:create'])
     const wrapper = mountWith('user:create')
     await wrapper.vm.$nextTick()
     expect(wrapper.element.querySelector('.child')).not.toBeNull()
   })
 
-  it('removes element from real DOM when permission is missing', async () => {
+  it('removes element from real DOM when permission is missing [fn: M03.F01.I09]', async () => {
     authWith(['user:read'])
     const wrapper = mountWith('user:delete')
     await wrapper.vm.$nextTick()
@@ -50,14 +50,14 @@ describe('v-permission directive (ch40)', () => {
     expect(wrapper.element.querySelector('.controlled')).toBeNull()
   })
 
-  it('removes element when user has no permissions', async () => {
+  it('removes element when user has no permissions [fn: M03.F01.I09]', async () => {
     authWith([])
     const wrapper = mountWith('user:read')
     await wrapper.vm.$nextTick()
     expect(wrapper.element.querySelector('.child')).toBeNull()
   })
 
-  it('anyOf semantics: array value matches if any code present', async () => {
+  it('anyOf semantics: array value matches if any code present [fn: M03.F01.I09]', async () => {
     authWith(['user:read'])
     const wrapper = mountWith('user:read') // 字符串场景已覆盖；数组另测
     await wrapper.vm.$nextTick()

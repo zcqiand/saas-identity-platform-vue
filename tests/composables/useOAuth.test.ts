@@ -6,20 +6,20 @@ describe('useOAuth (ch40)', () => {
     // jsdom 自带 window.location，无需 stub
   })
 
-  it('buildOAuthAuthorizeUrl composes provider /authorize URL', () => {
+  it('buildOAuthAuthorizeUrl composes provider /authorize URL [fn: M01.F04.I01, M01.F04.I02, M01.F04.I03, M01.F04.I04, M01.F04.I05]', () => {
     const url = buildOAuthAuthorizeUrl({ provider: 'github', state: 'st1' })
     expect(url).toContain('/sso/authorize')
     expect(url).toContain('client_id=github-demo-client')
     expect(url).toContain('state=st1')
   })
 
-  it('handleOAuthCallback exchanges code for token via mock IdP', async () => {
+  it('handleOAuthCallback exchanges code for token via mock IdP [fn: M01.F04.I01, M01.F04.I02, M01.F04.I03, M01.F04.I04, M01.F04.I05]', async () => {
     const result = await handleOAuthCallback('mock-auth-code-1', 'github')
     expect(result.token).toBeTruthy()
     expect(result.user.username).toBe('admin@acme')
   })
 
-  it('handleOAuthCallback rejects bad code', async () => {
+  it('handleOAuthCallback rejects bad code [fn: M01.F04.I01, M01.F04.I02, M01.F04.I03, M01.F04.I04, M01.F04.I05]', async () => {
     await expect(handleOAuthCallback('bad-code', 'github')).rejects.toThrow()
   })
 })

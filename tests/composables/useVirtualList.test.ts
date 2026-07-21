@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { useVirtualList } from '../../src/composables/useVirtualList'
 
 describe('useVirtualList (ch41)', () => {
-  it('returns empty visible range for empty source', () => {
+  it('returns empty visible range for empty source [fn: M05.F01.I01]', () => {
     const { visibleItems, startIndex, endIndex } = useVirtualList([], {
       itemHeight: 40,
       viewportHeight: 400,
@@ -13,7 +13,7 @@ describe('useVirtualList (ch41)', () => {
     expect(endIndex.value).toBe(0)
   })
 
-  it('computes visible window for given scrollTop (with overscan buffer)', () => {
+  it('computes visible window for given scrollTop (with overscan buffer) [fn: M05.F01.I01]', () => {
     const items = Array.from({ length: 1000 }, (_, i) => `item-${i}`)
     const { visibleItems, startIndex, endIndex } = useVirtualList(items, {
       itemHeight: 40,
@@ -28,7 +28,7 @@ describe('useVirtualList (ch41)', () => {
     expect(visibleItems.value[0]).toBe('item-15')
   })
 
-  it('clamps endIndex to source length', () => {
+  it('clamps endIndex to source length [fn: M05.F01.I01]', () => {
     const items = Array.from({ length: 25 }, (_, i) => i)
     const { visibleItems, endIndex } = useVirtualList(items, {
       itemHeight: 40,
@@ -39,7 +39,7 @@ describe('useVirtualList (ch41)', () => {
     expect(visibleItems.value.length).toBeLessThanOrEqual(25)
   })
 
-  it('totalHeight reflects source length * itemHeight', () => {
+  it('totalHeight reflects source length * itemHeight [fn: M05.F01.I01]', () => {
     const items = Array.from({ length: 50 }, (_, i) => i)
     const { totalHeight } = useVirtualList(items, {
       itemHeight: 40,

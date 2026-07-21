@@ -1,3 +1,37 @@
+// @entry M02.F02.I01
+// @entry M02.F02.I02
+// @entry M02.F02.I03
+// @entry M02.F02.I04
+// @entry M02.F02.I05
+// @entry M02.F02.I06
+// @entry M02.F02.I07
+// @entry M02.F02.I08
+// @entry M02.F02.I09
+// @entry M02.F02.I01
+// @entry M02.F02.I02
+// @entry M02.F02.I03
+// @entry M02.F02.I04
+// @entry M02.F02.I05
+// @entry M02.F02.I06
+// @entry M02.F02.I07
+// @entry M02.F02.I08
+// @entry M02.F02.I09
+// @entry M02.F02.I01
+// @entry M02.F02.I02
+// @entry M02.F02.I03
+// @entry M02.F02.I04
+// @entry M02.F02.I05
+// @entry M02.F02.I06
+// @entry M02.F02.I07
+// @entry M02.F02.I08
+// @entry M02.F02.I09
+// @entry M02.F02.I01
+// @entry M02.F02.I02
+// @entry M02.F02.I03
+// @entry M02.F02.I04
+// @entry M02.F02.I05
+// @entry M02.F02.I06
+// @entry M02.F02.I07
 <script setup lang="ts">
 // ch41 用户列表：useTable（分页/搜索）+ useResource（user store）+ 角色分配
 import { computed, onMounted, watch } from 'vue'
@@ -57,7 +91,7 @@ const roleOptions: UserRole[] = ['admin', 'manager', 'member', 'viewer']
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div data-fn="M02.F02.I01" class="space-y-4">
     <div class="flex items-center justify-between">
       <h2 class="text-2xl font-bold">用户管理</h2>
       <input

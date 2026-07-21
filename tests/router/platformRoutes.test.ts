@@ -27,7 +27,7 @@ describe('platform 路由嵌套（对齐 React）', () => {
     })
   })
 
-  it('四个平台子路由均被 PlatformLayout 父路由包裹', async () => {
+  it('四个平台子路由均被 PlatformLayout 父路由包裹 [fn: M01.F01.I08]', async () => {
     for (const path of ['/platform/config', '/platform/tenants', '/platform/apps', '/platform/open-platform']) {
       await router.push(path)
       await router.isReady()
@@ -38,7 +38,7 @@ describe('platform 路由嵌套（对齐 React）', () => {
     }
   })
 
-  it('/platform/tenants/acme 匹配 platform-tenant-detail 子路由', async () => {
+  it('/platform/tenants/acme 匹配 platform-tenant-detail 子路由 [fn: M01.F01.I08]', async () => {
     await router.push('/platform/tenants/acme')
     await router.isReady()
     expect(router.currentRoute.value.name).toBe('platform-tenant-detail')
@@ -46,27 +46,27 @@ describe('platform 路由嵌套（对齐 React）', () => {
     expect(router.currentRoute.value.matched[0].path).toBe('/platform')
   })
 
-  it('/platform 重定向到 /platform/config', async () => {
+  it('/platform 重定向到 /platform/config [fn: M01.F01.I08]', async () => {
     await router.push('/platform')
     await router.isReady()
     expect(router.currentRoute.value.path).toBe('/platform/config')
     expect(router.currentRoute.value.name).toBe('platform-config')
   })
 
-  it('深层未知路径 /x/y/z 重定向到 /acme/dashboard', async () => {
+  it('深层未知路径 /x/y/z 重定向到 /acme/dashboard [fn: M01.F01.I08]', async () => {
     await router.push('/x/y/z')
     await router.isReady()
     expect(router.currentRoute.value.path).toBe('/acme/dashboard')
   })
 
-  it('通配符兜底排在 /:tenantId 之后（单段路径优先匹配租户）', async () => {
+  it('通配符兜底排在 /:tenantId 之后（单段路径优先匹配租户） [fn: M01.F01.I08]', async () => {
     await router.push('/foobar/dashboard')
     await router.isReady()
     // /:tenantId 作为父路由匹配（matched[0].path === '/:tenantId'），而非通配符直接重定向
     expect(router.currentRoute.value.matched[0].path).toBe('/:tenantId')
   })
 
-  it('平台子路由 name 对齐 React', async () => {
+  it('平台子路由 name 对齐 React [fn: M01.F01.I08]', async () => {
     await router.push('/platform/config')
     await router.isReady()
     expect(router.currentRoute.value.name).toBe('platform-config')

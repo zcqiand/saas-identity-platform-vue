@@ -1,3 +1,42 @@
+// @entry M01.F01.I01
+// @entry M01.F01.I02
+// @entry M01.F01.I03
+// @entry M01.F01.I04
+// @entry M01.F01.I05
+// @entry M01.F01.I06
+// @entry M01.F01.I07
+// @entry M01.F01.I08
+// @entry M01.F01.I09
+// @entry M01.F01.I10
+// @entry M01.F01.I11
+// @entry M01.F01.I01
+// @entry M01.F01.I02
+// @entry M01.F01.I03
+// @entry M01.F01.I04
+// @entry M01.F01.I05
+// @entry M01.F01.I06
+// @entry M01.F01.I07
+// @entry M01.F01.I08
+// @entry M01.F01.I09
+// @entry M01.F01.I10
+// @entry M01.F01.I11
+// @entry M01.F01.I01
+// @entry M01.F01.I02
+// @entry M01.F01.I03
+// @entry M01.F01.I04
+// @entry M01.F01.I05
+// @entry M01.F01.I06
+// @entry M01.F01.I07
+// @entry M01.F01.I08
+// @entry M01.F01.I09
+// @entry M01.F01.I10
+// @entry M01.F01.I11
+// @entry M01.F01.I01
+// @entry M01.F01.I02
+// @entry M01.F01.I03
+// @entry M01.F01.I04
+// @entry M01.F01.I05
+// @entry M01.F01.I09
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
@@ -52,7 +91,7 @@ async function handleDelete() {
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div data-fn="M01.F01.I01" class="space-y-4">
     <div class="flex items-center justify-between">
       <h2 class="text-2xl font-bold">平台租户管理</h2>
       <button

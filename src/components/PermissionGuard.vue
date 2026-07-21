@@ -1,3 +1,34 @@
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
+// @entry M03.F01.I09
 <script setup lang="ts">
 /**
  * 权限守卫组件：根据当前用户权限条件渲染。
@@ -32,7 +63,7 @@ const has = computed(() => {
 </script>
 
 <template>
-  <slot v-if="has" />
+  <slot data-fn="M03.F01.I09" v-if="has" />
   <template v-else-if="fallback">
     <slot name="fallback" />
   </template>

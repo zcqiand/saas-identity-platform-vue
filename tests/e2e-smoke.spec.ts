@@ -116,6 +116,7 @@ describe('E2E 冒烟测试', () => {
     const pinia = createPinia()
     setActivePinia(pinia)
     const tenant = useTenantStore()
+    void tenant
     const auth = useAuthStore()
     auth.token = 'mock-token'
     auth.user = { id: 'u-001', username: 'admin', displayName: '管理员', orgId: 'org-acme' }

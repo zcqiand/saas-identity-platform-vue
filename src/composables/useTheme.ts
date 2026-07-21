@@ -1,4 +1,12 @@
 // ch39 租户主题：通过 provide/inject + CSS 变量实现响应式主题切换
+// @entry M01.F02.I01
+// @entry M01.F02.I02
+// @entry M01.F02.I01
+// @entry M01.F02.I02
+// @entry M01.F02.I01
+// @entry M01.F02.I02
+// @entry M01.F02.I01
+// @entry M01.F02.I02
 import { provide, inject, readonly, type Ref } from 'vue'
 import type { ThemeConfig } from '../types/tenant'
 

@@ -26,6 +26,6 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "mocks/**/*.ts", "tests/**/*.ts"],
-  "exclude": ["vite.config.ts", "vitest.config.ts", "node_modules", "dist", "coverage"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "mocks/**/*.ts"],
+  "exclude": ["vite.config.ts", "vitest.config.ts", "node_modules", "dist", "coverage", "tests"]
 }

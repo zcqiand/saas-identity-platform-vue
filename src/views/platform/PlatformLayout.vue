@@ -1,3 +1,11 @@
+// @entry M06.F01.I01
+// @entry M06.F02.I01
+// @entry M06.F03.I01
+// @entry M06.F04.I01
+// @entry M06.F05.I01
+// @entry M06.F06.I01
+// @entry M06.F07.I01
+// @entry M06.F08.I01
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import { platformNavItems as navItems } from '@/router/nav'
@@ -8,7 +16,7 @@ import { platformNavItems as navItems } from '@/router/nav'
 </script>
 
 <template>
-  <div class="flex h-screen" data-testid="platform-layout">
+  <div data-fn="M06.F01.I01" class="flex h-screen" data-testid="platform-layout">
     <aside
       class="w-56 bg-slate-800 text-white flex flex-col shrink-0"
       data-testid="platform-sidebar"

@@ -13,7 +13,7 @@ describe('tenant store (ch39)', () => {
     root.style.removeProperty(THEME_VARS.logoText)
   })
 
-  it('init resolves tenant by id from URL segment', async () => {
+  it('init resolves tenant by id from URL segment [fn: M01.F01.I10, M01.F01.I11]', async () => {
     const store = useTenantStore()
     await store.initFromLocation('acme')
     expect(store.current?.id).toBe('acme')
@@ -22,14 +22,14 @@ describe('tenant store (ch39)', () => {
     expect(store.error).toBeNull()
   })
 
-  it('init sets error when tenant not found', async () => {
+  it('init sets error when tenant not found [fn: M01.F01.I10, M01.F01.I11]', async () => {
     const store = useTenantStore()
     await store.initFromLocation('no-such-tenant')
     expect(store.current).toBeNull()
     expect(store.error).toContain('不存在')
   })
 
-  it('switchTenant resets current and re-resolves', async () => {
+  it('switchTenant resets current and re-resolves [fn: M01.F01.I10, M01.F01.I11]', async () => {
     const store = useTenantStore()
     await store.initFromLocation('acme')
     expect(store.current?.id).toBe('acme')
@@ -39,21 +39,21 @@ describe('tenant store (ch39)', () => {
     expect(store.current?.theme.primary).toBe('#059669')
   })
 
-  it('resolveTenantIdFromPath extracts first path segment', () => {
+  it('resolveTenantIdFromPath extracts first path segment [fn: M01.F01.I10, M01.F01.I11]', () => {
     const store = useTenantStore()
     expect(store.resolveTenantIdFromPath('/acme/dashboard')).toBe('acme')
     expect(store.resolveTenantIdFromPath('/globex/users')).toBe('globex')
     expect(store.resolveTenantIdFromPath('/')).toBe('')
   })
 
-  it('subscribedFeatures exposes current tenant feature list', async () => {
+  it('subscribedFeatures exposes current tenant feature list [fn: M01.F01.I10, M01.F01.I11]', async () => {
     const store = useTenantStore()
     await store.initFromLocation('acme')
     expect(store.subscribedFeatures).toEqual(['sso', 'audit', 'rbac'])
   })
 
   // —— 对齐 React tenantStore.fetchTenant / updateTenant（平台租户详情用）——
-  it('fetchTenant 拉取租户写入 current，且不应用主题（平台页不应被租户主题染色）', async () => {
+  it('fetchTenant 拉取租户写入 current，且不应用主题（平台页不应被租户主题染色） [fn: M01.F01.I10, M01.F01.I11]', async () => {
     const store = useTenantStore()
     expect(store.fetchTenant).toBeTypeOf('function')
     await store.fetchTenant('acme')
@@ -64,14 +64,14 @@ describe('tenant store (ch39)', () => {
     expect(document.documentElement.style.getPropertyValue(THEME_VARS.sidebar)).toBe('')
   })
 
-  it('fetchTenant 租户不存在时设 error 且 current 为空', async () => {
+  it('fetchTenant 租户不存在时设 error 且 current 为空 [fn: M01.F01.I10, M01.F01.I11]', async () => {
     const store = useTenantStore()
     await store.fetchTenant('no-such-tenant')
     expect(store.current).toBeNull()
     expect(store.error).toContain('不存在')
   })
 
-  it('updateTenant 发起 PUT 并在失败时抛错', async () => {
+  it('updateTenant 发起 PUT 并在失败时抛错 [fn: M01.F01.I10, M01.F01.I11]', async () => {
     const store = useTenantStore()
     expect(store.updateTenant).toBeTypeOf('function')
     // 成功路径：PUT /tenants/acme

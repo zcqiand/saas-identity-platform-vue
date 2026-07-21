@@ -1,5 +1,33 @@
 // ch42 组织架构扩展 store：岗位 / 用户组 / 权限组（与 React 姊妹仓 appStore 对齐）
 // ch41/终批：追加组织树 CRUD（与 React 姊妹仓 orgStore 对齐，只增不改既有方法）
+// @entry M02.F01.I07
+// @entry M02.F01.I01
+// @entry M02.F01.I02
+// @entry M02.F01.I03
+// @entry M02.F01.I04
+// @entry M02.F01.I05
+// @entry M02.F01.I06
+// @entry M02.F01.I07
+// @entry M02.F01.I08
+// @entry M02.F01.I09
+// @entry M02.F01.I01
+// @entry M02.F01.I02
+// @entry M02.F01.I03
+// @entry M02.F01.I04
+// @entry M02.F01.I05
+// @entry M02.F01.I06
+// @entry M02.F01.I07
+// @entry M02.F01.I08
+// @entry M02.F01.I09
+// @entry M02.F01.I01
+// @entry M02.F01.I02
+// @entry M02.F01.I03
+// @entry M02.F01.I04
+// @entry M02.F01.I05
+// @entry M02.F01.I06
+// @entry M02.F01.I07
+// @entry M02.F01.I08
+// @entry M02.F01.I09
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { apiClient } from '../api/client'

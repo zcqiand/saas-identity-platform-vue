@@ -1,3 +1,39 @@
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
 <script setup lang="ts">
 // 角色管理列表（对齐 React rbac/RoleList.tsx）。
 // onMounted 拉列表；新建/编辑走 RoleFormModal；删除走 ConfirmModal 二次确认。
@@ -66,7 +102,7 @@ async function handleDelete() {
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div data-fn="M03.F01.I01" class="space-y-4">
     <div class="flex items-center justify-between">
       <h2 class="text-2xl font-bold">角色管理</h2>
       <button

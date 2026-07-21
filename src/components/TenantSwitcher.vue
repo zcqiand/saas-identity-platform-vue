@@ -1,3 +1,38 @@
+// @entry M01.F01.I01
+// @entry M01.F01.I02
+// @entry M01.F01.I03
+// @entry M01.F01.I04
+// @entry M01.F01.I05
+// @entry M01.F01.I06
+// @entry M01.F01.I07
+// @entry M01.F01.I08
+// @entry M01.F01.I09
+// @entry M01.F01.I10
+// @entry M01.F01.I11
+// @entry M01.F01.I01
+// @entry M01.F01.I02
+// @entry M01.F01.I03
+// @entry M01.F01.I04
+// @entry M01.F01.I05
+// @entry M01.F01.I06
+// @entry M01.F01.I07
+// @entry M01.F01.I08
+// @entry M01.F01.I09
+// @entry M01.F01.I10
+// @entry M01.F01.I11
+// @entry M01.F01.I01
+// @entry M01.F01.I02
+// @entry M01.F01.I03
+// @entry M01.F01.I04
+// @entry M01.F01.I05
+// @entry M01.F01.I06
+// @entry M01.F01.I07
+// @entry M01.F01.I08
+// @entry M01.F01.I09
+// @entry M01.F01.I10
+// @entry M01.F01.I11
+// @entry M01.F01.I08
+// @entry M01.F01.I09
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
@@ -21,7 +56,7 @@ function handleSwitch(newTenantId: string) {
 </script>
 
 <template>
-  <div class="flex items-center gap-2">
+  <div data-fn="M01.F01.I08" class="flex items-center gap-2">
     <span class="text-xs text-gray-500">切换租户：</span>
     <button
       v-for="t in tenantStore.list"

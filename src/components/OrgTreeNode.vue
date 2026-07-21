@@ -1,3 +1,32 @@
+// @entry M02.F01.I01
+// @entry M02.F01.I02
+// @entry M02.F01.I03
+// @entry M02.F01.I04
+// @entry M02.F01.I05
+// @entry M02.F01.I06
+// @entry M02.F01.I07
+// @entry M02.F01.I08
+// @entry M02.F01.I09
+// @entry M02.F01.I01
+// @entry M02.F01.I02
+// @entry M02.F01.I03
+// @entry M02.F01.I04
+// @entry M02.F01.I05
+// @entry M02.F01.I06
+// @entry M02.F01.I07
+// @entry M02.F01.I08
+// @entry M02.F01.I09
+// @entry M02.F01.I01
+// @entry M02.F01.I02
+// @entry M02.F01.I03
+// @entry M02.F01.I04
+// @entry M02.F01.I05
+// @entry M02.F01.I06
+// @entry M02.F01.I07
+// @entry M02.F01.I08
+// @entry M02.F01.I09
+// @entry M02.F01.I01
+// @entry M02.F01.I08
 <script setup lang="ts">
 // ch41 组织树节点：递归自引用组件（组件名 OrgTreeNode 在自身 template 内被引用）
 import { computed } from 'vue'
@@ -29,7 +58,7 @@ function onClick(): void {
 </script>
 
 <template>
-  <li :data-org-node="node.id" class="select-none">
+  <li data-fn="M02.F01.I01" :data-org-node="node.id" class="select-none">
     <div class="flex items-center gap-1 py-1 px-2 hover:bg-gray-100 rounded cursor-pointer" :style="indentStyle">
       <span
         v-if="hasChildren"

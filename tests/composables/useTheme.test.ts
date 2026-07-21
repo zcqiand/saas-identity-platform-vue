@@ -7,7 +7,7 @@ describe('useTheme (ch39)', () => {
     clearTheme()
   })
 
-  it('applyTheme writes CSS variables to documentElement', () => {
+  it('applyTheme writes CSS variables to documentElement [fn: M01.F02.I01, M01.F02.I02]', () => {
     const theme: ThemeConfig = { primary: '#ff0000', sidebar: '#00ff00', logoText: 'TEST' }
     applyTheme(theme)
     const root = document.documentElement
@@ -16,7 +16,7 @@ describe('useTheme (ch39)', () => {
     expect(root.style.getPropertyValue(THEME_VARS.logoText)).toBe('TEST')
   })
 
-  it('clearTheme removes all tenant CSS variables', () => {
+  it('clearTheme removes all tenant CSS variables [fn: M01.F02.I01, M01.F02.I02]', () => {
     applyTheme({ primary: '#a', sidebar: '#b', logoText: 'C' })
     clearTheme()
     const root = document.documentElement
@@ -25,7 +25,7 @@ describe('useTheme (ch39)', () => {
     expect(root.style.getPropertyValue(THEME_VARS.logoText)).toBe('')
   })
 
-  it('applyTheme overwrites previous values on switch', () => {
+  it('applyTheme overwrites previous values on switch [fn: M01.F02.I01, M01.F02.I02]', () => {
     applyTheme({ primary: '#111111', sidebar: '#222222', logoText: 'A' })
     applyTheme({ primary: '#333333', sidebar: '#444444', logoText: 'B' })
     const root = document.documentElement

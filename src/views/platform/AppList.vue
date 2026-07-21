@@ -1,3 +1,45 @@
+// @entry M04.F01.I01
+// @entry M04.F01.I02
+// @entry M04.F01.I03
+// @entry M04.F01.I04
+// @entry M04.F01.I05
+// @entry M04.F01.I06
+// @entry M04.F01.I07
+// @entry M04.F01.I08
+// @entry M04.F01.I09
+// @entry M04.F01.I10
+// @entry M04.F01.I11
+// @entry M04.F01.I12
+// @entry M04.F01.I01
+// @entry M04.F01.I02
+// @entry M04.F01.I03
+// @entry M04.F01.I04
+// @entry M04.F01.I05
+// @entry M04.F01.I06
+// @entry M04.F01.I07
+// @entry M04.F01.I08
+// @entry M04.F01.I09
+// @entry M04.F01.I10
+// @entry M04.F01.I11
+// @entry M04.F01.I12
+// @entry M04.F01.I01
+// @entry M04.F01.I02
+// @entry M04.F01.I03
+// @entry M04.F01.I04
+// @entry M04.F01.I05
+// @entry M04.F01.I06
+// @entry M04.F01.I07
+// @entry M04.F01.I08
+// @entry M04.F01.I09
+// @entry M04.F01.I10
+// @entry M04.F01.I11
+// @entry M04.F01.I12
+// @entry M04.F01.I01
+// @entry M04.F01.I02
+// @entry M04.F01.I03
+// @entry M04.F01.I04
+// @entry M04.F01.I05
+// @entry M04.F01.I06
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useAppStore } from '@/stores/app'
@@ -58,7 +100,7 @@ async function remove(row: App) {
 </script>
 
 <template>
-  <section data-testid="app-list">
+  <section data-fn="M04.F01.I01" data-testid="app-list">
     <header class="flex items-center justify-between mb-4">
       <h2 class="text-lg font-semibold">应用管理</h2>
       <button

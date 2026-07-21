@@ -8,7 +8,7 @@ describe('AuditLog.vue (ch41)', () => {
     setActivePinia(createPinia())
   })
 
-  it('renders audit log rows after fetch', async () => {
+  it('renders audit log rows after fetch [fn: M05.F01.I01, M05.F01.I02, M05.F01.I03, M05.F01.I04, M05.F01.I05, M05.F01.I06, M05.F01.I07, M05.F01.I08, M05.F01.I09]', async () => {
     const wrapper = mount(AuditLog, {
       global: { plugins: [getActivePinia()!] },
     })
@@ -17,7 +17,7 @@ describe('AuditLog.vue (ch41)', () => {
     expect(rows.length).toBeGreaterThan(0)
   })
 
-  it('shows total count', async () => {
+  it('shows total count [fn: M05.F01.I01, M05.F01.I02, M05.F01.I03, M05.F01.I04, M05.F01.I05, M05.F01.I06, M05.F01.I07, M05.F01.I08, M05.F01.I09]', async () => {
     const wrapper = mount(AuditLog, {
       global: { plugins: [getActivePinia()!] },
     })
@@ -25,7 +25,7 @@ describe('AuditLog.vue (ch41)', () => {
     expect(wrapper.text()).toMatch(/共\s*\d+\s*条/)
   })
 
-  it('paginates to next page when available', async () => {
+  it('paginates to next page when available [fn: M05.F01.I01, M05.F01.I02, M05.F01.I03, M05.F01.I04, M05.F01.I05, M05.F01.I06, M05.F01.I07, M05.F01.I08, M05.F01.I09]', async () => {
     const wrapper = mount(AuditLog, {
       global: { plugins: [getActivePinia()!] },
     })
@@ -38,7 +38,7 @@ describe('AuditLog.vue (ch41)', () => {
     }
   })
 
-  it('filters by action=login via dropdown', async () => {
+  it('filters by action=login via dropdown [fn: M05.F01.I01, M05.F01.I02, M05.F01.I03, M05.F01.I04, M05.F01.I05, M05.F01.I06, M05.F01.I07, M05.F01.I08, M05.F01.I09]', async () => {
     const wrapper = mount(AuditLog, {
       global: { plugins: [getActivePinia()!] },
     })

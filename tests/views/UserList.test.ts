@@ -8,7 +8,7 @@ describe('UserList.vue (ch41)', () => {
     setActivePinia(createPinia())
   })
 
-  it('renders user rows after fetch', async () => {
+  it('renders user rows after fetch [fn: M02.F02.I01, M02.F02.I03, M02.F02.I04, M02.F02.I05, M02.F02.I06, M02.F02.I07, M02.F02.I02, M02.F02.I08, M02.F02.I09]', async () => {
     const wrapper = mount(UserList, {
       global: { plugins: [getActivePinia()!] },
     })
@@ -17,7 +17,7 @@ describe('UserList.vue (ch41)', () => {
     expect(rows.length).toBeGreaterThan(0)
   })
 
-  it('shows total count', async () => {
+  it('shows total count [fn: M02.F02.I01, M02.F02.I03, M02.F02.I04, M02.F02.I05, M02.F02.I06, M02.F02.I07, M02.F02.I02, M02.F02.I08, M02.F02.I09]', async () => {
     const wrapper = mount(UserList, {
       global: { plugins: [getActivePinia()!] },
     })
@@ -25,7 +25,7 @@ describe('UserList.vue (ch41)', () => {
     expect(wrapper.text()).toMatch(/共\s*\d+\s*条/)
   })
 
-  it('keyword search filters the list', async () => {
+  it('keyword search filters the list [fn: M02.F02.I01, M02.F02.I03, M02.F02.I04, M02.F02.I05, M02.F02.I06, M02.F02.I07, M02.F02.I02, M02.F02.I08, M02.F02.I09]', async () => {
     const wrapper = mount(UserList, {
       global: { plugins: [getActivePinia()!] },
     })
@@ -39,7 +39,7 @@ describe('UserList.vue (ch41)', () => {
     })
   })
 
-  it('role-select on a row triggers assignRoles', async () => {
+  it('role-select on a row triggers assignRoles [fn: M02.F02.I01, M02.F02.I03, M02.F02.I04, M02.F02.I05, M02.F02.I06, M02.F02.I07, M02.F02.I02, M02.F02.I08, M02.F02.I09]', async () => {
     const wrapper = mount(UserList, {
       global: { plugins: [getActivePinia()!] },
     })

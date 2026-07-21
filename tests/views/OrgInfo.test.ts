@@ -24,7 +24,7 @@ describe('OrgInfo.vue — 组织管理真页（对齐 React OrgTree）', () => {
     setActivePinia(createPinia())
   })
 
-  it('挂载触发 fetchOrgTree 并渲染组织树', async () => {
+  it('挂载触发 fetchOrgTree 并渲染组织树 [fn: M02.F01.I01, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F01.I02, M02.F01.I07, M02.F01.I08, M02.F01.I09]', async () => {
     const wrapper = mountOrgInfo()
     await flushPromises()
     await flushPromises()
@@ -38,13 +38,13 @@ describe('OrgInfo.vue — 组织管理真页（对齐 React OrgTree）', () => {
     expect(text).toContain('Globex 分部')
   })
 
-  it('渲染「新增根部门」按钮', async () => {
+  it('渲染「新增根部门」按钮 [fn: M02.F01.I01, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F01.I02, M02.F01.I07, M02.F01.I08, M02.F01.I09]', async () => {
     const wrapper = mountOrgInfo()
     await flushPromises()
     expect(wrapper.find('[data-testid="btn-create-root"]').exists()).toBe(true)
   })
 
-  it('初始无选中节点时不显示工具栏；选中节点后显示工具栏', async () => {
+  it('初始无选中节点时不显示工具栏；选中节点后显示工具栏 [fn: M02.F01.I01, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F01.I02, M02.F01.I07, M02.F01.I08, M02.F01.I09]', async () => {
     const wrapper = mountOrgInfo()
     await flushPromises()
     await flushPromises()
@@ -57,7 +57,7 @@ describe('OrgInfo.vue — 组织管理真页（对齐 React OrgTree）', () => {
     expect(wrapper.text()).toContain('ACME 集团')
   })
 
-  it('选中根节点时不显示「删除」按钮（根不可删）', async () => {
+  it('选中根节点时不显示「删除」按钮（根不可删） [fn: M02.F01.I01, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F01.I02, M02.F01.I07, M02.F01.I08, M02.F01.I09]', async () => {
     const wrapper = mountOrgInfo()
     await flushPromises()
     await flushPromises()
@@ -69,7 +69,7 @@ describe('OrgInfo.vue — 组织管理真页（对齐 React OrgTree）', () => {
     expect(wrapper.find('[data-testid="btn-delete"]').exists()).toBe(false)
   })
 
-  it('选中非根节点时显示「删除」按钮', async () => {
+  it('选中非根节点时显示「删除」按钮 [fn: M02.F01.I01, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F01.I02, M02.F01.I07, M02.F01.I08, M02.F01.I09]', async () => {
     const wrapper = mountOrgInfo()
     await flushPromises()
     await flushPromises()
@@ -79,7 +79,7 @@ describe('OrgInfo.vue — 组织管理真页（对齐 React OrgTree）', () => {
     expect(wrapper.find('[data-testid="btn-delete"]').exists()).toBe(true)
   })
 
-  it('点「新增根部门」打开弹窗（mode=create, nodeId=org-root）', async () => {
+  it('点「新增根部门」打开弹窗（mode=create, nodeId=org-root） [fn: M02.F01.I01, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F01.I02, M02.F01.I07, M02.F01.I08, M02.F01.I09]', async () => {
     const wrapper = mountOrgInfo()
     await flushPromises()
     await flushPromises()
@@ -91,7 +91,7 @@ describe('OrgInfo.vue — 组织管理真页（对齐 React OrgTree）', () => {
     expect(modal.props('nodeId')).toBe('org-root')
   })
 
-  it('选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）', async () => {
+  it('选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点） [fn: M02.F01.I01, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F01.I02, M02.F01.I07, M02.F01.I08, M02.F01.I09]', async () => {
     const wrapper = mountOrgInfo()
     await flushPromises()
     await flushPromises()
@@ -106,7 +106,7 @@ describe('OrgInfo.vue — 组织管理真页（对齐 React OrgTree）', () => {
     expect(modal.props('nodeId')).toBe('org-tech')
   })
 
-  it('选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）', async () => {
+  it('选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名） [fn: M02.F01.I01, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F01.I02, M02.F01.I07, M02.F01.I08, M02.F01.I09]', async () => {
     const wrapper = mountOrgInfo()
     await flushPromises()
     await flushPromises()
@@ -122,7 +122,7 @@ describe('OrgInfo.vue — 组织管理真页（对齐 React OrgTree）', () => {
     expect(modal.props('initialName')).toBe('技术部')
   })
 
-  it('弹窗提交 create 调 store.createOrgNode(name, parentId)', async () => {
+  it('弹窗提交 create 调 store.createOrgNode(name, parentId) [fn: M02.F01.I01, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F01.I02, M02.F01.I07, M02.F01.I08, M02.F01.I09]', async () => {
     const wrapper = mountOrgInfo()
     await flushPromises()
     await flushPromises()
@@ -141,7 +141,7 @@ describe('OrgInfo.vue — 组织管理真页（对齐 React OrgTree）', () => {
     expect(spy).toHaveBeenCalledWith('新事业部', 'org-acme')
   })
 
-  it('弹窗提交 edit 调 store.updateOrgNode(id, name)', async () => {
+  it('弹窗提交 edit 调 store.updateOrgNode(id, name) [fn: M02.F01.I01, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F01.I02, M02.F01.I07, M02.F01.I08, M02.F01.I09]', async () => {
     const wrapper = mountOrgInfo()
     await flushPromises()
     await flushPromises()
@@ -158,7 +158,7 @@ describe('OrgInfo.vue — 组织管理真页（对齐 React OrgTree）', () => {
     expect(spy).toHaveBeenCalledWith('org-tech', '技术研发部')
   })
 
-  it('点「删除」打开确认弹窗；确认调 store.deleteOrgNode(id)', async () => {
+  it('点「删除」打开确认弹窗；确认调 store.deleteOrgNode(id) [fn: M02.F01.I01, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F01.I02, M02.F01.I07, M02.F01.I08, M02.F01.I09]', async () => {
     const wrapper = mountOrgInfo()
     await flushPromises()
     await flushPromises()
@@ -178,7 +178,7 @@ describe('OrgInfo.vue — 组织管理真页（对齐 React OrgTree）', () => {
     expect(spy).toHaveBeenCalledWith('org-tech')
   })
 
-  it('error 态渲染告警条', async () => {
+  it('error 态渲染告警条 [fn: M02.F01.I01, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F01.I02, M02.F01.I07, M02.F01.I08, M02.F01.I09]', async () => {
     const wrapper = mountOrgInfo()
     await flushPromises()
     await flushPromises()

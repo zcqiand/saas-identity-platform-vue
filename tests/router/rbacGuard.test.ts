@@ -8,7 +8,7 @@ describe('router RBAC guard (ch40)', () => {
     setActivePinia(createPinia())
   })
 
-  it('redirects to login when route requires permission but user not authenticated', async () => {
+  it('redirects to login when route requires permission but user not authenticated [fn: M03.F01.I09]', async () => {
     const router = createAppRouter()
     router.addRoute({
       path: '/:tenantId/secret',
@@ -29,7 +29,7 @@ describe('router RBAC guard (ch40)', () => {
     expect(redirect).toBeDefined()
   })
 
-  it('allows access when user has required permission', async () => {
+  it('allows access when user has required permission [fn: M03.F01.I09]', async () => {
     const router = createAppRouter()
     router.addRoute({
       path: '/:tenantId/users',
@@ -46,7 +46,7 @@ describe('router RBAC guard (ch40)', () => {
     expect(router.currentRoute.value.name).toBe('admin-users')
   })
 
-  it('redirects to 403 when authenticated but missing permission', async () => {
+  it('redirects to 403 when authenticated but missing permission [fn: M03.F01.I09]', async () => {
     const router = createAppRouter()
     router.addRoute({
       path: '/:tenantId/dangerous',
@@ -62,7 +62,7 @@ describe('router RBAC guard (ch40)', () => {
     expect(router.currentRoute.value.name).toBe('forbidden')
   })
 
-  it('allows route with requiredRole when user has matching role name', async () => {
+  it('allows route with requiredRole when user has matching role name [fn: M03.F01.I09]', async () => {
     const router = createAppRouter()
     router.addRoute({
       path: '/:tenantId/admin-panel',

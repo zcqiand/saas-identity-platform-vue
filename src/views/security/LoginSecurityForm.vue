@@ -1,3 +1,35 @@
+// @entry M06.F01.I01
+// @entry M06.F01.I02
+// @entry M06.F01.I03
+// @entry M06.F01.I04
+// @entry M06.F01.I05
+// @entry M06.F01.I06
+// @entry M06.F01.I07
+// @entry M06.F01.I08
+// @entry M06.F01.I01
+// @entry M06.F01.I02
+// @entry M06.F01.I03
+// @entry M06.F01.I04
+// @entry M06.F01.I05
+// @entry M06.F01.I06
+// @entry M06.F01.I07
+// @entry M06.F01.I08
+// @entry M06.F01.I01
+// @entry M06.F01.I02
+// @entry M06.F01.I03
+// @entry M06.F01.I04
+// @entry M06.F01.I05
+// @entry M06.F01.I06
+// @entry M06.F01.I07
+// @entry M06.F01.I08
+// @entry M06.F01.I01
+// @entry M06.F01.I02
+// @entry M06.F01.I03
+// @entry M06.F01.I04
+// @entry M06.F01.I05
+// @entry M06.F01.I06
+// @entry M06.F01.I07
+// @entry M06.F01.I08
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 import { useSecurityStore } from '@/stores/security'
@@ -34,7 +66,7 @@ async function submit() {
 </script>
 
 <template>
-  <section data-testid="login-security-form">
+  <section data-fn="M06.F01.I01" data-testid="login-security-form">
     <h2 class="text-lg font-semibold mb-4">登录安全</h2>
     <form class="bg-white p-6 rounded shadow max-w-2xl space-y-3 text-sm" @submit.prevent="submit">
       <label class="block"><span class="text-gray-700">IP 白名单（每行一个 CIDR 或 IP）</span>

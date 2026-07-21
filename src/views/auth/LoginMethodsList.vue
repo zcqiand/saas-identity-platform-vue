@@ -1,3 +1,35 @@
+// @entry M01.F04.I01
+// @entry M01.F04.I02
+// @entry M01.F04.I03
+// @entry M01.F04.I04
+// @entry M01.F04.I05
+// @entry M06.F02.I01
+// @entry M06.F02.I02
+// @entry M06.F02.I03
+// @entry M06.F02.I04
+// @entry M01.F04.I01
+// @entry M01.F04.I02
+// @entry M01.F04.I03
+// @entry M01.F04.I04
+// @entry M01.F04.I05
+// @entry M06.F02.I01
+// @entry M06.F02.I02
+// @entry M06.F02.I03
+// @entry M06.F02.I04
+// @entry M01.F04.I01
+// @entry M01.F04.I02
+// @entry M01.F04.I03
+// @entry M01.F04.I04
+// @entry M01.F04.I05
+// @entry M06.F02.I01
+// @entry M06.F02.I02
+// @entry M06.F02.I03
+// @entry M06.F02.I04
+// @entry M01.F04.I04
+// @entry M06.F02.I01
+// @entry M06.F02.I02
+// @entry M06.F02.I03
+// @entry M06.F02.I04
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useSecurityStore } from '@/stores/security'
@@ -22,7 +54,7 @@ async function toggleOAuth2Provider(id: string, enabled: boolean) {
 </script>
 
 <template>
-  <section data-testid="login-methods-list">
+  <section data-fn="M06.F02.I01" data-testid="login-methods-list">
     <header class="mb-4">
       <h2 class="text-lg font-semibold">登录方式</h2>
       <p class="text-xs text-gray-500">配置租户可用的登录方式、SSO、第三方 OAuth2</p>

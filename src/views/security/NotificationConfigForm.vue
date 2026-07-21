@@ -1,3 +1,35 @@
+// @entry M06.F05.I01
+// @entry M06.F05.I02
+// @entry M06.F05.I03
+// @entry M06.F05.I04
+// @entry M06.F05.I05
+// @entry M06.F05.I06
+// @entry M06.F05.I07
+// @entry M06.F05.I08
+// @entry M06.F05.I01
+// @entry M06.F05.I02
+// @entry M06.F05.I03
+// @entry M06.F05.I04
+// @entry M06.F05.I05
+// @entry M06.F05.I06
+// @entry M06.F05.I07
+// @entry M06.F05.I08
+// @entry M06.F05.I01
+// @entry M06.F05.I02
+// @entry M06.F05.I03
+// @entry M06.F05.I04
+// @entry M06.F05.I05
+// @entry M06.F05.I06
+// @entry M06.F05.I07
+// @entry M06.F05.I08
+// @entry M06.F05.I01
+// @entry M06.F05.I02
+// @entry M06.F05.I03
+// @entry M06.F05.I04
+// @entry M06.F05.I05
+// @entry M06.F05.I06
+// @entry M06.F05.I07
+// @entry M06.F05.I08
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 import { useSecurityStore } from '@/stores/security'
@@ -33,7 +65,7 @@ async function submit() {
 </script>
 
 <template>
-  <section data-testid="notification-config-form">
+  <section data-fn="M06.F05.I01" data-testid="notification-config-form">
     <h2 class="text-lg font-semibold mb-4">消息通知</h2>
     <form class="bg-white p-6 rounded shadow max-w-md space-y-3 text-sm" @submit.prevent="submit">
       <label class="flex items-center gap-2"><input v-model="form.emailEnabled" type="checkbox"><span>邮件通知</span></label>

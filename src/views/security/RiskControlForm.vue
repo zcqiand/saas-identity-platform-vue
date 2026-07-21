@@ -1,3 +1,23 @@
+// @entry M06.F06.I01
+// @entry M06.F06.I02
+// @entry M06.F06.I03
+// @entry M06.F06.I04
+// @entry M06.F06.I05
+// @entry M06.F06.I01
+// @entry M06.F06.I02
+// @entry M06.F06.I03
+// @entry M06.F06.I04
+// @entry M06.F06.I05
+// @entry M06.F06.I01
+// @entry M06.F06.I02
+// @entry M06.F06.I03
+// @entry M06.F06.I04
+// @entry M06.F06.I05
+// @entry M06.F06.I01
+// @entry M06.F06.I02
+// @entry M06.F06.I03
+// @entry M06.F06.I04
+// @entry M06.F06.I05
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 import { useSecurityStore } from '@/stores/security'
@@ -17,7 +37,7 @@ async function submit() {
 </script>
 
 <template>
-  <section data-testid="risk-control-form">
+  <section data-fn="M06.F06.I01" data-testid="risk-control-form">
     <h2 class="text-lg font-semibold mb-4">风险控制</h2>
     <form class="bg-white p-6 rounded shadow max-w-md space-y-3 text-sm" @submit.prevent="submit">
       <label class="flex items-center gap-2"><input v-model="form.anomalyDetectionEnabled" type="checkbox"><span>异常登录检测</span></label>

@@ -1,3 +1,23 @@
+// @entry M06.F04.I01
+// @entry M06.F04.I02
+// @entry M06.F04.I03
+// @entry M06.F04.I04
+// @entry M06.F04.I05
+// @entry M06.F04.I01
+// @entry M06.F04.I02
+// @entry M06.F04.I03
+// @entry M06.F04.I04
+// @entry M06.F04.I05
+// @entry M06.F04.I01
+// @entry M06.F04.I02
+// @entry M06.F04.I03
+// @entry M06.F04.I04
+// @entry M06.F04.I05
+// @entry M06.F04.I01
+// @entry M06.F04.I02
+// @entry M06.F04.I03
+// @entry M06.F04.I04
+// @entry M06.F04.I05
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 import { useSecurityStore } from '@/stores/security'
@@ -18,7 +38,7 @@ async function submit() {
 </script>
 
 <template>
-  <section data-testid="token-config-form">
+  <section data-fn="M06.F04.I01" data-testid="token-config-form">
     <h2 class="text-lg font-semibold mb-4">令牌配置</h2>
     <form class="bg-white p-6 rounded shadow max-w-md space-y-3 text-sm" @submit.prevent="submit">
       <label class="block"><span class="text-gray-700">访问令牌 TTL（秒）</span>

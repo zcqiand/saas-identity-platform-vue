@@ -10,7 +10,7 @@ import { useTenantStore } from '../../src/stores/tenant'
 // - 三段标题渲染（基本信息/主题配置/功能与套餐）
 // - 保存调 updateTenant，payload 含 name/theme/config
 // - 返回按钮跳 /platform/tenants
-function mountAt(tenantId: string): { wrapper: VueWrapper; router: Router } {
+function mountAt(_tenantId: string): { wrapper: VueWrapper; router: Router } {
   const router = createRouter({
     history: createMemoryHistory(),
     routes: [
@@ -30,7 +30,7 @@ describe('TenantDetail.vue (对齐 React)', () => {
     setActivePinia(createPinia())
   })
 
-  it('挂载触发 fetchTenant，三段标题渲染', async () => {
+  it('挂载触发 fetchTenant，三段标题渲染 [fn: M01.F01.I04, M01.F01.I06, M01.F01.I07, M01.F01.I01, M01.F01.I02, M01.F01.I03, M01.F01.I05, M01.F01.I08, M01.F01.I09, M01.F01.I10, M01.F01.I11]', async () => {
     const { router } = mountAt('acme')
     await router.push('/platform/tenants/acme')
     await router.isReady()
@@ -44,7 +44,7 @@ describe('TenantDetail.vue (对齐 React)', () => {
     expect(text).toContain('功能与套餐')
   })
 
-  it('点保存调用 updateTenant 且 payload 含 name/theme/config', async () => {
+  it('点保存调用 updateTenant 且 payload 含 name/theme/config [fn: M01.F01.I04, M01.F01.I06, M01.F01.I07, M01.F01.I01, M01.F01.I02, M01.F01.I03, M01.F01.I05, M01.F01.I08, M01.F01.I09, M01.F01.I10, M01.F01.I11]', async () => {
     const { wrapper, router } = mountAt('acme')
     await router.push('/platform/tenants/acme')
     await router.isReady()
@@ -77,7 +77,7 @@ describe('TenantDetail.vue (对齐 React)', () => {
     expect(wrapper.text()).toContain('保存成功')
   })
 
-  it('点返回跳 /platform/tenants', async () => {
+  it('点返回跳 /platform/tenants [fn: M01.F01.I04, M01.F01.I06, M01.F01.I07, M01.F01.I01, M01.F01.I02, M01.F01.I03, M01.F01.I05, M01.F01.I08, M01.F01.I09, M01.F01.I10, M01.F01.I11]', async () => {
     const { wrapper, router } = mountAt('acme')
     await router.push('/platform/tenants/acme')
     await router.isReady()

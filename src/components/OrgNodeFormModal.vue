@@ -1,3 +1,34 @@
+// @entry M02.F01.I01
+// @entry M02.F01.I02
+// @entry M02.F01.I03
+// @entry M02.F01.I04
+// @entry M02.F01.I05
+// @entry M02.F01.I06
+// @entry M02.F01.I07
+// @entry M02.F01.I08
+// @entry M02.F01.I09
+// @entry M02.F01.I01
+// @entry M02.F01.I02
+// @entry M02.F01.I03
+// @entry M02.F01.I04
+// @entry M02.F01.I05
+// @entry M02.F01.I06
+// @entry M02.F01.I07
+// @entry M02.F01.I08
+// @entry M02.F01.I09
+// @entry M02.F01.I01
+// @entry M02.F01.I02
+// @entry M02.F01.I03
+// @entry M02.F01.I04
+// @entry M02.F01.I05
+// @entry M02.F01.I06
+// @entry M02.F01.I07
+// @entry M02.F01.I08
+// @entry M02.F01.I09
+// @entry M02.F01.I03
+// @entry M02.F01.I04
+// @entry M02.F01.I05
+// @entry M02.F01.I06
 <script setup lang="ts">
 // 组织节点表单弹窗（对齐 React OrgNodeFormModal.tsx）：
 // - mode='create'：新增节点（nodeId 为父节点 id）
@@ -52,7 +83,7 @@ function handleSubmit(): void {
 </script>
 
 <template>
-  <Teleport to="body">
+  <Teleport data-fn="M02.F01.I03" to="body">
     <div
       v-if="visible"
       data-testid="org-node-form-modal"

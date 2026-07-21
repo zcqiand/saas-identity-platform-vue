@@ -7,7 +7,7 @@ describe('auth store (ch40)', () => {
     setActivePinia(createPinia())
   })
 
-  it('loginWithSso writes token + user + currentOrgId', async () => {
+  it('loginWithSso writes token + user + currentOrgId [fn: M01.F03.I01]', async () => {
     const store = useAuthStore()
     await store.loginWithSso('mock-auth-code-1')
     expect(store.token).toBeTruthy()
@@ -16,7 +16,7 @@ describe('auth store (ch40)', () => {
     expect(store.status).toBe('authenticated')
   })
 
-  it('loginWithSso sets error on bad code', async () => {
+  it('loginWithSso sets error on bad code [fn: M01.F03.I01]', async () => {
     const store = useAuthStore()
     await store.loginWithSso('bad-code')
     expect(store.token).toBeNull()
@@ -25,7 +25,7 @@ describe('auth store (ch40)', () => {
     expect(store.error).toBeTruthy()
   })
 
-  it('refreshPermissions fetches permissions scoped to orgId and stores them', async () => {
+  it('refreshPermissions fetches permissions scoped to orgId and stores them [fn: M01.F03.I01]', async () => {
     const store = useAuthStore()
     await store.loginWithSso('mock-auth-code-1')
     await store.refreshPermissions()
@@ -34,7 +34,7 @@ describe('auth store (ch40)', () => {
     expect(store.roles.length).toBeGreaterThan(0)
   })
 
-  it('switchOrg updates currentOrgId and refreshes permissions (linked to tenant store)', async () => {
+  it('switchOrg updates currentOrgId and refreshes permissions (linked to tenant store) [fn: M01.F03.I01]', async () => {
     const store = useAuthStore()
     await store.loginWithSso('mock-auth-code-1')
     await store.switchOrg('org-globex')
@@ -44,7 +44,7 @@ describe('auth store (ch40)', () => {
     expect(store.permissions).not.toContain('user:delete')
   })
 
-  it('logout clears all state and token', async () => {
+  it('logout clears all state and token [fn: M01.F03.I01]', async () => {
     const store = useAuthStore()
     await store.loginWithSso('mock-auth-code-1')
     store.logout()

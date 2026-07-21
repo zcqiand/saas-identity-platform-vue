@@ -1,4 +1,36 @@
 // ch40 usePermission：脚本侧权限判定（v-permission 用于模板，本 composable 用于逻辑）
+// @entry M03.F01.I09
+// @entry M03.F01.I10
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
 import { useAuthStore } from '../stores/auth'
 
 export function usePermission() {

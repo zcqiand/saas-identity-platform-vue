@@ -14,7 +14,7 @@ describe('AppList.vue (ch42 平台应用管理)', () => {
     setActivePinia(createPinia())
   })
 
-  it('挂载后展示默认应用列表', async () => {
+  it('挂载后展示默认应用列表 [fn: M04.F01.I01, M04.F01.I03, M04.F01.I04, M04.F01.I05, M04.F01.I02, M04.F01.I06, M04.F01.I07, M04.F01.I08, M04.F01.I09, M04.F01.I10, M04.F01.I11, M04.F01.I12]', async () => {
     const wrapper = mount(AppList, { attachTo: document.body })
     await flushPromises()
     await flushPromises()

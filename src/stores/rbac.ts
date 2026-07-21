@@ -1,6 +1,38 @@
 // ch40/ch43 角色管理 store（与 React 姊妹仓 rbac/roleStore.ts 对齐）
 // setup store 风格：list/loading/error + fetchRoles/createRole/updateRole/deleteRole/clearError。
 // 菜单权限矩阵页（MenuPermissions）复用 updateRole 写入 menuPermissions，不另立 permissionStore（与 React 一致）。
+// @entry M03.F01.I08
+// @entry M03.F01.I10
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
+// @entry M03.F01.I01
+// @entry M03.F01.I02
+// @entry M03.F01.I03
+// @entry M03.F01.I04
+// @entry M03.F01.I05
+// @entry M03.F01.I06
+// @entry M03.F01.I07
+// @entry M03.F01.I08
+// @entry M03.F01.I09
+// @entry M03.F01.I10
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { apiClient } from '../api/client'

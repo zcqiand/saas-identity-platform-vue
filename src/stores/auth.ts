@@ -1,4 +1,8 @@
 // ch40 auth store：SSO 登录写入 token/roles/permissions + 切换组织刷新权限（联动 tenant store）
+// @entry M01.F03.I01
+// @entry M01.F03.I01
+// @entry M01.F03.I01
+// @entry M01.F03.I01
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { apiClient, setToken } from '../api/client'

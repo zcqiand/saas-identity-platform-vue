@@ -17,14 +17,14 @@ describe('OrgTreeNode.vue (ch41 recursive)', () => {
     ],
   }
 
-  it('renders root node name', () => {
+  it('renders root node name [fn: M02.F01.I08]', () => {
     const wrapper = mount(OrgTreeNode, {
       props: { node: tree, depth: 0 },
     })
     expect(wrapper.text()).toContain('ACME 集团')
   })
 
-  it('recursively renders children at greater depth', () => {
+  it('recursively renders children at greater depth [fn: M02.F01.I08]', () => {
     const wrapper = mount(OrgTreeNode, {
       props: { node: tree, depth: 0 },
     })
@@ -33,7 +33,7 @@ describe('OrgTreeNode.vue (ch41 recursive)', () => {
     expect(wrapper.text()).toContain('Globex 分部')
   })
 
-  it('uses :key=node.id via rendered data-org-node attributes for each node', () => {
+  it('uses :key=node.id via rendered data-org-node attributes for each node [fn: M02.F01.I08]', () => {
     const wrapper = mount(OrgTreeNode, {
       props: { node: tree, depth: 0 },
     })
@@ -45,7 +45,7 @@ describe('OrgTreeNode.vue (ch41 recursive)', () => {
     expect(ids).toContain('org-globex')
   })
 
-  it('emits select event with node when clicked', async () => {
+  it('emits select event with node when clicked [fn: M02.F01.I08]', async () => {
     const wrapper = mount(OrgTreeNode, {
       props: { node: tree, depth: 0 },
     })
@@ -57,7 +57,7 @@ describe('OrgTreeNode.vue (ch41 recursive)', () => {
     expect(selectEvents![0][0]).toEqual(tree)
   })
 
-  it('renders leaf node without expand icon', () => {
+  it('renders leaf node without expand icon [fn: M02.F01.I08]', () => {
     const leaf: OrgNode = { id: 'org-leaf', name: '叶子节点' }
     const wrapper = mount(OrgTreeNode, {
       props: { node: leaf, depth: 0 },

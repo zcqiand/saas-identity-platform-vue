@@ -1,4 +1,32 @@
 // ch41 user store：组织树 + 用户列表（setup-store 风格）
+// @entry M02.F02.I08
+// @entry M02.F02.I01
+// @entry M02.F02.I02
+// @entry M02.F02.I03
+// @entry M02.F02.I04
+// @entry M02.F02.I05
+// @entry M02.F02.I06
+// @entry M02.F02.I07
+// @entry M02.F02.I08
+// @entry M02.F02.I09
+// @entry M02.F02.I01
+// @entry M02.F02.I02
+// @entry M02.F02.I03
+// @entry M02.F02.I04
+// @entry M02.F02.I05
+// @entry M02.F02.I06
+// @entry M02.F02.I07
+// @entry M02.F02.I08
+// @entry M02.F02.I09
+// @entry M02.F02.I01
+// @entry M02.F02.I02
+// @entry M02.F02.I03
+// @entry M02.F02.I04
+// @entry M02.F02.I05
+// @entry M02.F02.I06
+// @entry M02.F02.I07
+// @entry M02.F02.I08
+// @entry M02.F02.I09
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { apiClient } from '../api/client'

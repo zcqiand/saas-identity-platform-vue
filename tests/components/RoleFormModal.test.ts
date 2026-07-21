@@ -26,13 +26,13 @@ describe('RoleFormModal.vue', () => {
     return document.body.querySelector(`[data-testid="${id}"]`) as HTMLInputElement | null
   }
 
-  it('visible=false 时不渲染', async () => {
+  it('visible=false 时不渲染 [fn: M03.F01.I06]', async () => {
     mountModal({ visible: false })
     await flushPromises()
     expect(byTestId('role-form')).toBeNull()
   })
 
-  it('create 模式标题为「新建角色」且表单为空', async () => {
+  it('create 模式标题为「新建角色」且表单为空 [fn: M03.F01.I06]', async () => {
     mountModal({ mode: 'create' })
     await flushPromises()
     expect(document.body.textContent ?? '').toContain('新建角色')
@@ -40,7 +40,7 @@ describe('RoleFormModal.vue', () => {
     expect(nameInput?.value).toBe('')
   })
 
-  it('edit 模式预填 name 与 permissions', async () => {
+  it('edit 模式预填 name 与 permissions [fn: M03.F01.I06]', async () => {
     mountModal({
       mode: 'edit',
       role: { id: 'r1', name: 'manager', permissions: ['user:read', 'org:read'] },
@@ -52,7 +52,7 @@ describe('RoleFormModal.vue', () => {
     expect(permCheckbox?.checked).toBe(true)
   })
 
-  it('空名提交时报错且不 emit submit', async () => {
+  it('空名提交时报错且不 emit submit [fn: M03.F01.I06]', async () => {
     const wrapper = mountModal({ mode: 'create' })
     await flushPromises()
     byTestId('role-submit')?.click()
@@ -61,7 +61,7 @@ describe('RoleFormModal.vue', () => {
     expect(wrapper.emitted('submit')).toBeFalsy()
   })
 
-  it('未选权限提交时报错且不 emit submit', async () => {
+  it('未选权限提交时报错且不 emit submit [fn: M03.F01.I06]', async () => {
     const wrapper = mountModal({ mode: 'create' })
     await flushPromises()
     const nameInput = byTestId('role-name-input')
@@ -74,7 +74,7 @@ describe('RoleFormModal.vue', () => {
     expect(wrapper.emitted('submit')).toBeFalsy()
   })
 
-  it('合法提交 emit submit 携带 name/permissions/menuPermissions', async () => {
+  it('合法提交 emit submit 携带 name/permissions/menuPermissions [fn: M03.F01.I06]', async () => {
     const wrapper = mountModal({ mode: 'create' })
     await flushPromises()
     const nameInput = byTestId('role-name-input')
@@ -93,7 +93,7 @@ describe('RoleFormModal.vue', () => {
     expect(Array.isArray(values.menuPermissions)).toBe(true)
   })
 
-  it('取消按钮 emit cancel', async () => {
+  it('取消按钮 emit cancel [fn: M03.F01.I06]', async () => {
     const wrapper = mountModal({ mode: 'create' })
     await flushPromises()
     byTestId('role-cancel')?.click()

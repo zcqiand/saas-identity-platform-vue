@@ -9,7 +9,7 @@ describe('role store (rbac.ts)', () => {
     setActivePinia(createPinia())
   })
 
-  it('fetchRoles 加载默认角色列表', async () => {
+  it('fetchRoles 加载默认角色列表 [fn: M03.F01.I08, M03.F02.I05, M03.F03.I05, M03.F01.I10, M03.F01.I01, M03.F01.I02, M03.F01.I03, M03.F01.I04, M03.F01.I05, M03.F01.I06, M03.F01.I07, M03.F01.I09]', async () => {
     const store = useRoleStore()
     await store.fetchRoles()
     expect(store.list.length).toBeGreaterThanOrEqual(4)
@@ -20,7 +20,7 @@ describe('role store (rbac.ts)', () => {
     expect(names).toContain('viewer')
   })
 
-  it('createRole 在列表头部插入新角色', async () => {
+  it('createRole 在列表头部插入新角色 [fn: M03.F01.I08, M03.F02.I05, M03.F03.I05, M03.F01.I10, M03.F01.I01, M03.F01.I02, M03.F01.I03, M03.F01.I04, M03.F01.I05, M03.F01.I06, M03.F01.I07, M03.F01.I09]', async () => {
     const store = useRoleStore()
     await store.fetchRoles()
     const before = store.list.length
@@ -30,7 +30,7 @@ describe('role store (rbac.ts)', () => {
     expect(store.list[0].permissions).toEqual(['user:read'])
   })
 
-  it('updateRole 就地替换目标角色字段', async () => {
+  it('updateRole 就地替换目标角色字段 [fn: M03.F01.I08, M03.F02.I05, M03.F03.I05, M03.F01.I10, M03.F01.I01, M03.F01.I02, M03.F01.I03, M03.F01.I04, M03.F01.I05, M03.F01.I06, M03.F01.I07, M03.F01.I09]', async () => {
     const store = useRoleStore()
     await store.fetchRoles()
     const target = store.list.find((r) => r.name === 'viewer')!
@@ -40,7 +40,7 @@ describe('role store (rbac.ts)', () => {
     expect(updated?.permissions).toContain('audit:read')
   })
 
-  it('updateRole 可写入 menuPermissions（菜单权限矩阵保存）', async () => {
+  it('updateRole 可写入 menuPermissions（菜单权限矩阵保存） [fn: M03.F01.I08, M03.F02.I05, M03.F03.I05, M03.F01.I10, M03.F01.I01, M03.F01.I02, M03.F01.I03, M03.F01.I04, M03.F01.I05, M03.F01.I06, M03.F01.I07, M03.F01.I09]', async () => {
     const store = useRoleStore()
     await store.fetchRoles()
     const target = store.list[0]
@@ -53,7 +53,7 @@ describe('role store (rbac.ts)', () => {
     expect(updated?.menuPermissions[0].menuId).toBe('m-console-users')
   })
 
-  it('deleteRole 从列表移除目标角色', async () => {
+  it('deleteRole 从列表移除目标角色 [fn: M03.F01.I08, M03.F02.I05, M03.F03.I05, M03.F01.I10, M03.F01.I01, M03.F01.I02, M03.F01.I03, M03.F01.I04, M03.F01.I05, M03.F01.I06, M03.F01.I07, M03.F01.I09]', async () => {
     const store = useRoleStore()
     await store.fetchRoles()
     const target = store.list[0]
@@ -63,7 +63,7 @@ describe('role store (rbac.ts)', () => {
     expect(store.list.find((r) => r.id === target.id)).toBeUndefined()
   })
 
-  it('clearError 清空错误态', async () => {
+  it('clearError 清空错误态 [fn: M03.F01.I08, M03.F02.I05, M03.F03.I05, M03.F01.I10, M03.F01.I01, M03.F01.I02, M03.F01.I03, M03.F01.I04, M03.F01.I05, M03.F01.I06, M03.F01.I07, M03.F01.I09]', async () => {
     const store = useRoleStore()
     // 人为塞入错误态
     await store.deleteRole('role-not-exist')

@@ -1,4 +1,29 @@
 // ch42 全局错误处理：app.config.errorHandler 捕获 + 上报 stub
+// @entry M01.F01.I10
+// @entry M01.F01.I01
+// @entry M01.F01.I02
+// @entry M01.F01.I03
+// @entry M01.F01.I04
+// @entry M01.F01.I05
+// @entry M01.F01.I06
+// @entry M01.F01.I07
+// @entry M01.F01.I08
+// @entry M01.F01.I09
+// @entry M01.F01.I10
+// @entry M01.F01.I11
+// @entry M01.F01.I10
+// @entry M01.F01.I01
+// @entry M01.F01.I02
+// @entry M01.F01.I03
+// @entry M01.F01.I04
+// @entry M01.F01.I05
+// @entry M01.F01.I06
+// @entry M01.F01.I07
+// @entry M01.F01.I08
+// @entry M01.F01.I09
+// @entry M01.F01.I10
+// @entry M01.F01.I11
+// @entry M01.F01.I10
 import type { App } from 'vue'
 import { apiClient } from '../api/client'
 

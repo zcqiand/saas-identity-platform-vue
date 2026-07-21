@@ -12,7 +12,7 @@ describe('setupDynamicRoutes (ch39)', () => {
     })
   })
 
-  it('registers a route per subscribed feature with tenant prefix', () => {
+  it('registers a route per subscribed feature with tenant prefix [fn: M01.F01.I08]', () => {
     setupDynamicRoutes(router, {
       id: 'acme',
       name: 'ACME',
@@ -31,7 +31,7 @@ describe('setupDynamicRoutes (ch39)', () => {
     expect(paths).toContain('/acme/rbac')
   })
 
-  it('is idempotent: calling twice does not duplicate routes', () => {
+  it('is idempotent: calling twice does not duplicate routes [fn: M01.F01.I08]', () => {
     const tenant = {
       id: 'acme',
       name: 'ACME',
@@ -44,7 +44,7 @@ describe('setupDynamicRoutes (ch39)', () => {
     expect(ssoRoutes.length).toBe(1)
   })
 
-  it('skips unknown features gracefully', () => {
+  it('skips unknown features gracefully [fn: M01.F01.I08]', () => {
     setupDynamicRoutes(router, {
       id: 'acme',
       name: 'ACME',

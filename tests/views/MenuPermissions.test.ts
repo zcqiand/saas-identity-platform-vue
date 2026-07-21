@@ -27,13 +27,13 @@ describe('MenuPermissions.vue', () => {
     return document.body.querySelector(`[data-testid="${id}"]`) as HTMLInputElement | HTMLSelectElement | null
   }
 
-  it('未选应用和角色时显示提示', async () => {
+  it('未选应用和角色时显示提示 [fn: M03.F01.I07]', async () => {
     mountView()
     await flushPromises()
     expect(document.body.textContent ?? '').toContain('请先选择应用和角色')
   })
 
-  it('选应用+角色后渲染菜单矩阵', async () => {
+  it('选应用+角色后渲染菜单矩阵 [fn: M03.F01.I07]', async () => {
     mountView()
     await flushPromises()
     const appSelect = byTestId('select-app') as HTMLSelectElement
@@ -52,7 +52,7 @@ describe('MenuPermissions.vue', () => {
     expect(byTestId('btn-save')).not.toBeNull()
   })
 
-  it('勾选某菜单的 view 权限后保存，调用 updateRole', async () => {
+  it('勾选某菜单的 view 权限后保存，调用 updateRole [fn: M03.F01.I07]', async () => {
     const wrapper = mountView()
     await flushPromises()
     ;(byTestId('select-app') as HTMLSelectElement)!.value = 'app-console'
@@ -75,7 +75,7 @@ describe('MenuPermissions.vue', () => {
     expect(wrapper2.text()).not.toContain('请先选择应用和角色')
   })
 
-  it('父菜单全选联动勾选所有子菜单', async () => {
+  it('父菜单全选联动勾选所有子菜单 [fn: M03.F01.I07]', async () => {
     mountView()
     await flushPromises()
     ;(byTestId('select-app') as HTMLSelectElement)!.value = 'app-console'

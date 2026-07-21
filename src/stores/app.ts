@@ -1,4 +1,41 @@
 // ch42 应用管理 + 菜单管理 store（与 React 姊妹仓 appStore 对齐）
+// @entry M04.F01.I12
+// @entry M04.F01.I01
+// @entry M04.F01.I02
+// @entry M04.F01.I03
+// @entry M04.F01.I04
+// @entry M04.F01.I05
+// @entry M04.F01.I06
+// @entry M04.F01.I07
+// @entry M04.F01.I08
+// @entry M04.F01.I09
+// @entry M04.F01.I10
+// @entry M04.F01.I11
+// @entry M04.F01.I12
+// @entry M04.F01.I01
+// @entry M04.F01.I02
+// @entry M04.F01.I03
+// @entry M04.F01.I04
+// @entry M04.F01.I05
+// @entry M04.F01.I06
+// @entry M04.F01.I07
+// @entry M04.F01.I08
+// @entry M04.F01.I09
+// @entry M04.F01.I10
+// @entry M04.F01.I11
+// @entry M04.F01.I12
+// @entry M04.F01.I01
+// @entry M04.F01.I02
+// @entry M04.F01.I03
+// @entry M04.F01.I04
+// @entry M04.F01.I05
+// @entry M04.F01.I06
+// @entry M04.F01.I07
+// @entry M04.F01.I08
+// @entry M04.F01.I09
+// @entry M04.F01.I10
+// @entry M04.F01.I11
+// @entry M04.F01.I12
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { apiClient } from '../api/client'

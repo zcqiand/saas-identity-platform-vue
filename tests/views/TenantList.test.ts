@@ -11,7 +11,7 @@ describe('TenantList.vue 详情链接（对齐 React）', () => {
     setActivePinia(createPinia())
   })
 
-  it('每行有详情配置按钮，点击跳 platform-tenant-detail', async () => {
+  it('每行有详情配置按钮，点击跳 platform-tenant-detail [fn: M01.F01.I01, M01.F01.I02, M01.F01.I03, M01.F01.I04, M01.F01.I05, M01.F01.I09, M01.F01.I06, M01.F01.I07, M01.F01.I08, M01.F01.I10, M01.F01.I11]', async () => {
     const router = createRouter({
       history: createMemoryHistory(),
       routes: [

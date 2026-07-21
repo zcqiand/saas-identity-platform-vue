@@ -1,3 +1,37 @@
+// @entry M01.F01.I01
+// @entry M01.F01.I02
+// @entry M01.F01.I03
+// @entry M01.F01.I04
+// @entry M01.F01.I05
+// @entry M01.F01.I06
+// @entry M01.F01.I07
+// @entry M01.F01.I08
+// @entry M01.F01.I09
+// @entry M01.F01.I10
+// @entry M01.F01.I11
+// @entry M01.F01.I01
+// @entry M01.F01.I02
+// @entry M01.F01.I03
+// @entry M01.F01.I04
+// @entry M01.F01.I05
+// @entry M01.F01.I06
+// @entry M01.F01.I07
+// @entry M01.F01.I08
+// @entry M01.F01.I09
+// @entry M01.F01.I10
+// @entry M01.F01.I11
+// @entry M01.F01.I01
+// @entry M01.F01.I02
+// @entry M01.F01.I03
+// @entry M01.F01.I04
+// @entry M01.F01.I05
+// @entry M01.F01.I06
+// @entry M01.F01.I07
+// @entry M01.F01.I08
+// @entry M01.F01.I09
+// @entry M01.F01.I10
+// @entry M01.F01.I11
+// @entry M01.F01.I08
 <script setup lang="ts">
 // 租户布局（ch39/ch41）：侧边栏 + 内容区 + 注入 tenantId 供 AppSidebar 使用
 import { computed, provide, onMounted, watch } from 'vue'
@@ -30,7 +64,7 @@ watch(tenantId, async (id) => {
 </script>
 
 <template>
-  <div v-if="tenantId && tenant.current" class="flex h-screen" data-testid="tenant-layout">
+  <div data-fn="M01.F01.I08" v-if="tenantId && tenant.current" class="flex h-screen" data-testid="tenant-layout">
     <AppSidebar :tenant-id="tenantId" />
     <div class="flex-1 flex flex-col overflow-hidden">
       <header class="bg-white border-b px-6 py-3 shadow-sm flex items-center justify-between">

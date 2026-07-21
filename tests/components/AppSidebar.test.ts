@@ -30,7 +30,7 @@ describe('AppSidebar.vue (ch39/ch40)', () => {
     })
   })
 
-  it('admin 全权限：渲染所有租户级菜单项', async () => {
+  it('admin 全权限：渲染所有租户级菜单项 [fn: M01.F01.I08]', async () => {
     const auth = useAuthStore()
     auth.user = { id: 'u1', name: '管理员', role: 'admin', roleId: 'role-admin' } as never
     auth.permissions = [
@@ -50,7 +50,7 @@ describe('AppSidebar.vue (ch39/ch40)', () => {
     expect(links.length).toBeGreaterThanOrEqual(13)
   })
 
-  it('普通用户仅有 user:read：仅渲染 dashboard + users', async () => {
+  it('普通用户仅有 user:read：仅渲染 dashboard + users [fn: M01.F01.I08]', async () => {
     const auth = useAuthStore()
     auth.user = { id: 'u2', name: '普通', role: 'user', roleId: 'role-user' } as never
     auth.permissions = ['dashboard:read', 'user:read'] as never
@@ -65,7 +65,7 @@ describe('AppSidebar.vue (ch39/ch40)', () => {
     expect(wrapper.text()).not.toContain('角色权限')
   })
 
-  it('当前路由高亮：active 类应用于匹配项', async () => {
+  it('当前路由高亮：active 类应用于匹配项 [fn: M01.F01.I08]', async () => {
     const auth = useAuthStore()
     auth.user = { id: 'u3', name: 'A', role: 'admin', roleId: 'role-admin' } as never
     auth.permissions = ['dashboard:read', 'audit:read'] as never
@@ -81,7 +81,7 @@ describe('AppSidebar.vue (ch39/ch40)', () => {
 
   // 对齐 React Layout.tsx：身份管理分组顺序为
   // 组织管理 → 岗位管理 → 角色管理 → 权限组别 → 菜单权限 → 用户组别 → 用户管理（用户管理末位）
-  it('身份管理分组顺序对齐 React（组织管理在用户管理之前，用户管理末位）', async () => {
+  it('身份管理分组顺序对齐 React（组织管理在用户管理之前，用户管理末位） [fn: M01.F01.I08]', async () => {
     const auth = useAuthStore()
     auth.user = { id: 'u4', name: '管理员', role: 'admin', roleId: 'role-admin' } as never
     auth.permissions = [
@@ -101,7 +101,7 @@ describe('AppSidebar.vue (ch39/ch40)', () => {
   })
 
   // 平台 nav 顺序对齐 React PlatformLayout：租户 → 应用 → 开放平台 → 平台配置
-  it('平台 nav 顺序对齐 React（租户/应用/开放平台/平台配置）', async () => {
+  it('平台 nav 顺序对齐 React（租户/应用/开放平台/平台配置） [fn: M01.F01.I08]', async () => {
     const auth = useAuthStore()
     auth.user = { id: 'u5', name: '管理员', role: 'admin', roleId: 'role-admin' } as never
     auth.permissions = ['platform:read'] as never

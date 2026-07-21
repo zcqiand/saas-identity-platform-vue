@@ -8,7 +8,7 @@ describe('router beforeEach tenant guard (ch39)', () => {
     setActivePinia(createPinia())
   })
 
-  it('resolves tenant and registers dynamic routes on first navigation', async () => {
+  it('resolves tenant and registers dynamic routes on first navigation [fn: M01.F01.I08, M03.F01.I09]', async () => {
     const router = createAppRouter()
     await router.push('/acme/dashboard')
     await router.isReady()
@@ -22,7 +22,7 @@ describe('router beforeEach tenant guard (ch39)', () => {
     expect(names).toContain('tenant-audit')
   })
 
-  it('redirects to login when tenantId missing', async () => {
+  it('redirects to login when tenantId missing [fn: M01.F01.I08, M03.F01.I09]', async () => {
     const router = createAppRouter()
     const loc = await router.resolve('/dashboard').matched // 没有 tenantId 段
     // 直接触发守卫：push 一个无 tenantId 的路径
@@ -36,7 +36,7 @@ describe('router beforeEach tenant guard (ch39)', () => {
     expect(loc).toBeDefined()
   })
 
-  it('re-registers dynamic routes when tenant changes', async () => {
+  it('re-registers dynamic routes when tenant changes [fn: M01.F01.I08, M03.F01.I09]', async () => {
     const router = createAppRouter()
     await router.push('/acme/dashboard')
     await new Promise((r) => setTimeout(r, 0))

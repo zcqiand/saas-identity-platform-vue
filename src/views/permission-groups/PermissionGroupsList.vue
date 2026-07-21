@@ -1,3 +1,22 @@
+// @entry M03.F02.I01
+// @entry M03.F02.I02
+// @entry M03.F02.I03
+// @entry M03.F02.I04
+// @entry M03.F02.I05
+// @entry M03.F02.I01
+// @entry M03.F02.I02
+// @entry M03.F02.I03
+// @entry M03.F02.I04
+// @entry M03.F02.I05
+// @entry M03.F02.I01
+// @entry M03.F02.I02
+// @entry M03.F02.I03
+// @entry M03.F02.I04
+// @entry M03.F02.I05
+// @entry M03.F02.I01
+// @entry M03.F02.I02
+// @entry M03.F02.I03
+// @entry M03.F02.I04
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useOrgStore } from '@/stores/org'
@@ -25,7 +44,7 @@ async function remove(id: string) {
 </script>
 
 <template>
-  <section data-testid="permission-groups-list">
+  <section data-fn="M03.F02.I01" data-testid="permission-groups-list">
     <header class="flex items-center justify-between mb-4">
       <h2 class="text-lg font-semibold">权限组</h2>
       <button class="px-3 py-1.5 bg-blue-600 text-white rounded text-sm" @click="showForm = true">新建权限组</button>

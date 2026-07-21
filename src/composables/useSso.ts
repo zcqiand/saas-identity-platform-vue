@@ -1,4 +1,23 @@
 // ch40 SSO 单点登录：构造授权 URL + 处理回调换 token
+// @entry M01.F04.I01
+// @entry M01.F04.I02
+// @entry M01.F04.I03
+// @entry M01.F04.I05
+// @entry M01.F04.I01
+// @entry M01.F04.I02
+// @entry M01.F04.I03
+// @entry M01.F04.I04
+// @entry M01.F04.I05
+// @entry M01.F04.I01
+// @entry M01.F04.I02
+// @entry M01.F04.I03
+// @entry M01.F04.I04
+// @entry M01.F04.I05
+// @entry M01.F04.I01
+// @entry M01.F04.I02
+// @entry M01.F04.I03
+// @entry M01.F04.I04
+// @entry M01.F04.I05
 import { apiClient } from '../api/client'
 
 interface BuildSsoRedirectOptions {
