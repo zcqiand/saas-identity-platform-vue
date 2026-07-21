@@ -2,7 +2,7 @@
   "$schema": "case-repo version-lock v1.0 — 依赖版本「允许面」清单，与 package.json 范围一致。CLAUDE.md「不引入 lock 外的库 / 版本钉死」据此判定：新增依赖须先加入 version_lock。",
   "repo": "saas-identity-platform-vue",
   "project": "xr-know-011 案例二（SaaS 多租户统一身份管理，Vue，ch39-42）",
-  "tag": "v1.3-011",
+  "tag": "v1.4-011",
   "runtime": {
     "node": "20 LTS",
     "package_manager": "npm"
@@ -32,6 +32,6 @@
     "vue-eslint-parser": "10.x",
     "typescript-eslint": "8.x"
   },
-  "locked_from": "package.json @ v1.3-011",
+  "locked_from": "package.json @ v1.4-011",
   "_note": "实际钉死走 package.json 范围 + package-lock.json；本文件为人类可读的「允许版本面」，是 CLAUDE.md「不引入 lock 外的库」的判定依据。新增依赖须先加入 version_lock 并与 CLAUDE.md 技术栈段同步。与 React 姊妹仓 saas-identity-platform 共享 API 契约 + MSW fixtures。"
 }

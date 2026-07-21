@@ -1,0 +1,73 @@
+name: ci
+
+# 项目铁律 [CLAUDE.md] 第 2 段：「tag 即放行：全量回归绿后打 v<MAJOR>.<MINOR>-<NNN>」。
+# - branch push（master/main）→ 只跑 test（验证回归）
+# - tag push（v1.4-011 这种）  → test + 部署
+on:
+  push:
+    branches: [main, master]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      VITE_OFFLINE: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          registry-url: https://registry.npmmirror.com/
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
+      - name: Run coverage
+        run: npm run test:coverage
+
+  # tag 即放行：push v<MAJOR>.<MINOR>-<NNN> → CI 全绿 →
+  #   docker build & push (latest + 版本 tag) → VPS pull & restart
+  # 仿 changli-ui 已知能跑版：docker/build-push-action@v6 → appleboy/ssh-action@master
+  # 与 React 姊妹仓 saas-identity-platform 的 .github/workflows/ci.yml 同构（双栈对照）。
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/')
+    concurrency:
+      group: deploy-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/saas-identity-platform-vue:latest
+            ${{ secrets.DOCKER_USERNAME }}/saas-identity-platform-vue:${{ github.ref_name }}
+
+      - name: Pull image and restart container on VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          # 密钥路径走法
+          key: ${{ secrets.VPS_SSH_KEY }}
+          # 不传 fingerprint —— VPS 同时有 ed25519/rsa/ecdsa 多把 host key，
+          # drone-ssh 会去比其中一把和你 secret 里那把常常对不上；
+          # 走 TOFU：第一次 ssh handshake 自动 trust + 写 sidecar 的 known_hosts，
+          # 之后 run 默认用同一份
+          script: cd /home/deploy/saas-identity-platform-vue && sh saas-identity-platform-vue.sh "${{ secrets.DOCKER_USERNAME }}" "${{ secrets.DOCKER_PASSWORD }}" "${{ github.ref_name }}"
