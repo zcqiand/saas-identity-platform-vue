@@ -1,6 +1,9 @@
-// ch42 应用入口：创建 app → 安装 errorHandler + Pinia + Router → 启动 MSW（dev）→ 挂载
+// ch42 应用入口：创建 app → 安装 errorHandler + Pinia (persist 持久化插件) + Router → 启动 MSW (dev) → 挂载
+// 持久化模式镜像 saas-identity-platform 的 zustand/middleware/persist（key 'saas-auth'），
+// 这里用 pinia-plugin-persistedstate 在 stores 内部声明 key/pick。
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import App from './App.vue'
 import { createAppRouter, routeModuleLoaders } from './router'
 import { installErrorHandler } from './app/errorHandler'
@@ -22,7 +25,9 @@ async function enableMockWorker(): Promise<void> {
 
 enableMockWorker().finally(() => {
   const app = createApp(App)
-  app.use(createPinia())
+  const pinia = createPinia()
+  pinia.use(piniaPluginPersistedstate)
+  app.use(pinia)
   app.use(createAppRouter())
   app.directive('permission', permissionDirective)
   // ch42：全局错误捕获 + 上报 stub
