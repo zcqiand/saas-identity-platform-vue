@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "concurrently -k -n web,api -c blue,green \"npm:dev:web\" \"npm:dev:api\"",
     "dev:web": "vite",
-    "dev:api": "tsx dev-server/server.ts",
+    "dev:api": "tsx watch dev-server/server.ts",
     "build": "vue-tsc --noEmit -p tsconfig.app.json && vite build",
     "preview": "vite preview",
     "test": "vitest run",
