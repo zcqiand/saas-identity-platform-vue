@@ -47,12 +47,13 @@ export async function handleOAuthCallbackFromBody(body: {
   // lab 集成：clientId='lab-management' → 返回 lab 租户身份（机构=租户=org-lab-root）
   if (body.clientId === 'lab-management') {
     const labAdmin = LAB_ROLES.find((r) => r.name === 'labadmin')
+    const perms = labAdmin?.permissions ?? []
     const labToken = signJwt({
       sub: 'u-lab-admin',
       username: 'labadmin',
       orgId: 'org-lab-root',
       roles: ['labadmin'],
-      permissions: labAdmin?.permissions ?? [],
+      permissions: perms,
       tenantId: 'tenant-lab',
       appId: 'app-lab',
     })
@@ -62,6 +63,10 @@ export async function handleOAuthCallbackFromBody(body: {
         id: 'u-lab-admin',
         username: 'labadmin',
         displayName: '实验室管理员',
+        // role + permissions 必带：lab-vue 的菜单/权限过滤依赖 user.permissions
+        // （与 lab-vue 自身 msw ssoHandler 返回形状一致）
+        role: { id: labAdmin?.id ?? 'role-admin', name: 'labadmin', permissions: perms },
+        permissions: perms,
         orgId: 'org-lab-root',
         tenantId: 'tenant-lab',
         appId: 'app-lab',
