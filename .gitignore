@@ -33,5 +33,3 @@ dist-ssr
 # TS build info
 *.tsbuildinfo
 .claude/
-.harness/
-.state/

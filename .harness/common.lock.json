@@ -1,0 +1,10 @@
+{
+  ".claude\\agents\\alignment-auditor.md": "71cceb00ca93a3b8",
+  ".claude\\agents\\code-reviewer.md": "bd70cd599928af12",
+  ".claude\\agents\\README.md": "307877fee6823883",
+  ".claude\\skills\\matrix\\SKILL.md": "fb4aa303b9e1d732",
+  ".claude\\skills\\project-init\\SKILL.md": "9189a17fc121db39",
+  ".claude\\skills\\project-refactor\\SKILL.md": "e9d8efaa8e8c87f8",
+  ".claude\\skills\\tree-change\\SKILL.md": "9ca22e77fd9a8aa2",
+  ".claude\\skills\\writing-skills\\SKILL.md": "f52e4ca5de2406bc"
+}
