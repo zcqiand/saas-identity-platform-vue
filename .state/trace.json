@@ -1,0 +1,3914 @@
+{
+  "schema": 1,
+  "tests": [
+    {
+      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /apps: Vue 仓 DEFAULT 包含 React 仓全部字段 (9 个)",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /menus: Vue 仓 DEFAULT 包含 React 仓全部字段 (10 个)",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /positions: Vue 仓 DEFAULT 包含 React 仓全部字段 (8 个)",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /user-groups: Vue 仓 DEFAULT 包含 React 仓全部字段 (7 个)",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /permission-groups: Vue 仓 DEFAULT 包含 React 仓全部字段 (10 个)",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /login-methods: Vue 仓 DEFAULT 包含 React 仓全部字段 (6 个)",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /sso-providers: Vue 仓 DEFAULT 包含 React 仓全部字段 (6 个)",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /oauth2-providers: Vue 仓 DEFAULT 包含 React 仓全部字段 (5 个)",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /token-config: Vue 仓 DEFAULT 包含 React 仓全部字段 (5 个)",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /api-keys: Vue 仓 DEFAULT 包含 React 仓全部字段 (8 个)",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /login-security: Vue 仓 DEFAULT 包含 React 仓全部字段 (8 个)",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /password-policy: Vue 仓 DEFAULT 包含 React 仓全部字段 (9 个)",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /risk-control: Vue 仓 DEFAULT 包含 React 仓全部字段 (5 个)",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /notification-config: Vue 仓 DEFAULT 包含 React 仓全部字段 (5 个)",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /open-platform-config: Vue 仓 DEFAULT 包含 React 仓全部字段 (6 个)",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "E2E 冒烟测试 未登录访问 /acme/dashboard 仍渲染租户布局",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "E2E 冒烟测试 登录后访问 dashboard 渲染内容区",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "E2E 冒烟测试 登录后访问用户管理页不报错",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "E2E 冒烟测试 权限验证：viewer 角色无 user:create 权限时无新增按钮",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "E2E 冒烟测试 租户切换：acme → globex 路径均可达",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "smoke mock db seeds tenants",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "global error handler (ch42) installErrorHandler registers app.config.errorHandler",
+      "fns": [
+        "M01.F01.I10"
+      ],
+      "inert": false
+    },
+    {
+      "test": "global error handler (ch42) handler captures error + reports to channel",
+      "fns": [
+        "M01.F01.I10"
+      ],
+      "inert": false
+    },
+    {
+      "test": "global error handler (ch42) reportError posts to /api/vitals via mock and resolves (does not throw)",
+      "fns": [
+        "M01.F01.I10"
+      ],
+      "inert": false
+    },
+    {
+      "test": "api client interceptor (ch39/ch40) injects X-Tenant-ID header from tenant store value",
+      "fns": [
+        "M01.F01.I10"
+      ],
+      "inert": false
+    },
+    {
+      "test": "api client interceptor (ch39/ch40) injects Authorization header when token set",
+      "fns": [
+        "M01.F01.I10"
+      ],
+      "inert": false
+    },
+    {
+      "test": "api client interceptor (ch39/ch40) getTenantId returns current set value",
+      "fns": [
+        "M01.F01.I10"
+      ],
+      "inert": false
+    },
+    {
+      "test": "api client interceptor (ch39/ch40) omits X-Tenant-ID when not set",
+      "fns": [
+        "M01.F01.I10"
+      ],
+      "inert": false
+    },
+    {
+      "test": "AppSidebar.vue (ch39/ch40) admin 全权限：渲染所有租户级菜单项",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "AppSidebar.vue (ch39/ch40) 普通用户仅有 user:read：仅渲染 dashboard + users",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "AppSidebar.vue (ch39/ch40) 当前路由高亮：active 类应用于匹配项",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "AppSidebar.vue (ch39/ch40) 身份管理分组顺序对齐 React（组织管理在用户管理之前，用户管理末位）",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "AppSidebar.vue (ch39/ch40) 平台 nav 顺序对齐 React（租户/应用/开放平台/平台配置）",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "OrgTreeNode.vue (ch41 recursive) renders root node name",
+      "fns": [
+        "M02.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "OrgTreeNode.vue (ch41 recursive) recursively renders children at greater depth",
+      "fns": [
+        "M02.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "OrgTreeNode.vue (ch41 recursive) uses :key=node.id via rendered data-org-node attributes for each node",
+      "fns": [
+        "M02.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "OrgTreeNode.vue (ch41 recursive) emits select event with node when clicked",
+      "fns": [
+        "M02.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "OrgTreeNode.vue (ch41 recursive) renders leaf node without expand icon",
+      "fns": [
+        "M02.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "RoleFormModal.vue visible=false 时不渲染",
+      "fns": [
+        "M03.F01.I06"
+      ],
+      "inert": false
+    },
+    {
+      "test": "RoleFormModal.vue create 模式标题为「新建角色」且表单为空",
+      "fns": [
+        "M03.F01.I06"
+      ],
+      "inert": false
+    },
+    {
+      "test": "RoleFormModal.vue edit 模式预填 name 与 permissions",
+      "fns": [
+        "M03.F01.I06"
+      ],
+      "inert": false
+    },
+    {
+      "test": "RoleFormModal.vue 空名提交时报错且不 emit submit",
+      "fns": [
+        "M03.F01.I06"
+      ],
+      "inert": false
+    },
+    {
+      "test": "RoleFormModal.vue 未选权限提交时报错且不 emit submit",
+      "fns": [
+        "M03.F01.I06"
+      ],
+      "inert": false
+    },
+    {
+      "test": "RoleFormModal.vue 合法提交 emit submit 携带 name/permissions/menuPermissions",
+      "fns": [
+        "M03.F01.I06"
+      ],
+      "inert": false
+    },
+    {
+      "test": "RoleFormModal.vue 取消按钮 emit cancel",
+      "fns": [
+        "M03.F01.I06"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useOAuth (ch40) buildOAuthAuthorizeUrl composes provider /authorize URL",
+      "fns": [
+        "M01.F04.I01",
+        "M01.F04.I02",
+        "M01.F04.I03",
+        "M01.F04.I04",
+        "M01.F04.I05"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useOAuth (ch40) handleOAuthCallback exchanges code for token via mock IdP",
+      "fns": [
+        "M01.F04.I01",
+        "M01.F04.I02",
+        "M01.F04.I03",
+        "M01.F04.I04",
+        "M01.F04.I05"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useOAuth (ch40) handleOAuthCallback rejects bad code",
+      "fns": [
+        "M01.F04.I01",
+        "M01.F04.I02",
+        "M01.F04.I03",
+        "M01.F04.I04",
+        "M01.F04.I05"
+      ],
+      "inert": false
+    },
+    {
+      "test": "usePermission composable (ch40) hasPermission returns true when action matches",
+      "fns": [
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "usePermission composable (ch40) hasPermission returns false when action missing",
+      "fns": [
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "usePermission composable (ch40) hasAnyPermission returns true if any code matches",
+      "fns": [
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "usePermission composable (ch40) hasRole returns true when role name present",
+      "fns": [
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useSso (ch40) buildSsoRedirectUrl composes /authorize URL with client_id/redirect_uri/state",
+      "fns": [
+        "M01.F04.I01",
+        "M01.F04.I02",
+        "M01.F04.I05",
+        "M01.F04.I03",
+        "M01.F04.I04"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useSso (ch40) buildSsoRedirectUrl honors override options",
+      "fns": [
+        "M01.F04.I01",
+        "M01.F04.I02",
+        "M01.F04.I05",
+        "M01.F04.I03",
+        "M01.F04.I04"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useSso (ch40) handleSsoCallback exchanges code for token via mock IdP",
+      "fns": [
+        "M01.F04.I01",
+        "M01.F04.I02",
+        "M01.F04.I05",
+        "M01.F04.I03",
+        "M01.F04.I04"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useSso (ch40) handleSsoCallback rejects invalid code",
+      "fns": [
+        "M01.F04.I01",
+        "M01.F04.I02",
+        "M01.F04.I05",
+        "M01.F04.I03",
+        "M01.F04.I04"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useSso (ch40) generateState returns non-empty unique-ish string",
+      "fns": [
+        "M01.F04.I01",
+        "M01.F04.I02",
+        "M01.F04.I05",
+        "M01.F04.I03",
+        "M01.F04.I04"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useTheme (ch39) applyTheme writes CSS variables to documentElement",
+      "fns": [
+        "M01.F02.I01",
+        "M01.F02.I02"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useTheme (ch39) clearTheme removes all tenant CSS variables",
+      "fns": [
+        "M01.F02.I01",
+        "M01.F02.I02"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useTheme (ch39) applyTheme overwrites previous values on switch",
+      "fns": [
+        "M01.F02.I01",
+        "M01.F02.I02"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useVirtualList (ch41) returns empty visible range for empty source",
+      "fns": [
+        "M05.F01.I01"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useVirtualList (ch41) computes visible window for given scrollTop (with overscan buffer)",
+      "fns": [
+        "M05.F01.I01"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useVirtualList (ch41) clamps endIndex to source length",
+      "fns": [
+        "M05.F01.I01"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useVirtualList (ch41) totalHeight reflects source length * itemHeight",
+      "fns": [
+        "M05.F01.I01"
+      ],
+      "inert": false
+    },
+    {
+      "test": "v-permission directive (ch40) keeps element in real DOM when permission is present",
+      "fns": [
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "v-permission directive (ch40) removes element from real DOM when permission is missing",
+      "fns": [
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "v-permission directive (ch40) removes element when user has no permissions",
+      "fns": [
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "v-permission directive (ch40) anyOf semantics: array value matches if any code present",
+      "fns": [
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M04.F01.I12",
+        "M04.F01.I02",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M04.F01.I12",
+        "M04.F01.I02",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M04.F01.I12",
+        "M04.F01.I02",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M04.F01.I12",
+        "M04.F01.I02",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — apps/menus POST /apps 创建应用",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M04.F01.I12",
+        "M04.F01.I02",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — apps/menus POST /apps 缺 name 返回 400",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M04.F01.I12",
+        "M04.F01.I02",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — apps/menus PUT /apps/:id 更新",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M04.F01.I12",
+        "M04.F01.I02",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — apps/menus DELETE /apps/:id 204",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M04.F01.I12",
+        "M04.F01.I02",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M04.F01.I12",
+        "M04.F01.I02",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M04.F01.I12",
+        "M04.F01.I02",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M04.F01.I12",
+        "M04.F01.I02",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — apps/menus POST /menus 创建",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M04.F01.I12",
+        "M04.F01.I02",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — apps/menus POST /menus 缺 appId 400",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M04.F01.I12",
+        "M04.F01.I02",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — apps/menus POST /menus appId 不存在 400",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M04.F01.I12",
+        "M04.F01.I02",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — apps/menus PUT /menus/:id 更新",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M04.F01.I12",
+        "M04.F01.I02",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — apps/menus DELETE /menus/:id 204",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M04.F01.I12",
+        "M04.F01.I02",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — apps/menus DELETE /apps/:id 一并清其菜单",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M04.F01.I12",
+        "M04.F01.I02",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch41-42) — loginSecurity/passwordPolicy/riskControl/notification/openPlatform GET /login-security 单例",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F08.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch41-42) — loginSecurity/passwordPolicy/riskControl/notification/openPlatform PUT /login-security 更新",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F08.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch41-42) — loginSecurity/passwordPolicy/riskControl/notification/openPlatform GET /password-policy 单例",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F08.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch41-42) — loginSecurity/passwordPolicy/riskControl/notification/openPlatform PUT /password-policy 更新",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F08.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch41-42) — loginSecurity/passwordPolicy/riskControl/notification/openPlatform GET /risk-control 单例",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F08.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch41-42) — loginSecurity/passwordPolicy/riskControl/notification/openPlatform PUT /risk-control 更新",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F08.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch41-42) — loginSecurity/passwordPolicy/riskControl/notification/openPlatform GET /notification-config 单例",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F08.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch41-42) — loginSecurity/passwordPolicy/riskControl/notification/openPlatform PUT /notification-config 更新",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F08.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch41-42) — loginSecurity/passwordPolicy/riskControl/notification/openPlatform GET /open-platform-config 单例",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F08.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch41-42) — loginSecurity/passwordPolicy/riskControl/notification/openPlatform PUT /open-platform-config 更新",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F08.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
+      "fns": [
+        "M06.F02.I01",
+        "M06.F03.I01",
+        "M06.F05.I01",
+        "M06.F06.I01",
+        "M06.F02.I02",
+        "M06.F02.I03",
+        "M06.F02.I04",
+        "M06.F03.I02",
+        "M06.F03.I03",
+        "M06.F03.I04",
+        "M06.F03.I05",
+        "M06.F03.I06",
+        "M06.F03.I07",
+        "M06.F03.I08",
+        "M06.F03.I09",
+        "M06.F05.I02",
+        "M06.F05.I03",
+        "M06.F05.I04",
+        "M06.F05.I05",
+        "M06.F05.I06",
+        "M06.F05.I07",
+        "M06.F05.I08",
+        "M06.F06.I02",
+        "M06.F06.I03",
+        "M06.F06.I04",
+        "M06.F06.I05",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
+      "fns": [
+        "M06.F02.I01",
+        "M06.F03.I01",
+        "M06.F05.I01",
+        "M06.F06.I01",
+        "M06.F02.I02",
+        "M06.F02.I03",
+        "M06.F02.I04",
+        "M06.F03.I02",
+        "M06.F03.I03",
+        "M06.F03.I04",
+        "M06.F03.I05",
+        "M06.F03.I06",
+        "M06.F03.I07",
+        "M06.F03.I08",
+        "M06.F03.I09",
+        "M06.F05.I02",
+        "M06.F05.I03",
+        "M06.F05.I04",
+        "M06.F05.I05",
+        "M06.F05.I06",
+        "M06.F05.I07",
+        "M06.F05.I08",
+        "M06.F06.I02",
+        "M06.F06.I03",
+        "M06.F06.I04",
+        "M06.F06.I05",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
+      "fns": [
+        "M06.F02.I01",
+        "M06.F03.I01",
+        "M06.F05.I01",
+        "M06.F06.I01",
+        "M06.F02.I02",
+        "M06.F02.I03",
+        "M06.F02.I04",
+        "M06.F03.I02",
+        "M06.F03.I03",
+        "M06.F03.I04",
+        "M06.F03.I05",
+        "M06.F03.I06",
+        "M06.F03.I07",
+        "M06.F03.I08",
+        "M06.F03.I09",
+        "M06.F05.I02",
+        "M06.F05.I03",
+        "M06.F05.I04",
+        "M06.F05.I05",
+        "M06.F05.I06",
+        "M06.F05.I07",
+        "M06.F05.I08",
+        "M06.F06.I02",
+        "M06.F06.I03",
+        "M06.F06.I04",
+        "M06.F06.I05",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
+      "fns": [
+        "M06.F02.I01",
+        "M06.F03.I01",
+        "M06.F05.I01",
+        "M06.F06.I01",
+        "M06.F02.I02",
+        "M06.F02.I03",
+        "M06.F02.I04",
+        "M06.F03.I02",
+        "M06.F03.I03",
+        "M06.F03.I04",
+        "M06.F03.I05",
+        "M06.F03.I06",
+        "M06.F03.I07",
+        "M06.F03.I08",
+        "M06.F03.I09",
+        "M06.F05.I02",
+        "M06.F05.I03",
+        "M06.F05.I04",
+        "M06.F05.I05",
+        "M06.F05.I06",
+        "M06.F05.I07",
+        "M06.F05.I08",
+        "M06.F06.I02",
+        "M06.F06.I03",
+        "M06.F06.I04",
+        "M06.F06.I05",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
+      "fns": [
+        "M06.F02.I01",
+        "M06.F03.I01",
+        "M06.F05.I01",
+        "M06.F06.I01",
+        "M06.F02.I02",
+        "M06.F02.I03",
+        "M06.F02.I04",
+        "M06.F03.I02",
+        "M06.F03.I03",
+        "M06.F03.I04",
+        "M06.F03.I05",
+        "M06.F03.I06",
+        "M06.F03.I07",
+        "M06.F03.I08",
+        "M06.F03.I09",
+        "M06.F05.I02",
+        "M06.F05.I03",
+        "M06.F05.I04",
+        "M06.F05.I05",
+        "M06.F05.I06",
+        "M06.F05.I07",
+        "M06.F05.I08",
+        "M06.F06.I02",
+        "M06.F06.I03",
+        "M06.F06.I04",
+        "M06.F06.I05",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
+      "fns": [
+        "M06.F02.I01",
+        "M06.F03.I01",
+        "M06.F05.I01",
+        "M06.F06.I01",
+        "M06.F02.I02",
+        "M06.F02.I03",
+        "M06.F02.I04",
+        "M06.F03.I02",
+        "M06.F03.I03",
+        "M06.F03.I04",
+        "M06.F03.I05",
+        "M06.F03.I06",
+        "M06.F03.I07",
+        "M06.F03.I08",
+        "M06.F03.I09",
+        "M06.F05.I02",
+        "M06.F05.I03",
+        "M06.F05.I04",
+        "M06.F05.I05",
+        "M06.F05.I06",
+        "M06.F05.I07",
+        "M06.F05.I08",
+        "M06.F06.I02",
+        "M06.F06.I03",
+        "M06.F06.I04",
+        "M06.F06.I05",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
+      "fns": [
+        "M06.F02.I01",
+        "M06.F03.I01",
+        "M06.F05.I01",
+        "M06.F06.I01",
+        "M06.F02.I02",
+        "M06.F02.I03",
+        "M06.F02.I04",
+        "M06.F03.I02",
+        "M06.F03.I03",
+        "M06.F03.I04",
+        "M06.F03.I05",
+        "M06.F03.I06",
+        "M06.F03.I07",
+        "M06.F03.I08",
+        "M06.F03.I09",
+        "M06.F05.I02",
+        "M06.F05.I03",
+        "M06.F05.I04",
+        "M06.F05.I05",
+        "M06.F05.I06",
+        "M06.F05.I07",
+        "M06.F05.I08",
+        "M06.F06.I02",
+        "M06.F06.I03",
+        "M06.F06.I04",
+        "M06.F06.I05",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
+      "fns": [
+        "M06.F02.I01",
+        "M06.F03.I01",
+        "M06.F05.I01",
+        "M06.F06.I01",
+        "M06.F02.I02",
+        "M06.F02.I03",
+        "M06.F02.I04",
+        "M06.F03.I02",
+        "M06.F03.I03",
+        "M06.F03.I04",
+        "M06.F03.I05",
+        "M06.F03.I06",
+        "M06.F03.I07",
+        "M06.F03.I08",
+        "M06.F03.I09",
+        "M06.F05.I02",
+        "M06.F05.I03",
+        "M06.F05.I04",
+        "M06.F05.I05",
+        "M06.F05.I06",
+        "M06.F05.I07",
+        "M06.F05.I08",
+        "M06.F06.I02",
+        "M06.F06.I03",
+        "M06.F06.I04",
+        "M06.F06.I05",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
+      "fns": [
+        "M06.F02.I01",
+        "M06.F03.I01",
+        "M06.F05.I01",
+        "M06.F06.I01",
+        "M06.F02.I02",
+        "M06.F02.I03",
+        "M06.F02.I04",
+        "M06.F03.I02",
+        "M06.F03.I03",
+        "M06.F03.I04",
+        "M06.F03.I05",
+        "M06.F03.I06",
+        "M06.F03.I07",
+        "M06.F03.I08",
+        "M06.F03.I09",
+        "M06.F05.I02",
+        "M06.F05.I03",
+        "M06.F05.I04",
+        "M06.F05.I05",
+        "M06.F05.I06",
+        "M06.F05.I07",
+        "M06.F05.I08",
+        "M06.F06.I02",
+        "M06.F06.I03",
+        "M06.F06.I04",
+        "M06.F06.I05",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
+      "fns": [
+        "M06.F02.I01",
+        "M06.F03.I01",
+        "M06.F05.I01",
+        "M06.F06.I01",
+        "M06.F02.I02",
+        "M06.F02.I03",
+        "M06.F02.I04",
+        "M06.F03.I02",
+        "M06.F03.I03",
+        "M06.F03.I04",
+        "M06.F03.I05",
+        "M06.F03.I06",
+        "M06.F03.I07",
+        "M06.F03.I08",
+        "M06.F03.I09",
+        "M06.F05.I02",
+        "M06.F05.I03",
+        "M06.F05.I04",
+        "M06.F05.I05",
+        "M06.F05.I06",
+        "M06.F05.I07",
+        "M06.F05.I08",
+        "M06.F06.I02",
+        "M06.F06.I03",
+        "M06.F06.I04",
+        "M06.F06.I05",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds",
+      "fns": [
+        "M06.F02.I01",
+        "M06.F03.I01",
+        "M06.F05.I01",
+        "M06.F06.I01",
+        "M06.F02.I02",
+        "M06.F02.I03",
+        "M06.F02.I04",
+        "M06.F03.I02",
+        "M06.F03.I03",
+        "M06.F03.I04",
+        "M06.F03.I05",
+        "M06.F03.I06",
+        "M06.F03.I07",
+        "M06.F03.I08",
+        "M06.F03.I09",
+        "M06.F05.I02",
+        "M06.F05.I03",
+        "M06.F05.I04",
+        "M06.F05.I05",
+        "M06.F05.I06",
+        "M06.F05.I07",
+        "M06.F05.I08",
+        "M06.F06.I02",
+        "M06.F06.I03",
+        "M06.F06.I04",
+        "M06.F06.I05",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups GET /positions 默认 5 个岗位",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F02.I01",
+        "M02.F02.I09",
+        "M02.F01.I09",
+        "M02.F02.I08",
+        "M02.F01.I02",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F02.I02",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups GET /positions/:id 404",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F02.I01",
+        "M02.F02.I09",
+        "M02.F01.I09",
+        "M02.F02.I08",
+        "M02.F01.I02",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F02.I02",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups POST /positions 创建",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F02.I01",
+        "M02.F02.I09",
+        "M02.F01.I09",
+        "M02.F02.I08",
+        "M02.F01.I02",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F02.I02",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups POST /positions 缺 name 返回 400",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F02.I01",
+        "M02.F02.I09",
+        "M02.F01.I09",
+        "M02.F02.I08",
+        "M02.F01.I02",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F02.I02",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F02.I01",
+        "M02.F02.I09",
+        "M02.F01.I09",
+        "M02.F02.I08",
+        "M02.F01.I02",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F02.I02",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /positions/:id 204",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F02.I01",
+        "M02.F02.I09",
+        "M02.F01.I09",
+        "M02.F02.I08",
+        "M02.F01.I02",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F02.I02",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups GET /user-groups 默认 5 个组",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F02.I01",
+        "M02.F02.I09",
+        "M02.F01.I09",
+        "M02.F02.I08",
+        "M02.F01.I02",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F02.I02",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups POST /user-groups 创建",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F02.I01",
+        "M02.F02.I09",
+        "M02.F01.I09",
+        "M02.F02.I08",
+        "M02.F01.I02",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F02.I02",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F02.I01",
+        "M02.F02.I09",
+        "M02.F01.I09",
+        "M02.F02.I08",
+        "M02.F01.I02",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F02.I02",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /user-groups/:id 204",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F02.I01",
+        "M02.F02.I09",
+        "M02.F01.I09",
+        "M02.F02.I08",
+        "M02.F01.I02",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F02.I02",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups GET /permission-groups 默认 4 个",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F02.I01",
+        "M02.F02.I09",
+        "M02.F01.I09",
+        "M02.F02.I08",
+        "M02.F01.I02",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F02.I02",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups POST /permission-groups 创建带 permissions",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F02.I01",
+        "M02.F02.I09",
+        "M02.F01.I09",
+        "M02.F02.I08",
+        "M02.F01.I02",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F02.I02",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F02.I01",
+        "M02.F02.I09",
+        "M02.F01.I09",
+        "M02.F02.I08",
+        "M02.F01.I02",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F02.I02",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /permission-groups/:id 204",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F02.I01",
+        "M02.F02.I09",
+        "M02.F01.I09",
+        "M02.F02.I08",
+        "M02.F01.I02",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F02.I02",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /login-methods/:id 切换启用",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /login-methods/:id 404",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /sso-providers/:id 切换",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /oauth2-providers/:id 切换",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /token-config 更新",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
+      "fns": [
+        "M06.F01.I01",
+        "M06.F04.I01",
+        "M06.F07.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "setupDynamicRoutes (ch39) registers a route per subscribed feature with tenant prefix",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "setupDynamicRoutes (ch39) is idempotent: calling twice does not duplicate routes",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "setupDynamicRoutes (ch39) skips unknown features gracefully",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "router beforeEach tenant guard (ch39) resolves tenant and registers dynamic routes on first navigation",
+      "fns": [
+        "M01.F01.I08",
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "router beforeEach tenant guard (ch39) redirects to login when tenantId missing",
+      "fns": [
+        "M01.F01.I08",
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "router beforeEach tenant guard (ch39) re-registers dynamic routes when tenant changes",
+      "fns": [
+        "M01.F01.I08",
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "router/nav platformNavItems (对齐 React) 顺序固定为 租户/应用/开放平台/平台配置",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "router/nav platformNavItems (对齐 React) to 字段对齐 React 路径",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "platform 路由嵌套（对齐 React） 四个平台子路由均被 PlatformLayout 父路由包裹",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "platform 路由嵌套（对齐 React） /platform/tenants/acme 匹配 platform-tenant-detail 子路由",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "platform 路由嵌套（对齐 React） /platform 重定向到 /platform/config",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "platform 路由嵌套（对齐 React） 深层未知路径 /x/y/z 重定向到 /acme/dashboard",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "platform 路由嵌套（对齐 React） 通配符兜底排在 /:tenantId 之后（单段路径优先匹配租户）",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "platform 路由嵌套（对齐 React） 平台子路由 name 对齐 React",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "router RBAC guard (ch40) redirects to login when route requires permission but user not authenticated",
+      "fns": [
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "router RBAC guard (ch40) allows access when user has required permission",
+      "fns": [
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "router RBAC guard (ch40) redirects to 403 when authenticated but missing permission",
+      "fns": [
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "router RBAC guard (ch40) allows route with requiredRole when user has matching role name",
+      "fns": [
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "auth store (ch40) loginWithSso writes token + user + currentOrgId",
+      "fns": [
+        "M01.F03.I01"
+      ],
+      "inert": false
+    },
+    {
+      "test": "auth store (ch40) loginWithSso sets error on bad code",
+      "fns": [
+        "M01.F03.I01"
+      ],
+      "inert": false
+    },
+    {
+      "test": "auth store (ch40) refreshPermissions fetches permissions scoped to orgId and stores them",
+      "fns": [
+        "M01.F03.I01"
+      ],
+      "inert": false
+    },
+    {
+      "test": "auth store (ch40) switchOrg updates currentOrgId and refreshes permissions (linked to tenant store)",
+      "fns": [
+        "M01.F03.I01"
+      ],
+      "inert": false
+    },
+    {
+      "test": "auth store (ch40) logout clears all state and token",
+      "fns": [
+        "M01.F03.I01"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useOrgStore — 组织树 CRUD（对齐 React orgStore） 初始状态：tree=null, loading=false, error=null",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I07"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useOrgStore — 组织树 CRUD（对齐 React orgStore） fetchOrgTree 拉取组织树（根 org-root）",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I07"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useOrgStore — 组织树 CRUD（对齐 React orgStore） createOrgNode 在指定父节点下新增子节点并刷新树",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I07"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useOrgStore — 组织树 CRUD（对齐 React orgStore） createOrgNode 不给 parentId 时默认挂到 org-root",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I07"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useOrgStore — 组织树 CRUD（对齐 React orgStore） updateOrgNode 更新节点名称并刷新树",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I07"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useOrgStore — 组织树 CRUD（对齐 React orgStore） deleteOrgNode 删除非根节点并刷新树",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I07"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useOrgStore — 组织树 CRUD（对齐 React orgStore） deleteOrgNode 对根节点失败并设置 error（mock 返回 400）",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I07"
+      ],
+      "inert": false
+    },
+    {
+      "test": "useOrgStore — 组织树 CRUD（对齐 React orgStore） clearError 清空错误",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I07"
+      ],
+      "inert": false
+    },
+    {
+      "test": "role store (rbac.ts) fetchRoles 加载默认角色列表",
+      "fns": [
+        "M03.F01.I08",
+        "M03.F02.I05",
+        "M03.F03.I05",
+        "M03.F01.I10",
+        "M03.F01.I01",
+        "M03.F01.I02",
+        "M03.F01.I03",
+        "M03.F01.I04",
+        "M03.F01.I05",
+        "M03.F01.I06",
+        "M03.F01.I07",
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "role store (rbac.ts) createRole 在列表头部插入新角色",
+      "fns": [
+        "M03.F01.I08",
+        "M03.F02.I05",
+        "M03.F03.I05",
+        "M03.F01.I10",
+        "M03.F01.I01",
+        "M03.F01.I02",
+        "M03.F01.I03",
+        "M03.F01.I04",
+        "M03.F01.I05",
+        "M03.F01.I06",
+        "M03.F01.I07",
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "role store (rbac.ts) updateRole 就地替换目标角色字段",
+      "fns": [
+        "M03.F01.I08",
+        "M03.F02.I05",
+        "M03.F03.I05",
+        "M03.F01.I10",
+        "M03.F01.I01",
+        "M03.F01.I02",
+        "M03.F01.I03",
+        "M03.F01.I04",
+        "M03.F01.I05",
+        "M03.F01.I06",
+        "M03.F01.I07",
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "role store (rbac.ts) updateRole 可写入 menuPermissions（菜单权限矩阵保存）",
+      "fns": [
+        "M03.F01.I08",
+        "M03.F02.I05",
+        "M03.F03.I05",
+        "M03.F01.I10",
+        "M03.F01.I01",
+        "M03.F01.I02",
+        "M03.F01.I03",
+        "M03.F01.I04",
+        "M03.F01.I05",
+        "M03.F01.I06",
+        "M03.F01.I07",
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "role store (rbac.ts) deleteRole 从列表移除目标角色",
+      "fns": [
+        "M03.F01.I08",
+        "M03.F02.I05",
+        "M03.F03.I05",
+        "M03.F01.I10",
+        "M03.F01.I01",
+        "M03.F01.I02",
+        "M03.F01.I03",
+        "M03.F01.I04",
+        "M03.F01.I05",
+        "M03.F01.I06",
+        "M03.F01.I07",
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "role store (rbac.ts) clearError 清空错误态",
+      "fns": [
+        "M03.F01.I08",
+        "M03.F02.I05",
+        "M03.F03.I05",
+        "M03.F01.I10",
+        "M03.F01.I01",
+        "M03.F01.I02",
+        "M03.F01.I03",
+        "M03.F01.I04",
+        "M03.F01.I05",
+        "M03.F01.I06",
+        "M03.F01.I07",
+        "M03.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "tenant store (ch39) init resolves tenant by id from URL segment",
+      "fns": [
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "tenant store (ch39) init sets error when tenant not found",
+      "fns": [
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "tenant store (ch39) switchTenant resets current and re-resolves",
+      "fns": [
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "tenant store (ch39) resolveTenantIdFromPath extracts first path segment",
+      "fns": [
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "tenant store (ch39) subscribedFeatures exposes current tenant feature list",
+      "fns": [
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "tenant store (ch39) fetchTenant 拉取租户写入 current，且不应用主题（平台页不应被租户主题染色）",
+      "fns": [
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "tenant store (ch39) fetchTenant 租户不存在时设 error 且 current 为空",
+      "fns": [
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "tenant store (ch39) updateTenant 发起 PUT 并在失败时抛错",
+      "fns": [
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "user store (ch41) fetchOrgTree loads the org tree",
+      "fns": [
+        "M02.F02.I01",
+        "M02.F02.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "user store (ch41) fetchUsers loads paginated user list",
+      "fns": [
+        "M02.F02.I01",
+        "M02.F02.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "user store (ch41) fetchUsers applies keyword filter",
+      "fns": [
+        "M02.F02.I01",
+        "M02.F02.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "user store (ch41) assignRoles updates a user roles",
+      "fns": [
+        "M02.F02.I01",
+        "M02.F02.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "user store (ch41) fetchUsers applies orgId filter",
+      "fns": [
+        "M02.F02.I01",
+        "M02.F02.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "rbac types mirror React sister contract (ch40) Permission shape: resource + action + optional scope",
+      "fns": [
+        "M03.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "rbac types mirror React sister contract (ch40) PermissionState shape: roles + permissions + loading + error",
+      "fns": [
+        "M03.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "rbac types mirror React sister contract (ch40) RoleCreateInput shape: name + permissions + optional menuPermissions",
+      "fns": [
+        "M03.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "rbac types mirror React sister contract (ch40) RoleState / RoleActions / RoleStore compose",
+      "fns": [
+        "M03.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "rbac types mirror React sister contract (ch40) ALL_PERMISSIONS lists the 7 shared permission codes",
+      "fns": [
+        "M03.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "rbac types mirror React sister contract (ch40) Vue-side RolePermissionMatrix / DEFAULT_ROLE_PERMISSION_MATRIX exist for ch40 pedagogy",
+      "fns": [
+        "M03.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "ApiKeysList.vue (对齐 React) 挂载后展示 API Key 列表",
+      "fns": [
+        "M04.F02.I01",
+        "M04.F02.I02",
+        "M04.F02.I03",
+        "M04.F02.I04"
+      ],
+      "inert": false
+    },
+    {
+      "test": "ApiKeysList.vue (对齐 React) 挂载时调用 fetchApiKeys 拉取",
+      "fns": [
+        "M04.F02.I01",
+        "M04.F02.I02",
+        "M04.F02.I03",
+        "M04.F02.I04"
+      ],
+      "inert": false
+    },
+    {
+      "test": "ApiKeysList.vue (对齐 React) 新建/启用禁用/删除入口存在",
+      "fns": [
+        "M04.F02.I02",
+        "M04.F02.I03",
+        "M04.F02.I04",
+        "M04.F02.I01"
+      ],
+      "inert": false
+    },
+    {
+      "test": "AppList.vue (ch42 平台应用管理) 挂载后展示默认应用列表",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I03",
+        "M04.F01.I04",
+        "M04.F01.I05",
+        "M04.F01.I02",
+        "M04.F01.I06",
+        "M04.F01.I07",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M04.F01.I12"
+      ],
+      "inert": false
+    },
+    {
+      "test": "AppList.vue (ch42 平台应用管理) 点\"新建应用\"显示表单，提交后列表新增",
+      "fns": [],
+      "inert": false
+    },
+    {
+      "test": "AuditLog.vue (ch41) renders audit log rows after fetch",
+      "fns": [
+        "M05.F01.I01",
+        "M05.F01.I02",
+        "M05.F01.I03",
+        "M05.F01.I04",
+        "M05.F01.I05",
+        "M05.F01.I06",
+        "M05.F01.I07",
+        "M05.F01.I08",
+        "M05.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "AuditLog.vue (ch41) shows total count",
+      "fns": [
+        "M05.F01.I01",
+        "M05.F01.I02",
+        "M05.F01.I03",
+        "M05.F01.I04",
+        "M05.F01.I05",
+        "M05.F01.I06",
+        "M05.F01.I07",
+        "M05.F01.I08",
+        "M05.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "AuditLog.vue (ch41) paginates to next page when available",
+      "fns": [
+        "M05.F01.I01",
+        "M05.F01.I02",
+        "M05.F01.I03",
+        "M05.F01.I04",
+        "M05.F01.I05",
+        "M05.F01.I06",
+        "M05.F01.I07",
+        "M05.F01.I08",
+        "M05.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "AuditLog.vue (ch41) filters by action=login via dropdown",
+      "fns": [
+        "M05.F01.I01",
+        "M05.F01.I02",
+        "M05.F01.I03",
+        "M05.F01.I04",
+        "M05.F01.I05",
+        "M05.F01.I06",
+        "M05.F01.I07",
+        "M05.F01.I08",
+        "M05.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "Login.vue (对齐 React) 挂载后渲染「登录」标题与 SSO 按钮",
+      "fns": [
+        "M01.F04.I04",
+        "M01.F04.I01",
+        "M01.F04.I02",
+        "M01.F04.I03",
+        "M01.F04.I05"
+      ],
+      "inert": false
+    },
+    {
+      "test": "Login.vue (对齐 React) 点 SSO 按钮调 redirectToSso",
+      "fns": [
+        "M01.F04.I04",
+        "M01.F04.I01",
+        "M01.F04.I02",
+        "M01.F04.I03",
+        "M01.F04.I05"
+      ],
+      "inert": false
+    },
+    {
+      "test": "MenuList.vue (ch42 平台菜单管理) 挂载后展示指定 app 的菜单",
+      "fns": [
+        "M04.F01.I07",
+        "M04.F01.I08",
+        "M04.F01.I09",
+        "M04.F01.I10",
+        "M04.F01.I11",
+        "M04.F01.I01",
+        "M04.F01.I02",
+        "M04.F01.I03",
+        "M04.F01.I04",
+        "M04.F01.I05",
+        "M04.F01.I06",
+        "M04.F01.I12"
+      ],
+      "inert": false
+    },
+    {
+      "test": "MenuPermissions.vue 未选应用和角色时显示提示",
+      "fns": [
+        "M03.F01.I07"
+      ],
+      "inert": false
+    },
+    {
+      "test": "MenuPermissions.vue 选应用+角色后渲染菜单矩阵",
+      "fns": [
+        "M03.F01.I07"
+      ],
+      "inert": false
+    },
+    {
+      "test": "MenuPermissions.vue 勾选某菜单的 view 权限后保存，调用 updateRole",
+      "fns": [
+        "M03.F01.I07"
+      ],
+      "inert": false
+    },
+    {
+      "test": "MenuPermissions.vue 父菜单全选联动勾选所有子菜单",
+      "fns": [
+        "M03.F01.I07"
+      ],
+      "inert": false
+    },
+    {
+      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 挂载触发 fetchOrgTree 并渲染组织树",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 渲染「新增根部门」按钮",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中根节点时不显示「删除」按钮（根不可删）",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中非根节点时显示「删除」按钮",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「新增根部门」打开弹窗（mode=create, nodeId=org-root）",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 create 调 store.createOrgNode(name, parentId)",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 edit 调 store.updateOrgNode(id, name)",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「删除」打开确认弹窗；确认调 store.deleteOrgNode(id)",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） error 态渲染告警条",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "PermissionGroupsList.vue (对齐 React) 挂载后展示权限组列表",
+      "fns": [
+        "M03.F02.I01",
+        "M03.F02.I02",
+        "M03.F02.I03",
+        "M03.F02.I04",
+        "M03.F02.I05"
+      ],
+      "inert": false
+    },
+    {
+      "test": "PermissionGroupsList.vue (对齐 React) 挂载时调用 fetchPermissionGroups 拉取",
+      "fns": [
+        "M03.F02.I01",
+        "M03.F02.I02",
+        "M03.F02.I03",
+        "M03.F02.I04",
+        "M03.F02.I05"
+      ],
+      "inert": false
+    },
+    {
+      "test": "PermissionGroupsList.vue (对齐 React) 新建/编辑/删除入口存在",
+      "fns": [
+        "M03.F02.I02",
+        "M03.F02.I03",
+        "M03.F02.I04",
+        "M03.F02.I01",
+        "M03.F02.I05"
+      ],
+      "inert": false
+    },
+    {
+      "test": "PlatformConfigForm.vue（对齐 React PlatformConfig） 渲染平台配置标题与平台信息只读展示",
+      "fns": [
+        "M06.F08.I01"
+      ],
+      "inert": false
+    },
+    {
+      "test": "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M06.F01.I01",
+        "M06.F02.I01",
+        "M06.F03.I01",
+        "M06.F04.I01",
+        "M06.F05.I01",
+        "M06.F06.I01",
+        "M06.F07.I01",
+        "M06.F08.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F02.I02",
+        "M06.F02.I03",
+        "M06.F02.I04",
+        "M06.F03.I02",
+        "M06.F03.I03",
+        "M06.F03.I04",
+        "M06.F03.I05",
+        "M06.F03.I06",
+        "M06.F03.I07",
+        "M06.F03.I08",
+        "M06.F03.I09",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F05.I02",
+        "M06.F05.I03",
+        "M06.F05.I04",
+        "M06.F05.I05",
+        "M06.F05.I06",
+        "M06.F05.I07",
+        "M06.F05.I08",
+        "M06.F06.I02",
+        "M06.F06.I03",
+        "M06.F06.I04",
+        "M06.F06.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06"
+      ],
+      "inert": false
+    },
+    {
+      "test": "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
+      "fns": [
+        "M04.F01.I01",
+        "M04.F01.I07",
+        "M06.F01.I01",
+        "M06.F02.I01",
+        "M06.F03.I01",
+        "M06.F04.I01",
+        "M06.F05.I01",
+        "M06.F06.I01",
+        "M06.F07.I01",
+        "M06.F08.I01",
+        "M06.F01.I02",
+        "M06.F01.I03",
+        "M06.F01.I04",
+        "M06.F01.I05",
+        "M06.F01.I06",
+        "M06.F01.I07",
+        "M06.F01.I08",
+        "M06.F02.I02",
+        "M06.F02.I03",
+        "M06.F02.I04",
+        "M06.F03.I02",
+        "M06.F03.I03",
+        "M06.F03.I04",
+        "M06.F03.I05",
+        "M06.F03.I06",
+        "M06.F03.I07",
+        "M06.F03.I08",
+        "M06.F03.I09",
+        "M06.F04.I02",
+        "M06.F04.I03",
+        "M06.F04.I04",
+        "M06.F04.I05",
+        "M06.F05.I02",
+        "M06.F05.I03",
+        "M06.F05.I04",
+        "M06.F05.I05",
+        "M06.F05.I06",
+        "M06.F05.I07",
+        "M06.F05.I08",
+        "M06.F06.I02",
+        "M06.F06.I03",
+        "M06.F06.I04",
+        "M06.F06.I05",
+        "M06.F07.I02",
+        "M06.F07.I03",
+        "M06.F07.I04",
+        "M06.F07.I05",
+        "M06.F07.I06"
+      ],
+      "inert": false
+    },
+    {
+      "test": "PositionsList.vue (对齐 React) 挂载后展示岗位列表",
+      "fns": [
+        "M02.F03.I01",
+        "M02.F03.I02",
+        "M02.F03.I03",
+        "M02.F03.I04",
+        "M02.F03.I05"
+      ],
+      "inert": false
+    },
+    {
+      "test": "PositionsList.vue (对齐 React) 挂载时调用 fetchPositions 拉取列表",
+      "fns": [
+        "M02.F03.I01",
+        "M02.F03.I02",
+        "M02.F03.I03",
+        "M02.F03.I04",
+        "M02.F03.I05"
+      ],
+      "inert": false
+    },
+    {
+      "test": "PositionsList.vue (对齐 React) 新建/编辑/删除入口存在",
+      "fns": [
+        "M02.F03.I03",
+        "M02.F03.I04",
+        "M02.F03.I05",
+        "M02.F03.I01",
+        "M02.F03.I02"
+      ],
+      "inert": false
+    },
+    {
+      "test": "RolesList.vue 挂载后展示默认角色列表",
+      "fns": [
+        "M03.F01.I01",
+        "M03.F01.I02",
+        "M03.F01.I03",
+        "M03.F01.I04",
+        "M03.F01.I05",
+        "M03.F01.I06",
+        "M03.F01.I07",
+        "M03.F01.I08",
+        "M03.F01.I09",
+        "M03.F01.I10"
+      ],
+      "inert": false
+    },
+    {
+      "test": "RolesList.vue 点「新建角色」显示表单弹窗",
+      "fns": [
+        "M03.F01.I01",
+        "M03.F01.I02",
+        "M03.F01.I03",
+        "M03.F01.I04",
+        "M03.F01.I05",
+        "M03.F01.I06",
+        "M03.F01.I07",
+        "M03.F01.I08",
+        "M03.F01.I09",
+        "M03.F01.I10"
+      ],
+      "inert": false
+    },
+    {
+      "test": "RolesList.vue 新建表单提交后列表新增一行",
+      "fns": [
+        "M03.F01.I01",
+        "M03.F01.I02",
+        "M03.F01.I03",
+        "M03.F01.I04",
+        "M03.F01.I05",
+        "M03.F01.I06",
+        "M03.F01.I07",
+        "M03.F01.I08",
+        "M03.F01.I09",
+        "M03.F01.I10"
+      ],
+      "inert": false
+    },
+    {
+      "test": "RolesList.vue 行内「编辑」打开预填表单",
+      "fns": [
+        "M03.F01.I01",
+        "M03.F01.I02",
+        "M03.F01.I03",
+        "M03.F01.I04",
+        "M03.F01.I05",
+        "M03.F01.I06",
+        "M03.F01.I07",
+        "M03.F01.I08",
+        "M03.F01.I09",
+        "M03.F01.I10"
+      ],
+      "inert": false
+    },
+    {
+      "test": "RolesList.vue 行内「删除」打开确认弹窗，确认后该行消失",
+      "fns": [
+        "M03.F01.I01",
+        "M03.F01.I02",
+        "M03.F01.I03",
+        "M03.F01.I04",
+        "M03.F01.I05",
+        "M03.F01.I06",
+        "M03.F01.I07",
+        "M03.F01.I08",
+        "M03.F01.I09",
+        "M03.F01.I10"
+      ],
+      "inert": false
+    },
+    {
+      "test": "SsoCallback.vue (对齐 React) 挂载后渲染 SSO 回调容器（data-fn 锚点）",
+      "fns": [
+        "M01.F04.I03",
+        "M01.F04.I01",
+        "M01.F04.I02",
+        "M01.F04.I04",
+        "M01.F04.I05"
+      ],
+      "inert": false
+    },
+    {
+      "test": "SsoCallback.vue (对齐 React) 收到 code 后调 handleSsoCallback",
+      "fns": [
+        "M01.F04.I03",
+        "M01.F04.I01",
+        "M01.F04.I02",
+        "M01.F04.I04",
+        "M01.F04.I05"
+      ],
+      "inert": false
+    },
+    {
+      "test": "SsoCallback.vue (对齐 React) 无 code 跳回 /login",
+      "fns": [
+        "M01.F04.I03",
+        "M01.F04.I01",
+        "M01.F04.I02",
+        "M01.F04.I04",
+        "M01.F04.I05"
+      ],
+      "inert": false
+    },
+    {
+      "test": "TenantDetail.vue (对齐 React) 挂载触发 fetchTenant，三段标题渲染",
+      "fns": [
+        "M01.F01.I04",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I05",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "TenantDetail.vue (对齐 React) 点保存调用 updateTenant 且 payload 含 name/theme/config",
+      "fns": [
+        "M01.F01.I04",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I05",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "TenantDetail.vue (对齐 React) 点返回跳 /platform/tenants",
+      "fns": [
+        "M01.F01.I04",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I05",
+        "M01.F01.I08",
+        "M01.F01.I09",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "TenantLayout.vue (ch39 多租户架构) 正常拉取：渲染侧边栏 + 子路由出口（dashboard）",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "TenantLayout.vue (ch39 多租户架构) 空 tenantId：渲染空状态",
+      "fns": [
+        "M01.F01.I08"
+      ],
+      "inert": false
+    },
+    {
+      "test": "TenantList.vue 详情链接（对齐 React） 每行有详情配置按钮，点击跳 platform-tenant-detail",
+      "fns": [
+        "M01.F01.I01",
+        "M01.F01.I02",
+        "M01.F01.I03",
+        "M01.F01.I04",
+        "M01.F01.I05",
+        "M01.F01.I09",
+        "M01.F01.I06",
+        "M01.F01.I07",
+        "M01.F01.I08",
+        "M01.F01.I10",
+        "M01.F01.I11"
+      ],
+      "inert": false
+    },
+    {
+      "test": "UserGroupsList.vue (对齐 React) 挂载后展示用户组列表",
+      "fns": [
+        "M03.F03.I01",
+        "M03.F03.I02",
+        "M03.F03.I03",
+        "M03.F03.I04",
+        "M03.F03.I05"
+      ],
+      "inert": false
+    },
+    {
+      "test": "UserGroupsList.vue (对齐 React) 挂载时调用 fetchUserGroups 拉取",
+      "fns": [
+        "M03.F03.I01",
+        "M03.F03.I02",
+        "M03.F03.I03",
+        "M03.F03.I04",
+        "M03.F03.I05"
+      ],
+      "inert": false
+    },
+    {
+      "test": "UserGroupsList.vue (对齐 React) 新建/编辑/删除入口存在",
+      "fns": [
+        "M03.F03.I02",
+        "M03.F03.I03",
+        "M03.F03.I04",
+        "M03.F03.I01",
+        "M03.F03.I05"
+      ],
+      "inert": false
+    },
+    {
+      "test": "UserList.vue (ch41) renders user rows after fetch",
+      "fns": [
+        "M02.F02.I01",
+        "M02.F02.I03",
+        "M02.F02.I04",
+        "M02.F02.I05",
+        "M02.F02.I06",
+        "M02.F02.I07",
+        "M02.F02.I02",
+        "M02.F02.I08",
+        "M02.F02.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "UserList.vue (ch41) shows total count",
+      "fns": [
+        "M02.F02.I01",
+        "M02.F02.I03",
+        "M02.F02.I04",
+        "M02.F02.I05",
+        "M02.F02.I06",
+        "M02.F02.I07",
+        "M02.F02.I02",
+        "M02.F02.I08",
+        "M02.F02.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "UserList.vue (ch41) keyword search filters the list",
+      "fns": [
+        "M02.F02.I01",
+        "M02.F02.I03",
+        "M02.F02.I04",
+        "M02.F02.I05",
+        "M02.F02.I06",
+        "M02.F02.I07",
+        "M02.F02.I02",
+        "M02.F02.I08",
+        "M02.F02.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "UserList.vue (ch41) role-select on a row triggers assignRoles",
+      "fns": [
+        "M02.F02.I01",
+        "M02.F02.I03",
+        "M02.F02.I04",
+        "M02.F02.I05",
+        "M02.F02.I06",
+        "M02.F02.I07",
+        "M02.F02.I02",
+        "M02.F02.I08",
+        "M02.F02.I09"
+      ],
+      "inert": false
+    }
+  ]
+}

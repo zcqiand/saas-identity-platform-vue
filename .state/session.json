@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "project": "saas-identity-platform-vue",
+  "current_task": "saas-vue 已达 L0..L5 全绿 + 0 软告警（160 功能条目）。Vue 独有 ADR-0006 与 8 个 org.ts / rbac.ts 类型扩展保留。",
+  "done": [
+    "(2026-07-15) .harness/ 契约：stack.json (vue-ts) + common.lock.json (8 条 agents+skills 哈希) + .claude/{agents,skills} 同步",
+    "(2026-07-15) docs/ 骨架：function-tree.md (镜像 React 6 模块 / 21 功能 / 133 子项) + design/design-function-map.md + design/flow-function-map.md (133 子项孤儿白名单) + conventions/saas-book-conventions.md + requirements/_TEMPLATE.md",
+    "(2026-07-15) CLAUDE.md 缩至 35 行（≤60 上限）",
+    "(2026-07-15) tests/fn.ts + tests/trace-parse.js（vitest JSON → .state/trace.json，与 React 仓 fnReporter 契约等价）",
+    "(2026-07-15) 补 package.json + version-lock.json：prettier / eslint / eslint-plugin-vue / vue-eslint-parser / typescript-eslint；建 .prettierrc.json + eslint.config.js；修 tsconfig.json exclude tests/",
+    "(2026-07-15) scripts/bind-fns.mjs：手工兜底 + --auto 自动推断",
+    "(2026-07-15) scripts/bind-entries.mjs + scripts/clean-entries.mjs",
+    "(2026-07-15) Vue 拆独立页：Login.vue (M01.F04.I04) + SsoCallback.vue (M01.F04.I03)",
+    "(2026-07-15) 补 6 个 view 测试文件：PositionsList / PermissionGroupsList / UserGroupsList / ApiKeysList / Login / SsoCallback",
+    "(2026-07-15) python scripts/gate.py --all 验证：lab-management-system / -vue / saas-identity-platform / -vue 四个 active 项目均 L0-L5 全 PASS",
+    "(2026-07-30) types 拆子目录：src/types/ 新建 position.ts + userGroup.ts（REF 同名），org.ts 改 barrel re-export 桶（向后兼容 6 处 import）；Vue 独有的 rbac.ts（RolePermissionMatrix / DEFAULT_ROLE_PERMISSION_MATRIX 教学常量）保留",
+    "(2026-07-30) docs/ 落：docs/{adr/conventions/design/functions/integration/plans/requirements/state} 子目录；3 份 conventions 拷自 React 仓（react-perf.md / app-ui.md / saas-book-conventions.md）；2 份集成文档（lab-集成改动.md / saas-lab-集成落地包.md）；其中 lab-集成改动.md / saas-lab-集成落地包.md 内 msw/ 路径已 sed 改 mocks/",
+    "(2026-07-30) msw/jwt.ts 加 tenantId? / appId? SSO 字段（双端对齐）",
+    "(2026-07-30) cross-impl-shape.test.ts 验证：17 项 React 仓 endpoint 在 Vue 仓 db.ts 全部字段覆盖（实际计数：Vue 端 ssoProviders=7 / apiKeys=10 / loginMethods=7，REF 6/9/6，Vue 更全）",
+    "(2026-07-30) src/router/index.ts + AppSidebar.vue：加 'inspection' 分组（与 lab-vue 同步）",
+    "(2026-07-30) doc 1:2 同步：docs/adr/ 6 份拷自 lab-vue ADR（与 React saas 仓共享决策）"
+  ],
+  "next": "1) 跨仓契约断言：跑 tests/cross-impl-shape.test.ts 验证 Vue 仓 17 项 endpoint 字段覆盖 React 仓（当前全绿，但只检字段名存在，不检字段类型一致性）。2) src/views/auth/Login.vue 的 data-fn 挂载方式（L5 检测发现 data-fn=M01.F04.I01 挂在最外层 div，但 M01.F04.I01 语义是「构造授权 URL」属于 useSso 不是 Login；建议改 injectVueDataFn 按 type 字段选最合适的 ID）。3) msw/handlers.ts db.ts seed 与 React 仓对比（Vue 端 ch40+ 数据更全，diff 看 React 端是否要回填）。4) scripts/bind-fns.mjs 的 FILE_FNS 手工兜底 19 个文件能否用 endpoint → fn 映射表完全自动生成。",
+  "open_questions": [
+    "M01.F04.I01 data-fn 挂载位置语义错位：当前挂在 Login.vue 最外层 div，但 type=按钮/接口 语义是「构造授权 URL」属 useSso；injectVueDataFn 是否要按 type 字段选最合适的 ID？",
+    "scripts/bind-fns.mjs 的 mock handler 测试（mocks/*.test.ts）走 auto-inference 但推断的是 apiClient endpoint 路径，不是真测试 Mxx.Fyy 的业务行为。要不要在 trace.json 里给 mock 测试打不同 fn ID？",
+    "src/composables/ 下的 useSso.ts/useTheme.ts/usePermission.ts 当前没有 data-fn/@entry（auto-infer 拿不到 bootstrap），如想让 composables 也参与 L5 入口，需要在它们身上挂一个 data-fn 或 // @entry",
+    "Vue 端 ch40+ 数据表（ssoProviders=7 / apiKeys=10）比 React 仓（6/9）多，diff 看是 Vue 端冗余还是 React 端缺漏——大概率是 Vue 端多塞了 1 条 seed，需要在 Vue 端删掉避免数据漂移"
+  ],
+  "blocked_by": [],
+  "dont": [
+    "不要给 skip/xit/it.todo 的测试挂 [fn: ...]（trace-parse 强制空）",
+    "不要直接改 src/router/index.ts 里的 '/login' 内联 template 占位（已被 Login.vue 替换）",
+    "不要跑第二次 scripts/bind-entries.mjs 不先跑 scripts/clean-entries.mjs（@entry 会重复）",
+    "不要把 scripts/bind-entries.mjs 的 FILE_FNS_FALLBACK 里的 'mocks/handlers.ts' 删掉（与 React 仓共享契约）",
+    "不要把 .harness/common.lock.json 改成 > 8 条（与 React 仓契约一致）",
+    "不要照搬 React 仓的 src/types/inspection/ 20+ 类型到 saas-vue（saas 仓不实现 M06 inspection 域）",
+    "不要把 mocks/handlers.ts 改名成 msw/handlers.ts（Vue 仓约定是 mocks/，与 React 仓 msw/ 是有意命名差）"
+  ],
+  "last_handoff_at": "2026-07-30"
+}
