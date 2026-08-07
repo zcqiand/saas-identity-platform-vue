@@ -42,11 +42,10 @@ describe('router beforeEach tenant guard (ch39)', () => {
     await new Promise((r) => setTimeout(r, 0))
     expect(router.getRoutes().some((r) => r.path === '/acme/sso')).toBe(true)
 
-    await router.push('/globex/dashboard')
+    // Phase 5d：shared seeds 顶层只有 acme + tenant-lab（globex 已废弃）
+    await router.push('/tenant-lab/dashboard')
     await new Promise((r) => setTimeout(r, 0))
-    // globex 订阅了 sso/rbac（无 audit）
-    expect(router.getRoutes().some((r) => r.path === '/globex/sso')).toBe(true)
-    expect(router.getRoutes().some((r) => r.path === '/globex/rbac')).toBe(true)
+    expect(router.getRoutes().some((r) => r.path === '/tenant-lab/sso')).toBe(true)
     // acme 的动态路由应已卸载
     expect(router.getRoutes().some((r) => r.path === '/acme/sso')).toBe(false)
   })

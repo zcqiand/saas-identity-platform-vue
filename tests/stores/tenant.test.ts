@@ -33,16 +33,15 @@ describe('tenant store (ch39)', () => {
     const store = useTenantStore()
     await store.initFromLocation('acme')
     expect(store.current?.id).toBe('acme')
-    // 切到 globex
-    await store.switchTenant('globex')
-    expect(store.current?.id).toBe('globex')
-    expect(store.current?.theme.primary).toBe('#059669')
+    // 切到 tenant-lab（Phase 5d：shared seeds 只有 acme + tenant-lab，原 demo globex/initech 等 11 个已废弃）
+    await store.switchTenant('tenant-lab')
+    expect(store.current?.id).toBe('tenant-lab')
   })
 
   it('resolveTenantIdFromPath extracts first path segment [fn: M01.F01.I10, M01.F01.I11]', () => {
     const store = useTenantStore()
     expect(store.resolveTenantIdFromPath('/acme/dashboard')).toBe('acme')
-    expect(store.resolveTenantIdFromPath('/globex/users')).toBe('globex')
+    expect(store.resolveTenantIdFromPath('/tenant-lab/users')).toBe('tenant-lab')
     expect(store.resolveTenantIdFromPath('/')).toBe('')
   })
 

@@ -20,7 +20,7 @@ describe('MenuList.vue (ch42 平台菜单管理)', () => {
   })
 
   it('挂载后展示指定 app 的菜单 [fn: M04.F01.I07, M04.F01.I08, M04.F01.I09, M04.F01.I10, M04.F01.I11, M04.F01.I01, M04.F01.I02, M04.F01.I03, M04.F01.I04, M04.F01.I05, M04.F01.I06, M04.F01.I12]', async () => {
-    await router.push('/platform/apps/app-console/menus')
+    await router.push('/platform/apps/app-lab/menus')
     await router.isReady()
     const wrapper = mount(MenuList, {
       global: { plugins: [router] },
@@ -29,6 +29,6 @@ describe('MenuList.vue (ch42 平台菜单管理)', () => {
     await flushPromises()
     await flushPromises()
     const rows = wrapper.findAll('[data-testid="menu-row"]')
-    expect(rows.length).toBeGreaterThanOrEqual(4) // IAM 控制台 4 个菜单
+    expect(rows.length).toBeGreaterThanOrEqual(4) // app-lab 含 5 分组 + 21 叶菜单（shared seed）
   })
 })

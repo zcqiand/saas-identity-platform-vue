@@ -13,7 +13,7 @@
     "M01.F01.I01": {
       "name": "租户列表页",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -29,8 +29,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -55,7 +55,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -79,18 +79,7 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups POST /user-groups 创建",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
-        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新"
       ],
       "entry": [
         "src\\api\\client.ts",
@@ -104,7 +93,7 @@
     "M01.F01.I02": {
       "name": "租户查询",
       "status": "已上线",
-      "type": "查询",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -120,8 +109,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -146,7 +135,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -170,18 +159,7 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups POST /user-groups 创建",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
-        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新"
       ],
       "entry": [
         "src\\api\\client.ts",
@@ -195,7 +173,7 @@
     "M01.F01.I03": {
       "name": "新增租户",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -211,8 +189,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -237,7 +215,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -261,18 +239,7 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups POST /user-groups 创建",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
-        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新"
       ],
       "entry": [
         "src\\api\\client.ts",
@@ -286,7 +253,7 @@
     "M01.F01.I04": {
       "name": "查看租户详情",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -302,8 +269,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -328,7 +295,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -352,18 +319,7 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups POST /user-groups 创建",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
-        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新"
       ],
       "entry": [
         "src\\api\\client.ts",
@@ -377,7 +333,7 @@
     "M01.F01.I05": {
       "name": "删除租户",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -393,8 +349,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -419,7 +375,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -443,18 +399,7 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups POST /user-groups 创建",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
-        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新"
       ],
       "entry": [
         "src\\api\\client.ts",
@@ -468,7 +413,7 @@
     "M01.F01.I06": {
       "name": "租户详情/编辑页",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -484,8 +429,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -510,7 +455,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -534,18 +479,7 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups POST /user-groups 创建",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
-        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新"
       ],
       "entry": [
         "src\\api\\client.ts",
@@ -559,7 +493,7 @@
     "M01.F01.I07": {
       "name": "保存租户配置",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -575,8 +509,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -601,7 +535,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -625,18 +559,7 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups POST /user-groups 创建",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
-        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新"
       ],
       "entry": [
         "src\\api\\client.ts",
@@ -650,7 +573,7 @@
     "M01.F01.I08": {
       "name": "租户布局与切换",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -663,7 +586,7 @@
         "AppSidebar.vue (ch39/ch40) 平台 nav 顺序对齐 React（租户/应用/开放平台/平台配置）",
         "AppSidebar.vue (ch39/ch40) 当前路由高亮：active 类应用于匹配项",
         "AppSidebar.vue (ch39/ch40) 普通用户仅有 user:read：仅渲染 dashboard + users",
-        "AppSidebar.vue (ch39/ch40) 身份管理分组顺序对齐 React（组织管理在用户管理之前，用户管理末位）",
+        "AppSidebar.vue (ch39/ch40) 身份管理分组顺序对齐 React（部门管理在用户管理之前，用户管理末位）",
         "TenantDetail.vue (对齐 React) 挂载触发 fetchTenant，三段标题渲染",
         "TenantDetail.vue (对齐 React) 点保存调用 updateTenant 且 payload 含 name/theme/config",
         "TenantDetail.vue (对齐 React) 点返回跳 /platform/tenants",
@@ -673,8 +596,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -699,7 +622,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -724,17 +647,6 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds",
         "platform 路由嵌套（对齐 React） /platform 重定向到 /platform/config",
         "platform 路由嵌套（对齐 React） /platform/tenants/acme 匹配 platform-tenant-detail 子路由",
         "platform 路由嵌套（对齐 React） 四个平台子路由均被 PlatformLayout 父路由包裹",
@@ -762,7 +674,7 @@
     "M01.F01.I09": {
       "name": "切换租户(列表入口)",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -778,8 +690,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -804,7 +716,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -828,18 +740,7 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups POST /user-groups 创建",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
-        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新"
       ],
       "entry": [
         "src\\api\\client.ts",
@@ -876,8 +777,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -902,7 +803,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -927,17 +828,6 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds",
         "tenant store (ch39) fetchTenant 拉取租户写入 current，且不应用主题（平台页不应被租户主题染色）",
         "tenant store (ch39) fetchTenant 租户不存在时设 error 且 current 为空",
         "tenant store (ch39) init resolves tenant by id from URL segment",
@@ -975,8 +865,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -1001,7 +891,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -1026,17 +916,6 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds",
         "tenant store (ch39) fetchTenant 拉取租户写入 current，且不应用主题（平台页不应被租户主题染色）",
         "tenant store (ch39) fetchTenant 租户不存在时设 error 且 current 为空",
         "tenant store (ch39) init resolves tenant by id from URL segment",
@@ -1107,11 +986,11 @@
         "docs\\design\\design-function-map.md"
       ],
       "tests": [
-        "auth store (ch40) loginWithSso sets error on bad code",
-        "auth store (ch40) loginWithSso writes token + user + currentOrgId",
-        "auth store (ch40) logout clears all state and token",
-        "auth store (ch40) refreshPermissions fetches permissions scoped to orgId and stores them",
-        "auth store (ch40) switchOrg updates currentOrgId and refreshes permissions (linked to tenant store)"
+        "auth store (ch40, v0.3.0 rename) loginWithSso sets error on bad code",
+        "auth store (ch40, v0.3.0 rename) loginWithSso writes token + user + currentDepartmentId",
+        "auth store (ch40, v0.3.0 rename) logout clears all state and token",
+        "auth store (ch40, v0.3.0 rename) refreshPermissions fetches permissions scoped to departmentId and stores them",
+        "auth store (ch40, v0.3.0 rename) switchDepartment updates currentDepartmentId and refreshes permissions"
       ],
       "entry": [
         "src\\stores\\auth.ts"
@@ -1188,7 +1067,7 @@
     "M01.F04.I03": {
       "name": "SSO 回调处理页",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -1222,7 +1101,7 @@
     "M01.F04.I04": {
       "name": "登录入口页",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -1288,9 +1167,9 @@
       ]
     },
     "M02.F01.I01": {
-      "name": "组织管理页",
+      "name": "部门管理页",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -1299,18 +1178,18 @@
         "docs\\design\\design-function-map.md"
       ],
       "tests": [
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） error 态渲染告警条",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 create 调 store.createOrgNode(name, parentId)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 edit 调 store.updateOrgNode(id, name)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 挂载触发 fetchOrgTree 并渲染组织树",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 渲染「新增根部门」按钮",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「删除」打开确认弹窗；确认调 store.deleteOrgNode(id)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「新增根部门」打开弹窗（mode=create, nodeId=org-root）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中根节点时不显示「删除」按钮（根不可删）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中非根节点时显示「删除」按钮",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） error 态渲染告警条",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 create 调 store.createDepartmentNode(name, parentId)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 edit 调 store.updateDepartmentNode(id, name)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 挂载触发 fetchDepartmentTree 并渲染部门树",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 渲染「新增根部门」按钮",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「删除」打开确认弹窗；确认调 store.deleteDepartmentNode(id)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「新增根部门」打开弹窗（mode=create, nodeId=department-root）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中根节点时不显示「删除」按钮（根不可删）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中非根节点时显示「删除」按钮",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /permission-groups/:id 204",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /positions/:id 204",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /user-groups/:id 204",
@@ -1325,26 +1204,34 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
-        "useOrgStore — 组织树 CRUD（对齐 React orgStore） clearError 清空错误",
-        "useOrgStore — 组织树 CRUD（对齐 React orgStore） createOrgNode 不给 parentId 时默认挂到 org-root",
-        "useOrgStore — 组织树 CRUD（对齐 React orgStore） createOrgNode 在指定父节点下新增子节点并刷新树",
-        "useOrgStore — 组织树 CRUD（对齐 React orgStore） deleteOrgNode 删除非根节点并刷新树",
-        "useOrgStore — 组织树 CRUD（对齐 React orgStore） deleteOrgNode 对根节点失败并设置 error（mock 返回 400）",
-        "useOrgStore — 组织树 CRUD（对齐 React orgStore） fetchOrgTree 拉取组织树（根 org-root）",
-        "useOrgStore — 组织树 CRUD（对齐 React orgStore） updateOrgNode 更新节点名称并刷新树",
-        "useOrgStore — 组织树 CRUD（对齐 React orgStore） 初始状态：tree=null, loading=false, error=null"
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/:id 204",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/department-root 根节点不可删 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 GET /departments 返回根节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 创建子节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 父节点不存在返回 404",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 缺 name 返回 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 更新名称",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 节点不存在返回 404",
+        "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） clearError 清空错误",
+        "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） createDepartmentNode 不给 parentId 时默认挂到 department-root",
+        "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） createDepartmentNode 在指定父节点下新增子节点并刷新树",
+        "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） deleteDepartmentNode 删除非根节点并刷新树",
+        "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） deleteDepartmentNode 对根节点失败并设置 error（mock 返回 400）",
+        "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） fetchDepartmentTree 拉取部门树（根 department-root）",
+        "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） updateDepartmentNode 更新节点名称并刷新树",
+        "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） 初始状态：tree=null, loading=false, error=null"
       ],
       "entry": [
-        "src\\components\\OrgNodeFormModal.vue",
-        "src\\components\\OrgTreeNode.vue",
-        "src\\stores\\org.ts",
-        "src\\views\\OrgInfo.vue"
+        "src\\components\\DepartmentNodeFormModal.vue",
+        "src\\components\\DepartmentTreeNode.vue",
+        "src\\stores\\department.ts",
+        "src\\views\\DepartmentInfo.vue"
       ]
     },
     "M02.F01.I02": {
-      "name": "查询组织树",
+      "name": "查询部门树",
       "status": "已上线",
-      "type": "查询",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -1353,18 +1240,18 @@
         "docs\\design\\design-function-map.md"
       ],
       "tests": [
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） error 态渲染告警条",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 create 调 store.createOrgNode(name, parentId)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 edit 调 store.updateOrgNode(id, name)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 挂载触发 fetchOrgTree 并渲染组织树",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 渲染「新增根部门」按钮",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「删除」打开确认弹窗；确认调 store.deleteOrgNode(id)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「新增根部门」打开弹窗（mode=create, nodeId=org-root）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中根节点时不显示「删除」按钮（根不可删）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中非根节点时显示「删除」按钮",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） error 态渲染告警条",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 create 调 store.createDepartmentNode(name, parentId)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 edit 调 store.updateDepartmentNode(id, name)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 挂载触发 fetchDepartmentTree 并渲染部门树",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 渲染「新增根部门」按钮",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「删除」打开确认弹窗；确认调 store.deleteDepartmentNode(id)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「新增根部门」打开弹窗（mode=create, nodeId=department-root）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中根节点时不显示「删除」按钮（根不可删）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中非根节点时显示「删除」按钮",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /permission-groups/:id 204",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /positions/:id 204",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /user-groups/:id 204",
@@ -1381,16 +1268,16 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新"
       ],
       "entry": [
-        "src\\components\\OrgNodeFormModal.vue",
-        "src\\components\\OrgTreeNode.vue",
-        "src\\stores\\org.ts",
-        "src\\views\\OrgInfo.vue"
+        "src\\components\\DepartmentNodeFormModal.vue",
+        "src\\components\\DepartmentTreeNode.vue",
+        "src\\stores\\department.ts",
+        "src\\views\\DepartmentInfo.vue"
       ]
     },
     "M02.F01.I03": {
       "name": "新增根部门",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -1399,18 +1286,18 @@
         "docs\\design\\design-function-map.md"
       ],
       "tests": [
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） error 态渲染告警条",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 create 调 store.createOrgNode(name, parentId)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 edit 调 store.updateOrgNode(id, name)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 挂载触发 fetchOrgTree 并渲染组织树",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 渲染「新增根部门」按钮",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「删除」打开确认弹窗；确认调 store.deleteOrgNode(id)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「新增根部门」打开弹窗（mode=create, nodeId=org-root）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中根节点时不显示「删除」按钮（根不可删）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中非根节点时显示「删除」按钮",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） error 态渲染告警条",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 create 调 store.createDepartmentNode(name, parentId)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 edit 调 store.updateDepartmentNode(id, name)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 挂载触发 fetchDepartmentTree 并渲染部门树",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 渲染「新增根部门」按钮",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「删除」打开确认弹窗；确认调 store.deleteDepartmentNode(id)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「新增根部门」打开弹窗（mode=create, nodeId=department-root）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中根节点时不显示「删除」按钮（根不可删）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中非根节点时显示「删除」按钮",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /permission-groups/:id 204",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /positions/:id 204",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /user-groups/:id 204",
@@ -1424,19 +1311,27 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups POST /user-groups 创建",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
-        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新"
+        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/:id 204",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/department-root 根节点不可删 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 GET /departments 返回根节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 创建子节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 父节点不存在返回 404",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 缺 name 返回 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 更新名称",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 节点不存在返回 404"
       ],
       "entry": [
-        "src\\components\\OrgNodeFormModal.vue",
-        "src\\components\\OrgTreeNode.vue",
-        "src\\stores\\org.ts",
-        "src\\views\\OrgInfo.vue"
+        "src\\components\\DepartmentNodeFormModal.vue",
+        "src\\components\\DepartmentTreeNode.vue",
+        "src\\stores\\department.ts",
+        "src\\views\\DepartmentInfo.vue"
       ]
     },
     "M02.F01.I04": {
       "name": "新增子部门",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -1445,18 +1340,18 @@
         "docs\\design\\design-function-map.md"
       ],
       "tests": [
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） error 态渲染告警条",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 create 调 store.createOrgNode(name, parentId)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 edit 调 store.updateOrgNode(id, name)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 挂载触发 fetchOrgTree 并渲染组织树",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 渲染「新增根部门」按钮",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「删除」打开确认弹窗；确认调 store.deleteOrgNode(id)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「新增根部门」打开弹窗（mode=create, nodeId=org-root）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中根节点时不显示「删除」按钮（根不可删）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中非根节点时显示「删除」按钮",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） error 态渲染告警条",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 create 调 store.createDepartmentNode(name, parentId)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 edit 调 store.updateDepartmentNode(id, name)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 挂载触发 fetchDepartmentTree 并渲染部门树",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 渲染「新增根部门」按钮",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「删除」打开确认弹窗；确认调 store.deleteDepartmentNode(id)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「新增根部门」打开弹窗（mode=create, nodeId=department-root）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中根节点时不显示「删除」按钮（根不可删）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中非根节点时显示「删除」按钮",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /permission-groups/:id 204",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /positions/:id 204",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /user-groups/:id 204",
@@ -1470,19 +1365,27 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups POST /user-groups 创建",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
-        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新"
+        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/:id 204",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/department-root 根节点不可删 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 GET /departments 返回根节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 创建子节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 父节点不存在返回 404",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 缺 name 返回 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 更新名称",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 节点不存在返回 404"
       ],
       "entry": [
-        "src\\components\\OrgNodeFormModal.vue",
-        "src\\components\\OrgTreeNode.vue",
-        "src\\stores\\org.ts",
-        "src\\views\\OrgInfo.vue"
+        "src\\components\\DepartmentNodeFormModal.vue",
+        "src\\components\\DepartmentTreeNode.vue",
+        "src\\stores\\department.ts",
+        "src\\views\\DepartmentInfo.vue"
       ]
     },
     "M02.F01.I05": {
       "name": "编辑部门",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -1491,18 +1394,18 @@
         "docs\\design\\design-function-map.md"
       ],
       "tests": [
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） error 态渲染告警条",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 create 调 store.createOrgNode(name, parentId)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 edit 调 store.updateOrgNode(id, name)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 挂载触发 fetchOrgTree 并渲染组织树",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 渲染「新增根部门」按钮",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「删除」打开确认弹窗；确认调 store.deleteOrgNode(id)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「新增根部门」打开弹窗（mode=create, nodeId=org-root）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中根节点时不显示「删除」按钮（根不可删）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中非根节点时显示「删除」按钮",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） error 态渲染告警条",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 create 调 store.createDepartmentNode(name, parentId)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 edit 调 store.updateDepartmentNode(id, name)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 挂载触发 fetchDepartmentTree 并渲染部门树",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 渲染「新增根部门」按钮",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「删除」打开确认弹窗；确认调 store.deleteDepartmentNode(id)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「新增根部门」打开弹窗（mode=create, nodeId=department-root）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中根节点时不显示「删除」按钮（根不可删）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中非根节点时显示「删除」按钮",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /permission-groups/:id 204",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /positions/:id 204",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /user-groups/:id 204",
@@ -1516,19 +1419,27 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups POST /user-groups 创建",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
-        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新"
+        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/:id 204",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/department-root 根节点不可删 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 GET /departments 返回根节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 创建子节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 父节点不存在返回 404",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 缺 name 返回 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 更新名称",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 节点不存在返回 404"
       ],
       "entry": [
-        "src\\components\\OrgNodeFormModal.vue",
-        "src\\components\\OrgTreeNode.vue",
-        "src\\stores\\org.ts",
-        "src\\views\\OrgInfo.vue"
+        "src\\components\\DepartmentNodeFormModal.vue",
+        "src\\components\\DepartmentTreeNode.vue",
+        "src\\stores\\department.ts",
+        "src\\views\\DepartmentInfo.vue"
       ]
     },
     "M02.F01.I06": {
       "name": "删除部门",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -1537,18 +1448,18 @@
         "docs\\design\\design-function-map.md"
       ],
       "tests": [
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） error 态渲染告警条",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 create 调 store.createOrgNode(name, parentId)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 edit 调 store.updateOrgNode(id, name)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 挂载触发 fetchOrgTree 并渲染组织树",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 渲染「新增根部门」按钮",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「删除」打开确认弹窗；确认调 store.deleteOrgNode(id)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「新增根部门」打开弹窗（mode=create, nodeId=org-root）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中根节点时不显示「删除」按钮（根不可删）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中非根节点时显示「删除」按钮",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） error 态渲染告警条",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 create 调 store.createDepartmentNode(name, parentId)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 edit 调 store.updateDepartmentNode(id, name)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 挂载触发 fetchDepartmentTree 并渲染部门树",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 渲染「新增根部门」按钮",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「删除」打开确认弹窗；确认调 store.deleteDepartmentNode(id)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「新增根部门」打开弹窗（mode=create, nodeId=department-root）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中根节点时不显示「删除」按钮（根不可删）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中非根节点时显示「删除」按钮",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /permission-groups/:id 204",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /positions/:id 204",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /user-groups/:id 204",
@@ -1562,13 +1473,21 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups POST /user-groups 创建",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
-        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新"
+        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/:id 204",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/department-root 根节点不可删 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 GET /departments 返回根节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 创建子节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 父节点不存在返回 404",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 缺 name 返回 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 更新名称",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 节点不存在返回 404"
       ],
       "entry": [
-        "src\\components\\OrgNodeFormModal.vue",
-        "src\\components\\OrgTreeNode.vue",
-        "src\\stores\\org.ts",
-        "src\\views\\OrgInfo.vue"
+        "src\\components\\DepartmentNodeFormModal.vue",
+        "src\\components\\DepartmentTreeNode.vue",
+        "src\\stores\\department.ts",
+        "src\\views\\DepartmentInfo.vue"
       ]
     },
     "M02.F01.I07": {
@@ -1583,73 +1502,44 @@
         "docs\\design\\design-function-map.md"
       ],
       "tests": [
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） error 态渲染告警条",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 create 调 store.createOrgNode(name, parentId)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 edit 调 store.updateOrgNode(id, name)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 挂载触发 fetchOrgTree 并渲染组织树",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 渲染「新增根部门」按钮",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「删除」打开确认弹窗；确认调 store.deleteOrgNode(id)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「新增根部门」打开弹窗（mode=create, nodeId=org-root）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中根节点时不显示「删除」按钮（根不可删）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中非根节点时显示「删除」按钮",
-        "useOrgStore — 组织树 CRUD（对齐 React orgStore） clearError 清空错误",
-        "useOrgStore — 组织树 CRUD（对齐 React orgStore） createOrgNode 不给 parentId 时默认挂到 org-root",
-        "useOrgStore — 组织树 CRUD（对齐 React orgStore） createOrgNode 在指定父节点下新增子节点并刷新树",
-        "useOrgStore — 组织树 CRUD（对齐 React orgStore） deleteOrgNode 删除非根节点并刷新树",
-        "useOrgStore — 组织树 CRUD（对齐 React orgStore） deleteOrgNode 对根节点失败并设置 error（mock 返回 400）",
-        "useOrgStore — 组织树 CRUD（对齐 React orgStore） fetchOrgTree 拉取组织树（根 org-root）",
-        "useOrgStore — 组织树 CRUD（对齐 React orgStore） updateOrgNode 更新节点名称并刷新树",
-        "useOrgStore — 组织树 CRUD（对齐 React orgStore） 初始状态：tree=null, loading=false, error=null"
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） error 态渲染告警条",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 create 调 store.createDepartmentNode(name, parentId)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 edit 调 store.updateDepartmentNode(id, name)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 挂载触发 fetchDepartmentTree 并渲染部门树",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 渲染「新增根部门」按钮",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「删除」打开确认弹窗；确认调 store.deleteDepartmentNode(id)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「新增根部门」打开弹窗（mode=create, nodeId=department-root）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中根节点时不显示「删除」按钮（根不可删）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中非根节点时显示「删除」按钮",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/:id 204",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/department-root 根节点不可删 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 GET /departments 返回根节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 创建子节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 父节点不存在返回 404",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 缺 name 返回 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 更新名称",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 节点不存在返回 404",
+        "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） clearError 清空错误",
+        "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） createDepartmentNode 不给 parentId 时默认挂到 department-root",
+        "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） createDepartmentNode 在指定父节点下新增子节点并刷新树",
+        "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） deleteDepartmentNode 删除非根节点并刷新树",
+        "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） deleteDepartmentNode 对根节点失败并设置 error（mock 返回 400）",
+        "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） fetchDepartmentTree 拉取部门树（根 department-root）",
+        "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） updateDepartmentNode 更新节点名称并刷新树",
+        "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） 初始状态：tree=null, loading=false, error=null"
       ],
       "entry": [
-        "src\\components\\OrgNodeFormModal.vue",
-        "src\\components\\OrgTreeNode.vue",
-        "src\\stores\\org.ts",
-        "src\\views\\OrgInfo.vue"
+        "src\\components\\DepartmentNodeFormModal.vue",
+        "src\\components\\DepartmentTreeNode.vue",
+        "src\\stores\\department.ts",
+        "src\\views\\DepartmentInfo.vue"
       ]
     },
     "M02.F01.I08": {
-      "name": "组织表单弹窗(独立组件)",
-      "status": "已上线",
-      "type": "页面",
-      "requirements": [],
-      "flows": [
-        "docs\\design\\flow-function-map.md"
-      ],
-      "designs": [
-        "docs\\design\\design-function-map.md"
-      ],
-      "tests": [
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） error 态渲染告警条",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 create 调 store.createOrgNode(name, parentId)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 edit 调 store.updateOrgNode(id, name)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 挂载触发 fetchOrgTree 并渲染组织树",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 渲染「新增根部门」按钮",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「删除」打开确认弹窗；确认调 store.deleteOrgNode(id)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「新增根部门」打开弹窗（mode=create, nodeId=org-root）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中根节点时不显示「删除」按钮（根不可删）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中非根节点时显示「删除」按钮",
-        "OrgTreeNode.vue (ch41 recursive) emits select event with node when clicked",
-        "OrgTreeNode.vue (ch41 recursive) recursively renders children at greater depth",
-        "OrgTreeNode.vue (ch41 recursive) renders leaf node without expand icon",
-        "OrgTreeNode.vue (ch41 recursive) renders root node name",
-        "OrgTreeNode.vue (ch41 recursive) uses :key=node.id via rendered data-org-node attributes for each node"
-      ],
-      "entry": [
-        "src\\components\\OrgNodeFormModal.vue",
-        "src\\components\\OrgTreeNode.vue",
-        "src\\stores\\org.ts",
-        "src\\views\\OrgInfo.vue"
-      ]
-    },
-    "M02.F01.I09": {
-      "name": "组织资源契约(MSW)",
+      "name": "部门表单弹窗(独立组件)",
       "status": "已上线",
       "type": "接口",
       "requirements": [],
@@ -1660,18 +1550,63 @@
         "docs\\design\\design-function-map.md"
       ],
       "tests": [
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） error 态渲染告警条",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 create 调 store.createOrgNode(name, parentId)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 edit 调 store.updateOrgNode(id, name)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 挂载触发 fetchOrgTree 并渲染组织树",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 渲染「新增根部门」按钮",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「删除」打开确认弹窗；确认调 store.deleteOrgNode(id)",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「新增根部门」打开弹窗（mode=create, nodeId=org-root）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中根节点时不显示「删除」按钮（根不可删）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
-        "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中非根节点时显示「删除」按钮",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） error 态渲染告警条",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 create 调 store.createDepartmentNode(name, parentId)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 edit 调 store.updateDepartmentNode(id, name)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 挂载触发 fetchDepartmentTree 并渲染部门树",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 渲染「新增根部门」按钮",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「删除」打开确认弹窗；确认调 store.deleteDepartmentNode(id)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「新增根部门」打开弹窗（mode=create, nodeId=department-root）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中根节点时不显示「删除」按钮（根不可删）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中非根节点时显示「删除」按钮",
+        "DepartmentTreeNode.vue (ch41 recursive, v0.3.0 rename) emits select event with node when clicked",
+        "DepartmentTreeNode.vue (ch41 recursive, v0.3.0 rename) recursively renders children at greater depth",
+        "DepartmentTreeNode.vue (ch41 recursive, v0.3.0 rename) renders leaf node without expand icon",
+        "DepartmentTreeNode.vue (ch41 recursive, v0.3.0 rename) renders root node name",
+        "DepartmentTreeNode.vue (ch41 recursive, v0.3.0 rename) uses :key=node.id via rendered data-department-node attributes for each node",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/:id 204",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/department-root 根节点不可删 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 GET /departments 返回根节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 创建子节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 父节点不存在返回 404",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 缺 name 返回 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 更新名称",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 节点不存在返回 404"
+      ],
+      "entry": [
+        "src\\components\\DepartmentNodeFormModal.vue",
+        "src\\components\\DepartmentTreeNode.vue",
+        "src\\stores\\department.ts",
+        "src\\views\\DepartmentInfo.vue"
+      ]
+    },
+    "M02.F01.I09": {
+      "name": "部门资源契约(MSW)",
+      "status": "已上线",
+      "type": "接口",
+      "requirements": [],
+      "flows": [
+        "docs\\design\\flow-function-map.md"
+      ],
+      "designs": [
+        "docs\\design\\design-function-map.md"
+      ],
+      "tests": [
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） error 态渲染告警条",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 create 调 store.createDepartmentNode(name, parentId)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 edit 调 store.updateDepartmentNode(id, name)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 挂载触发 fetchDepartmentTree 并渲染部门树",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 渲染「新增根部门」按钮",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「删除」打开确认弹窗；确认调 store.deleteDepartmentNode(id)",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「新增根部门」打开弹窗（mode=create, nodeId=department-root）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中根节点时不显示「删除」按钮（根不可删）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
+        "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中非根节点时显示「删除」按钮",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /permission-groups/:id 204",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /positions/:id 204",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups DELETE /user-groups/:id 204",
@@ -1685,19 +1620,27 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups POST /user-groups 创建",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
-        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新"
+        "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/:id 204",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/department-root 根节点不可删 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 GET /departments 返回根节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 创建子节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 父节点不存在返回 404",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 缺 name 返回 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 更新名称",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 节点不存在返回 404"
       ],
       "entry": [
-        "src\\components\\OrgNodeFormModal.vue",
-        "src\\components\\OrgTreeNode.vue",
-        "src\\stores\\org.ts",
-        "src\\views\\OrgInfo.vue"
+        "src\\components\\DepartmentNodeFormModal.vue",
+        "src\\components\\DepartmentTreeNode.vue",
+        "src\\stores\\department.ts",
+        "src\\views\\DepartmentInfo.vue"
       ]
     },
     "M02.F02.I01": {
       "name": "用户管理页(列表)",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -1724,11 +1667,11 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
-        "user store (ch41) assignRoles updates a user roles",
-        "user store (ch41) fetchOrgTree loads the org tree",
-        "user store (ch41) fetchUsers applies keyword filter",
-        "user store (ch41) fetchUsers applies orgId filter",
-        "user store (ch41) fetchUsers loads paginated user list"
+        "user store (ch41, v0.3.0 rename) assignRoles updates a user roles",
+        "user store (ch41, v0.3.0 rename) fetchDepartmentTree loads the department tree",
+        "user store (ch41, v0.3.0 rename) fetchUsers applies departmentId filter",
+        "user store (ch41, v0.3.0 rename) fetchUsers applies keyword filter",
+        "user store (ch41, v0.3.0 rename) fetchUsers loads paginated user list"
       ],
       "entry": [
         "src\\stores\\user.ts",
@@ -1738,7 +1681,7 @@
     "M02.F02.I02": {
       "name": "查询用户列表(分页入页即触发)",
       "status": "已上线",
-      "type": "查询",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -1774,7 +1717,7 @@
     "M02.F02.I03": {
       "name": "搜索用户(关键字)",
       "status": "已上线",
-      "type": "查询",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -1796,7 +1739,7 @@
     "M02.F02.I04": {
       "name": "角色筛选",
       "status": "已上线",
-      "type": "查询",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -1818,7 +1761,7 @@
     "M02.F02.I05": {
       "name": "新增用户(user:create)",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -1840,7 +1783,7 @@
     "M02.F02.I06": {
       "name": "编辑用户(user:update)",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -1862,7 +1805,7 @@
     "M02.F02.I07": {
       "name": "删除用户(user:delete)",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -1911,11 +1854,11 @@
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /permission-groups/:id 更新 permissions",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /positions/:id 更新",
         "mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups PUT /user-groups/:id 更新",
-        "user store (ch41) assignRoles updates a user roles",
-        "user store (ch41) fetchOrgTree loads the org tree",
-        "user store (ch41) fetchUsers applies keyword filter",
-        "user store (ch41) fetchUsers applies orgId filter",
-        "user store (ch41) fetchUsers loads paginated user list"
+        "user store (ch41, v0.3.0 rename) assignRoles updates a user roles",
+        "user store (ch41, v0.3.0 rename) fetchDepartmentTree loads the department tree",
+        "user store (ch41, v0.3.0 rename) fetchUsers applies departmentId filter",
+        "user store (ch41, v0.3.0 rename) fetchUsers applies keyword filter",
+        "user store (ch41, v0.3.0 rename) fetchUsers loads paginated user list"
       ],
       "entry": [
         "src\\stores\\user.ts",
@@ -1961,7 +1904,7 @@
     "M02.F03.I01": {
       "name": "岗位管理页(列表)",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -1981,7 +1924,7 @@
     "M02.F03.I02": {
       "name": "查询岗位(mount 自动)",
       "status": "已上线",
-      "type": "查询",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2001,7 +1944,7 @@
     "M02.F03.I03": {
       "name": "新建岗位",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2021,7 +1964,7 @@
     "M02.F03.I04": {
       "name": "编辑岗位",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2041,7 +1984,7 @@
     "M02.F03.I05": {
       "name": "删除岗位",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2061,7 +2004,7 @@
     "M03.F01.I01": {
       "name": "角色列表页(容器与初始拉取)",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2094,7 +2037,7 @@
     "M03.F01.I02": {
       "name": "角色列表查询(fetchRoles)",
       "status": "已上线",
-      "type": "查询",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2127,7 +2070,7 @@
     "M03.F01.I03": {
       "name": "新建角色(按钮 + 表单提交)",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2160,7 +2103,7 @@
     "M03.F01.I04": {
       "name": "编辑角色(行内编辑按钮 + 表单回填)",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2193,7 +2136,7 @@
     "M03.F01.I05": {
       "name": "删除角色(行内按钮 + 确认)",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2226,7 +2169,7 @@
     "M03.F01.I06": {
       "name": "角色表单校验(必填/取消/loading)",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2266,7 +2209,7 @@
     "M03.F01.I07": {
       "name": "角色菜单权限绑定(独立组件)",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2423,7 +2366,7 @@
     "M03.F02.I01": {
       "name": "权限组列表页(容器与初始拉取)",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2443,7 +2386,7 @@
     "M03.F02.I02": {
       "name": "新建权限组(顶部按钮打开表单)",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2463,7 +2406,7 @@
     "M03.F02.I03": {
       "name": "编辑权限组",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2483,7 +2426,7 @@
     "M03.F02.I04": {
       "name": "删除权限组",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2529,7 +2472,7 @@
     "M03.F03.I01": {
       "name": "用户组列表页(容器与初始拉取)",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2549,7 +2492,7 @@
     "M03.F03.I02": {
       "name": "新建用户组(顶部按钮打开表单)",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2569,7 +2512,7 @@
     "M03.F03.I03": {
       "name": "编辑用户组",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2589,7 +2532,7 @@
     "M03.F03.I04": {
       "name": "删除用户组",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2635,7 +2578,7 @@
     "M04.F01.I01": {
       "name": "应用列表页面",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2654,7 +2597,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -2675,7 +2618,7 @@
     "M04.F01.I02": {
       "name": "搜索应用",
       "status": "已上线",
-      "type": "查询",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2692,7 +2635,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -2713,7 +2656,7 @@
     "M04.F01.I03": {
       "name": "新建应用",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2734,7 +2677,7 @@
     "M04.F01.I04": {
       "name": "编辑应用",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2755,7 +2698,7 @@
     "M04.F01.I05": {
       "name": "删除应用",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2776,7 +2719,7 @@
     "M04.F01.I06": {
       "name": "跳转菜单管理",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2797,7 +2740,7 @@
     "M04.F01.I07": {
       "name": "菜单列表页面",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2816,7 +2759,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -2837,7 +2780,7 @@
     "M04.F01.I08": {
       "name": "新建菜单",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2854,7 +2797,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -2875,7 +2818,7 @@
     "M04.F01.I09": {
       "name": "新建子菜单",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2892,7 +2835,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -2913,7 +2856,7 @@
     "M04.F01.I10": {
       "name": "编辑菜单",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2930,7 +2873,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -2951,7 +2894,7 @@
     "M04.F01.I11": {
       "name": "删除菜单",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -2968,7 +2911,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -3006,7 +2949,7 @@
         "mocks/handlers.ts (ch42) — apps/menus GET /apps 返回默认应用列表（至少 3 个）",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /apps/:id 返回单个应用",
-        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+        "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 含 appId 限定",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus/:id 跨 appId 404",
         "mocks/handlers.ts (ch42) — apps/menus GET /menus?appId=xxx 返回该应用菜单",
@@ -3027,7 +2970,7 @@
     "M04.F02.I01": {
       "name": "API Key 列表页面",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3047,7 +2990,7 @@
     "M04.F02.I02": {
       "name": "新建 API Key",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3067,7 +3010,7 @@
     "M04.F02.I03": {
       "name": "启用/禁用 API Key",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3087,7 +3030,7 @@
     "M04.F02.I04": {
       "name": "删除 API Key",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3107,7 +3050,7 @@
     "M05.F01.I01": {
       "name": "审计日志页面",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3132,7 +3075,7 @@
     "M05.F01.I02": {
       "name": "全部 Tab",
       "status": "已上线",
-      "type": "标签页",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3153,7 +3096,7 @@
     "M05.F01.I03": {
       "name": "登录日志 Tab",
       "status": "已上线",
-      "type": "标签页",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3174,7 +3117,7 @@
     "M05.F01.I04": {
       "name": "操作日志 Tab",
       "status": "已上线",
-      "type": "标签页",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3195,7 +3138,7 @@
     "M05.F01.I05": {
       "name": "安全日志 Tab",
       "status": "已上线",
-      "type": "标签页",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3216,7 +3159,7 @@
     "M05.F01.I06": {
       "name": "日志查询筛选",
       "status": "已上线",
-      "type": "查询",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3237,7 +3180,7 @@
     "M05.F01.I07": {
       "name": "导出 CSV",
       "status": "已上线",
-      "type": "报表",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3300,7 +3243,7 @@
     "M06.F01.I01": {
       "name": "登录安全策略页",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3314,8 +3257,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -3344,7 +3287,7 @@
     "M06.F01.I02": {
       "name": "IP 白名单",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3358,8 +3301,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -3387,7 +3330,7 @@
     "M06.F01.I03": {
       "name": "IP 黑名单",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3401,8 +3344,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -3430,7 +3373,7 @@
     "M06.F01.I04": {
       "name": "启用登录失败锁定",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3444,8 +3387,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -3473,7 +3416,7 @@
     "M06.F01.I05": {
       "name": "锁定阈值",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3487,8 +3430,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -3516,7 +3459,7 @@
     "M06.F01.I06": {
       "name": "锁定时长",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3530,8 +3473,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -3559,7 +3502,7 @@
     "M06.F01.I07": {
       "name": "启用地区限制",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3573,8 +3516,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -3602,7 +3545,7 @@
     "M06.F01.I08": {
       "name": "允许地区",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3616,8 +3559,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -3645,7 +3588,7 @@
     "M06.F02.I01": {
       "name": "登录方式配置页",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3656,17 +3599,14 @@
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
         "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/:id 204",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/department-root 根节点不可删 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 GET /departments 返回根节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 创建子节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 父节点不存在返回 404",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 缺 name 返回 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 更新名称",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 节点不存在返回 404"
       ],
       "entry": [
         "src\\views\\auth\\LoginMethodsList.vue",
@@ -3676,7 +3616,7 @@
     "M06.F02.I02": {
       "name": "登录方式启用开关",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3686,18 +3626,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\auth\\LoginMethodsList.vue"
@@ -3706,7 +3635,7 @@
     "M06.F02.I03": {
       "name": "SSO 提供商启用开关",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3716,18 +3645,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\auth\\LoginMethodsList.vue"
@@ -3736,7 +3654,7 @@
     "M06.F02.I04": {
       "name": "OAuth2 提供商启用开关",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3746,18 +3664,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\auth\\LoginMethodsList.vue"
@@ -3766,7 +3673,7 @@
     "M06.F03.I01": {
       "name": "密码策略页",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3777,17 +3684,14 @@
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
         "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/:id 204",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/department-root 根节点不可删 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 GET /departments 返回根节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 创建子节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 父节点不存在返回 404",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 缺 name 返回 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 更新名称",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 节点不存在返回 404"
       ],
       "entry": [
         "src\\views\\platform\\PlatformLayout.vue",
@@ -3797,7 +3701,7 @@
     "M06.F03.I02": {
       "name": "启用密码策略",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3807,18 +3711,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\PasswordPolicyForm.vue"
@@ -3827,7 +3720,7 @@
     "M06.F03.I03": {
       "name": "最小密码长度",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3837,18 +3730,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\PasswordPolicyForm.vue"
@@ -3857,7 +3739,7 @@
     "M06.F03.I04": {
       "name": "必须包含大写字母",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3867,18 +3749,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\PasswordPolicyForm.vue"
@@ -3887,7 +3758,7 @@
     "M06.F03.I05": {
       "name": "必须包含小写字母",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3897,18 +3768,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\PasswordPolicyForm.vue"
@@ -3917,7 +3777,7 @@
     "M06.F03.I06": {
       "name": "必须包含数字",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3927,18 +3787,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\PasswordPolicyForm.vue"
@@ -3947,7 +3796,7 @@
     "M06.F03.I07": {
       "name": "必须包含特殊字符",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3957,18 +3806,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\PasswordPolicyForm.vue"
@@ -3977,7 +3815,7 @@
     "M06.F03.I08": {
       "name": "密码过期天数",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -3987,18 +3825,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\PasswordPolicyForm.vue"
@@ -4007,7 +3834,7 @@
     "M06.F03.I09": {
       "name": "历史密码数量",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4017,18 +3844,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\PasswordPolicyForm.vue"
@@ -4037,7 +3853,7 @@
     "M06.F04.I01": {
       "name": "Token 管理页",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4051,8 +3867,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -4081,7 +3897,7 @@
     "M06.F04.I02": {
       "name": "访问令牌有效期",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4095,8 +3911,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -4124,7 +3940,7 @@
     "M06.F04.I03": {
       "name": "Refresh Token 有效期",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4138,8 +3954,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -4167,7 +3983,7 @@
     "M06.F04.I04": {
       "name": "开启 Refresh Token 续期",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4181,8 +3997,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -4210,7 +4026,7 @@
     "M06.F04.I05": {
       "name": "开启 Token 主动失效",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4224,8 +4040,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -4253,7 +4069,7 @@
     "M06.F05.I01": {
       "name": "消息通知页",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4264,17 +4080,14 @@
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
         "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/:id 204",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/department-root 根节点不可删 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 GET /departments 返回根节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 创建子节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 父节点不存在返回 404",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 缺 name 返回 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 更新名称",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 节点不存在返回 404"
       ],
       "entry": [
         "src\\views\\platform\\PlatformLayout.vue",
@@ -4284,7 +4097,7 @@
     "M06.F05.I02": {
       "name": "邮件通知",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4294,18 +4107,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\NotificationConfigForm.vue"
@@ -4314,7 +4116,7 @@
     "M06.F05.I03": {
       "name": "短信通知",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4324,18 +4126,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\NotificationConfigForm.vue"
@@ -4344,7 +4135,7 @@
     "M06.F05.I04": {
       "name": "站内信",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4354,18 +4145,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\NotificationConfigForm.vue"
@@ -4374,7 +4154,7 @@
     "M06.F05.I05": {
       "name": "登录通知",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4384,18 +4164,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\NotificationConfigForm.vue"
@@ -4404,7 +4173,7 @@
     "M06.F05.I06": {
       "name": "密码变更",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4414,18 +4183,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\NotificationConfigForm.vue"
@@ -4434,7 +4192,7 @@
     "M06.F05.I07": {
       "name": "安全告警",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4444,18 +4202,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\NotificationConfigForm.vue"
@@ -4464,7 +4211,7 @@
     "M06.F05.I08": {
       "name": "系统通知",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4474,18 +4221,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\NotificationConfigForm.vue"
@@ -4494,7 +4230,7 @@
     "M06.F06.I01": {
       "name": "风险控制页",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4505,17 +4241,14 @@
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
         "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/:id 204",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/department-root 根节点不可删 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 GET /departments 返回根节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 创建子节点",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 父节点不存在返回 404",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 缺 name 返回 400",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 更新名称",
+        "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 节点不存在返回 404"
       ],
       "entry": [
         "src\\views\\platform\\PlatformLayout.vue",
@@ -4525,7 +4258,7 @@
     "M06.F06.I02": {
       "name": "异常登录检测",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4535,18 +4268,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\RiskControlForm.vue"
@@ -4555,7 +4277,7 @@
     "M06.F06.I03": {
       "name": "异地登录告警",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4565,18 +4287,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\RiskControlForm.vue"
@@ -4585,7 +4296,7 @@
     "M06.F06.I04": {
       "name": "设备指纹识别",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4595,18 +4306,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\RiskControlForm.vue"
@@ -4615,7 +4315,7 @@
     "M06.F06.I05": {
       "name": "风险评分阈值",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4625,18 +4325,7 @@
       ],
       "tests": [
         "PlatformLayout.vue (ch42 平台运营) 当前路由 active 类",
-        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
-        "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds"
+        "PlatformLayout.vue (ch42 平台运营) 渲染 4 个平台导航项 + 子路由出口"
       ],
       "entry": [
         "src\\views\\security\\RiskControlForm.vue"
@@ -4645,7 +4334,7 @@
     "M06.F07.I01": {
       "name": "开放平台页",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4659,8 +4348,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -4688,7 +4377,7 @@
     "M06.F07.I02": {
       "name": "OpenAPI 开关",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4702,8 +4391,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -4730,7 +4419,7 @@
     "M06.F07.I03": {
       "name": "Webhook 开关",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4744,8 +4433,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -4772,7 +4461,7 @@
     "M06.F07.I04": {
       "name": "SDK 下载开关",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4786,8 +4475,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -4814,7 +4503,7 @@
     "M06.F07.I05": {
       "name": "允许调用的 Scope",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4828,8 +4517,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -4856,7 +4545,7 @@
     "M06.F07.I06": {
       "name": "回调地址白名单",
       "status": "已上线",
-      "type": "按钮",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"
@@ -4870,8 +4559,8 @@
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys DELETE /api-keys/:id 204",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /api-keys 默认 3 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /login-methods 默认 6 种",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
-        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
+        "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /token-config 返回单例",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys POST /api-keys 创建",
         "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys PUT /api-keys/:id 禁用",
@@ -4898,7 +4587,7 @@
     "M06.F08.I01": {
       "name": "平台配置页",
       "status": "已上线",
-      "type": "页面",
+      "type": "接口",
       "requirements": [],
       "flows": [
         "docs\\design\\flow-function-map.md"

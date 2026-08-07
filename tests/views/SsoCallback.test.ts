@@ -9,7 +9,7 @@ import SsoCallback from '../../src/views/auth/SsoCallback.vue'
 vi.mock('../../src/composables/useSso', () => ({
   handleSsoCallback: vi.fn(async () => ({
     token: 'mock-token',
-    user: { id: 'u-001', username: 'admin', displayName: '管理员', orgId: 'org-acme' },
+    user: { id: 'u-001', username: 'admin', displayName: '管理员', departmentId: 'department-acme' },
   })),
 }))
 

@@ -2,79 +2,9 @@
   "schema": 1,
   "tests": [
     {
-      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /apps: Vue 仓 DEFAULT 包含 React 仓全部字段 (9 个)",
+      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity (Phase 5d 废弃) Phase 5d 已废弃：Vue/React 仓 mock 层均由 shared seeds 派生，cross-impl shape 不再适用字符串扫",
       "fns": [],
-      "inert": false
-    },
-    {
-      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /menus: Vue 仓 DEFAULT 包含 React 仓全部字段 (10 个)",
-      "fns": [],
-      "inert": false
-    },
-    {
-      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /positions: Vue 仓 DEFAULT 包含 React 仓全部字段 (8 个)",
-      "fns": [],
-      "inert": false
-    },
-    {
-      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /user-groups: Vue 仓 DEFAULT 包含 React 仓全部字段 (7 个)",
-      "fns": [],
-      "inert": false
-    },
-    {
-      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /permission-groups: Vue 仓 DEFAULT 包含 React 仓全部字段 (10 个)",
-      "fns": [],
-      "inert": false
-    },
-    {
-      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /login-methods: Vue 仓 DEFAULT 包含 React 仓全部字段 (6 个)",
-      "fns": [],
-      "inert": false
-    },
-    {
-      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /sso-providers: Vue 仓 DEFAULT 包含 React 仓全部字段 (6 个)",
-      "fns": [],
-      "inert": false
-    },
-    {
-      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /oauth2-providers: Vue 仓 DEFAULT 包含 React 仓全部字段 (5 个)",
-      "fns": [],
-      "inert": false
-    },
-    {
-      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /token-config: Vue 仓 DEFAULT 包含 React 仓全部字段 (5 个)",
-      "fns": [],
-      "inert": false
-    },
-    {
-      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /api-keys: Vue 仓 DEFAULT 包含 React 仓全部字段 (8 个)",
-      "fns": [],
-      "inert": false
-    },
-    {
-      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /login-security: Vue 仓 DEFAULT 包含 React 仓全部字段 (8 个)",
-      "fns": [],
-      "inert": false
-    },
-    {
-      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /password-policy: Vue 仓 DEFAULT 包含 React 仓全部字段 (9 个)",
-      "fns": [],
-      "inert": false
-    },
-    {
-      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /risk-control: Vue 仓 DEFAULT 包含 React 仓全部字段 (5 个)",
-      "fns": [],
-      "inert": false
-    },
-    {
-      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /notification-config: Vue 仓 DEFAULT 包含 React 仓全部字段 (5 个)",
-      "fns": [],
-      "inert": false
-    },
-    {
-      "test": "cross-impl — saas-identity-platform-vue vs saas-identity-platform (React) field parity /open-platform-config: Vue 仓 DEFAULT 包含 React 仓全部字段 (6 个)",
-      "fns": [],
-      "inert": false
+      "inert": true
     },
     {
       "test": "E2E 冒烟测试 未登录访问 /acme/dashboard 仍渲染租户布局",
@@ -107,27 +37,6 @@
       "inert": false
     },
     {
-      "test": "global error handler (ch42) installErrorHandler registers app.config.errorHandler",
-      "fns": [
-        "M01.F01.I10"
-      ],
-      "inert": false
-    },
-    {
-      "test": "global error handler (ch42) handler captures error + reports to channel",
-      "fns": [
-        "M01.F01.I10"
-      ],
-      "inert": false
-    },
-    {
-      "test": "global error handler (ch42) reportError posts to /api/vitals via mock and resolves (does not throw)",
-      "fns": [
-        "M01.F01.I10"
-      ],
-      "inert": false
-    },
-    {
       "test": "api client interceptor (ch39/ch40) injects X-Tenant-ID header from tenant store value",
       "fns": [
         "M01.F01.I10"
@@ -156,6 +65,27 @@
       "inert": false
     },
     {
+      "test": "global error handler (ch42) installErrorHandler registers app.config.errorHandler",
+      "fns": [
+        "M01.F01.I10"
+      ],
+      "inert": false
+    },
+    {
+      "test": "global error handler (ch42) handler captures error + reports to channel",
+      "fns": [
+        "M01.F01.I10"
+      ],
+      "inert": false
+    },
+    {
+      "test": "global error handler (ch42) reportError posts to /api/vitals via mock and resolves (does not throw)",
+      "fns": [
+        "M01.F01.I10"
+      ],
+      "inert": false
+    },
+    {
       "test": "AppSidebar.vue (ch39/ch40) admin 全权限：渲染所有租户级菜单项",
       "fns": [
         "M01.F01.I08"
@@ -177,7 +107,7 @@
       "inert": false
     },
     {
-      "test": "AppSidebar.vue (ch39/ch40) 身份管理分组顺序对齐 React（组织管理在用户管理之前，用户管理末位）",
+      "test": "AppSidebar.vue (ch39/ch40) 身份管理分组顺序对齐 React（部门管理在用户管理之前，用户管理末位）",
       "fns": [
         "M01.F01.I08"
       ],
@@ -191,35 +121,35 @@
       "inert": false
     },
     {
-      "test": "OrgTreeNode.vue (ch41 recursive) renders root node name",
+      "test": "DepartmentTreeNode.vue (ch41 recursive, v0.3.0 rename) renders root node name",
       "fns": [
         "M02.F01.I08"
       ],
       "inert": false
     },
     {
-      "test": "OrgTreeNode.vue (ch41 recursive) recursively renders children at greater depth",
+      "test": "DepartmentTreeNode.vue (ch41 recursive, v0.3.0 rename) recursively renders children at greater depth",
       "fns": [
         "M02.F01.I08"
       ],
       "inert": false
     },
     {
-      "test": "OrgTreeNode.vue (ch41 recursive) uses :key=node.id via rendered data-org-node attributes for each node",
+      "test": "DepartmentTreeNode.vue (ch41 recursive, v0.3.0 rename) uses :key=node.id via rendered data-department-node attributes for each node",
       "fns": [
         "M02.F01.I08"
       ],
       "inert": false
     },
     {
-      "test": "OrgTreeNode.vue (ch41 recursive) emits select event with node when clicked",
+      "test": "DepartmentTreeNode.vue (ch41 recursive, v0.3.0 rename) emits select event with node when clicked",
       "fns": [
         "M02.F01.I08"
       ],
       "inert": false
     },
     {
-      "test": "OrgTreeNode.vue (ch41 recursive) renders leaf node without expand icon",
+      "test": "DepartmentTreeNode.vue (ch41 recursive, v0.3.0 rename) renders leaf node without expand icon",
       "fns": [
         "M02.F01.I08"
       ],
@@ -496,7 +426,7 @@
       "inert": false
     },
     {
-      "test": "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=门户 过滤",
+      "test": "mocks/handlers.ts (ch42) — apps/menus GET /apps?keyword=实验室 过滤",
       "fns": [
         "M04.F01.I01",
         "M04.F01.I07",
@@ -1266,475 +1196,146 @@
       "inert": false
     },
     {
-      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /orgs?orgId=xxx 返回子节点",
+      "test": "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 GET /departments 返回根节点",
       "fns": [
         "M06.F02.I01",
         "M06.F03.I01",
         "M06.F05.I01",
         "M06.F06.I01",
-        "M06.F02.I02",
-        "M06.F02.I03",
-        "M06.F02.I04",
-        "M06.F03.I02",
-        "M06.F03.I03",
-        "M06.F03.I04",
-        "M06.F03.I05",
-        "M06.F03.I06",
-        "M06.F03.I07",
-        "M06.F03.I08",
-        "M06.F03.I09",
-        "M06.F05.I02",
-        "M06.F05.I03",
-        "M06.F05.I04",
-        "M06.F05.I05",
-        "M06.F05.I06",
-        "M06.F05.I07",
-        "M06.F05.I08",
-        "M06.F06.I02",
-        "M06.F06.I03",
-        "M06.F06.I04",
-        "M06.F06.I05",
-        "M01.F01.I01",
-        "M01.F01.I02",
-        "M01.F01.I03",
-        "M01.F01.I04",
-        "M01.F01.I05",
-        "M01.F01.I06",
-        "M01.F01.I07",
-        "M01.F01.I08",
-        "M01.F01.I09",
-        "M01.F01.I10",
-        "M01.F01.I11"
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
       ],
       "inert": false
     },
     {
-      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 创建子节点",
+      "test": "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 创建子节点",
       "fns": [
         "M06.F02.I01",
         "M06.F03.I01",
         "M06.F05.I01",
         "M06.F06.I01",
-        "M06.F02.I02",
-        "M06.F02.I03",
-        "M06.F02.I04",
-        "M06.F03.I02",
-        "M06.F03.I03",
-        "M06.F03.I04",
-        "M06.F03.I05",
-        "M06.F03.I06",
-        "M06.F03.I07",
-        "M06.F03.I08",
-        "M06.F03.I09",
-        "M06.F05.I02",
-        "M06.F05.I03",
-        "M06.F05.I04",
-        "M06.F05.I05",
-        "M06.F05.I06",
-        "M06.F05.I07",
-        "M06.F05.I08",
-        "M06.F06.I02",
-        "M06.F06.I03",
-        "M06.F06.I04",
-        "M06.F06.I05",
-        "M01.F01.I01",
-        "M01.F01.I02",
-        "M01.F01.I03",
-        "M01.F01.I04",
-        "M01.F01.I05",
-        "M01.F01.I06",
-        "M01.F01.I07",
-        "M01.F01.I08",
-        "M01.F01.I09",
-        "M01.F01.I10",
-        "M01.F01.I11"
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
       ],
       "inert": false
     },
     {
-      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 缺 name 返回 400",
+      "test": "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 缺 name 返回 400",
       "fns": [
         "M06.F02.I01",
         "M06.F03.I01",
         "M06.F05.I01",
         "M06.F06.I01",
-        "M06.F02.I02",
-        "M06.F02.I03",
-        "M06.F02.I04",
-        "M06.F03.I02",
-        "M06.F03.I03",
-        "M06.F03.I04",
-        "M06.F03.I05",
-        "M06.F03.I06",
-        "M06.F03.I07",
-        "M06.F03.I08",
-        "M06.F03.I09",
-        "M06.F05.I02",
-        "M06.F05.I03",
-        "M06.F05.I04",
-        "M06.F05.I05",
-        "M06.F05.I06",
-        "M06.F05.I07",
-        "M06.F05.I08",
-        "M06.F06.I02",
-        "M06.F06.I03",
-        "M06.F06.I04",
-        "M06.F06.I05",
-        "M01.F01.I01",
-        "M01.F01.I02",
-        "M01.F01.I03",
-        "M01.F01.I04",
-        "M01.F01.I05",
-        "M01.F01.I06",
-        "M01.F01.I07",
-        "M01.F01.I08",
-        "M01.F01.I09",
-        "M01.F01.I10",
-        "M01.F01.I11"
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
       ],
       "inert": false
     },
     {
-      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /orgs 父节点不存在返回 404",
+      "test": "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 POST /departments 父节点不存在返回 404",
       "fns": [
         "M06.F02.I01",
         "M06.F03.I01",
         "M06.F05.I01",
         "M06.F06.I01",
-        "M06.F02.I02",
-        "M06.F02.I03",
-        "M06.F02.I04",
-        "M06.F03.I02",
-        "M06.F03.I03",
-        "M06.F03.I04",
-        "M06.F03.I05",
-        "M06.F03.I06",
-        "M06.F03.I07",
-        "M06.F03.I08",
-        "M06.F03.I09",
-        "M06.F05.I02",
-        "M06.F05.I03",
-        "M06.F05.I04",
-        "M06.F05.I05",
-        "M06.F05.I06",
-        "M06.F05.I07",
-        "M06.F05.I08",
-        "M06.F06.I02",
-        "M06.F06.I03",
-        "M06.F06.I04",
-        "M06.F06.I05",
-        "M01.F01.I01",
-        "M01.F01.I02",
-        "M01.F01.I03",
-        "M01.F01.I04",
-        "M01.F01.I05",
-        "M01.F01.I06",
-        "M01.F01.I07",
-        "M01.F01.I08",
-        "M01.F01.I09",
-        "M01.F01.I10",
-        "M01.F01.I11"
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
       ],
       "inert": false
     },
     {
-      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 更新名称",
+      "test": "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 更新名称",
       "fns": [
         "M06.F02.I01",
         "M06.F03.I01",
         "M06.F05.I01",
         "M06.F06.I01",
-        "M06.F02.I02",
-        "M06.F02.I03",
-        "M06.F02.I04",
-        "M06.F03.I02",
-        "M06.F03.I03",
-        "M06.F03.I04",
-        "M06.F03.I05",
-        "M06.F03.I06",
-        "M06.F03.I07",
-        "M06.F03.I08",
-        "M06.F03.I09",
-        "M06.F05.I02",
-        "M06.F05.I03",
-        "M06.F05.I04",
-        "M06.F05.I05",
-        "M06.F05.I06",
-        "M06.F05.I07",
-        "M06.F05.I08",
-        "M06.F06.I02",
-        "M06.F06.I03",
-        "M06.F06.I04",
-        "M06.F06.I05",
-        "M01.F01.I01",
-        "M01.F01.I02",
-        "M01.F01.I03",
-        "M01.F01.I04",
-        "M01.F01.I05",
-        "M01.F01.I06",
-        "M01.F01.I07",
-        "M01.F01.I08",
-        "M01.F01.I09",
-        "M01.F01.I10",
-        "M01.F01.I11"
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
       ],
       "inert": false
     },
     {
-      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /orgs/:id 节点不存在返回 404",
+      "test": "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 PUT /departments/:id 节点不存在返回 404",
       "fns": [
         "M06.F02.I01",
         "M06.F03.I01",
         "M06.F05.I01",
         "M06.F06.I01",
-        "M06.F02.I02",
-        "M06.F02.I03",
-        "M06.F02.I04",
-        "M06.F03.I02",
-        "M06.F03.I03",
-        "M06.F03.I04",
-        "M06.F03.I05",
-        "M06.F03.I06",
-        "M06.F03.I07",
-        "M06.F03.I08",
-        "M06.F03.I09",
-        "M06.F05.I02",
-        "M06.F05.I03",
-        "M06.F05.I04",
-        "M06.F05.I05",
-        "M06.F05.I06",
-        "M06.F05.I07",
-        "M06.F05.I08",
-        "M06.F06.I02",
-        "M06.F06.I03",
-        "M06.F06.I04",
-        "M06.F06.I05",
-        "M01.F01.I01",
-        "M01.F01.I02",
-        "M01.F01.I03",
-        "M01.F01.I04",
-        "M01.F01.I05",
-        "M01.F01.I06",
-        "M01.F01.I07",
-        "M01.F01.I08",
-        "M01.F01.I09",
-        "M01.F01.I10",
-        "M01.F01.I11"
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
       ],
       "inert": false
     },
     {
-      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/:id 204",
+      "test": "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/:id 204",
       "fns": [
         "M06.F02.I01",
         "M06.F03.I01",
         "M06.F05.I01",
         "M06.F06.I01",
-        "M06.F02.I02",
-        "M06.F02.I03",
-        "M06.F02.I04",
-        "M06.F03.I02",
-        "M06.F03.I03",
-        "M06.F03.I04",
-        "M06.F03.I05",
-        "M06.F03.I06",
-        "M06.F03.I07",
-        "M06.F03.I08",
-        "M06.F03.I09",
-        "M06.F05.I02",
-        "M06.F05.I03",
-        "M06.F05.I04",
-        "M06.F05.I05",
-        "M06.F05.I06",
-        "M06.F05.I07",
-        "M06.F05.I08",
-        "M06.F06.I02",
-        "M06.F06.I03",
-        "M06.F06.I04",
-        "M06.F06.I05",
-        "M01.F01.I01",
-        "M01.F01.I02",
-        "M01.F01.I03",
-        "M01.F01.I04",
-        "M01.F01.I05",
-        "M01.F01.I06",
-        "M01.F01.I07",
-        "M01.F01.I08",
-        "M01.F01.I09",
-        "M01.F01.I10",
-        "M01.F01.I11"
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
       ],
       "inert": false
     },
     {
-      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 DELETE /orgs/org-root 根节点不可删 400",
+      "test": "mocks/handlers.ts (终批) — departments CRUD + PermissionGroup 对齐 DELETE /departments/department-root 根节点不可删 400",
       "fns": [
         "M06.F02.I01",
         "M06.F03.I01",
         "M06.F05.I01",
         "M06.F06.I01",
-        "M06.F02.I02",
-        "M06.F02.I03",
-        "M06.F02.I04",
-        "M06.F03.I02",
-        "M06.F03.I03",
-        "M06.F03.I04",
-        "M06.F03.I05",
-        "M06.F03.I06",
-        "M06.F03.I07",
-        "M06.F03.I08",
-        "M06.F03.I09",
-        "M06.F05.I02",
-        "M06.F05.I03",
-        "M06.F05.I04",
-        "M06.F05.I05",
-        "M06.F05.I06",
-        "M06.F05.I07",
-        "M06.F05.I08",
-        "M06.F06.I02",
-        "M06.F06.I03",
-        "M06.F06.I04",
-        "M06.F06.I05",
-        "M01.F01.I01",
-        "M01.F01.I02",
-        "M01.F01.I03",
-        "M01.F01.I04",
-        "M01.F01.I05",
-        "M01.F01.I06",
-        "M01.F01.I07",
-        "M01.F01.I08",
-        "M01.F01.I09",
-        "M01.F01.I10",
-        "M01.F01.I11"
-      ],
-      "inert": false
-    },
-    {
-      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 GET /permission-groups 含 menuIds + sort 字段",
-      "fns": [
-        "M06.F02.I01",
-        "M06.F03.I01",
-        "M06.F05.I01",
-        "M06.F06.I01",
-        "M06.F02.I02",
-        "M06.F02.I03",
-        "M06.F02.I04",
-        "M06.F03.I02",
-        "M06.F03.I03",
-        "M06.F03.I04",
-        "M06.F03.I05",
-        "M06.F03.I06",
-        "M06.F03.I07",
-        "M06.F03.I08",
-        "M06.F03.I09",
-        "M06.F05.I02",
-        "M06.F05.I03",
-        "M06.F05.I04",
-        "M06.F05.I05",
-        "M06.F05.I06",
-        "M06.F05.I07",
-        "M06.F05.I08",
-        "M06.F06.I02",
-        "M06.F06.I03",
-        "M06.F06.I04",
-        "M06.F06.I05",
-        "M01.F01.I01",
-        "M01.F01.I02",
-        "M01.F01.I03",
-        "M01.F01.I04",
-        "M01.F01.I05",
-        "M01.F01.I06",
-        "M01.F01.I07",
-        "M01.F01.I08",
-        "M01.F01.I09",
-        "M01.F01.I10",
-        "M01.F01.I11"
-      ],
-      "inert": false
-    },
-    {
-      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 POST /permission-groups 带 menuIds + sort",
-      "fns": [
-        "M06.F02.I01",
-        "M06.F03.I01",
-        "M06.F05.I01",
-        "M06.F06.I01",
-        "M06.F02.I02",
-        "M06.F02.I03",
-        "M06.F02.I04",
-        "M06.F03.I02",
-        "M06.F03.I03",
-        "M06.F03.I04",
-        "M06.F03.I05",
-        "M06.F03.I06",
-        "M06.F03.I07",
-        "M06.F03.I08",
-        "M06.F03.I09",
-        "M06.F05.I02",
-        "M06.F05.I03",
-        "M06.F05.I04",
-        "M06.F05.I05",
-        "M06.F05.I06",
-        "M06.F05.I07",
-        "M06.F05.I08",
-        "M06.F06.I02",
-        "M06.F06.I03",
-        "M06.F06.I04",
-        "M06.F06.I05",
-        "M01.F01.I01",
-        "M01.F01.I02",
-        "M01.F01.I03",
-        "M01.F01.I04",
-        "M01.F01.I05",
-        "M01.F01.I06",
-        "M01.F01.I07",
-        "M01.F01.I08",
-        "M01.F01.I09",
-        "M01.F01.I10",
-        "M01.F01.I11"
-      ],
-      "inert": false
-    },
-    {
-      "test": "mocks/handlers.ts (终批) — orgs CRUD + PermissionGroup 对齐 PUT /permission-groups/:id 更新 menuIds",
-      "fns": [
-        "M06.F02.I01",
-        "M06.F03.I01",
-        "M06.F05.I01",
-        "M06.F06.I01",
-        "M06.F02.I02",
-        "M06.F02.I03",
-        "M06.F02.I04",
-        "M06.F03.I02",
-        "M06.F03.I03",
-        "M06.F03.I04",
-        "M06.F03.I05",
-        "M06.F03.I06",
-        "M06.F03.I07",
-        "M06.F03.I08",
-        "M06.F03.I09",
-        "M06.F05.I02",
-        "M06.F05.I03",
-        "M06.F05.I04",
-        "M06.F05.I05",
-        "M06.F05.I06",
-        "M06.F05.I07",
-        "M06.F05.I08",
-        "M06.F06.I02",
-        "M06.F06.I03",
-        "M06.F06.I04",
-        "M06.F06.I05",
-        "M01.F01.I01",
-        "M01.F01.I02",
-        "M01.F01.I03",
-        "M01.F01.I04",
-        "M01.F01.I05",
-        "M01.F01.I06",
-        "M01.F01.I07",
-        "M01.F01.I08",
-        "M01.F01.I09",
-        "M01.F01.I10",
-        "M01.F01.I11"
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
       ],
       "inert": false
     },
@@ -2239,7 +1840,7 @@
       "inert": false
     },
     {
-      "test": "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 2 个",
+      "test": "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /sso-providers 默认 1 个",
       "fns": [
         "M06.F01.I01",
         "M06.F04.I01",
@@ -2311,7 +1912,7 @@
       "inert": false
     },
     {
-      "test": "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 4 个",
+      "test": "mocks/handlers.ts (ch40) — loginMethods/sso/oauth2/token/apiKeys GET /oauth2-providers 默认 3 个",
       "fns": [
         "M06.F01.I01",
         "M06.F04.I01",
@@ -2728,42 +2329,42 @@
       "inert": false
     },
     {
-      "test": "auth store (ch40) loginWithSso writes token + user + currentOrgId",
+      "test": "auth store (ch40, v0.3.0 rename) loginWithSso writes token + user + currentDepartmentId",
       "fns": [
         "M01.F03.I01"
       ],
       "inert": false
     },
     {
-      "test": "auth store (ch40) loginWithSso sets error on bad code",
+      "test": "auth store (ch40, v0.3.0 rename) loginWithSso sets error on bad code",
       "fns": [
         "M01.F03.I01"
       ],
       "inert": false
     },
     {
-      "test": "auth store (ch40) refreshPermissions fetches permissions scoped to orgId and stores them",
+      "test": "auth store (ch40, v0.3.0 rename) refreshPermissions fetches permissions scoped to departmentId and stores them",
       "fns": [
         "M01.F03.I01"
       ],
       "inert": false
     },
     {
-      "test": "auth store (ch40) switchOrg updates currentOrgId and refreshes permissions (linked to tenant store)",
+      "test": "auth store (ch40, v0.3.0 rename) switchDepartment updates currentDepartmentId and refreshes permissions",
       "fns": [
         "M01.F03.I01"
       ],
       "inert": false
     },
     {
-      "test": "auth store (ch40) logout clears all state and token",
+      "test": "auth store (ch40, v0.3.0 rename) logout clears all state and token",
       "fns": [
         "M01.F03.I01"
       ],
       "inert": false
     },
     {
-      "test": "useOrgStore — 组织树 CRUD（对齐 React orgStore） 初始状态：tree=null, loading=false, error=null",
+      "test": "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） 初始状态：tree=null, loading=false, error=null",
       "fns": [
         "M02.F01.I01",
         "M02.F01.I07"
@@ -2771,7 +2372,7 @@
       "inert": false
     },
     {
-      "test": "useOrgStore — 组织树 CRUD（对齐 React orgStore） fetchOrgTree 拉取组织树（根 org-root）",
+      "test": "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） fetchDepartmentTree 拉取部门树（根 department-root）",
       "fns": [
         "M02.F01.I01",
         "M02.F01.I07"
@@ -2779,7 +2380,7 @@
       "inert": false
     },
     {
-      "test": "useOrgStore — 组织树 CRUD（对齐 React orgStore） createOrgNode 在指定父节点下新增子节点并刷新树",
+      "test": "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） createDepartmentNode 在指定父节点下新增子节点并刷新树",
       "fns": [
         "M02.F01.I01",
         "M02.F01.I07"
@@ -2787,7 +2388,7 @@
       "inert": false
     },
     {
-      "test": "useOrgStore — 组织树 CRUD（对齐 React orgStore） createOrgNode 不给 parentId 时默认挂到 org-root",
+      "test": "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） createDepartmentNode 不给 parentId 时默认挂到 department-root",
       "fns": [
         "M02.F01.I01",
         "M02.F01.I07"
@@ -2795,7 +2396,7 @@
       "inert": false
     },
     {
-      "test": "useOrgStore — 组织树 CRUD（对齐 React orgStore） updateOrgNode 更新节点名称并刷新树",
+      "test": "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） updateDepartmentNode 更新节点名称并刷新树",
       "fns": [
         "M02.F01.I01",
         "M02.F01.I07"
@@ -2803,7 +2404,7 @@
       "inert": false
     },
     {
-      "test": "useOrgStore — 组织树 CRUD（对齐 React orgStore） deleteOrgNode 删除非根节点并刷新树",
+      "test": "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） deleteDepartmentNode 删除非根节点并刷新树",
       "fns": [
         "M02.F01.I01",
         "M02.F01.I07"
@@ -2811,7 +2412,7 @@
       "inert": false
     },
     {
-      "test": "useOrgStore — 组织树 CRUD（对齐 React orgStore） deleteOrgNode 对根节点失败并设置 error（mock 返回 400）",
+      "test": "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） deleteDepartmentNode 对根节点失败并设置 error（mock 返回 400）",
       "fns": [
         "M02.F01.I01",
         "M02.F01.I07"
@@ -2819,7 +2420,7 @@
       "inert": false
     },
     {
-      "test": "useOrgStore — 组织树 CRUD（对齐 React orgStore） clearError 清空错误",
+      "test": "useDepartmentStore — 部门树 CRUD（对齐 React departmentStore） clearError 清空错误",
       "fns": [
         "M02.F01.I01",
         "M02.F01.I07"
@@ -2999,7 +2600,7 @@
       "inert": false
     },
     {
-      "test": "user store (ch41) fetchOrgTree loads the org tree",
+      "test": "user store (ch41, v0.3.0 rename) fetchDepartmentTree loads the department tree",
       "fns": [
         "M02.F02.I01",
         "M02.F02.I08"
@@ -3007,7 +2608,7 @@
       "inert": false
     },
     {
-      "test": "user store (ch41) fetchUsers loads paginated user list",
+      "test": "user store (ch41, v0.3.0 rename) fetchUsers loads paginated user list",
       "fns": [
         "M02.F02.I01",
         "M02.F02.I08"
@@ -3015,7 +2616,7 @@
       "inert": false
     },
     {
-      "test": "user store (ch41) fetchUsers applies keyword filter",
+      "test": "user store (ch41, v0.3.0 rename) fetchUsers applies keyword filter",
       "fns": [
         "M02.F02.I01",
         "M02.F02.I08"
@@ -3023,7 +2624,7 @@
       "inert": false
     },
     {
-      "test": "user store (ch41) assignRoles updates a user roles",
+      "test": "user store (ch41, v0.3.0 rename) assignRoles updates a user roles",
       "fns": [
         "M02.F02.I01",
         "M02.F02.I08"
@@ -3031,7 +2632,7 @@
       "inert": false
     },
     {
-      "test": "user store (ch41) fetchUsers applies orgId filter",
+      "test": "user store (ch41, v0.3.0 rename) fetchUsers applies departmentId filter",
       "fns": [
         "M02.F02.I01",
         "M02.F02.I08"
@@ -3194,6 +2795,186 @@
       "inert": false
     },
     {
+      "test": "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 挂载触发 fetchDepartmentTree 并渲染部门树",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 渲染「新增根部门」按钮",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中根节点时不显示「删除」按钮（根不可删）",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中非根节点时显示「删除」按钮",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「新增根部门」打开弹窗（mode=create, nodeId=department-root）",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 create 调 store.createDepartmentNode(name, parentId)",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 弹窗提交 edit 调 store.updateDepartmentNode(id, name)",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） 点「删除」打开确认弹窗；确认调 store.deleteDepartmentNode(id)",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
+      "test": "DepartmentInfo.vue — 部门管理真页（对齐 React DepartmentTree） error 态渲染告警条",
+      "fns": [
+        "M02.F01.I01",
+        "M02.F01.I03",
+        "M02.F01.I04",
+        "M02.F01.I05",
+        "M02.F01.I06",
+        "M02.F01.I02",
+        "M02.F01.I07",
+        "M02.F01.I08",
+        "M02.F01.I09"
+      ],
+      "inert": false
+    },
+    {
       "test": "Login.vue (对齐 React) 挂载后渲染「登录」标题与 SSO 按钮",
       "fns": [
         "M01.F04.I04",
@@ -3258,186 +3039,6 @@
       "test": "MenuPermissions.vue 父菜单全选联动勾选所有子菜单",
       "fns": [
         "M03.F01.I07"
-      ],
-      "inert": false
-    },
-    {
-      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 挂载触发 fetchOrgTree 并渲染组织树",
-      "fns": [
-        "M02.F01.I01",
-        "M02.F01.I03",
-        "M02.F01.I04",
-        "M02.F01.I05",
-        "M02.F01.I06",
-        "M02.F01.I02",
-        "M02.F01.I07",
-        "M02.F01.I08",
-        "M02.F01.I09"
-      ],
-      "inert": false
-    },
-    {
-      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 渲染「新增根部门」按钮",
-      "fns": [
-        "M02.F01.I01",
-        "M02.F01.I03",
-        "M02.F01.I04",
-        "M02.F01.I05",
-        "M02.F01.I06",
-        "M02.F01.I02",
-        "M02.F01.I07",
-        "M02.F01.I08",
-        "M02.F01.I09"
-      ],
-      "inert": false
-    },
-    {
-      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 初始无选中节点时不显示工具栏；选中节点后显示工具栏",
-      "fns": [
-        "M02.F01.I01",
-        "M02.F01.I03",
-        "M02.F01.I04",
-        "M02.F01.I05",
-        "M02.F01.I06",
-        "M02.F01.I02",
-        "M02.F01.I07",
-        "M02.F01.I08",
-        "M02.F01.I09"
-      ],
-      "inert": false
-    },
-    {
-      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中根节点时不显示「删除」按钮（根不可删）",
-      "fns": [
-        "M02.F01.I01",
-        "M02.F01.I03",
-        "M02.F01.I04",
-        "M02.F01.I05",
-        "M02.F01.I06",
-        "M02.F01.I02",
-        "M02.F01.I07",
-        "M02.F01.I08",
-        "M02.F01.I09"
-      ],
-      "inert": false
-    },
-    {
-      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中非根节点时显示「删除」按钮",
-      "fns": [
-        "M02.F01.I01",
-        "M02.F01.I03",
-        "M02.F01.I04",
-        "M02.F01.I05",
-        "M02.F01.I06",
-        "M02.F01.I02",
-        "M02.F01.I07",
-        "M02.F01.I08",
-        "M02.F01.I09"
-      ],
-      "inert": false
-    },
-    {
-      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「新增根部门」打开弹窗（mode=create, nodeId=org-root）",
-      "fns": [
-        "M02.F01.I01",
-        "M02.F01.I03",
-        "M02.F01.I04",
-        "M02.F01.I05",
-        "M02.F01.I06",
-        "M02.F01.I02",
-        "M02.F01.I07",
-        "M02.F01.I08",
-        "M02.F01.I09"
-      ],
-      "inert": false
-    },
-    {
-      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「+ 子部门」打开弹窗（mode=create, nodeId=选中节点）",
-      "fns": [
-        "M02.F01.I01",
-        "M02.F01.I03",
-        "M02.F01.I04",
-        "M02.F01.I05",
-        "M02.F01.I06",
-        "M02.F01.I02",
-        "M02.F01.I07",
-        "M02.F01.I08",
-        "M02.F01.I09"
-      ],
-      "inert": false
-    },
-    {
-      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 选中节点后点「编辑」打开弹窗（mode=edit, nodeId=选中节点, initialName=节点名）",
-      "fns": [
-        "M02.F01.I01",
-        "M02.F01.I03",
-        "M02.F01.I04",
-        "M02.F01.I05",
-        "M02.F01.I06",
-        "M02.F01.I02",
-        "M02.F01.I07",
-        "M02.F01.I08",
-        "M02.F01.I09"
-      ],
-      "inert": false
-    },
-    {
-      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 create 调 store.createOrgNode(name, parentId)",
-      "fns": [
-        "M02.F01.I01",
-        "M02.F01.I03",
-        "M02.F01.I04",
-        "M02.F01.I05",
-        "M02.F01.I06",
-        "M02.F01.I02",
-        "M02.F01.I07",
-        "M02.F01.I08",
-        "M02.F01.I09"
-      ],
-      "inert": false
-    },
-    {
-      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 弹窗提交 edit 调 store.updateOrgNode(id, name)",
-      "fns": [
-        "M02.F01.I01",
-        "M02.F01.I03",
-        "M02.F01.I04",
-        "M02.F01.I05",
-        "M02.F01.I06",
-        "M02.F01.I02",
-        "M02.F01.I07",
-        "M02.F01.I08",
-        "M02.F01.I09"
-      ],
-      "inert": false
-    },
-    {
-      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） 点「删除」打开确认弹窗；确认调 store.deleteOrgNode(id)",
-      "fns": [
-        "M02.F01.I01",
-        "M02.F01.I03",
-        "M02.F01.I04",
-        "M02.F01.I05",
-        "M02.F01.I06",
-        "M02.F01.I02",
-        "M02.F01.I07",
-        "M02.F01.I08",
-        "M02.F01.I09"
-      ],
-      "inert": false
-    },
-    {
-      "test": "OrgInfo.vue — 组织管理真页（对齐 React OrgTree） error 态渲染告警条",
-      "fns": [
-        "M02.F01.I01",
-        "M02.F01.I03",
-        "M02.F01.I04",
-        "M02.F01.I05",
-        "M02.F01.I06",
-        "M02.F01.I02",
-        "M02.F01.I07",
-        "M02.F01.I08",
-        "M02.F01.I09"
       ],
       "inert": false
     },

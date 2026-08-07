@@ -24,8 +24,8 @@ const MOCK_SIGNATURE = base64url(MOCK_SECRET + '::mock-hs256').slice(0, 32)
 export interface JwtPayload {
   sub: string
   username: string
-  /** 当前组织 ID（SaaS 多组织） */
-  orgId: string
+  /** 当前部门 ID（SaaS 多部门，可切换）。v0.3.0 改名（原 orgId）。 */
+  departmentId: string
   /** 当前租户 ID（= lab 机构，1:1；可选，非 lab 来源可缺省） */
   tenantId?: string
   /** 登录来源应用 ID（可选） */

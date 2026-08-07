@@ -2,17 +2,17 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
 import { useUserStore } from '../../src/stores/user'
 
-describe('user store (ch41)', () => {
+describe('user store (ch41, v0.3.0 rename)', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
   })
 
-  it('fetchOrgTree loads the org tree [fn: M02.F02.I01, M02.F02.I08]', async () => {
+  it('fetchDepartmentTree loads the department tree [fn: M02.F02.I01, M02.F02.I08]', async () => {
     const store = useUserStore()
-    await store.fetchOrgTree()
-    expect(store.orgTree).not.toBeNull()
-    expect(store.orgTree?.id).toBe('org-root')
-    expect(store.orgTree?.children?.length).toBeGreaterThan(0)
+    await store.fetchDepartmentTree()
+    expect(store.departmentTree).not.toBeNull()
+    expect(store.departmentTree?.id).toBe('department-root')
+    expect(store.departmentTree?.children?.length).toBeGreaterThan(0)
   })
 
   it('fetchUsers loads paginated user list [fn: M02.F02.I01, M02.F02.I08]', async () => {
@@ -38,10 +38,10 @@ describe('user store (ch41)', () => {
     expect(updated?.roles).toEqual(['manager'])
   })
 
-  it('fetchUsers applies orgId filter [fn: M02.F02.I01, M02.F02.I08]', async () => {
+  it('fetchUsers applies departmentId filter [fn: M02.F02.I01, M02.F02.I08]', async () => {
     const store = useUserStore()
-    await store.fetchUsers({ page: 1, pageSize: 50, orgId: 'org-fe' })
-    expect(store.users.every((u) => u.orgId === 'org-fe')).toBe(true)
+    await store.fetchUsers({ page: 1, pageSize: 50, departmentId: 'department-fe' })
+    expect(store.users.every((u) => u.departmentId === 'department-fe')).toBe(true)
     expect(store.total).toBeGreaterThan(0)
   })
 })

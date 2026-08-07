@@ -23,7 +23,8 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@saas/identity-platform-shared/*": ["../saas-identity-platform-shared/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "mocks/**/*.ts"],

@@ -80,8 +80,8 @@ describe('AppSidebar.vue (ch39/ch40)', () => {
   })
 
   // 对齐 React Layout.tsx：身份管理分组顺序为
-  // 组织管理 → 岗位管理 → 角色管理 → 权限组别 → 菜单权限 → 用户组别 → 用户管理（用户管理末位）
-  it('身份管理分组顺序对齐 React（组织管理在用户管理之前，用户管理末位） [fn: M01.F01.I08]', async () => {
+  // 部门管理 → 岗位管理 → 角色管理 → 权限组别 → 菜单权限 → 用户组别 → 用户管理（用户管理末位）
+  it('身份管理分组顺序对齐 React（部门管理在用户管理之前，用户管理末位） [fn: M01.F01.I08]', async () => {
     const auth = useAuthStore()
     auth.user = { id: 'u4', name: '管理员', role: 'admin', roleId: 'role-admin' } as never
     auth.permissions = [
@@ -92,12 +92,12 @@ describe('AppSidebar.vue (ch39/ch40)', () => {
     await router.isReady()
     const wrapper = mount(AppSidebar, { global: { plugins: [router] } })
     const text = wrapper.text()
-    // 组织管理 必须出现在 用户管理 之前
-    expect(text.indexOf('组织管理')).toBeLessThan(text.indexOf('用户管理'))
+    // 部门管理 必须出现在 用户管理 之前
+    expect(text.indexOf('部门管理')).toBeLessThan(text.indexOf('用户管理'))
     // 岗位管理 必须出现在 角色管理 之前
     expect(text.indexOf('岗位管理')).toBeLessThan(text.indexOf('角色管理'))
     // 身份管理分组的 7 个 label 必须都在首页之后
-    expect(text.indexOf('身份管理')).toBeLessThan(text.indexOf('组织管理'))
+    expect(text.indexOf('身份管理')).toBeLessThan(text.indexOf('部门管理'))
   })
 
   // 平台 nav 顺序对齐 React PlatformLayout：租户 → 应用 → 开放平台 → 平台配置

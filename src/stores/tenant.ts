@@ -19,8 +19,12 @@ export const useTenantStore = defineStore('tenant', () => {
   const loading = ref(false)
   const error = ref<string | null>(null)
 
-  /** 当前租户已订阅的功能模块列表 */
-  const subscribedFeatures = computed<string[]>(() => current.value?.features ?? [])
+  /** 当前租户已订阅的功能模块列表（v0.3.0：shared 把 features 移到了 config.features） */
+  const subscribedFeatures = computed<string[]>(() => {
+    const t = current.value as { features?: string[]; config?: { features?: string[] } } | null
+    if (!t) return []
+    return t.features ?? t.config?.features ?? []
+  })
 
   /** 从路径中解析租户 id（取第一段） */
   function resolveTenantIdFromPath(path: string): string {

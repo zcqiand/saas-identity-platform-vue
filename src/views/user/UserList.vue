@@ -43,7 +43,7 @@ import type { UserQuery, UserRole } from '../../types/user'
 const userStore = useUserStore()
 const { users, total, loading, error } = storeToRefs(userStore)
 
-const table = useTable<{ role?: string; status?: string; orgId?: string }>({
+const table = useTable<{ role?: string; status?: string; departmentId?: string }>({
   initialPageSize: 10,
 })
 
@@ -59,7 +59,7 @@ async function load(): Promise<void> {
     keyword: table.state.keyword || undefined,
     role: table.state.query.role as UserRole | undefined,
     status: table.state.query.status as never,
-    orgId: table.state.query.orgId,
+    departmentId: table.state.query.departmentId,
   }
   await userStore.fetchUsers(query)
   table.total.value = total.value
@@ -130,7 +130,7 @@ const roleOptions: UserRole[] = ['admin', 'manager', 'member', 'viewer']
             <td class="px-4 py-2">{{ user.username }}</td>
             <td class="px-4 py-2">{{ user.displayName }}</td>
             <td class="px-4 py-2">{{ user.email }}</td>
-            <td class="px-4 py-2">{{ user.orgId }}</td>
+            <td class="px-4 py-2">{{ user.departmentId }}</td>
             <td class="px-4 py-2">
               <select
                 data-testid="role-select"

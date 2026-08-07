@@ -1,21 +1,114 @@
 // Mock 内存数据库：仅 mock 层使用，测试间隔离由 tests/setup.ts 的 resetMockDb 保证。
-// ch39：租户数据；ch40 追加角色；ch41 追加 userTable/orgTree/auditLogTable（只增）。
-// 与 React 双栈仓 msw/db.ts 中 ch39-42 涉及的数据保持一致（租户/用户/组织/审计/角色）。
+//
+// Phase 5d：单一真理源自 @saas/identity-platform-shared/seeds（v0.3.0）—— 19 张表
+// 默认值由 shared 提供（除 USERS / DEPARTMENTS 本仓特有），CRUD 仍在本文件维护。
+//
+// v0.3.0 重命名（org → department）：本文件：
+//   1. 初始化时把 shared seeds 拷贝到内存可写副本（其余 19 张表）
+//   2. 提供与原 saas-vue 一致的函数 export 名字（findTenant/insertTenant/...
+//      findUserById/.../findDepartmentNode/.../listApps/.../listPositions/... 等）
+//   3. 兼容 shared v0.3.0 的字段重命名：orgId → departmentId / OrgNode → DepartmentNode
+//      `findDepartmentNode` 为新 store 用名，`findOrgNode` 保持为旧别名（5b 边界保留）
+//
+// 显著差异（同 React 5b）：
+//   - shared seeds 只有 2 个租户（acme + tenant-lab）和 19 个用户；
+//     原 saas-vue 的 12 租户 + 18 用户 demo 数据（acme/globex/initech/...）已废弃，
+//     改由 shared seeds 接管 — 删除 11 mock 租户 + 多余用户。
+//   - 部门树（嵌套）仍是 Vue 本仓特有：shared v0.3.0 只有 2 个根级部门，
+//     不够支撑 Vue 树形测试，所以 DEFAULT_DEPARTMENT_TREE 保留为 Vue-local
+//     （与 5b React "findOrgNode 返回扁平" 不同 — Vue 自家递归组件需要树）。
 
-import type { User, OrgNode, AuditLog } from '../src/types/user'
-import type { Role } from '../src/types/rbac'
-import type { App, MenuItem } from '../src/types/app'
-import type { Position, UserGroup, PermissionGroup } from '../src/types/org'
+import {
+  TENANTS,
+  USERS as SHARED_USERS,
+  AUDIT_LOGS,
+  ROLE_PERMISSIONS,
+  PERMISSION_GROUPS,
+  USER_GROUPS,
+  APPS,
+  APP_MENUS,
+  POSITIONS,
+  LOGIN_METHODS,
+  SSO_PROVIDERS,
+  OAUTH2_PROVIDERS,
+  API_KEYS,
+  TOKEN_CONFIG as SHARED_TOKEN_CONFIG,
+  LOGIN_SECURITY,
+  PASSWORD_POLICY,
+  RISK_CONTROL,
+  NOTIFICATION_CONFIG,
+  OPEN_PLATFORM_CONFIG,
+} from '@saas/identity-platform-shared/seeds'
+import {
+  TenantSchema,
+  AuditLogSchema,
+  RoleSchema,
+  PermissionGroupSchema,
+  UserGroupSchema,
+  AppSchema,
+  MenuSchema,
+  PositionSchema,
+  LoginMethodEntrySchema,
+  SsoProviderSchema,
+  OAuth2ProviderSchema,
+  ApiKeySchema,
+  TokenConfigSchema,
+  LoginSecuritySchema,
+  PasswordPolicySchema,
+  RiskControlSchema,
+  NotificationConfigSchema,
+  OpenPlatformConfigSchema,
+} from '@saas/identity-platform-shared/schemas'
 import type {
-  LoginMethod, SsoProvider, OAuth2Provider, TokenConfig, ApiKey,
-  LoginSecurity, PasswordPolicy, RiskControl, NotificationConfig, OpenPlatformConfig,
-} from '../src/types/security'
+  AuditLog as SharedAuditLog,
+  App as SharedApp,
+  Menu as SharedMenu,
+  Position as SharedPosition,
+  UserGroup as SharedUserGroup,
+  PermissionGroup as SharedPermissionGroup,
+  LoginMethodEntry as SharedLoginMethodEntry,
+  SsoProvider as SharedSsoProvider,
+  OAuth2Provider as SharedOAuth2Provider,
+  ApiKey as SharedApiKey,
+  TokenConfig as SharedTokenConfig,
+  LoginSecurity as SharedLoginSecurity,
+  PasswordPolicy as SharedPasswordPolicy,
+  RiskControl as SharedRiskControl,
+  NotificationConfig as SharedNotificationConfig,
+  OpenPlatformConfig as SharedOpenPlatformConfig,
+} from '@saas/identity-platform-shared/schemas'
+import type { User, DepartmentNode } from '../src/types/user'
+import type { Role } from '../src/types/rbac'
+
+// ──────────────────────────────────────────────────────────────────────
+// 类型：保持与原 db.ts 同名（同构），供既有 handlers/UI 直接使用
+// ──────────────────────────────────────────────────────────────────────
+
+type Tenant = (typeof TENANTS)[number]
+/** 旧名 MockTenant 别名（兼容原 Vue msw/handlers.ts 的 `MockTenant` 类型 import） */
+export type MockTenant = Tenant
+type AuditLog = SharedAuditLog
+type App = SharedApp
+type Menu = SharedMenu
+type Position = SharedPosition
+type UserGroup = SharedUserGroup
+type PermissionGroup = SharedPermissionGroup
+type LoginMethod = SharedLoginMethodEntry
+type SsoProvider = SharedSsoProvider
+type OAuth2Provider = SharedOAuth2Provider
+type ApiKey = SharedApiKey
+type TokenConfig = SharedTokenConfig
+type LoginSecurity = SharedLoginSecurity
+type PasswordPolicy = SharedPasswordPolicy
+type RiskControl = SharedRiskControl
+type NotificationConfig = SharedNotificationConfig
+type OpenPlatformConfig = SharedOpenPlatformConfig
 
 /** 通用重置入口 */
 export function resetMockDb() {
   resetTenants()
   resetUsers()
-  resetOrgs()
+  resetDepartments()
   resetAuditLogs()
   resetRoles()
   resetApps()
@@ -35,87 +128,60 @@ export function resetMockDb() {
   resetOpenPlatformConfig()
 }
 
-// —— ch39：租户表（12 个） ——
-export interface MockTenant {
-  id: string
-  name: string
-  theme: {
-    primary: string
-    sidebar: string
-    logoText: string
-  }
-  /** 启用的功能模块（与 TenantConfig.features 对齐，顶层字段） */
-  features: string[]
-  config?: {
-    maxUsers?: number
-    [key: string]: unknown
-  }
-}
-
-const DEFAULT_TENANTS: MockTenant[] = [
-  { id: 'acme', name: 'ACME 集团', theme: { primary: '#2563eb', sidebar: '#1e293b', logoText: 'ACME' }, features: ['sso', 'audit', 'rbac'], config: { maxUsers: 200 } },
-  { id: 'globex', name: 'Globex 科技', theme: { primary: '#059669', sidebar: '#064e3b', logoText: 'GLOBEX' }, features: ['sso', 'rbac'], config: { maxUsers: 100 } },
-  { id: 'initech', name: 'Initech 工程', theme: { primary: '#7c3aed', sidebar: '#2e1065', logoText: 'INITECH' }, features: ['sso', 'audit', 'rbac'], config: { maxUsers: 50 } },
-  { id: 'umbrella', name: 'Umbrella 生物', theme: { primary: '#dc2626', sidebar: '#450a0a', logoText: 'UMBRELLA' }, features: ['audit', 'rbac'], config: { maxUsers: 80 } },
-  { id: 'tyrell', name: 'Tyrell 未来', theme: { primary: '#0891b2', sidebar: '#0c4a6e', logoText: 'TYRELL' }, features: ['sso', 'rbac'], config: { maxUsers: 150 } },
-  { id: 'massive', name: 'Massive 动态', theme: { primary: '#ea580c', sidebar: '#431407', logoText: 'MASSIVE' }, features: ['sso', 'audit'], config: { maxUsers: 60 } },
-  { id: 'weyland', name: 'Weyland 航天', theme: { primary: '#65a30d', sidebar: '#1a2e05', logoText: 'WEYLAND' }, features: ['sso', 'audit', 'rbac'], config: { maxUsers: 300 } },
-  { id: 'cyberdyne', name: 'Cyberdyne 系统', theme: { primary: '#0f766e', sidebar: '#134e4a', logoText: 'CYBERDYNE' }, features: ['rbac'], config: { maxUsers: 120 } },
-  { id: 'buy', name: 'Buy n Large', theme: { primary: '#f59e0b', sidebar: '#451a03', logoText: 'BnL' }, features: ['sso', 'audit', 'rbac'], config: { maxUsers: 500 } },
-  { id: 'no', name: 'Noosphinx 媒体', theme: { primary: '#6366f1', sidebar: '#1e1b4b', logoText: 'NOO' }, features: ['sso', 'rbac'], config: { maxUsers: 75 } },
-  { id: 'olympus', name: 'Olympus 影像', theme: { primary: '#be185d', sidebar: '#500724', logoText: 'OLYMPUS' }, features: ['audit', 'rbac'], config: { maxUsers: 90 } },
-  { id: 'axiom', name: 'Axiom 航运', theme: { primary: '#2563eb', sidebar: '#1e3a5f', logoText: 'AXIOM' }, features: ['sso', 'audit', 'rbac'], config: { maxUsers: 250 } },
-]
-
-let tenants: MockTenant[] = [...DEFAULT_TENANTS]
-
-function resetTenants() {
-  tenants = [...DEFAULT_TENANTS]
-}
-
-export function listTenants(): MockTenant[] {
-  return [...tenants]
-}
-
-export function findTenant(id: string): MockTenant | undefined {
-  return tenants.find((t) => t.id === id)
-}
-
-export interface TenantCreateInput {
-  name: string
-  theme: { primary: string; sidebar: string; logoText: string }
-  features?: string[]
-  config?: { maxUsers?: number }
-}
-
 function genId(prefix: string): string {
   return `${prefix}-${Math.random().toString(36).slice(2, 10)}`
 }
 
-export function insertTenant(input: TenantCreateInput): MockTenant {
-  const tenant: MockTenant = {
+function now(): string {
+  return new Date().toISOString()
+}
+
+// ──────────────────────────────────────────────────────────────────────
+// Tenants
+// ──────────────────────────────────────────────────────────────────────
+
+export interface TenantCreateInput {
+  name: string
+  theme: { primary: string; sidebar: string; logoText: string }
+  config?: { features?: string[]; maxUsers?: number }
+}
+
+let tenants: Tenant[] = TENANTS.map((t) => TenantSchema.parse(t) as unknown as Tenant)
+
+function resetTenants() {
+  tenants = TENANTS.map((t) => TenantSchema.parse(t) as unknown as Tenant)
+}
+
+export function listTenants(): Tenant[] {
+  return tenants.map((t) => structuredClone(t))
+}
+
+export function findTenant(id: string): Tenant | undefined {
+  return tenants.find((t) => t.id === id)
+}
+
+export function insertTenant(input: TenantCreateInput): Tenant {
+  const tenant = {
     id: genId('tenant'),
     name: input.name,
     theme: input.theme,
-    features: input.features ?? [],
-    config: input.config ?? { maxUsers: 100 },
-  }
+    config: input.config ?? { features: [], maxUsers: 100 },
+  } as unknown as Tenant
   tenants.push(tenant)
-  return tenant
+  return structuredClone(tenant)
 }
 
-export function updateTenantRecord(id: string, patch: Partial<TenantCreateInput>): MockTenant | undefined {
+export function updateTenantRecord(id: string, patch: Partial<TenantCreateInput>): Tenant | undefined {
   const idx = tenants.findIndex((t) => t.id === id)
   if (idx === -1) return undefined
-  const updated: MockTenant = {
+  const updated: Tenant = {
     ...tenants[idx],
     ...(patch.name !== undefined ? { name: patch.name } : {}),
     ...(patch.theme !== undefined ? { theme: patch.theme } : {}),
-    ...(patch.features !== undefined ? { features: patch.features } : {}),
     ...(patch.config !== undefined ? { config: patch.config } : {}),
-  }
+  } as unknown as Tenant
   tenants[idx] = updated
-  return updated
+  return structuredClone(updated)
 }
 
 export function deleteTenantRecord(id: string): boolean {
@@ -125,33 +191,38 @@ export function deleteTenantRecord(id: string): boolean {
   return true
 }
 
-export function queryTenants(opts?: { keyword?: string }): MockTenant[] {
-  if (!opts?.keyword) return [...tenants]
+export function queryTenants(opts?: { keyword?: string }): Tenant[] {
+  if (!opts?.keyword) return listTenants()
   const kw = opts.keyword.toLowerCase()
-  return tenants.filter((t) => t.name.toLowerCase().includes(kw))
+  return tenants.filter((t) => t.name.toLowerCase().includes(kw)).map((t) => structuredClone(t))
 }
 
-// —— ch41：用户表（18 个） ——
-const DEFAULT_USERS: User[] = [
-  { id: 'u-001', username: 'admin@acme', displayName: 'SaaS 管理员', email: 'admin@acme.com', orgId: 'org-acme', roles: ['admin'], status: 'active', createdAt: '2026-01-01T08:00:00Z', updatedAt: '2026-01-01T08:00:00Z' },
-  { id: 'u-002', username: 'technician@acme', displayName: '张检测', email: 'tech@acme.com', orgId: 'org-tech', roles: ['member'], status: 'active', createdAt: '2026-01-02T09:00:00Z', updatedAt: '2026-01-02T09:00:00Z' },
-  { id: 'u-003', username: 'alice.chen@acme', displayName: '陈艾丽丝', email: 'alice@acme.com', orgId: 'org-fe', roles: ['admin'], status: 'active', createdAt: '2026-01-03T10:00:00Z', updatedAt: '2026-01-03T10:00:00Z' },
-  { id: 'u-004', username: 'bob.wang@acme', displayName: '王大力', email: 'bob@acme.com', orgId: 'org-fe', roles: ['member'], status: 'active', createdAt: '2026-01-04T11:00:00Z', updatedAt: '2026-01-04T11:00:00Z' },
-  { id: 'u-005', username: 'carol.li@acme', displayName: '李佳慧', email: 'carol@acme.com', orgId: 'org-sales', roles: ['manager'], status: 'active', createdAt: '2026-01-05T12:00:00Z', updatedAt: '2026-01-05T12:00:00Z' },
-  { id: 'u-006', username: 'david.zhang@acme', displayName: '张明', email: 'david@acme.com', orgId: 'org-acme', roles: ['viewer'], status: 'pending', createdAt: '2026-01-06T13:00:00Z', updatedAt: '2026-01-06T13:00:00Z' },
-  { id: 'u-007', username: 'manager@globex', displayName: 'Globex 经理', email: 'manager@globex.com', orgId: 'org-globex', roles: ['manager'], status: 'active', createdAt: '2026-01-02T08:00:00Z', updatedAt: '2026-01-02T08:00:00Z' },
-  { id: 'u-008', username: 'guest@globex', displayName: '访客账户', email: 'guest@globex.com', orgId: 'org-globex', roles: ['viewer'], status: 'disabled', createdAt: '2026-01-03T09:00:00Z', updatedAt: '2026-01-03T09:00:00Z' },
-  { id: 'u-009', username: 'eva.liu@globex', displayName: '刘伊娃', email: 'eva@globex.com', orgId: 'org-globex-tech', roles: ['admin'], status: 'active', createdAt: '2026-01-04T10:00:00Z', updatedAt: '2026-01-04T10:00:00Z' },
-  { id: 'u-010', username: 'admin@initech', displayName: 'Initech 管理员', email: 'admin@initech.com', orgId: 'org-acme', roles: ['admin'], status: 'active', createdAt: '2026-01-02T08:30:00Z', updatedAt: '2026-01-02T08:30:00Z' },
-  { id: 'u-011', username: 'frank.gao@initech', displayName: '高福', email: 'frank@initech.com', orgId: 'org-acme', roles: ['member'], status: 'active', createdAt: '2026-01-03T09:30:00Z', updatedAt: '2026-01-03T09:30:00Z' },
-  { id: 'u-012', username: 'admin@umbrella', displayName: 'Umbrella 管理员', email: 'admin@umbrella.com', orgId: 'org-acme', roles: ['admin'], status: 'active', createdAt: '2026-01-02T09:00:00Z', updatedAt: '2026-01-02T09:00:00Z' },
-  { id: 'u-013', username: 'researcher@umbrella', displayName: '研究员A', email: 'researcher@umbrella.com', orgId: 'org-acme', roles: ['member'], status: 'active', createdAt: '2026-01-02T10:00:00Z', updatedAt: '2026-01-02T10:00:00Z' },
-  { id: 'u-014', username: 'admin@weyland', displayName: 'Weyland 管理员', email: 'admin@weyland.com', orgId: 'org-acme', roles: ['admin'], status: 'active', createdAt: '2026-01-03T08:00:00Z', updatedAt: '2026-01-03T08:00:00Z' },
-  { id: 'u-015', username: 'ops@cyberdyne', displayName: 'Cyberdyne 运维', email: 'ops@cyberdyne.com', orgId: 'org-acme', roles: ['member'], status: 'active', createdAt: '2026-01-04T08:00:00Z', updatedAt: '2026-01-04T08:00:00Z' },
-  { id: 'u-016', username: 'super@buy', displayName: 'Buy n Large 超管', email: 'super@buy.com', orgId: 'org-acme', roles: ['admin'], status: 'active', createdAt: '2026-01-04T09:00:00Z', updatedAt: '2026-01-04T09:00:00Z' },
-  { id: 'u-017', username: 'elena@no', displayName: '诺媒体编辑', email: 'elena@no.com', orgId: 'org-acme', roles: ['member'], status: 'active', createdAt: '2026-01-05T10:00:00Z', updatedAt: '2026-01-05T10:00:00Z' },
-  { id: 'u-018', username: 'admin@axiom', displayName: 'Axiom 管理员', email: 'admin@axiom.com', orgId: 'org-acme', roles: ['admin'], status: 'active', createdAt: '2026-01-05T11:00:00Z', updatedAt: '2026-01-05T11:00:00Z' },
-]
+// ──────────────────────────────────────────────────────────────────────
+// Users（v0.3.0：orgId → departmentId）
+//
+// Vue-local DEFAULT_USERS：保留 React 5b 同款的 18 users demo 数据，但部门 ID
+// 字段改名为 departmentId，部门标识从 org-* 重命名为 department-*。
+// 这是 Vue 树形测试与 UserList 测试期望的部门 ID 命名（department-acme/fe/...）。
+// shared USERS 提供的 tenant-lab 用户 + View store 默认 u-001/u-002 已包含在 DEFAULT_USERS 中。
+// ──────────────────────────────────────────────────────────────────────
+
+const DEFAULT_USERS = [
+  // v0.3.0 重命名后 User schema（来自 shared）启用 enabled + tenantId 二必填；这里全部显式补齐：
+  // - enabled: true（local 字段默认活跃，guest 是 disabled=false）
+  // - tenantId：acme/globex 都属 'acme' 顶层租户；lab 用户来自 SHARED_USERS
+  // —— acme 用户 ——
+  { id: 'u-001', username: 'admin@acme', displayName: 'SaaS 管理员', email: 'admin@acme.com', departmentId: 'department-acme', tenantId: 'acme', roles: ['admin'], status: 'active', createdAt: '2026-01-01T08:00:00Z', updatedAt: '2026-01-01T08:00:00Z' },
+  { id: 'u-002', username: 'technician@acme', displayName: '张检测', email: 'tech@acme.com', departmentId: 'department-tech', tenantId: 'acme', roles: ['member'], status: 'active', createdAt: '2026-01-02T09:00:00Z', updatedAt: '2026-01-02T09:00:00Z' },
+  { id: 'u-003', username: 'alice.chen@acme', displayName: '陈艾丽丝', email: 'alice@acme.com', departmentId: 'department-fe', tenantId: 'acme', roles: ['admin'], status: 'active', createdAt: '2026-01-03T10:00:00Z', updatedAt: '2026-01-03T10:00:00Z' },
+  { id: 'u-004', username: 'bob.wang@acme', displayName: '王大力', email: 'bob@acme.com', departmentId: 'department-fe', tenantId: 'acme', roles: ['member'], status: 'active', createdAt: '2026-01-04T11:00:00Z', updatedAt: '2026-01-04T11:00:00Z' },
+  { id: 'u-005', username: 'carol.li@acme', displayName: '李佳慧', email: 'carol@acme.com', departmentId: 'department-sales', tenantId: 'acme', roles: ['manager'], status: 'active', createdAt: '2026-01-05T12:00:00Z', updatedAt: '2026-01-05T12:00:00Z' },
+  // —— globex 用户 ——
+  { id: 'u-007', username: 'manager@globex', displayName: 'Globex 经理', email: 'manager@globex.com', departmentId: 'department-globex', tenantId: 'acme', roles: ['manager'], status: 'active', createdAt: '2026-01-02T08:00:00Z', updatedAt: '2026-01-02T08:00:00Z' },
+  { id: 'u-008', username: 'guest@globex', displayName: '访客账户', email: 'guest@globex.com', departmentId: 'department-globex', tenantId: 'acme', roles: ['viewer'], status: 'disabled', createdAt: '2026-01-03T09:00:00Z', updatedAt: '2026-01-03T09:00:00Z' },
+  { id: 'u-009', username: 'eva.liu@globex', displayName: '刘伊娃', email: 'eva@globex.com', departmentId: 'department-globex-tech', tenantId: 'acme', roles: ['admin'], status: 'active', createdAt: '2026-01-04T10:00:00Z', updatedAt: '2026-01-04T10:00:00Z' },
+  // —— lab 业务用户（来自 shared USERS，tenantId='tenant-lab'）——
+  ...(SHARED_USERS.filter((u) => u.tenantId === 'tenant-lab')),
+] as unknown as User[]
 
 let users: User[] = [...DEFAULT_USERS]
 
@@ -159,20 +230,21 @@ function resetUsers() {
   users = [...DEFAULT_USERS]
 }
 
-function now(): string {
-  return new Date().toISOString()
-}
+// v0.3.0：handlers 给的 UserCreateInput 不带 enabled（Vue 本地接口），但 shared User 要求
+// enabled 必填。insertUser 接受 Vue 本地插入输入（不带 enabled/tenantId），内部补齐。
+type VueUserCreateInput = Omit<User, 'id' | 'createdAt' | 'updatedAt' | 'enabled' | 'tenantId'>
+  & Partial<Pick<User, 'id' | 'enabled' | 'tenantId'>>
 
-export function insertUser(
-  input: Omit<User, 'id' | 'createdAt' | 'updatedAt'> & Partial<Pick<User, 'id'>>,
-): User {
-  const user: User = {
+export function insertUser(input: VueUserCreateInput): User {
+  const user = {
     ...input,
     id: input.id ?? genId('u'),
     status: input.status ?? 'active',
     createdAt: now(),
     updatedAt: now(),
-  }
+    tenantId: input.tenantId ?? 'acme',
+    enabled: input.enabled ?? true,
+  } as unknown as User
   users.push(user)
   return user
 }
@@ -202,7 +274,8 @@ export function queryUsers(opts: {
   keyword?: string
   role?: string
   status?: string
-  orgId?: string
+  /** v0.3.0 改名（原 orgId） */
+  departmentId?: string
 }): { items: User[]; total: number; page: number; pageSize: number } {
   let filtered = [...users]
   if (opts.keyword) {
@@ -220,10 +293,10 @@ export function queryUsers(opts: {
   if (opts.status) {
     filtered = filtered.filter((u) => u.status === opts.status)
   }
-  if (opts.orgId) {
-    filtered = filtered.filter((u) => u.orgId === opts.orgId)
+  if (opts.departmentId) {
+    filtered = filtered.filter((u) => u.departmentId === opts.departmentId)
   }
-  filtered.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
+  filtered.sort((a, b) => ((a.createdAt ?? '') < (b.createdAt ?? '') ? 1 : -1))
   const total = filtered.length
   const start = (opts.page - 1) * opts.pageSize
   return {
@@ -234,35 +307,63 @@ export function queryUsers(opts: {
   }
 }
 
-// —— ch41：组织树（固定 mock） ——
-const DEFAULT_ORG_TREE: OrgNode = {
-  id: 'org-root',
+// ──────────────────────────────────────────────────────────────────────
+// Department Tree（v0.3.0：嵌套 DepartmentNode）
+//
+// DEFAULT_DEPARTMENT_TREE 保留为 Vue 特有的嵌套树（与 React 5b 扁平化的策略
+// 不同）— 因为 Vue DepartmentTreeNode.vue 用递归组件渲染 children，扁平数组
+// 必须由 handlers 转树（ch41 测试也期望 children 存在）。
+// ──────────────────────────────────────────────────────────────────────
+
+const DEFAULT_DEPARTMENT_TREE: DepartmentNode = {
+  id: 'department-root',
   name: 'ACME 集团',
   children: [
     {
-      id: 'org-acme',
+      id: 'department-acme',
       name: 'ACME 总部',
       children: [
-        { id: 'org-tech', name: '技术部', children: [{ id: 'org-fe', name: '前端组' }] },
-        { id: 'org-sales', name: '销售部' },
+        { id: 'department-tech', name: '技术部', children: [
+          { id: 'department-fe', name: '前端组' },
+        ] },
+        { id: 'department-sales', name: '销售部' },
       ],
     },
     {
-      id: 'org-globex',
+      id: 'department-globex',
       name: 'Globex 分部',
-      children: [{ id: 'org-globex-tech', name: 'Globex 技术部' }],
+      children: [{ id: 'department-globex-tech', name: 'Globex 技术部' }],
     },
   ],
 }
 
-let orgTree: OrgNode = DEFAULT_ORG_TREE
+let departmentTree: DepartmentNode = DEFAULT_DEPARTMENT_TREE
 
-function resetOrgs() {
-  orgTree = DEFAULT_ORG_TREE
+function resetDepartments() {
+  departmentTree = DEFAULT_DEPARTMENT_TREE
 }
 
-export function findOrgNode(id: string): OrgNode | undefined {
-  const search = (node: OrgNode): OrgNode | undefined => {
+function cloneTree(node: DepartmentNode): DepartmentNode {
+  return {
+    id: node.id,
+    name: node.name,
+    children: node.children?.map(cloneTree),
+  }
+}
+
+export function getDepartmentTree(): DepartmentNode {
+  return cloneTree(departmentTree)
+}
+
+/**
+ * 旧 `getOrgTree()` 别名 — 保留为 v0.3.0 兼容导出。
+ */
+export function getOrgTree(): DepartmentNode {
+  return getDepartmentTree()
+}
+
+export function findDepartmentNode(id: string): DepartmentNode | undefined {
+  const search = (node: DepartmentNode): DepartmentNode | undefined => {
     if (node.id === id) return node
     if (node.children) {
       for (const child of node.children) {
@@ -272,20 +373,20 @@ export function findOrgNode(id: string): OrgNode | undefined {
     }
     return undefined
   }
-  return search(orgTree)
+  return search(departmentTree)
 }
 
-export function getOrgTree(): OrgNode {
-  return orgTree
+/** 旧 `findOrgNode()` 别名 — v0.3.0 兼容导出 */
+export function findOrgNode(id: string): DepartmentNode | undefined {
+  return findDepartmentNode(id)
 }
 
-// —— 终批：orgs CRUD（ch41，与 React 姊妹仓 msw/handlers.ts 对齐）——
-export function insertOrgNode(parentId: string, name: string): OrgNode | undefined {
-  const parent = findOrgNode(parentId)
+export function insertDepartmentNode(parentId: string, name: string): DepartmentNode | undefined {
+  const parent = findDepartmentNode(parentId)
   if (!parent) return undefined
   if (!parent.children) parent.children = []
-  const node: OrgNode = {
-    id: `org-${Math.random().toString(36).slice(2, 10)}`,
+  const node: DepartmentNode = {
+    id: `department-${Math.random().toString(36).slice(2, 10)}`,
     name,
     children: [],
   }
@@ -293,16 +394,26 @@ export function insertOrgNode(parentId: string, name: string): OrgNode | undefin
   return node
 }
 
-export function updateOrgNodeRecord(id: string, name: string): OrgNode | undefined {
-  const node = findOrgNode(id)
+/** 旧 `insertOrgNode` 别名 — v0.3.0 兼容导出 */
+export function insertOrgNode(parentId: string, name: string): DepartmentNode | undefined {
+  return insertDepartmentNode(parentId, name)
+}
+
+export function updateDepartmentNodeRecord(id: string, name: string): DepartmentNode | undefined {
+  const node = findDepartmentNode(id)
   if (!node) return undefined
   node.name = name
   return node
 }
 
-export function deleteOrgNodeRecord(id: string): boolean {
-  if (id === 'org-root') return false
-  const remove = (node: OrgNode): boolean => {
+/** 旧 `updateOrgNodeRecord` 别名 */
+export function updateOrgNodeRecord(id: string, name: string): DepartmentNode | undefined {
+  return updateDepartmentNodeRecord(id, name)
+}
+
+export function deleteDepartmentNodeRecord(id: string): boolean {
+  if (id === 'department-root') return false
+  const remove = (node: DepartmentNode): boolean => {
     if (!node.children) return false
     const idx = node.children.findIndex((c) => c.id === id)
     if (idx !== -1) {
@@ -314,37 +425,22 @@ export function deleteOrgNodeRecord(id: string): boolean {
     }
     return false
   }
-  return remove(orgTree)
+  return remove(departmentTree)
 }
 
-// —— ch41：审计日志表（20 条） ——
-const DEFAULT_AUDIT_LOGS: AuditLog[] = [
-  { id: 'log-001', action: 'login', operator: 'admin@acme', resource: 'auth', resourceId: 'u-001', ip: '192.168.1.1', detail: '管理员登录', timestamp: '2026-01-01T10:00:00Z' },
-  { id: 'log-002', action: 'create', operator: 'admin@acme', resource: 'user', resourceId: 'u-002', ip: '192.168.1.1', detail: '新建用户 technician@acme', timestamp: '2026-01-01T11:00:00Z' },
-  { id: 'log-003', action: 'login', operator: 'technician@acme', resource: 'auth', resourceId: 'u-002', ip: '10.0.0.5', detail: '检测员登录', timestamp: '2026-01-01T12:00:00Z' },
-  { id: 'log-004', action: 'permission_change', operator: 'admin@acme', resource: 'role', resourceId: 'role-viewer', ip: '192.168.1.1', detail: '修改 viewer 角色权限', timestamp: '2026-01-01T13:00:00Z' },
-  { id: 'log-005', action: 'delete', operator: 'admin@globex', resource: 'user', resourceId: 'u-003', ip: '10.0.0.9', detail: '删除用户 guest@globex', timestamp: '2026-01-01T14:00:00Z' },
-  { id: 'log-006', action: 'update', operator: 'admin@globex', resource: 'user', resourceId: 'u-004', ip: '10.0.0.9', detail: '更新用户 manager@globex 角色为 manager', timestamp: '2026-01-02T09:15:00Z' },
-  { id: 'log-007', action: 'login', operator: 'manager@initech', resource: 'auth', resourceId: 'u-005', ip: '172.16.0.8', detail: '经理登录', timestamp: '2026-01-02T10:30:00Z' },
-  { id: 'log-008', action: 'create', operator: 'admin@umbrella', resource: 'user', resourceId: 'u-006', ip: '10.20.30.1', detail: '新建用户 researcher@umbrella', timestamp: '2026-01-02T14:22:00Z' },
-  { id: 'log-009', action: 'permission_change', operator: 'admin@umbrella', resource: 'role', resourceId: 'role-researcher', ip: '10.20.30.1', detail: '新建 researcher 角色并授权', timestamp: '2026-01-02T15:05:00Z' },
-  { id: 'log-010', action: 'login', operator: 'viewer@tyrell', resource: 'auth', resourceId: 'u-007', ip: '192.168.50.1', detail: '只读用户登录', timestamp: '2026-01-03T08:00:00Z' },
-  { id: 'log-011', action: 'update', operator: 'admin@massive', resource: 'user', resourceId: 'u-008', ip: '172.20.0.15', detail: '禁用违规用户 spam@massive', timestamp: '2026-01-03T11:40:00Z' },
-  { id: 'log-012', action: 'login', operator: 'admin@weyland', resource: 'auth', resourceId: 'u-009', ip: '10.100.0.1', detail: 'Weyland 管理员登录', timestamp: '2026-01-03T13:20:00Z' },
-  { id: 'log-013', action: 'create', operator: 'admin@weyland', resource: 'user', resourceId: 'u-010', ip: '10.100.0.1', detail: '批量导入 20 名航天工程师', timestamp: '2026-01-03T14:00:00Z' },
-  { id: 'log-014', action: 'permission_change', operator: 'admin@cyberdyne', resource: 'role', resourceId: 'role-ops', ip: '172.30.0.5', detail: '更新 ops 角色权限，移除 user:delete', timestamp: '2026-01-04T09:00:00Z' },
-  { id: 'log-015', action: 'logout', operator: 'technician@acme', resource: 'auth', resourceId: 'u-002', ip: '10.0.0.5', detail: '检测员登出', timestamp: '2026-01-04T17:30:00Z' },
-  { id: 'log-016', action: 'create', operator: 'admin@buy', resource: 'user', resourceId: 'u-011', ip: '10.50.0.20', detail: '新建超级管理员 super@buy', timestamp: '2026-01-04T09:00:00Z' },
-  { id: 'log-017', action: 'update', operator: 'admin@no', resource: 'user', resourceId: 'u-012', ip: '172.18.0.99', detail: '更新媒体编辑 elena@no 的组织归属', timestamp: '2026-01-05T10:15:00Z' },
-  { id: 'log-018', action: 'login', operator: 'admin@axiom', resource: 'auth', resourceId: 'u-013', ip: '10.80.0.1', detail: '航运平台管理员登录', timestamp: '2026-01-05T11:00:00Z' },
-  { id: 'log-019', action: 'permission_change', operator: 'admin@axiom', resource: 'role', resourceId: 'role-fleet', ip: '10.80.0.1', detail: '新建 fleet-manager 角色授权船队管理权限', timestamp: '2026-01-05T11:30:00Z' },
-  { id: 'log-020', action: 'delete', operator: 'admin@initech', resource: 'user', resourceId: 'u-014', ip: '172.16.0.8', detail: '删除离职员工 ex@initech', timestamp: '2026-01-05T16:45:00Z' },
-]
+/** 旧 `deleteOrgNodeRecord` 别名 */
+export function deleteOrgNodeRecord(id: string): boolean {
+  return deleteDepartmentNodeRecord(id)
+}
 
-let auditLogs: AuditLog[] = [...DEFAULT_AUDIT_LOGS]
+// ──────────────────────────────────────────────────────────────────────
+// Audit Logs（来自 shared seeds）
+// ──────────────────────────────────────────────────────────────────────
+
+let auditLogs: AuditLog[] = AUDIT_LOGS.map((a) => AuditLogSchema.parse(a) as AuditLog)
 
 function resetAuditLogs() {
-  auditLogs = [...DEFAULT_AUDIT_LOGS]
+  auditLogs = AUDIT_LOGS.map((a) => AuditLogSchema.parse(a) as AuditLog)
 }
 
 export function queryAuditLogs(opts: {
@@ -369,10 +465,10 @@ export function queryAuditLogs(opts: {
     filtered = filtered.filter((l) => l.ip.includes(opts.ip!))
   }
   if (opts.startDate) {
-    filtered = filtered.filter((l) => l.timestamp >= opts.startDate!)
+    filtered = filtered.filter((l) => (l.timestamp ?? '') >= opts.startDate!)
   }
   if (opts.endDate) {
-    filtered = filtered.filter((l) => l.timestamp <= opts.endDate!)
+    filtered = filtered.filter((l) => (l.timestamp ?? '') <= opts.endDate!)
   }
   if (opts.type) {
     const typeMap: Record<string, string[]> = {
@@ -383,8 +479,7 @@ export function queryAuditLogs(opts: {
     const allowed = typeMap[opts.type] ?? [opts.type]
     filtered = filtered.filter((l) => allowed.includes(l.action))
   }
-  // 倒序
-  filtered.sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1))
+  filtered.sort((a, b) => ((a.timestamp ?? '') < (b.timestamp ?? '') ? 1 : -1))
   const total = filtered.length
   const start = (opts.page - 1) * opts.pageSize
   return {
@@ -395,48 +490,40 @@ export function queryAuditLogs(opts: {
   }
 }
 
-// —— ch40：角色管理（与 React 仓一致，精简到与本仓 RBAC 模块所需）——
+// ──────────────────────────────────────────────────────────────────────
+// Roles（来自 shared seeds，tenantId 已上提）
+// ──────────────────────────────────────────────────────────────────────
+
 export interface RoleCreateInput {
   name: string
   permissions: string[]
   menuPermissions?: { menuId: string; actions: string[] }[]
 }
 
-const DEFAULT_ROLES: Role[] = [
-  {
-    id: 'role-admin',
-    name: 'admin',
-    permissions: ['user:read', 'user:create', 'user:update', 'user:delete', 'org:read', 'org:write', 'audit:read'],
-    menuPermissions: [],
-  },
-  {
-    id: 'role-viewer',
-    name: 'viewer',
-    permissions: ['user:read', 'org:read'],
-    menuPermissions: [],
-  },
-  {
-    id: 'role-manager',
-    name: 'manager',
-    permissions: ['user:read', 'user:create', 'user:update', 'org:read', 'org:write'],
-    menuPermissions: [],
-  },
-  {
-    id: 'role-auditor',
-    name: 'auditor',
-    permissions: ['user:read', 'org:read', 'audit:read'],
-    menuPermissions: [],
-  },
-]
-
-let roles: Role[] = [...DEFAULT_ROLES]
+let roles: Role[] = ROLE_PERMISSIONS.map((r) => {
+  const parsed = RoleSchema.parse(r)
+  return {
+    id: parsed.id,
+    name: parsed.name,
+    permissions: parsed.permissions as string[],
+    menuPermissions: (parsed.menuPermissions ?? []) as Role['menuPermissions'],
+  }
+})
 
 function resetRoles() {
-  roles = [...DEFAULT_ROLES]
+  roles = ROLE_PERMISSIONS.map((r) => {
+    const parsed = RoleSchema.parse(r)
+    return {
+      id: parsed.id,
+      name: parsed.name,
+      permissions: parsed.permissions as string[],
+      menuPermissions: (parsed.menuPermissions ?? []) as Role['menuPermissions'],
+    }
+  })
 }
 
 export function listRoles(): Role[] {
-  return [...roles]
+  return roles.map((r) => ({ ...r, menuPermissions: [...r.menuPermissions] }))
 }
 
 export function insertRole(input: RoleCreateInput): Role {
@@ -470,62 +557,18 @@ export function deleteRoleRecord(id: string): boolean {
   return true
 }
 
-// —— ch42：应用管理 + 菜单管理（与 React 姊妹仓 msw/db.ts 字段对齐）——
-const DEFAULT_APPS: App[] = [
-  {
-    id: 'app-console',
-    name: 'IAM 控制台',
-    code: 'iam-console',
-    description: '统一身份管理后台',
-    theme: '#2563eb',
-    sort: 1,
-    enabled: true,
-    createdAt: '2026-01-01T00:00:00.000Z',
-    updatedAt: '2026-01-01T00:00:00.000Z',
-  },
-  {
-    id: 'app-portal',
-    name: '员工自助门户',
-    code: 'employee-portal',
-    description: '员工查岗/请假/资料维护',
-    theme: '#059669',
-    sort: 2,
-    enabled: true,
-    createdAt: '2026-01-02T00:00:00.000Z',
-    updatedAt: '2026-01-02T00:00:00.000Z',
-  },
-  {
-    id: 'app-tenant',
-    name: '租户运营',
-    code: 'tenant-ops',
-    description: '面向平台运营的租户管理',
-    theme: '#7c3aed',
-    sort: 3,
-    enabled: true,
-    createdAt: '2026-01-03T00:00:00.000Z',
-    updatedAt: '2026-01-03T00:00:00.000Z',
-  },
-]
+// ──────────────────────────────────────────────────────────────────────
+// Apps + Menus（来自 shared seeds）
+// ──────────────────────────────────────────────────────────────────────
 
-const DEFAULT_MENUS: MenuItem[] = [
-  { id: 'm-console-users',  name: '用户管理', path: '/users',   icon: 'users',  appId: 'app-console', parentId: null, sort: 1, enabled: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
-  { id: 'm-console-orgs',   name: '组织架构', path: '/org',     icon: 'org',    appId: 'app-console', parentId: null, sort: 2, enabled: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
-  { id: 'm-console-roles',  name: '角色权限', path: '/roles',   icon: 'shield', appId: 'app-console', parentId: null, sort: 3, enabled: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
-  { id: 'm-console-audit',  name: '审计日志', path: '/audit',   icon: 'log',    appId: 'app-console', parentId: null, sort: 4, enabled: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
-  { id: 'm-portal-profile', name: '我的资料', path: '/profile', icon: 'user',   appId: 'app-portal',  parentId: null, sort: 1, enabled: true, createdAt: '2026-01-02T00:00:00.000Z', updatedAt: '2026-01-02T00:00:00.000Z' },
-  { id: 'm-portal-leave',   name: '请假申请', path: '/leave',   icon: 'cal',    appId: 'app-portal',  parentId: null, sort: 2, enabled: true, createdAt: '2026-01-02T00:00:00.000Z', updatedAt: '2026-01-02T00:00:00.000Z' },
-  { id: 'm-tenant-list',    name: '租户列表', path: '/tenants', icon: 'building', appId: 'app-tenant', parentId: null, sort: 1, enabled: true, createdAt: '2026-01-03T00:00:00.000Z', updatedAt: '2026-01-03T00:00:00.000Z' },
-  { id: 'm-tenant-bill',    name: '账单',     path: '/billing', icon: 'card',  appId: 'app-tenant',  parentId: null, sort: 2, enabled: true, createdAt: '2026-01-03T00:00:00.000Z', updatedAt: '2026-01-03T00:00:00.000Z' },
-]
-
-let apps: App[] = [...DEFAULT_APPS]
-let menus: MenuItem[] = [...DEFAULT_MENUS]
+let apps: App[] = APPS.map((a) => AppSchema.parse(a) as App)
+let menus: Menu[] = APP_MENUS.map((m) => MenuSchema.parse(m) as Menu)
 
 function resetApps() {
-  apps = [...DEFAULT_APPS]
+  apps = APPS.map((a) => AppSchema.parse(a) as App)
 }
 function resetMenus() {
-  menus = [...DEFAULT_MENUS]
+  menus = APP_MENUS.map((m) => MenuSchema.parse(m) as Menu)
 }
 
 export function listApps(opts?: { keyword?: string }): App[] {
@@ -546,8 +589,9 @@ export function findApp(id: string): App | undefined {
 }
 
 export function insertApp(input: Omit<App, 'id' | 'createdAt' | 'updatedAt'>): App {
-  const now = new Date().toISOString()
-  const app: App = { ...input, id: genId('app'), createdAt: now, updatedAt: now }
+  const ts = new Date().toISOString()
+  // shared App schema 要求 type 必填（web/mobile/api），Vue handlers 默认没传；兜底 'web'
+  const app = { ...input, id: genId('app'), createdAt: ts, updatedAt: ts, type: (input as { type?: string }).type ?? 'web' } as unknown as App
   apps.push(app)
   return app
 }
@@ -565,32 +609,32 @@ export function updateAppRecord(
 export function deleteAppRecord(id: string): boolean {
   const idx = apps.findIndex((a) => a.id === id)
   if (idx === -1) return false
-  // 删应用时一并清掉旗下菜单（与 React 姊妹仓一致）
+  // 删应用时一并清掉旗下菜单
   menus = menus.filter((m) => m.appId !== id)
   apps.splice(idx, 1)
   return true
 }
 
-export function listMenus(appId?: string): MenuItem[] {
+export function listMenus(appId?: string): Menu[] {
   const list = appId ? menus.filter((m) => m.appId === appId) : [...menus]
   return list.sort((a, b) => a.sort - b.sort)
 }
 
-export function findMenu(id: string): MenuItem | undefined {
+export function findMenu(id: string): Menu | undefined {
   return menus.find((m) => m.id === id)
 }
 
-export function insertMenu(input: Omit<MenuItem, 'id' | 'createdAt' | 'updatedAt'>): MenuItem {
-  const now = new Date().toISOString()
-  const menu: MenuItem = { ...input, id: genId('m'), createdAt: now, updatedAt: now }
+export function insertMenu(input: Omit<Menu, 'id' | 'createdAt' | 'updatedAt'>): Menu {
+  const ts = new Date().toISOString()
+  const menu: Menu = { ...input, id: genId('m'), createdAt: ts, updatedAt: ts }
   menus.push(menu)
   return menu
 }
 
 export function updateMenuRecord(
   id: string,
-  patch: Partial<Omit<MenuItem, 'id' | 'createdAt' | 'appId'>>,
-): MenuItem | undefined {
+  patch: Partial<Omit<Menu, 'id' | 'createdAt' | 'appId'>>,
+): Menu | undefined {
   const idx = menus.findIndex((m) => m.id === id)
   if (idx === -1) return undefined
   menus[idx] = { ...menus[idx], ...patch, id, updatedAt: new Date().toISOString() }
@@ -604,45 +648,25 @@ export function deleteMenuRecord(id: string): boolean {
   return true
 }
 
-// —— ch42：岗位 / 用户组 / 权限组（与 React 姊妹仓 msw/db.ts 字段对齐）——
+// ──────────────────────────────────────────────────────────────────────
+// Positions / User Groups / Permission Groups（来自 shared seeds）
+// ──────────────────────────────────────────────────────────────────────
 
-const DEFAULT_POSITIONS: Position[] = [
-  { id: 'pos-dev',  name: '研发工程师', code: 'developer', description: '产品研发',     sort: 1, enabled: true, createdAt: '2026-02-01T00:00:00.000Z', updatedAt: '2026-02-01T00:00:00.000Z' },
-  { id: 'pos-pm',   name: '产品经理',   code: 'product-manager', description: '产品规划', sort: 2, enabled: true, createdAt: '2026-02-01T00:00:00.000Z', updatedAt: '2026-02-01T00:00:00.000Z' },
-  { id: 'pos-ops',  name: '运营',       code: 'operations', description: '日常运营',       sort: 3, enabled: true, createdAt: '2026-02-01T00:00:00.000Z', updatedAt: '2026-02-01T00:00:00.000Z' },
-  { id: 'pos-hr',   name: 'HR',         code: 'hr', description: '人力资源',               sort: 4, enabled: true, createdAt: '2026-02-01T00:00:00.000Z', updatedAt: '2026-02-01T00:00:00.000Z' },
-  { id: 'pos-fin',  name: '财务',       code: 'finance', description: '财务核算',             sort: 5, enabled: true, createdAt: '2026-02-01T00:00:00.000Z', updatedAt: '2026-02-01T00:00:00.000Z' },
-]
+let positions: Position[] = POSITIONS.map((p) => PositionSchema.parse(p) as Position)
+let userGroups: UserGroup[] = USER_GROUPS.map((g) => UserGroupSchema.parse(g) as UserGroup)
+let permissionGroups: PermissionGroup[] = PERMISSION_GROUPS.map((g) => PermissionGroupSchema.parse(g) as PermissionGroup)
 
-const DEFAULT_USER_GROUPS: UserGroup[] = [
-  { id: 'ug-all',  name: '全体员工',   description: '默认全员组', memberCount: 120, enabled: true, createdAt: '2026-02-02T00:00:00.000Z', updatedAt: '2026-02-02T00:00:00.000Z' },
-  { id: 'ug-rd',   name: '研发组',     description: '研发部',     memberCount: 45,  enabled: true, createdAt: '2026-02-02T00:00:00.000Z', updatedAt: '2026-02-02T00:00:00.000Z' },
-  { id: 'ug-pm',   name: '产品组',     description: '产品部',     memberCount: 12,  enabled: true, createdAt: '2026-02-02T00:00:00.000Z', updatedAt: '2026-02-02T00:00:00.000Z' },
-  { id: 'ug-ops',  name: '运营组',     description: '运营部',     memberCount: 18,  enabled: true, createdAt: '2026-02-02T00:00:00.000Z', updatedAt: '2026-02-02T00:00:00.000Z' },
-  { id: 'ug-vip',  name: 'VIP 用户',   description: '高价值客户', memberCount: 5,   enabled: false, createdAt: '2026-02-02T00:00:00.000Z', updatedAt: '2026-02-02T00:00:00.000Z' },
-]
+function resetPositions() { positions = POSITIONS.map((p) => PositionSchema.parse(p) as Position) }
+function resetUserGroups() { userGroups = USER_GROUPS.map((g) => UserGroupSchema.parse(g) as UserGroup) }
+function resetPermissionGroups() { permissionGroups = PERMISSION_GROUPS.map((g) => PermissionGroupSchema.parse(g) as PermissionGroup) }
 
-const DEFAULT_PERMISSION_GROUPS: PermissionGroup[] = [
-  { id: 'pg-admin',  name: '系统管理员', code: 'system-admin',  description: '全部权限', permissions: ['*'], menuIds: [], sort: 1, enabled: true, createdAt: '2026-02-03T00:00:00.000Z', updatedAt: '2026-02-03T00:00:00.000Z' },
-  { id: 'pg-audit',  name: '审计员',     code: 'auditor',       description: '只读审计', permissions: ['user:read', 'org:read', 'audit:read'], menuIds: ['m-console-audit'], sort: 2, enabled: true, createdAt: '2026-02-03T00:00:00.000Z', updatedAt: '2026-02-03T00:00:00.000Z' },
-  { id: 'pg-rw',     name: '读写用户',   code: 'read-write',    description: 'CRUD 不含删', permissions: ['user:read', 'user:write', 'org:read', 'org:write'], menuIds: ['m-console-users', 'm-console-orgs'], sort: 3, enabled: true, createdAt: '2026-02-03T00:00:00.000Z', updatedAt: '2026-02-03T00:00:00.000Z' },
-  { id: 'pg-ro',     name: '只读用户',   code: 'read-only',     description: '只读',     permissions: ['user:read', 'org:read'], menuIds: [], sort: 4, enabled: true, createdAt: '2026-02-03T00:00:00.000Z', updatedAt: '2026-02-03T00:00:00.000Z' },
-]
-
-let positions: Position[] = [...DEFAULT_POSITIONS]
-let userGroups: UserGroup[] = [...DEFAULT_USER_GROUPS]
-let permissionGroups: PermissionGroup[] = [...DEFAULT_PERMISSION_GROUPS]
-
-function resetPositions() { positions = [...DEFAULT_POSITIONS] }
-function resetUserGroups() { userGroups = [...DEFAULT_USER_GROUPS] }
-function resetPermissionGroups() { permissionGroups = [...DEFAULT_PERMISSION_GROUPS] }
-
-// —— 岗位 CRUD ——
+// —— 岗位 ——
 export function listPositions(): Position[] { return [...positions].sort((a, b) => a.sort - b.sort) }
 export function findPosition(id: string): Position | undefined { return positions.find((p) => p.id === id) }
 export function insertPosition(input: Omit<Position, 'id' | 'createdAt' | 'updatedAt'>): Position {
-  const now = new Date().toISOString()
-  const p: Position = { ...input, id: genId('pos'), createdAt: now, updatedAt: now }
+  const ts = new Date().toISOString()
+  // shared Position schema 要求 tenantId 必填；Vue handlers 默认没传，兜底 'acme'
+  const p = { ...input, id: genId('pos'), createdAt: ts, updatedAt: ts, tenantId: (input as { tenantId?: string }).tenantId ?? 'acme' } as unknown as Position
   positions.push(p)
   return p
 }
@@ -659,12 +683,12 @@ export function deletePositionRecord(id: string): boolean {
   return true
 }
 
-// —— 用户组 CRUD ——
+// —— 用户组 ——
 export function listUserGroups(): UserGroup[] { return [...userGroups].sort((a, b) => a.id.localeCompare(b.id)) }
 export function findUserGroup(id: string): UserGroup | undefined { return userGroups.find((g) => g.id === id) }
 export function insertUserGroup(input: Omit<UserGroup, 'id' | 'memberCount' | 'createdAt' | 'updatedAt'>): UserGroup {
-  const now = new Date().toISOString()
-  const g: UserGroup = { ...input, id: genId('ug'), memberCount: 0, createdAt: now, updatedAt: now }
+  const ts = new Date().toISOString()
+  const g = { ...input, id: genId('ug'), memberCount: 0, createdAt: ts, updatedAt: ts, tenantId: (input as { tenantId?: string }).tenantId ?? 'acme' } as unknown as UserGroup
   userGroups.push(g)
   return g
 }
@@ -681,14 +705,22 @@ export function deleteUserGroupRecord(id: string): boolean {
   return true
 }
 
-// —— 权限组 CRUD ——
+// —— 权限组 ——
 export function listPermissionGroups(): PermissionGroup[] { return [...permissionGroups] }
 export function findPermissionGroup(id: string): PermissionGroup | undefined { return permissionGroups.find((p) => p.id === id) }
 export function insertPermissionGroup(input: Omit<PermissionGroup, 'id' | 'createdAt' | 'updatedAt'>): PermissionGroup {
-  const now = new Date().toISOString()
-  const p: PermissionGroup = { ...input, id: genId('pg'), createdAt: now, updatedAt: now }
-  permissionGroups.push(p)
-  return p
+  const ts = new Date().toISOString()
+  // shared PermissionGroup.permissions 是 PermissionCodeEnum 枚举；Vue handlers 给 string[]，
+  // mock 阶段不强严格。
+  const g = {
+    ...input,
+    id: genId('pg'),
+    createdAt: ts,
+    updatedAt: ts,
+    appId: (input as { appId?: string }).appId ?? 'app-lab',
+  } as unknown as PermissionGroup
+  permissionGroups.push(g)
+  return g
 }
 export function updatePermissionGroupRecord(id: string, patch: Partial<Omit<PermissionGroup, 'id' | 'createdAt'>>): PermissionGroup | undefined {
   const idx = permissionGroups.findIndex((p) => p.id === id)
@@ -703,56 +735,18 @@ export function deletePermissionGroupRecord(id: string): boolean {
   return true
 }
 
-// —— ch40：登录方式 / SSO / OAuth2 / Token / API Key（与 React 姊妹仓 msw/db.ts 字段对齐）——
+// ──────────────────────────────────────────────────────────────────────
+// Login Methods / SSO / OAuth2 / Token / API Key（来自 shared seeds）
+// ──────────────────────────────────────────────────────────────────────
 
-const DEFAULT_LOGIN_METHODS: LoginMethod[] = [
-  { id: 'lm-password',  method: 'password',   name: '账密登录', description: '用户名 + 密码',   enabled: true,  sort: 1 },
-  { id: 'lm-email',     method: 'email_code', name: '邮箱验证码', description: '邮件发送一次性码', enabled: true,  sort: 2 },
-  { id: 'lm-sms',       method: 'sms_code',   name: '短信验证码', description: '短信发送一次性码', enabled: true,  sort: 3 },
-  { id: 'lm-totp',      method: 'totp',       name: 'TOTP',     description: '动态口令(Google Authenticator)', enabled: false, sort: 4 },
-  { id: 'lm-sso',       method: 'sso',        name: 'SSO 单点', description: 'OIDC / SAML',     enabled: true,  sort: 5 },
-  { id: 'lm-oauth',     method: 'oauth2',     name: '第三方登录', description: 'Google / GitHub / 微信 / 钉钉 / 飞书', enabled: true, sort: 6 },
-]
+let loginMethods: LoginMethod[] = LOGIN_METHODS.map((m) => LoginMethodEntrySchema.parse(m) as LoginMethod)
+let ssoProviders: SsoProvider[] = SSO_PROVIDERS.map((p) => SsoProviderSchema.parse(p) as SsoProvider)
+let oauth2Providers: OAuth2Provider[] = OAUTH2_PROVIDERS.map((p) => OAuth2ProviderSchema.parse(p) as OAuth2Provider)
 
-const DEFAULT_SSO_PROVIDERS: SsoProvider[] = [
-  { id: 'sso-okta',  name: 'Okta',  type: 'oidc', clientId: 'okta-client',  issuerUrl: 'https://example.okta.com', enabled: true },
-  { id: 'sso-azure', name: 'Azure AD', type: 'saml', clientId: 'azure-client', issuerUrl: 'https://sts.windows.net', enabled: false },
-]
+function resetLoginMethods() { loginMethods = LOGIN_METHODS.map((m) => LoginMethodEntrySchema.parse(m) as LoginMethod) }
+function resetSsoProviders() { ssoProviders = SSO_PROVIDERS.map((p) => SsoProviderSchema.parse(p) as SsoProvider) }
+function resetOAuth2Providers() { oauth2Providers = OAUTH2_PROVIDERS.map((p) => OAuth2ProviderSchema.parse(p) as OAuth2Provider) }
 
-const DEFAULT_OAUTH2_PROVIDERS: OAuth2Provider[] = [
-  { id: 'oa-google',  name: 'Google',  provider: 'google',  clientId: 'google-client',  enabled: true },
-  { id: 'oa-github',  name: 'GitHub',  provider: 'github',  clientId: 'github-client',  enabled: true },
-  { id: 'oa-wechat',  name: '微信',    provider: 'wechat',  clientId: 'wechat-appid',    enabled: false },
-  { id: 'oa-ding',    name: '钉钉',    provider: 'dingtalk', clientId: 'ding-appid',     enabled: false },
-]
-
-const DEFAULT_TOKEN_CONFIG: TokenConfig = {
-  id: 'token-default',
-  accessTokenTtl: 3600,           // 1h
-  refreshTokenTtl: 60 * 60 * 24 * 7, // 7d
-  refreshTokenEnabled: true,
-  tokenRevocationEnabled: true,
-}
-
-const DEFAULT_API_KEYS: ApiKey[] = [
-  { id: 'ak-ci-1',     name: 'CI 流水线',  keyPrefix: 'ak_ci_xxx',  scopes: ['user:read', 'audit:read'], expiresAt: '2027-01-01T00:00:00.000Z', enabled: true, createdAt: '2026-03-01T00:00:00.000Z', lastUsedAt: '2026-07-01T00:00:00.000Z' },
-  { id: 'ak-monitor',  name: '监控系统',  keyPrefix: 'ak_mon_xxx', scopes: ['audit:read'],                expiresAt: '2026-12-31T00:00:00.000Z', enabled: true, createdAt: '2026-03-15T00:00:00.000Z', lastUsedAt: '2026-07-05T00:00:00.000Z' },
-  { id: 'ak-legacy',   name: '旧集成 (已禁用)', keyPrefix: 'ak_old_xxx', scopes: ['user:read'],          enabled: false, createdAt: '2025-06-01T00:00:00.000Z' },
-]
-
-let loginMethods: LoginMethod[] = [...DEFAULT_LOGIN_METHODS]
-let ssoProviders: SsoProvider[] = [...DEFAULT_SSO_PROVIDERS]
-let oauth2Providers: OAuth2Provider[] = [...DEFAULT_OAUTH2_PROVIDERS]
-let tokenConfig: TokenConfig = { ...DEFAULT_TOKEN_CONFIG }
-let apiKeys: ApiKey[] = [...DEFAULT_API_KEYS]
-
-function resetLoginMethods() { loginMethods = [...DEFAULT_LOGIN_METHODS] }
-function resetSsoProviders() { ssoProviders = [...DEFAULT_SSO_PROVIDERS] }
-function resetOAuth2Providers() { oauth2Providers = [...DEFAULT_OAUTH2_PROVIDERS] }
-function resetTokenConfig() { tokenConfig = { ...DEFAULT_TOKEN_CONFIG } }
-function resetApiKeys() { apiKeys = [...DEFAULT_API_KEYS] }
-
-// —— 登录方式 ——
 export function listLoginMethods(): LoginMethod[] { return [...loginMethods].sort((a, b) => a.sort - b.sort) }
 export function findLoginMethod(id: string): LoginMethod | undefined { return loginMethods.find((m) => m.id === id) }
 export function updateLoginMethodRecord(id: string, patch: Partial<Omit<LoginMethod, 'id' | 'method'>>): LoginMethod | undefined {
@@ -762,7 +756,6 @@ export function updateLoginMethodRecord(id: string, patch: Partial<Omit<LoginMet
   return loginMethods[idx]
 }
 
-// —— SSO Provider ——
 export function listSsoProviders(): SsoProvider[] { return [...ssoProviders] }
 export function findSsoProvider(id: string): SsoProvider | undefined { return ssoProviders.find((p) => p.id === id) }
 export function updateSsoProviderRecord(id: string, patch: Partial<Omit<SsoProvider, 'id'>>): SsoProvider | undefined {
@@ -772,7 +765,6 @@ export function updateSsoProviderRecord(id: string, patch: Partial<Omit<SsoProvi
   return ssoProviders[idx]
 }
 
-// —— OAuth2 Provider ——
 export function listOAuth2Providers(): OAuth2Provider[] { return [...oauth2Providers] }
 export function findOAuth2Provider(id: string): OAuth2Provider | undefined { return oauth2Providers.find((p) => p.id === id) }
 export function updateOAuth2ProviderRecord(id: string, patch: Partial<Omit<OAuth2Provider, 'id'>>): OAuth2Provider | undefined {
@@ -782,18 +774,22 @@ export function updateOAuth2ProviderRecord(id: string, patch: Partial<Omit<OAuth
   return oauth2Providers[idx]
 }
 
-// —— Token Config（单例）——
-export function getTokenConfig(): TokenConfig { return { ...tokenConfig } }
+let tokenConfig: TokenConfig = TokenConfigSchema.parse(SHARED_TOKEN_CONFIG[0]) as TokenConfig
+
+function resetTokenConfig() { tokenConfig = TokenConfigSchema.parse(SHARED_TOKEN_CONFIG[0]) as TokenConfig }
+export function getTokenConfig(): TokenConfig { return structuredClone(tokenConfig) }
 export function updateTokenConfigRecord(patch: Partial<Omit<TokenConfig, 'id'>>): TokenConfig {
   tokenConfig = { ...tokenConfig, ...patch, id: 'token-default' }
-  return { ...tokenConfig }
+  return structuredClone(tokenConfig)
 }
 
-// —— API Key ——
+let apiKeys: ApiKey[] = API_KEYS.map((k) => ApiKeySchema.parse(k) as ApiKey)
+function resetApiKeys() { apiKeys = API_KEYS.map((k) => ApiKeySchema.parse(k) as ApiKey) }
+
 export function listApiKeys(): ApiKey[] { return [...apiKeys] }
 export function findApiKey(id: string): ApiKey | undefined { return apiKeys.find((k) => k.id === id) }
 export function insertApiKey(input: { name: string; scopes?: string[]; expiresAt?: string }): ApiKey {
-  const now = new Date().toISOString()
+  const ts = new Date().toISOString()
   const k: ApiKey = {
     id: genId('ak'),
     name: input.name,
@@ -801,8 +797,8 @@ export function insertApiKey(input: { name: string; scopes?: string[]; expiresAt
     scopes: input.scopes ?? [],
     expiresAt: input.expiresAt,
     enabled: true,
-    createdAt: now,
-  }
+    createdAt: ts,
+  } as ApiKey
   apiKeys.push(k)
   return k
 }
@@ -819,97 +815,50 @@ export function deleteApiKeyRecord(id: string): boolean {
   return true
 }
 
-// —— ch41-42：登录安全 / 密码策略 / 风险控制 / 消息通知 / 开放平台（单例配置）——
+// ──────────────────────────────────────────────────────────────────────
+// Login Security / Password Policy / Risk Control / Notification / Open Platform
+// ──────────────────────────────────────────────────────────────────────
 
-const DEFAULT_LOGIN_SECURITY: LoginSecurity = {
-  id: 'login-security-default',
-  ipWhitelist: [],
-  ipBlacklist: [],
-  regionRestrictionEnabled: false,
-  allowedRegions: ['CN', 'US'],
-  failedAttemptLockEnabled: true,
-  lockThreshold: 5,
-  lockDuration: 900, // 15 min
-}
+let loginSecurity: LoginSecurity = LoginSecuritySchema.parse(LOGIN_SECURITY[0]) as LoginSecurity
+let passwordPolicy: PasswordPolicy = PasswordPolicySchema.parse(PASSWORD_POLICY[0]) as PasswordPolicy
+let riskControl: RiskControl = RiskControlSchema.parse(RISK_CONTROL[0]) as RiskControl
+let notificationConfig: NotificationConfig = NotificationConfigSchema.parse(NOTIFICATION_CONFIG[0]) as NotificationConfig
+let openPlatformConfig: OpenPlatformConfig = OpenPlatformConfigSchema.parse(OPEN_PLATFORM_CONFIG[0]) as OpenPlatformConfig
 
-const DEFAULT_PASSWORD_POLICY: PasswordPolicy = {
-  id: 'password-policy-default',
-  minLength: 8,
-  requireUppercase: true,
-  requireLowercase: true,
-  requireDigit: true,
-  requireSpecial: false,
-  expireDays: 90,
-  historyCount: 5,
-  enabled: true,
-}
+function resetLoginSecurity() { loginSecurity = LoginSecuritySchema.parse(LOGIN_SECURITY[0]) as LoginSecurity }
+function resetPasswordPolicy() { passwordPolicy = PasswordPolicySchema.parse(PASSWORD_POLICY[0]) as PasswordPolicy }
+function resetRiskControl() { riskControl = RiskControlSchema.parse(RISK_CONTROL[0]) as RiskControl }
+function resetNotificationConfig() { notificationConfig = NotificationConfigSchema.parse(NOTIFICATION_CONFIG[0]) as NotificationConfig }
+function resetOpenPlatformConfig() { openPlatformConfig = OpenPlatformConfigSchema.parse(OPEN_PLATFORM_CONFIG[0]) as OpenPlatformConfig }
 
-const DEFAULT_RISK_CONTROL: RiskControl = {
-  id: 'risk-control-default',
-  anomalyDetectionEnabled: true,
-  crossRegionAlertEnabled: true,
-  deviceFingerprintEnabled: false,
-  riskScoreThreshold: 70,
-}
-
-const DEFAULT_NOTIFICATION_CONFIG: NotificationConfig = {
-  id: 'notification-config-default',
-  emailEnabled: true,
-  smsEnabled: false,
-  inAppEnabled: true,
-  notifyOn: ['login', 'password_change', 'security_alert'],
-}
-
-const DEFAULT_OPEN_PLATFORM_CONFIG: OpenPlatformConfig = {
-  id: 'open-platform-default',
-  apiEnabled: true,
-  webhookEnabled: true,
-  sdkEnabled: false,
-  openScopes: ['user:read', 'org:read'],
-  callbackWhitelist: [],
-}
-
-let loginSecurity: LoginSecurity = { ...DEFAULT_LOGIN_SECURITY }
-let passwordPolicy: PasswordPolicy = { ...DEFAULT_PASSWORD_POLICY }
-let riskControl: RiskControl = { ...DEFAULT_RISK_CONTROL }
-let notificationConfig: NotificationConfig = { ...DEFAULT_NOTIFICATION_CONFIG }
-let openPlatformConfig: OpenPlatformConfig = { ...DEFAULT_OPEN_PLATFORM_CONFIG }
-
-function resetLoginSecurity() { loginSecurity = { ...DEFAULT_LOGIN_SECURITY } }
-function resetPasswordPolicy() { passwordPolicy = { ...DEFAULT_PASSWORD_POLICY } }
-function resetRiskControl() { riskControl = { ...DEFAULT_RISK_CONTROL } }
-function resetNotificationConfig() { notificationConfig = { ...DEFAULT_NOTIFICATION_CONFIG } }
-function resetOpenPlatformConfig() { openPlatformConfig = { ...DEFAULT_OPEN_PLATFORM_CONFIG } }
-
-// 单例 GET + PUT
-export function getLoginSecurity(): LoginSecurity { return { ...loginSecurity } }
+export function getLoginSecurity(): LoginSecurity { return structuredClone(loginSecurity) }
 export function updateLoginSecurityRecord(patch: Partial<Omit<LoginSecurity, 'id'>>): LoginSecurity {
   loginSecurity = { ...loginSecurity, ...patch, id: 'login-security-default' }
-  return { ...loginSecurity }
+  return structuredClone(loginSecurity)
 }
 
-export function getPasswordPolicy(): PasswordPolicy { return { ...passwordPolicy } }
+export function getPasswordPolicy(): PasswordPolicy { return structuredClone(passwordPolicy) }
 export function updatePasswordPolicyRecord(patch: Partial<Omit<PasswordPolicy, 'id'>>): PasswordPolicy {
   passwordPolicy = { ...passwordPolicy, ...patch, id: 'password-policy-default' }
-  return { ...passwordPolicy }
+  return structuredClone(passwordPolicy)
 }
 
-export function getRiskControl(): RiskControl { return { ...riskControl } }
+export function getRiskControl(): RiskControl { return structuredClone(riskControl) }
 export function updateRiskControlRecord(patch: Partial<Omit<RiskControl, 'id'>>): RiskControl {
   riskControl = { ...riskControl, ...patch, id: 'risk-control-default' }
-  return { ...riskControl }
+  return structuredClone(riskControl)
 }
 
-export function getNotificationConfig(): NotificationConfig { return { ...notificationConfig } }
+export function getNotificationConfig(): NotificationConfig { return structuredClone(notificationConfig) }
 export function updateNotificationConfigRecord(patch: Partial<Omit<NotificationConfig, 'id'>>): NotificationConfig {
   notificationConfig = { ...notificationConfig, ...patch, id: 'notification-config-default' }
-  return { ...notificationConfig }
+  return structuredClone(notificationConfig)
 }
 
-export function getOpenPlatformConfig(): OpenPlatformConfig { return { ...openPlatformConfig } }
+export function getOpenPlatformConfig(): OpenPlatformConfig { return structuredClone(openPlatformConfig) }
 export function updateOpenPlatformConfigRecord(patch: Partial<Omit<OpenPlatformConfig, 'id'>>): OpenPlatformConfig {
   openPlatformConfig = { ...openPlatformConfig, ...patch, id: 'open-platform-default' }
-  return { ...openPlatformConfig }
+  return structuredClone(openPlatformConfig)
 }
 
 // 模块加载时初始化 mock 数据（供测试隔离使用）

@@ -28,7 +28,7 @@ interface BuildOAuthOptions {
 
 interface OAuthCallbackResult {
   token: string
-  user: { id: string; username: string; displayName: string; orgId: string }
+  user: { id: string; username: string; displayName: string; departmentId: string }
 }
 
 /** 各 provider 默认 clientId（来自 .env.example，仅 mock 层使用，非真实凭证） */

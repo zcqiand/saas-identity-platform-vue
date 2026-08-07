@@ -31,7 +31,7 @@ describe('useSso (ch40)', () => {
     const result = await handleSsoCallback('mock-auth-code-123', 'oidc')
     expect(result.token).toBeTruthy()
     expect(result.user.username).toBe('admin@acme')
-    expect(result.user.orgId).toBe('org-acme')
+    expect(result.user.departmentId).toBe('department-acme')
   })
 
   it('handleSsoCallback rejects invalid code [fn: M01.F04.I01, M01.F04.I02, M01.F04.I05, M01.F04.I03, M01.F04.I04]', async () => {

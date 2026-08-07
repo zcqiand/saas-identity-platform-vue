@@ -33,7 +33,7 @@ const tenantNav: NavGroup[] = [
   {
     label: '身份管理',
     items: [
-      { label: '组织管理', to: 'org', permission: 'org:read' },
+      { label: '部门管理', to: 'departments', permission: 'org:read' },
       { label: '岗位管理', to: 'positions', permission: 'position:read' },
       { label: '角色管理', to: 'roles', permission: 'role:read' },
       { label: '权限组别', to: 'permission-groups', permission: 'permission-group:read' },

@@ -3,9 +3,14 @@
  *
  * 从 saas-identity-platform（React）/dev-server/authHandlers.ts 复制并适配 saas-vue：
  *   - msw/db.ts → 直接用 mocks/identity.ts
- *   - msw/jwt.ts → 直接复用（已含 roles[]/tenantId/appId/orgId 字段）
+ *   - msw/jwt.ts → 直接复用（已含 roles[]/tenantId/appId/departmentId 字段）
  *
  * ch40 4 条 auth 端点 / M01.F04.I04 动态菜单契约不变。
+ *
+ * v0.3.0 重命名（原 orgId → departmentId；org-lab-root → department-lab-root）：
+ *   - signJwt payload 现签 departmentId 而非 orgId
+ *   - /auth/permissions 读 ?departmentId=，兼容新名
+ *   - URL 表面 ?orgId= 旧名继续保留（小步拆迁移）
  */
 
 import { signJwt, verifyJwt } from '../mocks/jwt'
@@ -44,14 +49,14 @@ export async function handleOAuthCallbackFromBody(body: {
   if (!body.code || body.code === 'bad-code') {
     return json({ message: '无效授权码' }, 401)
   }
-  // lab 集成：clientId='lab-management' → 返回 lab 租户身份（机构=租户=org-lab-root）
+  // lab 集成：clientId='lab-management' → 返回 lab 租户身份（部门根 = department-lab-root / org-lab-root）
   if (body.clientId === 'lab-management') {
     const labAdmin = LAB_ROLES.find((r) => r.name === 'labadmin')
     const perms = labAdmin?.permissions ?? []
     const labToken = signJwt({
       sub: 'u-lab-admin',
       username: 'labadmin',
-      orgId: 'org-lab-root',
+      departmentId: 'org-lab-root',
       roles: ['labadmin'],
       permissions: perms,
       tenantId: 'tenant-lab',
@@ -67,7 +72,7 @@ export async function handleOAuthCallbackFromBody(body: {
         // （与 lab-vue 自身 msw ssoHandler 返回形状一致）
         role: { id: labAdmin?.id ?? 'role-admin', name: 'labadmin', permissions: perms },
         permissions: perms,
-        orgId: 'org-lab-root',
+        departmentId: 'org-lab-root',
         tenantId: 'tenant-lab',
         appId: 'app-lab',
       },
@@ -77,7 +82,7 @@ export async function handleOAuthCallbackFromBody(body: {
   const token = signJwt({
     sub: 'u-001',
     username: 'admin@acme',
-    orgId: 'org-acme',
+    departmentId: 'department-acme',
     roles: ['admin'],
     permissions: ['user:read', 'user:create', 'user:delete', 'org:read', 'org:write'],
   })
@@ -87,7 +92,7 @@ export async function handleOAuthCallbackFromBody(body: {
       id: 'u-001',
       username: 'admin@acme',
       displayName: 'SaaS 管理员',
-      orgId: 'org-acme',
+      departmentId: 'department-acme',
     },
   })
 }
@@ -99,10 +104,13 @@ export function handleAuthPermissions(req: Request): Response {
     return json({ message: '未授权' }, 401)
   }
   const url = new URL(req.url)
-  const orgId = url.searchParams.get('orgId') ?? 'org-lab-root'
+  // v0.3.0 改名（原 orgId → departmentId）；兼容旧名（5b/5c 边界保留）
+  const departmentId = url.searchParams.get('departmentId')
+    ?? url.searchParams.get('orgId')
+    ?? 'org-lab-root'
 
   // lab 单租户：org-lab-root → LAB_ROLES
-  if (orgId === 'org-lab-root') {
+  if (departmentId === 'org-lab-root') {
     const permissions = Array.from(new Set(LAB_ROLES.flatMap((r) => r.permissions)))
     return json({ roles: LAB_ROLES satisfies IdentityRole[], permissions })
   }

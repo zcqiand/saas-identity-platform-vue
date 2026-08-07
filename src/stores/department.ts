@@ -1,24 +1,7 @@
-// ch42 组织架构扩展 store：岗位 / 用户组 / 权限组（与 React 姊妹仓 appStore 对齐）
-// ch41/终批：追加组织树 CRUD（与 React 姊妹仓 orgStore 对齐，只增不改既有方法）
+// ch42 部门架构扩展 store：岗位 / 用户组 / 权限组（与 React 姊妹仓 appStore 对齐）
+// ch41/终批：追加部门树 CRUD（与 React 姊妹仓 departmentStore 对齐，只增不改既有方法）
+// v0.3.0 重命名（原 useOrgStore → useDepartmentStore；org → department family）
 // @entry M02.F01.I07
-// @entry M02.F01.I01
-// @entry M02.F01.I02
-// @entry M02.F01.I03
-// @entry M02.F01.I04
-// @entry M02.F01.I05
-// @entry M02.F01.I06
-// @entry M02.F01.I07
-// @entry M02.F01.I08
-// @entry M02.F01.I09
-// @entry M02.F01.I01
-// @entry M02.F01.I02
-// @entry M02.F01.I03
-// @entry M02.F01.I04
-// @entry M02.F01.I05
-// @entry M02.F01.I06
-// @entry M02.F01.I07
-// @entry M02.F01.I08
-// @entry M02.F01.I09
 // @entry M02.F01.I01
 // @entry M02.F01.I02
 // @entry M02.F01.I03
@@ -42,14 +25,14 @@ import type {
   PermissionGroupCreateInput,
   PermissionGroupUpdateInput,
 } from '../types/org'
-import type { OrgNode } from '../types/user'
+import type { DepartmentNode } from '../types/user'
 
-export const useOrgStore = defineStore('org', () => {
+export const useDepartmentStore = defineStore('department', () => {
   const positions = ref<Position[]>([])
   const userGroups = ref<UserGroup[]>([])
   const permissionGroups = ref<PermissionGroup[]>([])
-  // 组织树（单根）：与 React orgStore.tree 对齐
-  const tree = ref<OrgNode | null>(null)
+  // 部门树（单根）：与 React departmentStore.tree 对齐
+  const tree = ref<DepartmentNode | null>(null)
   const loading = ref(false)
   const error = ref<string | null>(null)
 
@@ -92,7 +75,9 @@ export const useOrgStore = defineStore('org', () => {
     try {
       const { data } = await apiClient.get<UserGroup[]>('/user-groups')
       userGroups.value = data
-    } catch (err) { error.value = extractErrorMessage(err, '用户组加载失败') }
+    } catch (err) {
+      error.value = extractErrorMessage(err, '用户组加载失败')
+    }
     finally { loading.value = false }
   }
   async function createUserGroup(input: UserGroupCreateInput): Promise<UserGroup | null> {
@@ -124,7 +109,9 @@ export const useOrgStore = defineStore('org', () => {
     try {
       const { data } = await apiClient.get<PermissionGroup[]>('/permission-groups')
       permissionGroups.value = data
-    } catch (err) { error.value = extractErrorMessage(err, '权限组加载失败') }
+    } catch (err) {
+      error.value = extractErrorMessage(err, '权限组加载失败')
+    }
     finally { loading.value = false }
   }
   async function createPermissionGroup(input: PermissionGroupCreateInput): Promise<PermissionGroup | null> {
@@ -150,50 +137,50 @@ export const useOrgStore = defineStore('org', () => {
     } catch (err) { error.value = extractErrorMessage(err, '权限组删除失败'); return false }
   }
 
-  // —— 组织树（ch41/终批，与 React orgStore 对齐，只增）——
-  async function fetchOrgTree(): Promise<void> {
+  // —— 部门树（ch41/终批，与 React departmentStore 对齐，只增）——
+  async function fetchDepartmentTree(): Promise<void> {
     loading.value = true
     error.value = null
     try {
-      const { data } = await apiClient.get<OrgNode>('/orgs')
+      const { data } = await apiClient.get<DepartmentNode>('/departments')
       tree.value = data
     } catch (err) {
-      error.value = extractErrorMessage(err, '组织架构加载失败')
+      error.value = extractErrorMessage(err, '部门架构加载失败')
     } finally {
       loading.value = false
     }
   }
-  async function createOrgNode(name: string, parentId: string): Promise<void> {
+  async function createDepartmentNode(name: string, parentId: string): Promise<void> {
     loading.value = true
     error.value = null
     try {
-      await apiClient.post('/orgs', { name, parentId })
-      await fetchOrgTree()
+      await apiClient.post('/departments', { name, parentId })
+      await fetchDepartmentTree()
     } catch (err) {
       loading.value = false
-      error.value = extractErrorMessage(err, '组织节点创建失败')
+      error.value = extractErrorMessage(err, '部门节点创建失败')
     }
   }
-  async function updateOrgNode(id: string, name: string): Promise<void> {
+  async function updateDepartmentNode(id: string, name: string): Promise<void> {
     loading.value = true
     error.value = null
     try {
-      await apiClient.put(`/orgs/${id}`, { name })
-      await fetchOrgTree()
+      await apiClient.put(`/departments/${id}`, { name })
+      await fetchDepartmentTree()
     } catch (err) {
       loading.value = false
-      error.value = extractErrorMessage(err, '组织节点更新失败')
+      error.value = extractErrorMessage(err, '部门节点更新失败')
     }
   }
-  async function deleteOrgNode(id: string): Promise<void> {
+  async function deleteDepartmentNode(id: string): Promise<void> {
     loading.value = true
     error.value = null
     try {
-      await apiClient.delete(`/orgs/${id}`)
-      await fetchOrgTree()
+      await apiClient.delete(`/departments/${id}`)
+      await fetchDepartmentTree()
     } catch (err) {
       loading.value = false
-      error.value = extractErrorMessage(err, '组织节点删除失败')
+      error.value = extractErrorMessage(err, '部门节点删除失败')
     }
   }
 
@@ -204,7 +191,7 @@ export const useOrgStore = defineStore('org', () => {
     fetchPositions, createPosition, updatePosition, removePosition,
     fetchUserGroups, createUserGroup, updateUserGroup, removeUserGroup,
     fetchPermissionGroups, createPermissionGroup, updatePermissionGroup, removePermissionGroup,
-    fetchOrgTree, createOrgNode, updateOrgNode, deleteOrgNode,
+    fetchDepartmentTree, createDepartmentNode, updateDepartmentNode, deleteDepartmentNode,
     clearError,
   }
 })

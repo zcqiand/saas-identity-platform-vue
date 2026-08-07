@@ -19,7 +19,11 @@ const PlaceholderComponent = { template: '<div><router-view /></div>' }
  * 已存在同名路由时跳过（addRoute 自身行为：重名返回 false），保证幂等。
  */
 export function setupDynamicRoutes(router: Router, tenant: TenantConfig): void {
-  for (const feature of tenant.features) {
+  // v0.3.0：features 落到 config.features（共享契约 tenant schema 重构）
+  const features = tenant.features
+    ?? (tenant as unknown as { config?: { features?: string[] } }).config?.features
+    ?? []
+  for (const feature of features) {
     const def = FEATURE_ROUTES[feature]
     if (!def) continue
     const path = def.buildPath(tenant.id)
@@ -34,7 +38,11 @@ export function setupDynamicRoutes(router: Router, tenant: TenantConfig): void {
 
 /** 清除某租户注册的动态路由（切换租户时调用） */
 export function teardownDynamicRoutes(router: Router, tenant: TenantConfig): void {
-  for (const feature of tenant.features) {
+  // v0.3.0：features 落到 config.features（共享契约 tenant schema 重构）
+  const features = tenant.features
+    ?? (tenant as unknown as { config?: { features?: string[] } }).config?.features
+    ?? []
+  for (const feature of features) {
     const def = FEATURE_ROUTES[feature]
     if (!def) continue
     if (router.hasRoute(def.name)) {

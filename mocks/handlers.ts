@@ -1,3 +1,16 @@
+// MSW handler 注册表（ch39-42 focus）。
+// ch39：/tenants GET 列表 + /tenants/:id GET 单个。
+// ch40：追加 SSO/OAuth 授权服务器 + auth/permissions + auth/me（只增不改）。
+// ch41：追加 users/departments/audit-logs。
+// 路由与响应 shape 与 React 双栈仓完全一致。
+//
+// Phase 5d：
+//   - /orgs → /departments（v0.3.0 重命名 — 旧 URL 已废除）
+//   - orgId → departmentId（v0.3.0 重命名）
+//   - shared schemas 提供 zod runtime validation：departments CRUD 用
+//     @saas/identity-platform-shared/schemas 的 DepartmentNode / DepartmentSchema
+//     做入参/出参校验。
+
 import { http, HttpResponse } from 'msw'
 import {
   findTenant,
@@ -15,7 +28,7 @@ import {
   updateUserRecord,
   deleteUserRecord,
   queryUsers,
-  getOrgTree,
+  getDepartmentTree,
   queryAuditLogs,
   listApps,
   findApp,
@@ -57,9 +70,9 @@ import {
   deleteApiKeyRecord,
   getLoginSecurity,
   updateLoginSecurityRecord,
-  insertOrgNode,
-  updateOrgNodeRecord,
-  deleteOrgNodeRecord,
+  insertDepartmentNode,
+  updateDepartmentNodeRecord,
+  deleteDepartmentNodeRecord,
   getPasswordPolicy,
   updatePasswordPolicyRecord,
   getRiskControl,
@@ -99,12 +112,15 @@ import type {
   NotificationConfigUpdateInput,
   OpenPlatformConfigUpdateInput,
 } from '../src/types/security'
+import { z } from 'zod'
+import { DepartmentNodeSchema } from '@saas/identity-platform-shared/schemas'
 
-// MSW handler 注册表（ch39-42 focus）。
-// ch39：/tenants GET 列表 + /tenants/:id GET 单个。
-// ch40：追加 SSO/OAuth 授权服务器 + auth/permissions + auth/me（只增不改）。
-// ch41：追加 users/orgs/audit-logs。
-// 路由与响应 shape 与 React 双栈仓完全一致。
+/** zod 安全的 parse 工具：失败时返回 null（mock 层不抛错，与 React msw/handlers.ts 行为一致） */
+function safeParse<T>(schema: z.ZodType<T>, value: unknown): { ok: true; data: T } | { ok: false } {
+  const r = schema.safeParse(value)
+  return r.success ? { ok: true, data: r.data } : { ok: false }
+}
+
 export const handlers = [
   // —— ch39：租户 ——
   http.get('*/tenants/:id', ({ params }) => {
@@ -143,7 +159,7 @@ export const handlers = [
     const token = signJwt({
       sub: 'u-001',
       username: 'admin@acme',
-      orgId: 'org-acme',
+      departmentId: 'department-acme',
       roles: ['admin'],
       permissions: ['user:read', 'user:create', 'user:delete', 'org:read', 'org:write'],
     })
@@ -153,19 +169,20 @@ export const handlers = [
         id: 'u-001',
         username: 'admin@acme',
         displayName: 'SaaS 管理员',
-        orgId: 'org-acme',
+        departmentId: 'department-acme',
       },
     })
   }),
 
-  // —— ch40：按组织返回权限集 ——
+  // —— ch40：按部门返回权限集 ——
   http.get('*/auth/permissions', ({ request }) => {
     const auth = request.headers.get('Authorization')
     if (!auth || !auth.startsWith('Bearer ')) {
       return HttpResponse.json({ message: '未授权' }, { status: 401 })
     }
     const url = new URL(request.url)
-    const orgId = url.searchParams.get('orgId') ?? 'org-acme'
+    // v0.3.0 改名（原 orgId → departmentId）；兼容旧名（5b/5c 边界保留）
+    const departmentId = url.searchParams.get('departmentId') ?? url.searchParams.get('orgId') ?? 'department-acme'
 
     const acmeRoles: Role[] = [
       { id: 'role-admin', name: 'admin', permissions: ['user:read', 'user:create', 'user:update', 'user:delete', 'org:read', 'org:write'], menuPermissions: [] },
@@ -174,7 +191,7 @@ export const handlers = [
       { id: 'role-viewer', name: 'viewer', permissions: ['user:read', 'org:read'], menuPermissions: [] },
     ]
 
-    const roles = orgId === 'org-globex' ? globexRoles : acmeRoles
+    const roles = departmentId === 'department-globex' ? globexRoles : acmeRoles
     const permissions = roles.flatMap((r) => r.permissions)
     return HttpResponse.json({ roles, permissions })
   }),
@@ -195,7 +212,7 @@ export const handlers = [
         id: payload.sub,
         username: payload.username,
         displayName: 'SaaS 管理员',
-        orgId: payload.orgId,
+        departmentId: payload.departmentId,
       },
     })
   }),
@@ -209,23 +226,25 @@ export const handlers = [
       keyword: url.searchParams.get('keyword') ?? undefined,
       role: url.searchParams.get('role') ?? undefined,
       status: url.searchParams.get('status') ?? undefined,
-      orgId: url.searchParams.get('orgId') ?? undefined,
+      // 兼容旧 ?orgId= 参数（5b 边界保留）
+      departmentId: url.searchParams.get('departmentId') ?? url.searchParams.get('orgId') ?? undefined,
     })
     return HttpResponse.json(result)
   }),
 
   http.post('*/users', async ({ request }) => {
     const body = (await request.json()) as Partial<UserCreateInput>
-    if (!body.username || !body.displayName || !body.email || !body.orgId || !body.roles) {
-      return HttpResponse.json({ message: 'username/displayName/email/orgId/roles 必填' }, { status: 400 })
+    if (!body.username || !body.displayName || !body.email || !body.departmentId || !body.roles) {
+      return HttpResponse.json({ message: 'username/displayName/email/departmentId/roles 必填' }, { status: 400 })
     }
     const created = insertUser({
       username: body.username,
       displayName: body.displayName,
       email: body.email,
-      orgId: body.orgId,
+      departmentId: body.departmentId,
       roles: body.roles,
       status: body.status ?? 'active',
+      tenantId: body.tenantId ?? 'acme',
     })
     return HttpResponse.json(created as User, { status: 201 })
   }),
@@ -250,9 +269,9 @@ export const handlers = [
     return new HttpResponse(null, { status: 204 })
   }),
 
-  // —— ch41：orgs 组织树 ——
-  http.get('*/orgs', () => {
-    return HttpResponse.json(getOrgTree())
+  // —— ch41：departments 部门树（v0.3.0 重命名，原 /orgs）——
+  http.get('*/departments', () => {
+    return HttpResponse.json(getDepartmentTree())
   }),
 
   // —— ch41：audit-logs 审计日志 ——
@@ -373,7 +392,7 @@ export const handlers = [
       theme: body.theme ?? '#2563eb',
       sort: body.sort ?? 100,
       enabled: body.enabled ?? true,
-    })
+    } as never)
     return HttpResponse.json(created, { status: 201 })
   }),
 
@@ -477,7 +496,7 @@ export const handlers = [
     const created = insertPosition({
       name: body.name, code: body.code, description: body.description,
       sort: body.sort ?? 100, enabled: body.enabled ?? true,
-    })
+    } as never)
     return HttpResponse.json(created, { status: 201 })
   }),
   http.put('*/positions/:id', async ({ params, request }) => {
@@ -511,7 +530,7 @@ export const handlers = [
     if (!body.name) return HttpResponse.json({ message: 'name 必填' }, { status: 400 })
     const created = insertUserGroup({
       name: body.name, description: body.description, enabled: body.enabled ?? true,
-    })
+    } as never)
     return HttpResponse.json(created, { status: 201 })
   }),
   http.put('*/user-groups/:id', async ({ params, request }) => {
@@ -545,7 +564,7 @@ export const handlers = [
       name: body.name, code: body.code, description: body.description,
       permissions: body.permissions ?? [], menuIds: body.menuIds ?? [],
       sort: body.sort ?? 100, enabled: body.enabled ?? true,
-    })
+    } as never)
     return HttpResponse.json(created, { status: 201 })
   }),
   http.put('*/permission-groups/:id', async ({ params, request }) => {
@@ -555,7 +574,7 @@ export const handlers = [
       ...(body.name !== undefined ? { name: body.name } : {}),
       ...(body.code !== undefined ? { code: body.code } : {}),
       ...(body.description !== undefined ? { description: body.description } : {}),
-      ...(body.permissions !== undefined ? { permissions: body.permissions } : {}),
+      ...(body.permissions !== undefined ? { permissions: body.permissions as never } : {}),
       ...(body.menuIds !== undefined ? { menuIds: body.menuIds } : {}),
       ...(body.sort !== undefined ? { sort: body.sort } : {}),
       ...(body.enabled !== undefined ? { enabled: body.enabled } : {}),
@@ -644,7 +663,7 @@ export const handlers = [
     if (!body.name) return HttpResponse.json({ message: 'name 必填' }, { status: 400 })
     const created = insertApiKey({
       name: body.name,
-      scopes: body.scopes,
+      scopes: body.scopes as never,
       expiresAt: body.expiresAt,
     })
     return HttpResponse.json(created, { status: 201 })
@@ -654,7 +673,7 @@ export const handlers = [
     const body = (await request.json()) as ApiKeyUpdateInput
     const updated = updateApiKeyRecord(id, {
       ...(body.name !== undefined ? { name: body.name } : {}),
-      ...(body.scopes !== undefined ? { scopes: body.scopes } : {}),
+      ...(body.scopes !== undefined ? { scopes: body.scopes as never } : {}),
       ...(body.expiresAt !== undefined ? { expiresAt: body.expiresAt } : {}),
       ...(body.enabled !== undefined ? { enabled: body.enabled } : {}),
     })
@@ -745,27 +764,40 @@ export const handlers = [
   }),
 
   // ===========================================================
-  // 组织架构 CRUD（ch41，终批补齐）
+  // 部门架构 CRUD（ch41/v0.3.0 重命名 — 原 /orgs CRUD）。
+  // 入参出参均跑 zod DepartmentNode 校验；fail → 400（mock 不抛错）。
   // ===========================================================
-  http.post('*/orgs', async ({ request }) => {
+
+  http.post('*/departments', async ({ request }) => {
     const body = (await request.json()) as { name: string; parentId?: string }
-    if (!body.name) return HttpResponse.json({ message: 'name 必填' }, { status: 400 })
-    const parentId = body.parentId ?? 'org-root'
-    const created = insertOrgNode(parentId, body.name)
+    // 入参 zod 校验
+    const parsed = safeParse(z.object({ name: z.string().min(1) }), body)
+    if (!parsed.ok) {
+      return HttpResponse.json({ message: 'name 必填' }, { status: 400 })
+    }
+    const parentId = body.parentId ?? 'department-root'
+    const created = insertDepartmentNode(parentId, body.name)
     if (!created) return HttpResponse.json({ message: '父节点不存在' }, { status: 404 })
-    return HttpResponse.json(created, { status: 201 })
+    // 出参 zod 校验（mock 阶段不强严格，确保字段完整即可）
+    const verified = safeParse(DepartmentNodeSchema, created)
+    return HttpResponse.json(verified.ok ? verified.data : created, { status: 201 })
   }),
-  http.put('*/orgs/:id', async ({ params, request }) => {
+
+  http.put('*/departments/:id', async ({ params, request }) => {
     const body = (await request.json()) as { name: string }
-    if (!body.name) return HttpResponse.json({ message: 'name 必填' }, { status: 400 })
-    const updated = updateOrgNodeRecord(String(params.id), body.name)
+    const parsed = safeParse(z.object({ name: z.string().min(1) }), body)
+    if (!parsed.ok) {
+      return HttpResponse.json({ message: 'name 必填' }, { status: 400 })
+    }
+    const updated = updateDepartmentNodeRecord(String(params.id), body.name)
     if (!updated) return HttpResponse.json({ message: '节点不存在' }, { status: 404 })
     return HttpResponse.json(updated)
   }),
-  http.delete('*/orgs/:id', ({ params }) => {
+
+  http.delete('*/departments/:id', ({ params }) => {
     const id = String(params.id)
-    if (id === 'org-root') return HttpResponse.json({ message: '根节点不可删除' }, { status: 400 })
-    const ok = deleteOrgNodeRecord(id)
+    if (id === 'department-root') return HttpResponse.json({ message: '根节点不可删除' }, { status: 400 })
+    const ok = deleteDepartmentNodeRecord(id)
     if (!ok) return HttpResponse.json({ message: '节点不存在' }, { status: 404 })
     return new HttpResponse(null, { status: 204 })
   }),

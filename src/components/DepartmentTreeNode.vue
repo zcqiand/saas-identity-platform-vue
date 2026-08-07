@@ -7,44 +7,25 @@
 // @entry M02.F01.I07
 // @entry M02.F01.I08
 // @entry M02.F01.I09
-// @entry M02.F01.I01
-// @entry M02.F01.I02
-// @entry M02.F01.I03
-// @entry M02.F01.I04
-// @entry M02.F01.I05
-// @entry M02.F01.I06
-// @entry M02.F01.I07
-// @entry M02.F01.I08
-// @entry M02.F01.I09
-// @entry M02.F01.I01
-// @entry M02.F01.I02
-// @entry M02.F01.I03
-// @entry M02.F01.I04
-// @entry M02.F01.I05
-// @entry M02.F01.I06
-// @entry M02.F01.I07
-// @entry M02.F01.I08
-// @entry M02.F01.I09
-// @entry M02.F01.I01
-// @entry M02.F01.I08
 <script setup lang="ts">
-// ch41 组织树节点：递归自引用组件（组件名 OrgTreeNode 在自身 template 内被引用）
+// ch41 部门树节点：递归自引用组件（组件名 DepartmentTreeNode 在自身 template 内被引用）
+// v0.3.0 改名（原 OrgTreeNode → DepartmentTreeNode）
 import { computed } from 'vue'
-import type { OrgNode } from '../types/user'
+import type { DepartmentNode } from '../types/user'
 
 // 显式声明组件名，确保递归自引用在所有构建/打包场景下可解析
-defineOptions({ name: 'OrgTreeNode' })
+defineOptions({ name: 'DepartmentTreeNode' })
 
 const props = defineProps<{
   /** 当前节点 */
-  node: OrgNode
+  node: DepartmentNode
   /** 当前深度（根=0），用于缩进 */
   depth?: number
 }>()
 
 const emit = defineEmits<{
-  (e: 'select', node: OrgNode): void
-  (e: 'toggle', node: OrgNode): void
+  (e: 'select', node: DepartmentNode): void
+  (e: 'toggle', node: DepartmentNode): void
 }>()
 
 const depth = computed(() => props.depth ?? 0)
@@ -58,7 +39,7 @@ function onClick(): void {
 </script>
 
 <template>
-  <li data-fn="M02.F01.I01" :data-org-node="node.id" class="select-none">
+  <li data-fn="M02.F01.I01" :data-department-node="node.id" class="select-none">
     <div class="flex items-center gap-1 py-1 px-2 hover:bg-gray-100 rounded cursor-pointer" :style="indentStyle">
       <span
         v-if="hasChildren"
@@ -71,7 +52,7 @@ function onClick(): void {
       </span>
     </div>
     <ul v-if="hasChildren">
-      <OrgTreeNode
+      <DepartmentTreeNode
         v-for="child in node.children"
         :key="child.id"
         :node="child"

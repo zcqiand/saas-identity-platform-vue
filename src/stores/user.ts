@@ -1,23 +1,6 @@
-// ch41 user store：组织树 + 用户列表（setup-store 风格）
+// ch41 user store：部门树 + 用户列表（setup-store 风格）
+// v0.3.0 重命名（原 orgId → departmentId；orgTree → departmentTree；OrgNode → DepartmentNode）
 // @entry M02.F02.I08
-// @entry M02.F02.I01
-// @entry M02.F02.I02
-// @entry M02.F02.I03
-// @entry M02.F02.I04
-// @entry M02.F02.I05
-// @entry M02.F02.I06
-// @entry M02.F02.I07
-// @entry M02.F02.I08
-// @entry M02.F02.I09
-// @entry M02.F02.I01
-// @entry M02.F02.I02
-// @entry M02.F02.I03
-// @entry M02.F02.I04
-// @entry M02.F02.I05
-// @entry M02.F02.I06
-// @entry M02.F02.I07
-// @entry M02.F02.I08
-// @entry M02.F02.I09
 // @entry M02.F02.I01
 // @entry M02.F02.I02
 // @entry M02.F02.I03
@@ -30,25 +13,25 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { apiClient } from '../api/client'
-import type { User, OrgNode, UserQuery, UserRole } from '../types/user'
+import type { User, DepartmentNode, UserQuery, UserRole } from '../types/user'
 import type { PageResult } from '../types/user'
 
 export const useUserStore = defineStore('user', () => {
-  const orgTree = ref<OrgNode | null>(null)
+  const departmentTree = ref<DepartmentNode | null>(null)
   const users = ref<User[]>([])
   const total = ref(0)
   const loading = ref(false)
   const error = ref<string | null>(null)
   const lastQuery = ref<UserQuery>({ page: 1, pageSize: 10 })
 
-  async function fetchOrgTree(): Promise<void> {
+  async function fetchDepartmentTree(): Promise<void> {
     loading.value = true
     error.value = null
     try {
-      const res = await apiClient.get<OrgNode>('/orgs')
-      orgTree.value = res.data
+      const res = await apiClient.get<DepartmentNode>('/departments')
+      departmentTree.value = res.data
     } catch (err) {
-      error.value = extractErrorMessage(err, '组织架构加载失败')
+      error.value = extractErrorMessage(err, '部门架构加载失败')
     } finally {
       loading.value = false
     }
@@ -89,13 +72,13 @@ export const useUserStore = defineStore('user', () => {
   }
 
   return {
-    orgTree,
+    departmentTree,
     users,
     total,
     loading,
     error,
     lastQuery,
-    fetchOrgTree,
+    fetchDepartmentTree,
     fetchUsers,
     assignRoles,
     clearError,

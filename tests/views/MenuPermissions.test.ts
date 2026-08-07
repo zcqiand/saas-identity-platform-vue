@@ -37,7 +37,7 @@ describe('MenuPermissions.vue', () => {
     mountView()
     await flushPromises()
     const appSelect = byTestId('select-app') as HTMLSelectElement
-    appSelect.value = 'app-console'
+    appSelect.value = 'app-lab'
     appSelect.dispatchEvent(new Event('change'))
     await flushPromises()
     const roleSelect = byTestId('select-role') as HTMLSelectElement
@@ -45,7 +45,7 @@ describe('MenuPermissions.vue', () => {
     roleSelect.dispatchEvent(new Event('change'))
     await flushPromises()
     await flushPromises()
-    // app-console 有 4 个顶级菜单（用户/组织/角色/审计）
+    // app-lab 有 4 个顶级菜单（用户/组织/角色/审计）
     const rows = document.body.querySelectorAll('[data-testid^="menu-row-"]')
     expect(rows.length).toBeGreaterThanOrEqual(4)
     // 保存按钮出现
@@ -55,7 +55,7 @@ describe('MenuPermissions.vue', () => {
   it('勾选某菜单的 view 权限后保存，调用 updateRole [fn: M03.F01.I07]', async () => {
     const wrapper = mountView()
     await flushPromises()
-    ;(byTestId('select-app') as HTMLSelectElement)!.value = 'app-console'
+    ;(byTestId('select-app') as HTMLSelectElement)!.value = 'app-lab'
     byTestId('select-app')!.dispatchEvent(new Event('change'))
     await flushPromises()
     ;(byTestId('select-role') as HTMLSelectElement)!.value = 'role-admin'
@@ -78,7 +78,7 @@ describe('MenuPermissions.vue', () => {
   it('父菜单全选联动勾选所有子菜单 [fn: M03.F01.I07]', async () => {
     mountView()
     await flushPromises()
-    ;(byTestId('select-app') as HTMLSelectElement)!.value = 'app-console'
+    ;(byTestId('select-app') as HTMLSelectElement)!.value = 'app-lab'
     byTestId('select-app')!.dispatchEvent(new Event('change'))
     await flushPromises()
     ;(byTestId('select-role') as HTMLSelectElement)!.value = 'role-admin'

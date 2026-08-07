@@ -32,7 +32,7 @@ function onSsoLogin() {
 function onMockLogin() {
   // mock-friendly：直接拿 token 进 acme dashboard（与 React 仓 Login.tsx 占位一致）
   auth.token = 'mock-token'
-  auth.user = { id: 'u-001', username: 'admin', displayName: '管理员', orgId: 'org-acme' }
+  auth.user = { id: 'u-001', username: 'admin', displayName: '管理员', departmentId: 'department-acme' }
   router.replace('/acme/dashboard')
 }
 </script>

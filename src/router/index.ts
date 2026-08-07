@@ -41,7 +41,7 @@ export const staticRoutes: RouteRecordRaw[] = [
     children: [
       { path: 'dashboard', name: 'dashboard', component: view('../views/Dashboard.vue') },
       { path: 'users', name: 'users', component: view('../views/user/UserList.vue') },
-      { path: 'org', name: 'org', component: view('../views/OrgInfo.vue') },
+      { path: 'departments', name: 'departments', component: view('../views/DepartmentInfo.vue') },
       { path: 'positions', name: 'tenant-positions', component: view('../views/positions/PositionsList.vue') },
       { path: 'roles', name: 'roles', component: view('../views/roles/RolesList.vue') },
       { path: 'menu-permissions', name: 'menu-permissions', component: view('../views/roles/MenuPermissions.vue') },

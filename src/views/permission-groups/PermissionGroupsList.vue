@@ -19,18 +19,18 @@
 // @entry M03.F02.I04
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { useOrgStore } from '@/stores/org'
+import { useDepartmentStore } from '@/stores/department'
 
-const org = useOrgStore()
+const dept = useDepartmentStore()
 const showForm = ref(false)
 const form = ref({ name: '', code: '', description: '', permissionsText: '', enabled: true })
 
-onMounted(async () => { await org.fetchPermissionGroups() })
+onMounted(async () => { await dept.fetchPermissionGroups() })
 
 async function submit() {
   const permissions = form.value.permissionsText
     .split(',').map((s) => s.trim()).filter(Boolean)
-  await org.createPermissionGroup({
+  await dept.createPermissionGroup({
     name: form.value.name, code: form.value.code, description: form.value.description,
     permissions, enabled: form.value.enabled,
   })
@@ -39,7 +39,7 @@ async function submit() {
 }
 async function remove(id: string) {
   if (!confirm('确定删除？')) return
-  await org.removePermissionGroup(id)
+  await dept.removePermissionGroup(id)
 }
 </script>
 
@@ -49,12 +49,12 @@ async function remove(id: string) {
       <h2 class="text-lg font-semibold">权限组</h2>
       <button class="px-3 py-1.5 bg-blue-600 text-white rounded text-sm" @click="showForm = true">新建权限组</button>
     </header>
-    <table v-if="org.permissionGroups.length" class="w-full text-sm bg-white shadow rounded">
+    <table v-if="dept.permissionGroups.length" class="w-full text-sm bg-white shadow rounded">
       <thead class="bg-gray-50 text-left">
         <tr><th class="px-3 py-2">名称</th><th class="px-3 py-2">编码</th><th class="px-3 py-2">权限数</th><th class="px-3 py-2">关联菜单</th><th class="px-3 py-2">排序</th><th class="px-3 py-2">启用</th><th class="px-3 py-2">操作</th></tr>
       </thead>
       <tbody>
-        <tr v-for="p in org.permissionGroups" :key="p.id" data-testid="permission-group-row" class="border-t">
+        <tr v-for="p in dept.permissionGroups" :key="p.id" data-testid="permission-group-row" class="border-t">
           <td class="px-3 py-2 font-medium">{{ p.name }}</td>
           <td class="px-3 py-2 text-gray-600">{{ p.code }}</td>
           <td class="px-3 py-2">{{ p.permissions.length }}</td>

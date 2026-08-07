@@ -9,6 +9,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@saas/identity-platform-shared/schemas': fileURLToPath(new URL('../saas-identity-platform-shared/schemas/index.ts', import.meta.url)),
+      '@saas/identity-platform-shared/seeds': fileURLToPath(new URL('../saas-identity-platform-shared/seeds/index.ts', import.meta.url)),
     },
   },
   test: {

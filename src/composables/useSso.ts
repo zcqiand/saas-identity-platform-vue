@@ -29,7 +29,7 @@ interface BuildSsoRedirectOptions {
 
 interface OAuthCallbackResult {
   token: string
-  user: { id: string; username: string; displayName: string; orgId: string }
+  user: { id: string; username: string; displayName: string; departmentId: string }
 }
 
 /** 构造 SSO /authorize 跳转 URL */

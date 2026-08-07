@@ -42,7 +42,7 @@ beforeEach(() => {
   const auth = useAuthStore()
   auth.token = null
   auth.user = null
-  auth.currentOrgId = null
+  auth.currentDepartmentId = null
   auth.permissions = [] as never
   const tenant = useTenantStore()
   tenant.current = null
@@ -66,8 +66,8 @@ describe('E2E 冒烟测试', () => {
     setActivePinia(pinia)
     const auth = useAuthStore()
     auth.token = 'mock-token'
-    auth.user = { id: 'u-001', username: 'admin', displayName: '管理员', orgId: 'org-acme' }
-    auth.currentOrgId = 'org-acme'
+    auth.user = { id: 'u-001', username: 'admin', displayName: '管理员', departmentId: 'department-acme' }
+    auth.currentDepartmentId = 'department-acme'
     auth.permissions = ['user:read', 'user:create', 'user:delete']
 
     const { router, unmount } = renderAt('/acme/dashboard')
@@ -83,8 +83,8 @@ describe('E2E 冒烟测试', () => {
     setActivePinia(pinia)
     const auth = useAuthStore()
     auth.token = 'mock-token'
-    auth.user = { id: 'u-001', username: 'admin', displayName: '管理员', orgId: 'org-acme' }
-    auth.currentOrgId = 'org-acme'
+    auth.user = { id: 'u-001', username: 'admin', displayName: '管理员', departmentId: 'department-acme' }
+    auth.currentDepartmentId = 'department-acme'
     auth.permissions = ['user:read', 'user:create']
 
     const { router, unmount } = renderAt('/acme/users')
@@ -99,8 +99,8 @@ describe('E2E 冒烟测试', () => {
     setActivePinia(pinia)
     const auth = useAuthStore()
     auth.token = 'mock-token'
-    auth.user = { id: 'u-002', username: 'viewer', displayName: '查看者', orgId: 'org-acme' }
-    auth.currentOrgId = 'org-acme'
+    auth.user = { id: 'u-002', username: 'viewer', displayName: '查看者', departmentId: 'department-acme' }
+    auth.currentDepartmentId = 'department-acme'
     auth.permissions = ['user:read']
     // viewer 角色无 user:create → v-permission 指令应隐藏新增按钮
 
@@ -119,8 +119,8 @@ describe('E2E 冒烟测试', () => {
     void tenant
     const auth = useAuthStore()
     auth.token = 'mock-token'
-    auth.user = { id: 'u-001', username: 'admin', displayName: '管理员', orgId: 'org-acme' }
-    auth.currentOrgId = 'org-acme'
+    auth.user = { id: 'u-001', username: 'admin', displayName: '管理员', departmentId: 'department-acme' }
+    auth.currentDepartmentId = 'department-acme'
 
     const { router: r1, unmount: u1 } = renderAt('/acme/dashboard')
     await r1.isReady()

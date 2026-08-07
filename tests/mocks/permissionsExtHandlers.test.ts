@@ -27,13 +27,13 @@ describe('mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups', (
   })
 
   it('PUT /positions/:id 更新 [fn: M02.F01.I01, M02.F02.I01, M02.F02.I09, M02.F01.I09, M02.F02.I08, M02.F01.I02, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F02.I02, M01.F01.I01, M01.F01.I02, M01.F01.I03, M01.F01.I04, M01.F01.I05, M01.F01.I06, M01.F01.I07, M01.F01.I08, M01.F01.I09, M01.F01.I10, M01.F01.I11]', async () => {
-    const { data } = await apiClient.put('/positions/pos-dev', { name: '研发 v2', sort: 88 })
-    expect(data.name).toBe('研发 v2')
+    const { data } = await apiClient.put('/positions/pos-002', { name: '研发工程师 v2', sort: 88 })
+    expect(data.name).toBe('研发工程师 v2')
     expect(data.sort).toBe(88)
   })
 
   it('DELETE /positions/:id 204 [fn: M02.F01.I01, M02.F02.I01, M02.F02.I09, M02.F01.I09, M02.F02.I08, M02.F01.I02, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F02.I02, M01.F01.I01, M01.F01.I02, M01.F01.I03, M01.F01.I04, M01.F01.I05, M01.F01.I06, M01.F01.I07, M01.F01.I08, M01.F01.I09, M01.F01.I10, M01.F01.I11]', async () => {
-    const res = await apiClient.delete('/positions/pos-hr')
+    const res = await apiClient.delete('/positions/pos-005')
     expect(res.status).toBe(204)
   })
 
@@ -50,12 +50,12 @@ describe('mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups', (
   })
 
   it('PUT /user-groups/:id 更新 [fn: M02.F01.I01, M02.F02.I01, M02.F02.I09, M02.F01.I09, M02.F02.I08, M02.F01.I02, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F02.I02, M01.F01.I01, M01.F01.I02, M01.F01.I03, M01.F01.I04, M01.F01.I05, M01.F01.I06, M01.F01.I07, M01.F01.I08, M01.F01.I09, M01.F01.I10, M01.F01.I11]', async () => {
-    const { data } = await apiClient.put('/user-groups/ug-rd', { name: '研发中心' })
-    expect(data.name).toBe('研发中心')
+    const { data } = await apiClient.put('/user-groups/ug-002', { name: '核心研发小组' })
+    expect(data.name).toBe('核心研发小组')
   })
 
   it('DELETE /user-groups/:id 204 [fn: M02.F01.I01, M02.F02.I01, M02.F02.I09, M02.F01.I09, M02.F02.I08, M02.F01.I02, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F02.I02, M01.F01.I01, M01.F01.I02, M01.F01.I03, M01.F01.I04, M01.F01.I05, M01.F01.I06, M01.F01.I07, M01.F01.I08, M01.F01.I09, M01.F01.I10, M01.F01.I11]', async () => {
-    const res = await apiClient.delete('/user-groups/ug-vip')
+    const res = await apiClient.delete('/user-groups/ug-005')
     expect(res.status).toBe(204)
   })
 
@@ -74,12 +74,12 @@ describe('mocks/handlers.ts (ch42) — positions/userGroups/permissionGroups', (
   })
 
   it('PUT /permission-groups/:id 更新 permissions [fn: M02.F01.I01, M02.F02.I01, M02.F02.I09, M02.F01.I09, M02.F02.I08, M02.F01.I02, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F02.I02, M01.F01.I01, M01.F01.I02, M01.F01.I03, M01.F01.I04, M01.F01.I05, M01.F01.I06, M01.F01.I07, M01.F01.I08, M01.F01.I09, M01.F01.I10, M01.F01.I11]', async () => {
-    const { data } = await apiClient.put('/permission-groups/pg-ro', { permissions: ['user:read', 'org:read', 'audit:read'] })
+    const { data } = await apiClient.put('/permission-groups/pg-002', { permissions: ['user:read', 'org:read', 'audit:read'] })
     expect(data.permissions.length).toBe(3)
   })
 
   it('DELETE /permission-groups/:id 204 [fn: M02.F01.I01, M02.F02.I01, M02.F02.I09, M02.F01.I09, M02.F02.I08, M02.F01.I02, M02.F01.I03, M02.F01.I04, M02.F01.I05, M02.F01.I06, M02.F02.I02, M01.F01.I01, M01.F01.I02, M01.F01.I03, M01.F01.I04, M01.F01.I05, M01.F01.I06, M01.F01.I07, M01.F01.I08, M01.F01.I09, M01.F01.I10, M01.F01.I11]', async () => {
-    const res = await apiClient.delete('/permission-groups/pg-rw')
+    const res = await apiClient.delete('/permission-groups/pg-003')
     expect(res.status).toBe(204)
   })
 })
