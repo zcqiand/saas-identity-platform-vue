@@ -12,9 +12,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "baseUrl": ".",
-    "paths": {
-      "@saas/shared/*": ["../saas-identity-platform-shared/generated/ts/*"]
-    },
+    "paths": {},
     "types": ["node"]
   },
   "include": ["src/**/*.ts", "src/**/*.vue", "tests/**/*.ts", "scripts/**/*.ts"],

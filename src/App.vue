@@ -1,12 +1,16 @@
 <template>
   <router-view name="header" />
-  <router-view />
+  <main style="min-height: calc(100vh - 80px)">
+    <router-view />
+  </main>
+  <BackendSwitcher />
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import BackendSwitcher from "./components/backend-switcher.vue";
+</script>
 
 <style>
-/* Minimal scaffold styles — full Tailwind v4 + shadcn-vue in later iteration */
 :root {
   font-family: ui-sans-serif, system-ui, sans-serif;
 }

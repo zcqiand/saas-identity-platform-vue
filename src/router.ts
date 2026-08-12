@@ -4,7 +4,9 @@ import LoginPage from "./pages/LoginPage.vue";
 import TenantListPage from "./pages/TenantListPage.vue";
 import UserListPage from "./pages/UserListPage.vue";
 import RoleListPage from "./pages/RoleListPage.vue";
-import OAuthAppListPage from "./pages/OAuthAppListPage.vue";
+import AppListPage from "./pages/AppListPage.vue";
+import MenuTreePage from "./pages/MenuTreePage.vue";
+import RoleMenuGrantPage from "./pages/RoleMenuGrantPage.vue";
 import ApiKeyListPage from "./pages/ApiKeyListPage.vue";
 import AuditListPage from "./pages/AuditListPage.vue";
 import TenantSwitcher from "./components/tenant-switcher.vue";
@@ -28,8 +30,18 @@ export const router = createRouter({
       props: { default: true },
     },
     {
-      path: "/oauth-apps",
-      components: { default: OAuthAppListPage, header: TenantSwitcher },
+      path: "/tenants/:tenantId/roles/:roleId/menus",
+      components: { default: RoleMenuGrantPage, header: TenantSwitcher },
+      props: { default: true },
+    },
+    {
+      path: "/admin/apps",
+      components: { default: AppListPage, header: TenantSwitcher },
+    },
+    {
+      path: "/admin/apps/:appId/menus",
+      components: { default: MenuTreePage, header: TenantSwitcher },
+      props: { default: true },
     },
     {
       path: "/tenants/:tenantId/api-keys",
@@ -46,8 +58,12 @@ export const router = createRouter({
 });
 
 router.beforeEach((to) => {
+  // tenant store 已由 Pinia 安装；useTenantStore() 第一次调用时同步 hydrate localStorage
   const tenantStore = useTenantStore();
-  if (!tenantStore.accessToken && to.path !== "/login") {
+  if (!tenantStore.isAuthenticated && to.path !== "/login") {
     return { path: "/login" };
+  }
+  if (tenantStore.isAuthenticated && to.path === "/login") {
+    return { path: "/tenants" };
   }
 });

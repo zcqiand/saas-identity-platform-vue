@@ -27,8 +27,7 @@ const router = useRouter();
 const memberships = ref<Membership[]>([]);
 
 onMounted(async () => {
-  tenantStore.hydrate();
-  // M00.F02.I02 — list current user memberships
+  // M00.F02.I02 — list current user memberships（mock 数据；v0.2.0 实际走 orval 的 adminTenantsListTenants）
   memberships.value = [
     {
       id: "m1",

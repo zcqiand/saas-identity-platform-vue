@@ -1,7 +1,7 @@
 {
   "name": "saas-identity-platform-vue",
-  "version": "0.1.0",
-  "description": "SaaS Identity Platform — Vue 3.5 + Vite + TS. Consumes @saas/identity-platform-shared TypeSpec codegen.",
+  "version": "0.2.0",
+  "description": "SaaS Identity Platform — Vue 3.5 + Vite + TS. v0.2.0: 自己 orval 读 shared/openapi.yaml，不再 file: 依赖 shared 仓。",
   "type": "module",
   "scripts": {
     "gen:shared": "tsx scripts/gen-shared.ts",
@@ -14,8 +14,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@saas/identity-platform-shared": "file:../saas-identity-platform-shared",
     "@tanstack/vue-query": "^5.62.0",
+    "axios": "^1.7.7",
     "pinia": "^2.3.0",
     "vue": "^3.5.0",
     "vue-router": "^4.5.0",
@@ -27,9 +27,11 @@
     "@types/node": "^22.10.0",
     "@vitejs/plugin-vue": "^5.2.0",
     "@vue/test-utils": "^2.4.6",
+    "ajv": "^8.17.1",
     "eslint": "^9.16.0",
     "globals": "^15.13.0",
     "jsdom": "^25.0.0",
+    "orval": "^7.5.0",
     "prettier": "^3.4.0",
     "tsx": "^4.19.0",
     "typescript": "^5.7.0",
