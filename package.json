@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.16.0",
+    "@saas/identity-platform-msw": "file:../saas-identity-platform-msw",
     "@types/node": "^22.10.0",
     "@vitejs/plugin-vue": "^5.2.0",
     "@vue/test-utils": "^2.4.6",

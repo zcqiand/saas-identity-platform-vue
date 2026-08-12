@@ -18,5 +18,12 @@
     "types": ["node"]
   },
   "include": ["src/**/*.ts", "src/**/*.vue", "tests/**/*.ts", "scripts/**/*.ts"],
-  "exclude": ["node_modules", "dist", "build", "../saas-identity-platform-shared/generated"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "../saas-identity-platform-shared",
+    "../saas-identity-platform-shared/generated",
+    "../saas-identity-platform-msw"
+  ]
 }
