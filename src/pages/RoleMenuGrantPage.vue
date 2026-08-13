@@ -1,115 +1,123 @@
-<template>
-  <div style="padding: 24px">
-    <h1 style="margin-top: 0">
-      角色授权（M02.F02）— role {{ props.roleId?.slice(0, 8) }} · tenant {{ props.tenantId?.slice(0, 8) }}
-    </h1>
-    <p v-if="isLoading" data-testid="loading">加载中…</p>
-    <div v-else>
-      <div
-        v-for="app in appList"
-        :key="app.id"
-        style="margin-bottom: 16px; padding: 12px; border: 1px solid #eee; border-radius: 4px"
-      >
-        <div style="font-weight: 600; margin-bottom: 8px">{{ app.name }}</div>
-        <label
-          v-for="m in menusByApp[app.id] ?? []"
-          :key="m.id"
-          style="display: inline-flex; align-items: center; gap: 6px; margin-right: 16px"
-        >
-          <input
-            type="checkbox"
-            :checked="grantedMenuIds.has(m.id)"
-            data-fn="M09.F02.I03"
-            @change="toggle(m.id, ($event.target as HTMLInputElement).checked)"
-          />
-          <span>{{ m.name }} <span style="color: #888; font-size: 12px">({{ m.code }})</span></span>
-        </label>
-        <p v-if="(menusByApp[app.id] ?? []).length === 0" style="color: #888; font-size: 12px">
-          该应用还没有菜单
-        </p>
-      </div>
-      <button
-        data-fn="M09.F02.I02"
-        @click="save"
-        :disabled="saving"
-        style="padding: 8px 16px; background: #1f2937; color: #fff; border: 0; border-radius: 4px"
-      >
-        {{ saving ? "保存中…" : "保存授权" }}
-      </button>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from "vue";
-import {
-  useTenantRoleMenusListRoleMenus,
-  useTenantRoleMenusSetRoleMenus,
-  useAdminAppsListApps,
-  useAdminAppMenusListMenus,
-} from "../api/endpoints/endpoints";
-import type { App, Menu } from "../api/endpoints/endpoints.schemas";
+// M09 — 角色 ↔ 菜单授权（按 app 分组的勾选矩阵 + 保存）
+
+import { computed, ref, watch } from "vue";
+import { useRoute } from "vue-router";
+import { useAdminAppMenusListMenus } from "../api/endpoints/endpoints";
+import { useTenantRoleMenusListRoleMenus } from "../api/endpoints/endpoints";
+import { useTenantRoleMenusSetRoleMenus } from "../api/endpoints/endpoints";
+import type { SetRoleMenusRequest } from "../api/endpoints/endpoints.schemas";
+import Button from "../components/ui/button.vue";
+import Card from "../components/ui/card.vue";
+import CardContent from "../components/ui/card-content.vue"
+import CardHeader from "../components/ui/card-header.vue"
+import CardTitle from "../components/ui/card-title.vue"
+import PageHeader from "../components/app/page-header.vue";
 import { toApiError } from "../api/http-client";
+import { toast } from "vue-sonner";
+import { getTenant, listApps } from "@saas/identity-platform-msw/fixtures";
 
-const props = defineProps<{ tenantId?: string; roleId?: string }>();
+const route = useRoute();
+const tenantId = computed(() => String(route.params.tenantId ?? ""));
+const roleId = computed(() => String(route.params.roleId ?? ""));
+const tenantLabel = computed(() => {
+  const id = tenantId.value;
+  const tenant = id ? getTenant(id) ?? null : null;
+  return tenant ? `${tenant.name}（${tenant.code}）` : "未知租户";
+});
 
-const roleMenus = useTenantRoleMenusListRoleMenus(
-  computed(() => props.tenantId ?? ""),
-  computed(() => props.roleId ?? ""),
-);
-const setRoleMenus = useTenantRoleMenusSetRoleMenus();
-const apps = useAdminAppsListApps();
+const apps = listApps();
+const groupsQ = useAdminAppMenusListMenus(ref(apps[0]?.id ?? ""));
+const grantQ = useTenantRoleMenusListRoleMenus(tenantId, roleId);
+const saveMut = useTenantRoleMenusSetRoleMenus();
 
-const appList = computed<App[]>(() => apps.data.value?.data?.items ?? []);
-const isLoading = computed(() => roleMenus.isLoading.value || apps.isLoading.value);
-const grantedMenuIds = reactive(new Set<string>());
+const granted = ref<Set<string>>(new Set());
 
 watch(
-  () => roleMenus.data.value?.data?.menuIds,
+  () => grantQ.data.value?.data?.menuIds,
   (ids) => {
-    grantedMenuIds.clear();
-    if (ids) for (const id of ids) grantedMenuIds.add(id);
+    granted.value = new Set(ids ?? []);
   },
   { immediate: true },
 );
 
-const menusByApp = reactive<Record<string, Array<{ id: string; name: string; code: string }>>>({});
-
-// 简化版：只拉第一个 app 的菜单展示。生产环境应按需拉取所有 app 的菜单
-const firstAppId = computed(() => appList.value[0]?.id ?? "");
-const menus = useAdminAppMenusListMenus(firstAppId);
-
-watch(
-  () => menus.data.value?.data,
-  (items) => {
-    if (firstAppId.value && items) {
-      menusByApp[firstAppId.value] = items.map((m: Menu) => ({ id: m.id, name: m.name, code: m.code }));
-    }
-  },
-);
-
-function toggle(menuId: string, checked: boolean) {
-  if (checked) grantedMenuIds.add(menuId);
-  else grantedMenuIds.delete(menuId);
+function toggle(id: string) {
+  const next = new Set(granted.value);
+  if (next.has(id)) next.delete(id);
+  else next.add(id);
+  granted.value = next;
 }
 
-const saving = ref(false);
+function clearAll() {
+  granted.value = new Set();
+}
 
 async function save() {
-  if (!props.tenantId || !props.roleId) return;
-  saving.value = true;
   try {
-    await setRoleMenus.mutateAsync({
-      tenantId: props.tenantId,
-      roleId: props.roleId,
-      data: { menuIds: Array.from(grantedMenuIds) },
+    await saveMut.mutateAsync({
+      tenantId: tenantId.value,
+      roleId: roleId.value,
+      data: { menuIds: Array.from(granted.value) } as SetRoleMenusRequest,
     });
-    alert("授权已保存");
-    roleMenus.refetch();
+    grantQ.refetch();
+    toast.success("菜单授权已保存");
   } catch (err) {
-    alert(`保存失败：${toApiError(err).message}`);
-  } finally {
-    saving.value = false;
+    toast.error(`保存失败：${toApiError(err).message}`);
   }
 }
 </script>
+
+<template>
+  <div class="space-y-6">
+    <PageHeader
+      title="角色菜单授权"
+      :description="`租户 ${tenantLabel} / 角色 ${roleId.slice(0, 8) || '—'}`"
+    >
+      <template #actions>
+        <div class="flex gap-2">
+          <Button variant="outline" data-fn="M09.F02.I03" @click="clearAll">清空</Button>
+          <Button data-fn="M09.F02.I02" :disabled="saveMut.isPending.value" @click="save">
+            {{ saveMut.isPending.value ? "保存中…" : `保存 (${granted.size})` }}
+          </Button>
+        </div>
+      </template>
+    </PageHeader>
+
+    <Card v-for="app in apps" :key="app.id">
+      <CardHeader>
+        <CardTitle>
+          {{ app.name }}
+          <span class="ml-2 text-xs font-mono text-slate-500">({{ app.code }})</span>
+        </CardTitle>
+      </CardHeader>
+      <CardContent class="space-y-2">
+        <label
+          v-for="m in groupsQ.data.value?.data ?? []"
+          :key="m.id"
+          class="flex items-center gap-3 px-3 py-2 rounded hover:bg-slate-50 cursor-pointer"
+          data-testid="menu-grant-row"
+        >
+          <input
+            type="checkbox"
+            :checked="granted.has(m.id)"
+            class="h-4 w-4"
+            @change="() => toggle(m.id)"
+          />
+          <span class="font-medium text-sm">{{ m.name }}</span>
+          <span class="font-mono text-xs text-slate-500">{{ m.code }}</span>
+        </label>
+      </CardContent>
+    </Card>
+
+    <Card>
+      <CardHeader>
+        <CardTitle class="text-sm text-slate-600">当前授权摘要</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p class="text-sm">
+          共勾选 <span class="font-bold">{{ granted.size }}</span> 项菜单
+        </p>
+      </CardContent>
+    </Card>
+  </div>
+</template>
