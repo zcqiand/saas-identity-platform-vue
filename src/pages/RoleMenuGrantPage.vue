@@ -3,7 +3,9 @@
 
 import { computed, ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import { useAdminAppMenusListMenus } from "../api/endpoints/endpoints";
+import { useQuery } from "@tanstack/vue-query";
+import { adminAppMenusListMenus } from "../api/endpoints/endpoints";
+import { useAdminAppsListApps } from "../api/endpoints/endpoints";
 import { useTenantRoleMenusListRoleMenus } from "../api/endpoints/endpoints";
 import { useTenantRoleMenusSetRoleMenus } from "../api/endpoints/endpoints";
 import type { SetRoleMenusRequest } from "../api/endpoints/endpoints.schemas";
@@ -15,7 +17,7 @@ import CardTitle from "../components/ui/card-title.vue"
 import PageHeader from "../components/app/page-header.vue";
 import { toApiError } from "../api/http-client";
 import { toast } from "vue-sonner";
-import { getTenant, listApps } from "@saas/identity-platform-msw/fixtures";
+import { getTenant } from "@saas/identity-platform-msw/fixtures";
 
 const route = useRoute();
 const tenantId = computed(() => String(route.params.tenantId ?? ""));
@@ -26,8 +28,25 @@ const tenantLabel = computed(() => {
   return tenant ? `${tenant.name}（${tenant.code}）` : "未知租户";
 });
 
-const apps = listApps();
-const groupsQ = useAdminAppMenusListMenus(ref(apps[0]?.id ?? ""));
+const appsQ = useAdminAppsListApps();
+const apps = computed(() => appsQ.data.value?.data?.items ?? []);
+
+// 一次性拉所有 app 的 menus（修 apps[0] bug：之前每张 Card 共享同一份 menus）
+const groupsQ = useQuery({
+  queryKey: computed(() => ["roleMenuGrantAllGroups", tenantId.value, roleId.value]),
+  queryFn: async () => {
+    const items = apps.value;
+    return Promise.all(
+      items.map(async (a) => ({
+        appCode: a.code,
+        appName: a.name,
+        menus: (await adminAppMenusListMenus(a.id)).data,
+      })),
+    );
+  },
+  enabled: computed(() => !!tenantId.value && !!roleId.value && apps.value.length > 0),
+});
+
 const grantQ = useTenantRoleMenusListRoleMenus(tenantId, roleId);
 const saveMut = useTenantRoleMenusSetRoleMenus();
 
@@ -83,16 +102,17 @@ async function save() {
       </template>
     </PageHeader>
 
-    <Card v-for="app in apps" :key="app.id">
+    <Card v-for="g in (groupsQ.data.value ?? [])" :key="g.appCode">
       <CardHeader>
         <CardTitle>
-          {{ app.name }}
-          <span class="ml-2 text-xs font-mono text-slate-500">({{ app.code }})</span>
+          {{ g.appName }}
+          <span class="ml-2 text-xs font-mono text-slate-500">({{ g.appCode }})</span>
+          <span class="ml-2 text-xs font-mono text-slate-500">{{ g.menus.length }} 项</span>
         </CardTitle>
       </CardHeader>
       <CardContent class="space-y-2">
         <label
-          v-for="m in groupsQ.data.value?.data ?? []"
+          v-for="m in g.menus"
           :key="m.id"
           class="flex items-center gap-3 px-3 py-2 rounded hover:bg-slate-50 cursor-pointer"
           data-testid="menu-grant-row"
