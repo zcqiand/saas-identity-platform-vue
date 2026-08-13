@@ -1,73 +1,36 @@
-<template>
-  <div style="padding: 24px">
-    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px">
-      <h1 style="margin: 0">租户管理（M00.F01）</h1>
-      <button data-fn="M00.F01.I02" @click="openCreate" style="padding: 6px 12px">新建租户</button>
-    </div>
-    <p v-if="isLoading" data-testid="loading">加载中…</p>
-    <p v-else-if="isError" data-testid="error" style="color: #c00">{{ errorMessage }}</p>
-    <table v-else data-testid="tenant-table" style="width: 100%; border-collapse: collapse">
-      <thead>
-        <tr>
-          <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd">Code</th>
-          <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd">名称</th>
-          <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd">状态</th>
-          <th style="text-align: right; padding: 8px; border-bottom: 1px solid #ddd">操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="t in tenants" :key="t.id" data-testid="tenant-row">
-          <td style="padding: 8px">{{ t.code }}</td>
-          <td style="padding: 8px">{{ t.name }}</td>
-          <td style="padding: 8px">{{ STATUS_LABELS[t.status] }}</td>
-          <td style="padding: 8px; text-align: right">
-            <button data-fn="M00.F01.I04" @click="openEdit(t)">编辑</button>
-            <button data-fn="M00.F01.I05" @click="confirmDelete(t)" style="margin-left: 8px; color: #c00">删除</button>
-          </td>
-        </tr>
-        <tr v-if="tenants.length === 0">
-          <td colspan="4" style="padding: 16px; text-align: center; color: #888" data-testid="empty">还没有租户</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <CrudDialog
-      v-model:open="createOpen"
-      title="新建租户"
-      description="创建一个新的租户账号。Code 与名称不可重复。"
-      :fields="FIELDS"
-      submit-text="创建"
-      :loading="createMut.isPending.value"
-      @submit="onCreate"
-    />
-    <CrudDialog
-      v-model:open="editOpen"
-      title="编辑租户"
-      :fields="FIELDS"
-      :initial-values="editInitial"
-      :loading="updateMut.isPending.value"
-      @submit="onUpdate"
-    />
-  </div>
-</template>
-
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import {
-  useAdminTenantsListTenants,
-  useAdminTenantsCreateTenant,
-  useAdminTenantsUpdateTenant,
-  useAdminTenantsDeleteTenant,
-} from "../api/endpoints/endpoints";
-import type { CreateTenantRequest, Tenant, UpdateTenantRequest } from "../api/endpoints/endpoints.schemas";
-import CrudDialog, { type FieldDef } from "../components/crud-dialog.vue";
-import { toApiError } from "../api/http-client";
+// M00.F01 — 平台级租户管理（CRUD）
 
-const STATUS_LABELS: Record<string, string> = {
-  active: "启用",
-  suspended: "暂停",
-  archived: "归档",
-};
+import { ref } from "vue";
+import { Check } from "lucide-vue-next";
+import { useAdminTenantsCreateTenant } from "../api/endpoints/endpoints";
+import { useAdminTenantsDeleteTenant } from "../api/endpoints/endpoints";
+import { useAdminTenantsListTenants } from "../api/endpoints/endpoints";
+import { useAdminTenantsUpdateTenant } from "../api/endpoints/endpoints";
+import type {
+  CreateTenantRequest,
+  Tenant,
+  UpdateTenantRequest,
+} from "../api/endpoints/endpoints.schemas";
+import Button from "../components/ui/button.vue";
+import Card from "../components/ui/card.vue";
+import CardContent from "../components/ui/card-content.vue"
+import CardHeader from "../components/ui/card-header.vue"
+import CardTitle from "../components/ui/card-title.vue"
+import Table from "../components/ui/table.vue";
+import TableBody from "../components/ui/table-body.vue"
+import TableCell from "../components/ui/table-cell.vue"
+import TableHead from "../components/ui/table-head.vue"
+import TableHeader from "../components/ui/table-header.vue"
+import TableRow from "../components/ui/table-row.vue"
+import PageHeader from "../components/app/page-header.vue";
+import StatusBadge from "../components/app/status-badge.vue";
+import EmptyState from "../components/app/empty-state.vue";
+import ConfirmDialog from "../components/app/confirm-dialog.vue";
+import CrudDialog from "../components/app/crud-dialog.vue";
+import type { FieldDef } from "../components/app/crud-dialog.vue";
+import { toApiError } from "../api/http-client";
+import { toast } from "vue-sonner";
 
 const FIELDS: FieldDef[] = [
   { name: "code", label: "Code", required: true, placeholder: "acme" },
@@ -91,40 +54,24 @@ const createMut = useAdminTenantsCreateTenant();
 const updateMut = useAdminTenantsUpdateTenant();
 const deleteMut = useAdminTenantsDeleteTenant();
 
-const isLoading = computed(() => list.isLoading.value);
-const isError = computed(() => list.isError.value);
-const errorMessage = computed(() => (list.error.value ? toApiError(list.error.value).message : ""));
-const tenants = computed<Tenant[]>(() => list.data.value?.data?.items ?? []);
-
 const createOpen = ref(false);
-const editOpen = ref(false);
 const editTarget = ref<Tenant | null>(null);
-const editInitial = computed(() =>
-  editTarget.value
-    ? { code: editTarget.value.code, name: editTarget.value.name, status: editTarget.value.status }
-    : undefined,
-);
+const deleteTarget = ref<Tenant | null>(null);
 
-function openCreate() {
-  createOpen.value = true;
-}
+const tenants = (): Tenant[] => list.data.value?.data?.items ?? [];
 
-function openEdit(t: Tenant) {
-  editTarget.value = t;
-  editOpen.value = true;
-}
-
-async function onCreate(values: Record<string, any>) {
+async function onCreate(values: Record<string, unknown>) {
   try {
     await createMut.mutateAsync({ data: values as unknown as CreateTenantRequest });
     createOpen.value = false;
     list.refetch();
+    toast.success("租户已创建");
   } catch (err) {
-    alert(`创建失败：${toApiError(err).message}`);
+    toast.error(`创建失败：${toApiError(err).message}`);
   }
 }
 
-async function onUpdate(values: Record<string, any>) {
+async function onUpdate(values: Record<string, unknown>) {
   if (!editTarget.value) return;
   try {
     await updateMut.mutateAsync({
@@ -134,21 +81,136 @@ async function onUpdate(values: Record<string, any>) {
         status: values.status as "active" | "suspended" | "archived",
       } as UpdateTenantRequest,
     });
-    editOpen.value = false;
     editTarget.value = null;
     list.refetch();
+    toast.success("租户已更新");
   } catch (err) {
-    alert(`更新失败：${toApiError(err).message}`);
+    toast.error(`更新失败：${toApiError(err).message}`);
   }
 }
 
-async function confirmDelete(t: Tenant) {
-  if (!confirm(`删除租户「${t.name}」？操作不可撤销。`)) return;
+async function confirmDelete() {
+  if (!deleteTarget.value) return;
   try {
-    await deleteMut.mutateAsync({ id: t.id });
+    await deleteMut.mutateAsync({ id: deleteTarget.value.id });
+    deleteTarget.value = null;
     list.refetch();
+    toast.success("租户已删除");
   } catch (err) {
-    alert(`删除失败：${toApiError(err).message}`);
+    toast.error(`删除失败：${toApiError(err).message}`);
   }
 }
 </script>
+
+<template>
+  <div class="space-y-6">
+    <PageHeader title="租户管理" description="管理 SaaS 平台上的所有租户账号">
+      <template #actions>
+        <Button data-fn="M00.F01.I02" @click="createOpen = true">新建租户</Button>
+      </template>
+    </PageHeader>
+    <Card>
+      <CardHeader>
+        <CardTitle>租户列表 ({{ tenants().length }})</CardTitle>
+      </CardHeader>
+      <CardContent class="px-0">
+        <EmptyState
+          v-if="tenants().length === 0"
+          title="还没有租户"
+          description="创建第一个租户开始使用"
+        />
+        <Table v-else>
+          <TableHeader>
+            <TableRow>
+              <TableHead class="w-12"></TableHead>
+              <TableHead>Code</TableHead>
+              <TableHead>名称</TableHead>
+              <TableHead>状态</TableHead>
+              <TableHead class="text-right">操作</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow
+              v-for="t in tenants()"
+              :key="t.id"
+              data-testid="tenant-row"
+              class="cursor-pointer"
+            >
+              <TableCell>
+                <Check class="h-4 w-4 invisible" />
+              </TableCell>
+              <TableCell class="font-mono text-xs">{{ t.code }}</TableCell>
+              <TableCell class="font-medium">{{ t.name }}</TableCell>
+              <TableCell>
+                <StatusBadge :status="t.status as 'active' | 'suspended' | 'archived'" />
+              </TableCell>
+              <TableCell class="text-right space-x-1">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  data-fn="M00.F01.I04"
+                  @click="
+                    () => {
+                      editTarget = t;
+                    }
+                  "
+                >
+                  编辑
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  data-fn="M00.F01.I05"
+                  class="text-red-600 hover:text-red-700"
+                  @click="
+                    () => {
+                      deleteTarget = t;
+                    }
+                  "
+                >
+                  删除
+                </Button>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
+
+    <CrudDialog
+      :open="createOpen"
+      @update:open="(v) => (createOpen = v)"
+      title="新建租户"
+      description="创建一个新的租户账号。Code 与名称不可重复。"
+      :fields="FIELDS"
+      submit-text="创建"
+      :loading="createMut.isPending.value"
+      @submit="onCreate"
+    />
+
+    <CrudDialog
+      :open="editTarget !== null"
+      @update:open="(v) => !v && (editTarget = null)"
+      title="编辑租户"
+      :fields="FIELDS"
+      :initial-values="
+        editTarget
+          ? { code: editTarget.code, name: editTarget.name, status: editTarget.status }
+          : undefined
+      "
+      :loading="updateMut.isPending.value"
+      @submit="onUpdate"
+    />
+
+    <ConfirmDialog
+      :open="deleteTarget !== null"
+      @update:open="(v) => !v && (deleteTarget = null)"
+      :title="`删除租户「${deleteTarget?.name ?? ''}」？`"
+      description="删除后该租户下的用户、角色、API Key 数据将无法访问。操作不可撤销。"
+      confirm-text="删除"
+      destructive
+      :loading="deleteMut.isPending.value"
+      @confirm="confirmDelete"
+    />
+  </div>
+</template>

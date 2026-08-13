@@ -73,10 +73,12 @@ export const useBackendStore = defineStore("backend", () => {
 
   function setBaseUrl(mode: BackendMode, url: string): void {
     baseUrls.value = { ...baseUrls.value, [mode]: url };
-    import("../api/backend-config").then(({ setBaseUrlFor: setUrl, snapshotBackendConfig: snap }) => {
-      setUrl(mode, url);
-      savePersisted(snap());
-    });
+    import("../api/backend-config").then(
+      ({ setBaseUrlFor: setUrl, snapshotBackendConfig: snap }) => {
+        setUrl(mode, url);
+        savePersisted(snap());
+      },
+    );
   }
 
   function resetBaseUrls(): void {

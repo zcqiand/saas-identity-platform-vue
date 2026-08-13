@@ -178,7 +178,9 @@
       "flows": [],
       "designs": [],
       "tests": [],
-      "entry": []
+      "entry": [
+        "src\\pages\\UserListPage.vue"
+      ]
     },
     "M01.F02.I02": {
       "name": "邀请用户",
@@ -266,7 +268,9 @@
       "flows": [],
       "designs": [],
       "tests": [],
-      "entry": []
+      "entry": [
+        "src\\pages\\RoleListPage.vue"
+      ]
     },
     "M03.F01.I01": {
       "name": "账号密码登录",
@@ -279,6 +283,7 @@
         "渲染登录表单，挂 data-fn=M03.F01.I01 的提交按钮"
       ],
       "entry": [
+        "src\\components\\app\\backend-switcher.vue",
         "src\\pages\\LoginPage.vue"
       ]
     },
@@ -320,7 +325,9 @@
       "flows": [],
       "designs": [],
       "tests": [],
-      "entry": []
+      "entry": [
+        "src\\components\\app\\app-shell.vue"
+      ]
     },
     "M03.F03.I06": {
       "name": "登出（全局 SSO）",
@@ -390,7 +397,9 @@
       "flows": [],
       "designs": [],
       "tests": [],
-      "entry": []
+      "entry": [
+        "src\\pages\\AppListPage.vue"
+      ]
     },
     "M04.F03.I07": {
       "name": "授权码签发",
@@ -520,9 +529,7 @@
       "flows": [],
       "designs": [],
       "tests": [],
-      "entry": [
-        "src\\pages\\AppListPage.vue"
-      ]
+      "entry": []
     },
     "M08.F01.I02": {
       "name": "创建菜单",
@@ -591,7 +598,9 @@
       "flows": [],
       "designs": [],
       "tests": [],
-      "entry": []
+      "entry": [
+        "src\\pages\\MenuTreePage.vue"
+      ]
     },
     "M09.F01.I01": {
       "name": "角色已授权菜单",
@@ -601,7 +610,9 @@
       "flows": [],
       "designs": [],
       "tests": [],
-      "entry": []
+      "entry": [
+        "src\\pages\\RoleListPage.vue"
+      ]
     },
     "M09.F02.I02": {
       "name": "设置角色菜单",

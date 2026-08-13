@@ -10,7 +10,7 @@ import type { Component } from "vue";
 
 export function mountWithProviders(
   component: Component,
-  options: MountingOptions<any> = {},
+  options: MountingOptions<any> & { router?: { initialRoute?: string } } = {},
 ) {
   const pinia = createPinia();
   setActivePinia(pinia);
@@ -23,6 +23,11 @@ export function mountWithProviders(
   const queryClient = new QueryClient({
     defaultOptions: { queries: { retry: false } },
   });
+
+  // If initialRoute is provided, push before mount
+  if (options.router?.initialRoute) {
+    router.push(options.router.initialRoute).catch(() => {});
+  }
 
   return mount(component, {
     ...options,

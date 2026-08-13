@@ -119,9 +119,7 @@ export const useTenantStore = defineStore("tenant", () => {
     persist(emptySession());
   }
 
-  const isAuthenticated = computed(() =>
-    Boolean(session.value.accessToken && session.value.user),
-  );
+  const isAuthenticated = computed(() => Boolean(session.value.accessToken && session.value.user));
 
   return {
     // state（Pinia setup 自动 unwrap refs）

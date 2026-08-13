@@ -63,13 +63,15 @@ vi.mock("../src/api/endpoints/endpoints", () => {
   return {
     useAuthLogin: () => ({ ...makeMutationStub(), mutateAsync: authLogin }),
 
-    useAdminTenantsListTenants: () => makeQueryStub({ items: tenants, page: 1, pageSize: 10, total: tenants.length }),
+    useAdminTenantsListTenants: () =>
+      makeQueryStub({ items: tenants, page: 1, pageSize: 10, total: tenants.length }),
     useAdminTenantsCreateTenant: () => makeMutationStub(),
     useAdminTenantsGetTenant: () => makeQueryStub(tenants[0]),
     useAdminTenantsUpdateTenant: () => makeMutationStub(),
     useAdminTenantsDeleteTenant: () => makeMutationStub(),
 
-    useTenantUsersListUsers: () => makeQueryStub({ items: users, page: 1, pageSize: 10, total: users.length }),
+    useTenantUsersListUsers: () =>
+      makeQueryStub({ items: users, page: 1, pageSize: 10, total: users.length }),
     useTenantUsersCreateUser: () => makeMutationStub(),
     useTenantUsersGetUser: () => makeQueryStub(users[0]),
     useTenantUsersUpdateUser: () => makeMutationStub(),
@@ -78,19 +80,22 @@ vi.mock("../src/api/endpoints/endpoints", () => {
     useTenantUsersAssignRoles: () => makeMutationStub(),
     useTenantUsersChangeUserStatus: () => makeMutationStub(),
 
-    useTenantRolesListRoles: () => makeQueryStub({ items: roles, page: 1, pageSize: 10, total: roles.length }),
+    useTenantRolesListRoles: () =>
+      makeQueryStub({ items: roles, page: 1, pageSize: 10, total: roles.length }),
     useTenantRolesCreateRole: () => makeMutationStub(),
     useTenantRolesGetRole: () => makeQueryStub(roles[0]),
     useTenantRolesUpdateRole: () => makeMutationStub(),
     useTenantRolesDeleteRole: () => makeMutationStub(),
     useTenantRolesSetPermissions: () => makeMutationStub(),
 
-    useTenantApiKeysListApiKeys: () => makeQueryStub({ items: apiKeys, page: 1, pageSize: 10, total: apiKeys.length }),
+    useTenantApiKeysListApiKeys: () =>
+      makeQueryStub({ items: apiKeys, page: 1, pageSize: 10, total: apiKeys.length }),
     useTenantApiKeysCreateApiKey: () => makeMutationStub(),
     useTenantApiKeysRevokeApiKey: () => makeMutationStub(),
     useTenantApiKeysRotateApiKey: () => makeMutationStub(),
 
-    useAdminAppsListApps: () => makeQueryStub({ items: apps, page: 1, pageSize: 10, total: apps.length }),
+    useAdminAppsListApps: () =>
+      makeQueryStub({ items: apps, page: 1, pageSize: 10, total: apps.length }),
     useAdminAppsCreateApp: () => makeMutationStub(),
     useAdminAppsGetApp: () => makeQueryStub(apps[0]),
     useAdminAppsUpdateApp: () => makeMutationStub(),
@@ -105,12 +110,15 @@ vi.mock("../src/api/endpoints/endpoints", () => {
     useAdminAppMenusMoveMenu: () => makeMutationStub(),
     useAdminAppMenusReorderMenus: () => makeMutationStub(),
 
-    useTenantRoleMenusListRoleMenus: () => makeQueryStub(roleMenuGrants[0] ?? { roleId: "r1", menuIds: [], updatedAt: "" }),
+    useTenantRoleMenusListRoleMenus: () =>
+      makeQueryStub(roleMenuGrants[0] ?? { roleId: "r1", menuIds: [], updatedAt: "" }),
     useTenantRoleMenusSetRoleMenus: () => makeMutationStub(),
     useTenantRoleMenusClearRoleMenus: () => makeMutationStub(),
 
-    useTenantAuditListAuditEvents: () => makeQueryStub({ items: auditEvents, page: 1, pageSize: 10, total: auditEvents.length }),
-    useTenantAuditListAuditEventsByUser: () => makeQueryStub({ items: auditEvents, page: 1, pageSize: 10, total: auditEvents.length }),
+    useTenantAuditListAuditEvents: () =>
+      makeQueryStub({ items: auditEvents, page: 1, pageSize: 10, total: auditEvents.length }),
+    useTenantAuditListAuditEventsByUser: () =>
+      makeQueryStub({ items: auditEvents, page: 1, pageSize: 10, total: auditEvents.length }),
     useTenantAuditExportAuditEvents: () => makeMutationStub(),
     useTenantAuditGetRetentionPolicy: () => makeQueryStub({ retentionDays: 90 }),
     useTenantAuditSetRetentionPolicy: () => makeMutationStub(),

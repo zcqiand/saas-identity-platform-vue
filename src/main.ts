@@ -6,7 +6,7 @@ import { router } from "./router";
 import { installHttpClient } from "./api/http-client";
 import { useTenantStore } from "./state/tenant-store";
 import { useBackendStore } from "./state/backend-context";
-import "./style.css";
+import "./index.css";
 
 async function bootstrap() {
   const app = createApp(App);

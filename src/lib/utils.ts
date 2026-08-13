@@ -1,0 +1,9 @@
+// Vue 端的 cn() 工具 —— 与 React 仓 src/lib/utils.ts 1:1 对称。
+// shadcn-vue 组件统一用这个函数做 className 合并 + Tailwind 冲突去重。
+
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}

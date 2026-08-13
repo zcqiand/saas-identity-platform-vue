@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useTenantStore } from "./state/tenant-store";
 import LoginPage from "./pages/LoginPage.vue";
+import AppShell from "./components/app/app-shell.vue";
 import TenantListPage from "./pages/TenantListPage.vue";
 import UserListPage from "./pages/UserListPage.vue";
 import RoleListPage from "./pages/RoleListPage.vue";
@@ -9,50 +10,34 @@ import MenuTreePage from "./pages/MenuTreePage.vue";
 import RoleMenuGrantPage from "./pages/RoleMenuGrantPage.vue";
 import ApiKeyListPage from "./pages/ApiKeyListPage.vue";
 import AuditListPage from "./pages/AuditListPage.vue";
-import TenantSwitcher from "./components/tenant-switcher.vue";
 
 export const router = createRouter({
   history: createWebHistory(),
   routes: [
+    // 登录：独立路由，绕过 AppShell
     { path: "/login", component: LoginPage },
+
+    // 其他路由统一包在 AppShell（左侧 sidebar + 顶部 header + 内容）
     {
-      path: "/tenants",
-      components: { default: TenantListPage, header: TenantSwitcher },
+      path: "/",
+      component: AppShell,
+      children: [
+        { path: "", redirect: "/tenants" },
+        { path: "tenants", component: TenantListPage },
+        { path: "tenants/:tenantId/users", component: UserListPage, props: true },
+        { path: "tenants/:tenantId/roles", component: RoleListPage, props: true },
+        {
+          path: "tenants/:tenantId/roles/:roleId/menus",
+          component: RoleMenuGrantPage,
+          props: true,
+        },
+        { path: "admin/apps", component: AppListPage },
+        { path: "admin/apps/:appId/menus", component: MenuTreePage, props: true },
+        { path: "tenants/:tenantId/api-keys", component: ApiKeyListPage, props: true },
+        { path: "tenants/:tenantId/audit", component: AuditListPage, props: true },
+      ],
     },
-    {
-      path: "/tenants/:tenantId/users",
-      components: { default: UserListPage, header: TenantSwitcher },
-      props: { default: true },
-    },
-    {
-      path: "/tenants/:tenantId/roles",
-      components: { default: RoleListPage, header: TenantSwitcher },
-      props: { default: true },
-    },
-    {
-      path: "/tenants/:tenantId/roles/:roleId/menus",
-      components: { default: RoleMenuGrantPage, header: TenantSwitcher },
-      props: { default: true },
-    },
-    {
-      path: "/admin/apps",
-      components: { default: AppListPage, header: TenantSwitcher },
-    },
-    {
-      path: "/admin/apps/:appId/menus",
-      components: { default: MenuTreePage, header: TenantSwitcher },
-      props: { default: true },
-    },
-    {
-      path: "/tenants/:tenantId/api-keys",
-      components: { default: ApiKeyListPage, header: TenantSwitcher },
-      props: { default: true },
-    },
-    {
-      path: "/tenants/:tenantId/audit",
-      components: { default: AuditListPage, header: TenantSwitcher },
-      props: { default: true },
-    },
+
     { path: "/:pathMatch(.*)*", redirect: "/tenants" },
   ],
 });
