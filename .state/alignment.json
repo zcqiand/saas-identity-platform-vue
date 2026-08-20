@@ -283,7 +283,6 @@
         "渲染登录表单，挂 data-fn=M03.F01.I01 的提交按钮"
       ],
       "entry": [
-        "src\\components\\app\\backend-switcher.vue",
         "src\\pages\\LoginPage.vue"
       ]
     },

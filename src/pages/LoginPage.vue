@@ -8,14 +8,14 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import Button from "../components/ui/button.vue";
 import Card from "../components/ui/card.vue";
-import CardContent from "../components/ui/card-content.vue"
-import CardDescription from "../components/ui/card-description.vue"
-import CardHeader from "../components/ui/card-header.vue"
-import CardTitle from "../components/ui/card-title.vue"
+import CardContent from "../components/ui/card-content.vue";
+import CardDescription from "../components/ui/card-description.vue";
+import CardHeader from "../components/ui/card-header.vue";
+import CardTitle from "../components/ui/card-title.vue";
 import Input from "../components/ui/input.vue";
 import Label from "../components/ui/label.vue";
 import { useTenantStore } from "../state/tenant-store";
-import { useBackendStore } from "../state/backend-context";
+import { getApiMode } from "../api/backend-config";
 import { useAuthLogin } from "../api/endpoints/endpoints";
 import { toApiError } from "../api/http-client";
 import { toast } from "vue-sonner";
@@ -31,7 +31,7 @@ const username = ref("");
 const password = ref("");
 const router = useRouter();
 const tenantStore = useTenantStore();
-const backendStore = useBackendStore();
+const apiMode = getApiMode();
 const loginMut = useAuthLogin();
 
 async function onSubmit(e: Event) {
@@ -57,7 +57,7 @@ async function onSubmit(e: Event) {
       apiErr.status === 401
         ? "用户名或密码错误"
         : apiErr.status === 0
-          ? `后端不可达（${backendStore.backend}）：${apiErr.message}`
+          ? `后端不可达（${apiMode}）：${apiErr.message}`
           : apiErr.message;
     toast.error(msg);
   }
@@ -121,7 +121,7 @@ async function onSubmit(e: Event) {
                 <span
                   >关注微信公众号
                   <code class="font-mono bg-white px-1.5 py-0.5 rounded border border-amber-200"
-                    >SaaS 实战派</code
+                    >南荣相如</code
                   >，回复「演示」</span
                 >
               </li>
@@ -133,24 +133,15 @@ async function onSubmit(e: Event) {
                 <span
                   >关注小红书
                   <code class="font-mono bg-white px-1.5 py-0.5 rounded border border-amber-200"
-                    >@SaaS 实战派</code
+                    >@南荣相如</code
                   >，查看置顶笔记</span
                 >
               </li>
             </ul>
           </div>
 
-          <div class="text-xs text-slate-500 space-y-1">
-            <p class="font-medium text-slate-700">演示账号（用户名公开，密码见上方）</p>
-            <ul class="font-mono space-y-0.5">
-              <li v-for="a in DEMO_ACCOUNTS" :key="a.username">
-                {{ a.username }} · {{ a.tenant }}
-              </li>
-            </ul>
-          </div>
-
           <p class="text-xs text-slate-400">
-            当前后端模式：<span class="font-medium text-slate-700">{{ backendStore.backend }}</span>
+            当前后端模式：<span class="font-medium text-slate-700">{{ apiMode }}</span>
           </p>
         </div>
       </CardContent>

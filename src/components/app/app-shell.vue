@@ -24,7 +24,7 @@ import Separator from "../ui/separator.vue";
 import Toaster from "../ui/sonner.vue";
 import SidebarNav from "./sidebar-nav.vue";
 import TenantSwitcher from "../tenant-switcher.vue";
-import BackendSwitcher from "./backend-switcher.vue";
+import BackendBadge from "./backend-badge.vue";
 import { getTenant } from "@saas/identity-platform-msw";
 import { useTenantStore } from "../../state/tenant-store";
 
@@ -151,7 +151,7 @@ async function onLogout() {
         </Button>
       </template>
       <template #footerExtras>
-        <BackendSwitcher />
+        <BackendBadge />
       </template>
     </SidebarNav>
     <div class="flex-1 flex flex-col min-w-0">
