@@ -18,12 +18,6 @@ async function bootstrap() {
   // 装 axios 拦截器：用 callback 形式取 token（避免循环依赖：tenant-store → http-client → tenant-store）
   installHttpClient(() => tenantStore.accessToken);
 
-  // dev 模式启动 MSW worker（VITE_ENABLE_MSW=false 时跳过；走 VITE_API_BASE_URL 真后端）
-  if (import.meta.env.DEV) {
-    const { enableMocking } = await import("./mocks/browser");
-    await enableMocking();
-  }
-
   const queryClient = new QueryClient({
     defaultOptions: { queries: { staleTime: 5_000 } },
   });
