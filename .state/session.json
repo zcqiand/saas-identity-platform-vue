@@ -1,6 +1,28 @@
 {
-  "schema": 1,
-  "last_session_at": "2026-08-12",
-  "last_session_summary": "Phase A 初始化",
-  "open_items": []
+  "schema": 2,
+  "project": "saas-identity-platform-vue",
+  "current_task": "Post-Phase-3 frontend 集成收尾：getTenant 集中到 Pinia useTenantStore（vue-query hook 薄包装）",
+  "last_session_at": "2026-08-22",
+  "last_session_summary": "新建 src/state/tenant-store.ts；5 page + app-shell 收敛到 store；删 mocks/{handlers,node}.ts；历史注释清零；commit 940bdac + tag v0.3.10-20260822 pushed",
+  "done": [
+    "新建 src/state/tenant-store.ts：defineStore('tenant', setup)；tenantFor(tenantId) → useAdminTenantsGetTenant 薄包装（内部 toRef 把 MaybeRefOrGetter 收敛到 MaybeRef）；tenants() → useAdminTenantsListTenants 薄包装",
+    "5 page (Audit/User/Role/ApiKey/RoleMenuGrantListPage) + app-shell.vue 全部走 useTenantStore",
+    "src/mocks/handlers.ts + src/mocks/node.ts 删除",
+    "5 page 内 // getTenant（msw 包内嵌 fixtures）的 HTTP 替代 历史注释清零",
+    "L3 现场学到第 8 条：MaybeRefOrGetter 不兼容 MaybeRef（getter 函数不属于 MaybeRef），store 内部 toRef(tenantId) 收敛",
+    "gate L0/L1/L2/L3/L4/L5 全绿 exit 0（86 功能条目 0 软告警）",
+    "commit 940bdac + tag v0.3.10-20260822 + push origin/master"
+  ],
+  "next": [
+    "无（本批原子收尾）"
+  ],
+  "open_questions": [],
+  "dont": [
+    "不要在 page 里再 inline useAdminTenantsGetTenant —— 一律走 useTenantStore().tenantFor(id)",
+    "不要在 tenant-store.ts 里复制 vue-query 缓存 —— 薄包装即可，缓存交给 vue-query",
+    "不要把 MaybeRefOrGetter 直接传给 useAdminTenantsGetTenant —— 类型不兼容，先 toRef 收敛",
+    "不要 store 在 onMounted 才 hydrate（CLAUDE.md §2 硬约束 lazy initializer 必须同步）",
+    "不要 demo 密码（CLAUDE.md §2 硬约束）"
+  ],
+  "active_branch": "master"
 }
