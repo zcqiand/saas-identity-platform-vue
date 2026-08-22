@@ -17,15 +17,16 @@ import CardTitle from "../components/ui/card-title.vue"
 import PageHeader from "../components/app/page-header.vue";
 import { toApiError } from "../api/http-client";
 import { toast } from "vue-sonner";
-import { getTenant } from "@saas/identity-platform-msw/fixtures";
+import { useTenantStore } from "../state/tenant-store";
 
 const route = useRoute();
+const tenantStore = useTenantStore();
 const tenantId = computed(() => String(route.params.tenantId ?? ""));
 const roleId = computed(() => String(route.params.roleId ?? ""));
+// 集中到 tenant-store.tenantFor()，缓存交给 vue-query。
+const tenant = tenantStore.tenantFor(tenantId);
 const tenantLabel = computed(() => {
-  const id = tenantId.value;
-  const tenant = id ? getTenant(id) ?? null : null;
-  return tenant ? `${tenant.name}（${tenant.code}）` : "未知租户";
+  return tenant.value ? `${tenant.value.name}（${tenant.value.code}）` : "未知租户";
 });
 
 const appsQ = useAdminAppsListApps();

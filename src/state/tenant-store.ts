@@ -1,15 +1,19 @@
-// Pinia tenant store — current tenant + JWT + user + login/logout flow.
+// Pinia tenant store — current tenant + JWT + user + login/logout flow + tenant lookup.
 //
 // 设计：
 //   - localStorage["saas.tenant"] 持久化整个 session
 //   - store 首次 useTenantStore() 时同步 hydrate（lazy initializer，避免守卫误判）
 //   - login / logout / setTenant / clear 同时更新 ref + localStorage
 //   - isAuthenticated 由 accessToken + user 派生（守卫用）
+//   - tenantFor(tenantId) 把 useAdminTenantsGetTenant 的薄包装集中到这里，
+//     各页面统一读 store；缓存策略交给 vue-query（store 只做一层薄包装）
 //
 // 与 react 仓 src/state/tenant-context.tsx 1:1 对称。
 
 import { defineStore } from "pinia";
-import { computed, ref } from "vue";
+import { computed, ref, toRef, type ComputedRef, type MaybeRefOrGetter } from "vue";
+import { useAdminTenantsGetTenant, useAdminTenantsListTenants } from "../api/endpoints/endpoints";
+import type { Tenant } from "../api/endpoints/endpoints.schemas";
 
 const STORAGE_KEY = "saas.tenant";
 
@@ -121,6 +125,21 @@ export const useTenantStore = defineStore("tenant", () => {
 
   const isAuthenticated = computed(() => Boolean(session.value.accessToken && session.value.user));
 
+  // tenantFor —— 按 tenantId 取 Tenant 的薄包装。
+  // 内部用 vue-query 缓存（store 只负责把 useAdminTenantsGetTenant 收敛到一处）。
+  // 返回 ComputedRef<Tenant | null>，供 template / 其他 computed 直接读。
+  // 入参用 MaybeRefOrGetter（更宽），内部 toRef 收敛到 MaybeRef<string> 给 vue-query hook。
+  function tenantFor(tenantId: MaybeRefOrGetter<string>): ComputedRef<Tenant | null> {
+    const idRef = toRef(tenantId);
+    const q = useAdminTenantsGetTenant(idRef);
+    return computed(() => q.data.value?.data ?? null);
+  }
+
+  // tenants —— 全量租户列表的薄包装，给面包屑 / 选择器做 id -> tenant 字典。
+  function tenants() {
+    return useAdminTenantsListTenants();
+  }
+
   return {
     // state（Pinia setup 自动 unwrap refs）
     currentTenantId: computed(() => session.value.currentTenantId),
@@ -129,6 +148,9 @@ export const useTenantStore = defineStore("tenant", () => {
     refreshToken: computed(() => session.value.refreshToken),
     user: computed(() => session.value.user),
     isAuthenticated,
+    // lookups
+    tenantFor,
+    tenants,
     // actions
     login,
     logout,

@@ -32,7 +32,7 @@ import CrudDialog from "../components/app/crud-dialog.vue";
 import type { FieldDef } from "../components/app/crud-dialog.vue";
 import { toApiError } from "../api/http-client";
 import { toast } from "vue-sonner";
-import { getTenant } from "@saas/identity-platform-msw";
+import { useTenantStore } from "../state/tenant-store";
 
 const FIELDS: FieldDef[] = [
   { name: "username", label: "用户名", required: true, placeholder: "alice" },
@@ -55,11 +55,13 @@ const FIELDS: FieldDef[] = [
 const EDIT_FIELDS = FIELDS.filter((f) => f.name !== "username");
 
 const route = useRoute();
+const tenantStore = useTenantStore();
 const tenantId = computed(() => String(route.params.tenantId ?? ""));
+// 租户名走 GET /api/v1/admin/tenants/:id，加载中/失败显示「租户未知」。
+// 集中到 tenant-store.tenantFor()，缓存交给 vue-query。
+const tenant = tenantStore.tenantFor(tenantId);
 const tenantLabel = computed(() => {
-  const id = tenantId.value;
-  const tenant = id ? getTenant(id) ?? null : null;
-  return tenant ? `租户 ${tenant.name}（${tenant.code}）` : "租户未知";
+  return tenant.value ? `租户 ${tenant.value.name}（${tenant.value.code}）` : "租户未知";
 });
 
 const usersQ = useTenantUsersListUsers(tenantId);

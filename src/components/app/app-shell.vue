@@ -25,7 +25,6 @@ import Toaster from "../ui/sonner.vue";
 import SidebarNav from "./sidebar-nav.vue";
 import TenantSwitcher from "../tenant-switcher.vue";
 import BackendBadge from "./backend-badge.vue";
-import { getTenant } from "@saas/identity-platform-msw";
 import { useTenantStore } from "../../state/tenant-store";
 
 interface Crumb {
@@ -60,6 +59,14 @@ const tenantForNav = computed(
   () => tenantStore.currentTenantId ?? "00000000-0000-0000-0000-000000000001",
 );
 
+// 面包屑租户名：通过 tenant-store.tenants() 拉租户列表建 id->tenant 字典；
+// 加载中/未命中显示「未知租户」。集中到 store，缓存交给 vue-query。
+const tenantsQ = tenantStore.tenants();
+const tenantById = computed(() => {
+  const items = tenantsQ.data.value?.data?.items ?? [];
+  return new Map(items.map((t) => [t.id, t]));
+});
+
 const crumbs = computed<Crumb[]>(() => {
   const pathname = route.path;
   if (pathname === "/tenants" || pathname === "/") {
@@ -74,7 +81,7 @@ const crumbs = computed<Crumb[]>(() => {
     const prev = i > 0 ? segments[i - 1] : null;
     if (seg === "tenants" && i + 1 < segments.length) continue;
     if (prev === "tenants") {
-      const tenant = getTenant(seg) ?? getTenant(tenantForNav.value);
+      const tenant = tenantById.value.get(seg) ?? tenantById.value.get(tenantForNav.value);
       if (tenant) {
         result.push({ label: tenant.name, to: path, hint: tenant.code });
       } else {
