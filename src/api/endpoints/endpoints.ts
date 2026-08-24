@@ -44,6 +44,7 @@ import type {
   AdminTenantsListTenantsParams,
   ApiKey,
   App,
+  AppPublicInfo,
   AuthorizeCodeRequest,
   CreateApiKeyRequest,
   CreateApiKeyResponse,
@@ -1166,6 +1167,67 @@ const {mutation: mutationOptions, axios: axiosOptions} = options ?
       return useMutation(mutationOptions, queryClient);
     }
     
+export const appsGetApp = (
+    code: MaybeRef<string>, options?: AxiosRequestConfig
+ ): Promise<AxiosResponse<AppPublicInfo>> => {
+    code = unref(code);
+    
+    return axios.get(
+      `/api/v1/apps/${code}`,options
+    );
+  }
+
+
+
+
+export const getAppsGetAppQueryKey = (code?: MaybeRef<string>,) => {
+    return [
+    'api','v1','apps',code
+    ] as const;
+    }
+
+    
+export const getAppsGetAppQueryOptions = <TData = Awaited<ReturnType<typeof appsGetApp>>, TError = AxiosError<ErrorResponse>>(code: MaybeRef<string>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof appsGetApp>>, TError, TData>>, axios?: AxiosRequestConfig}
+) => {
+
+const {query: queryOptions, axios: axiosOptions} = options ?? {};
+
+  const queryKey =  getAppsGetAppQueryKey(code);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof appsGetApp>>> = ({ signal }) => appsGetApp(code, { signal, ...axiosOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: computed(() => !!(unref(code))), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof appsGetApp>>, TError, TData> 
+}
+
+export type AppsGetAppQueryResult = NonNullable<Awaited<ReturnType<typeof appsGetApp>>>
+export type AppsGetAppQueryError = AxiosError<ErrorResponse>
+
+
+
+export function useAppsGetApp<TData = Awaited<ReturnType<typeof appsGetApp>>, TError = AxiosError<ErrorResponse>>(
+ code: MaybeRef<string>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof appsGetApp>>, TError, TData>>, axios?: AxiosRequestConfig}
+ , queryClient?: QueryClient 
+ ): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getAppsGetAppQueryOptions(code,options)
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = unref(queryOptions).queryKey as DataTag<QueryKey, TData, TError>;
+
+  return query;
+}
+
+
+
+
+
 export const authLogin = (
     loginRequest: MaybeRef<LoginRequest>, options?: AxiosRequestConfig
  ): Promise<AxiosResponse<LoginResponse>> => {
