@@ -70,7 +70,7 @@ async function onSubmit(e: Event) {
   >
     <Card class="w-full max-w-md shadow-lg">
       <CardHeader class="space-y-2">
-        <CardTitle class="text-lg">SaaS 多租户身份平台</CardTitle>
+        <CardTitle class="text-lg">SaaS 多租户多应用身份平台</CardTitle>
         <CardDescription>使用账号密码登录管理控制台</CardDescription>
       </CardHeader>
       <CardContent>
