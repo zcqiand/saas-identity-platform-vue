@@ -1,9 +1,17 @@
 # ===== saas-identity-platform-vue — Vite SPA production image =====
-# Multi-stage: build with node:20-alpine, serve with nginx:alpine.
+# Multi-stage: build with node:24-alpine, serve with nginx:alpine.
 # 容器内监听 :80;VPS nginx 反代到 host 8020 (saas-vue.xiangru.uk)。
+#
+# builder base 说明（v0.3.15 起从 node:20-alpine 升到 node:24-alpine）:
+#   shared 仓新版 @typespec/compiler 用了 Node 22+ 才有的
+#   `import { glob } from 'fs/promises'` named-export 语法,
+#   node:20-alpine 跑 emit:openapi 时 `SyntaxError: glob not exported`。
+#   升到 node:24-alpine 与 saas-identity-platform-react v0.3.16 同步，
+#   与 saas-identity-platform-nextjs 的 node:24-slim 同主版本
+#   （Vite 纯 JS，无 native deps，alpine 安全）。
 
 # ---------- Stage 1: builder ----------
-FROM node:20-alpine AS builder
+FROM node:24-alpine AS builder
 WORKDIR /app
 
 # 硬约束:npm 依赖一律走 npmmirror (suite root CLAUDE.md §2)
@@ -35,7 +43,7 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
   CMD wget -qO- http://127.0.0.1/ >/dev/null || exit 1
 
 CMD ["nginx", "-g", "daemon off;"]
