@@ -11,15 +11,15 @@ import { useAdminAppsUpdateApp } from "../api/endpoints/endpoints";
 import type { App, CreateAppRequest, UpdateAppRequest } from "../api/endpoints/endpoints.schemas";
 import Button from "../components/ui/button.vue";
 import Card from "../components/ui/card.vue";
-import CardContent from "../components/ui/card-content.vue"
-import CardHeader from "../components/ui/card-header.vue"
-import CardTitle from "../components/ui/card-title.vue"
+import CardContent from "../components/ui/card-content.vue";
+import CardHeader from "../components/ui/card-header.vue";
+import CardTitle from "../components/ui/card-title.vue";
 import Table from "../components/ui/table.vue";
-import TableBody from "../components/ui/table-body.vue"
-import TableCell from "../components/ui/table-cell.vue"
-import TableHead from "../components/ui/table-head.vue"
-import TableHeader from "../components/ui/table-header.vue"
-import TableRow from "../components/ui/table-row.vue"
+import TableBody from "../components/ui/table-body.vue";
+import TableCell from "../components/ui/table-cell.vue";
+import TableHead from "../components/ui/table-head.vue";
+import TableHeader from "../components/ui/table-header.vue";
+import TableRow from "../components/ui/table-row.vue";
 import PageHeader from "../components/app/page-header.vue";
 import StatusBadge from "../components/app/status-badge.vue";
 import EmptyState from "../components/app/empty-state.vue";
@@ -31,7 +31,12 @@ import { toast } from "vue-sonner";
 
 const FIELDS: FieldDef[] = [
   { name: "code", label: "Code", required: true, placeholder: "lab-management" },
-  { name: "name", label: "名称", required: true, placeholder: "建筑工程实验室管理系统" },
+  {
+    name: "name",
+    label: "名称",
+    required: true,
+    placeholder: "建筑工程实验室管理系统",
+  },
   { name: "clientId", label: "Client ID", required: true, placeholder: "lab-mgmt" },
   { name: "icon", label: "图标（lucide 名称）", placeholder: "FlaskConical" },
   { name: "sortOrder", label: "排序", type: "number", defaultValue: 0 },
