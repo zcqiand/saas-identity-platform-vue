@@ -14,7 +14,6 @@ coverage/
 # Claude 临时文件
 .claude/
 .superpowers/
-CLAUDE.md
 .mcp.json
 
 # TS 增量构建产物
