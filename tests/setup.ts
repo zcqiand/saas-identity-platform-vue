@@ -62,6 +62,7 @@ vi.mock("../src/api/endpoints/endpoints", () => {
   // === Query hooks ===
   return {
     useAuthLogin: () => ({ ...makeMutationStub(), mutateAsync: authLogin }),
+    useOAuthAuthorize: () => makeMutationStub(),
 
     useAdminTenantsListTenants: () =>
       makeQueryStub({ items: tenants, page: 1, pageSize: 10, total: tenants.length }),

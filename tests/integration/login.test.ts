@@ -17,13 +17,19 @@ import { useTenantStore } from "../../src/state/tenant-store";
 // mock orval mutation：mutateAsync / isPending 可控。
 // isPending 用普通 { value } 对象（vi.hoisted 执行先于 import，
 // 不能在里面调 ref() - 会撞 TDZ）
-const { loginMut } = vi.hoisted(() => {
-  return { loginMut: { mutateAsync: vi.fn(), isPending: { value: false } } };
+const { loginMut, authorizeMut } = vi.hoisted(() => {
+  return {
+    loginMut: { mutateAsync: vi.fn(), isPending: { value: false } },
+    authorizeMut: { mutateAsync: vi.fn(), isPending: { value: false } },
+  };
 });
 vi.mock("../../src/api/endpoints/endpoints", () => ({
   // 只 mock 登录 mutation；tenant-store 引用的 useAdminTenants* 仅在
   // 函数体内惰性调用，模块加载期缺省无碍
   useAuthLogin: () => loginMut,
+  // 2026-08-29 OAuth 跳板场景: 已登录 + ?redirect_uri=&state=&client_id= 时,
+  // LoginPage 自动调 useOAuthAuthorize 拿 code 跳回 RP。
+  useOAuthAuthorize: () => authorizeMut,
 }));
 
 // mock toast：捕获 toast.error 的文案

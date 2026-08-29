@@ -49,6 +49,12 @@ router.beforeEach((to) => {
     return { path: "/login" };
   }
   if (tenantStore.isAuthenticated && to.path === "/login") {
-    return { path: "/tenants" };
+    // 2026-08-29 修 prod 401: OAuth 2.0 跳板 URL (?redirect_uri=&state=&client_id=)
+    // 来自 lab RP,不能跳 /tenants — 必须让 LoginPage 调 saas /api/v1/oauth/authorize
+    // 签 code 跳回 RP。已登录用户也要走完 OAuth 流程(RFC 6749 §4.1.1)。
+    const sp = new URLSearchParams(to.search);
+    if (!sp.get("redirect_uri")) {
+      return { path: "/tenants" };
+    }
   }
 });

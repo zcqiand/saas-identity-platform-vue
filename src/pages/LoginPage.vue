@@ -20,7 +20,7 @@ import Input from "../components/ui/input.vue";
 import Label from "../components/ui/label.vue";
 import { useTenantStore } from "../state/tenant-store";
 import { getApiMode } from "../api/backend-config";
-import { useAuthLogin } from "../api/endpoints/endpoints";
+import { useAuthLogin, useOAuthAuthorize } from "../api/endpoints/endpoints";
 import { toApiError } from "../api/http-client";
 import { toast } from "vue-sonner";
 
@@ -37,6 +37,7 @@ const router = useRouter();
 const tenantStore = useTenantStore();
 const apiMode = getApiMode();
 const loginMut = useAuthLogin();
+const authorizeMut = useOAuthAuthorize();
 // RFC 6749 §4.1.1 授权码范式：lab 后端（confidential client）已替浏览器领到 code，
 // saas 登录页只负责认证资源所有者，成功后 302 redirect_uri?code&state（§4.1.2）。
 const oauthReturn = ref<{
@@ -72,6 +73,41 @@ onMounted(() => {
     window.location.href = target.toString();
   } catch (err) {
     console.error("[SSO/login] auto oauth redirect failed:", err);
+  }
+});
+
+// 2026-08-29 OAuth 2.0 跳板场景: lab RP 跳过来 ?redirect_uri=&state=&client_id=
+// (无 ?code=,因为 lab 后端不再代理调 saas authorize),已登录用户必须主动调
+// saas /api/v1/oauth/authorize 拿 code 跳回 RP(router guard 不跳 /tenants)。
+// RFC 6749 §4.1.1: 资源所有者已 saas 登录 → authorize 端点用 session.UserId
+// 签 code 绑 user/tenant,不再信 body.TenantId(已 v0.3.20 修)。
+onMounted(async () => {
+  if (oauthReturn.value) return; // 已有 code,走上面的回跳逻辑
+  const sp = new URLSearchParams(window.location.search);
+  const redirectUri = sp.get("redirect_uri");
+  const state = sp.get("state") ?? "";
+  const clientId = sp.get("client_id") ?? "";
+  if (!redirectUri || !clientId) return; // 非 OAuth 跳板 URL
+  if (!tenantStore.isAuthenticated) return; // 未登录,显示表单让用户输密码
+  try {
+    const res = await authorizeMut.mutateAsync({
+      data: {
+        clientId,
+        redirectUri,
+        responseType: "code",
+        scope: "lab.read lab.write",
+        state,
+        tenantId:
+          tenantStore.currentTenantId ?? "00000000-0000-0000-0000-000000000001",
+      },
+    });
+    const target = new URL(redirectUri);
+    target.searchParams.set("code", res.data.code);
+    if (state) target.searchParams.set("state", state);
+    window.location.href = target.toString();
+  } catch (err) {
+    console.error("[SSO/login] oauth authorize (logged-in user) failed:", err);
+    // 留在登录页让用户手动重试输密码
   }
 });
 
