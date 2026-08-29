@@ -52,8 +52,11 @@ router.beforeEach((to) => {
     // 2026-08-29 修 prod 401: OAuth 2.0 跳板 URL (?redirect_uri=&state=&client_id=)
     // 来自 lab RP,不能跳 /tenants — 必须让 LoginPage 调 saas /api/v1/oauth/authorize
     // 签 code 跳回 RP。已登录用户也要走完 OAuth 流程(RFC 6749 §4.1.1)。
-    const sp = new URLSearchParams(to.search);
-    if (!sp.get("redirect_uri")) {
+    // vue-router 4 RouteLocationNormalized 上无 search 字段,用 to.query 反查。
+    const q = to.query as Record<string, unknown>;
+    const hasRedirectUri =
+      typeof q.redirect_uri === "string" && q.redirect_uri.length > 0;
+    if (!hasRedirectUri) {
       return { path: "/tenants" };
     }
   }
