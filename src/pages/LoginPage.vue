@@ -130,7 +130,7 @@ async function onSubmit(e: Event) {
     // OAuth 2.0 code 回跳：把 code+state 原样透传给 RP 的 redirect_uri。
     // 用 setTimeout(0) 让 Vue 先把 store 写入的 re-render 跑完之后再做导航，
     // 避免与路由跳转竞争（saas-nextjs / saas-react 同款）。
-    setTimeout(() => {
+    setTimeout(async () => {
       if (oauthReturn.value) {
         try {
           const target = new URL(oauthReturn.value.redirectUri);
@@ -141,6 +141,38 @@ async function onSubmit(e: Event) {
         } catch (err) {
           console.error("[SSO/login] oauth redirect build failed:", err);
           toast.error("OAuth 回跳 URL 构造失败");
+        }
+        return;
+      }
+      // 2026-08-29 OAuth 跳板: 用户手动输密码登录 (无 ?code= 但有 ?redirect_uri=&state=&client_id=),
+      // 登录成功后调 saas /api/v1/oauth/authorize 拿 code 跳回 RP (不跳 /tenants)。
+      // 镜像 onMounted 跳板分支,但触发点是 onSubmit 而非 hydrate。
+      const sp = new URLSearchParams(window.location.search);
+      const redirectUri = sp.get("redirect_uri");
+      const state = sp.get("state") ?? "";
+      const clientId = sp.get("client_id") ?? "";
+      if (redirectUri && clientId) {
+        try {
+          const authRes = await authorizeMut.mutateAsync({
+            data: {
+              clientId,
+              redirectUri,
+              responseType: "code",
+              scope: "lab.read lab.write",
+              state,
+              tenantId:
+                tenantStore.currentTenantId ??
+                "00000000-0000-0000-0000-000000000001",
+            },
+          });
+          const target = new URL(redirectUri);
+          target.searchParams.set("code", authRes.data.code);
+          if (state) target.searchParams.set("state", state);
+          window.location.href = target.toString();
+        } catch (err) {
+          console.error("[SSO/login] oauth authorize (after submit) failed:", err);
+          // 兜底:留在登录页(让用户重试)
+          return;
         }
         return;
       }
