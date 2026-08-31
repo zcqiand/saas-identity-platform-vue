@@ -98,7 +98,8 @@ onMounted(async () => {
         scope: "lab.read lab.write",
         state,
         tenantId:
-          tenantStore.currentTenantId ?? "00000000-0000-0000-0000-000000000001",
+          tenantStore.currentTenantId ??
+          "00000000-0000-0000-0000-000000000001",
       },
     });
     const target = new URL(redirectUri);
