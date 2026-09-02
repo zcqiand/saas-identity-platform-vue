@@ -6,7 +6,7 @@
 ## 1. 项目定位
 
 SaaS 多租户多应用身份平台的 Vue 前端。v0.2.0 自己 orval + v0.3.0 shadcn-vue 化 + v0.4.0 env 驱动（ADR-0014）。
-默认对接 aspnetcore（:5000）；跨仓约定见 react 仓（react→springboot :8080）。
+默认对接 aspnetcore（:5104）；跨仓约定见 react 仓（react→springboot :5105）。
 dev server 端口：**5103**（2026-09-02 端口分段 §6；saas 段 X03）。
 端口表见 `docs/conventions/env.md` §跨仓端口约定。
 

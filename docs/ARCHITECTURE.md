@@ -18,7 +18,7 @@
 | 新人，要 30 分钟搞懂本仓 | §1 → §2 → §3.1（orval 链） |
 | 想加一个新页面 / 一个新接口 | §3.4 → §4.2 → [CLAUDE.md §2](../CLAUDE.md) 的禁止事项 |
 | 想问「为什么 v0.4.0 把 BackendSwitcher 删了」 | §5 → [CLAUDE.md §3](../CLAUDE.md) → §6（决策索引） |
-| 想知道"它和 react 仓差在哪" | §3.6（差异表）→ [react 仓 ARCHITECTURE.md](../saas-identity-platform-react/docs/ARCHITECTURE.md)（如有） |
+| 想知道"它和 react 仓差在哪" | §3.6（差异表）→ [react 仓 ARCHITECTURE.md](../../saas-identity-platform-react/docs/ARCHITECTURE.md)（如有） |
 | 想对接后端 / 切真后端 | §4.2（dev→prod 流程）→ §3.1（env 三层） |
 | 想加 UI 组件 / 改 shadcn-vue 形态 | §3.3（ui/ 14 + 8 app 组件）→ [v0.3.0 migration doc](saas-identity-platform-v0.3.0-shadcn-vue-migration.md) |
 
@@ -56,7 +56,7 @@ saas-identity-platform-vue 是 **saas-identity-platform 家族的前端 2/3 仓*
 | UI 库 | shadcn-vue（Reka UI） | shadcn-ui（Radix UI） |
 | 路由 | vue-router 4 | react-router 6 |
 | 数据获取 hooks | `useXxxList / useXxxGet`（vue-query） | `useXxxList / useXxxGet`（react-query） |
-| 默认后端 | aspnetcore `:5000` | springboot `:8080` |
+| 默认后端 | aspnetcore `:5104` | springboot `:5105` |
 | 目录骨架 | `src/{api,components,pages,state}` | 同形 |
 | `data-fn` 锚点 | 42 子项 + 8 sidebar + 1 登出 | 同 |
 
@@ -278,7 +278,7 @@ export const useTenantStore = defineStore("tenant", () => {
 | 路由 path | `/tenants` 起头 | 同 | 父仓约定一致 |
 | UI 库 primitive | Reka UI | Radix UI | shadcn-vue vs shadcn-ui 上游不同 |
 | Tailwind 渐变类名 | `bg-linear-to-br`（v4 新名） | 同 | Tailwind v4 升级同步 |
-| 默认后端 | aspnetcore `:5000` | springboot `:8080` | 跨仓约定（CLAUDE.md §1） |
+| 默认后端 | aspnetcore `:5104` | springboot `:5105` | 跨仓约定（CLAUDE.md §1） |
 | `button-cva.ts` | 独立文件 | 内联在 button.tsx | vue SFC 风格 |
 
 ---
@@ -410,7 +410,7 @@ v0.4.0 是**后端配置塌缩到 env** 的一次硬迁移（ADR-0014），把�
 | 文件 | 入仓 | 用途 |
 |---|---|---|
 | `.env.example` | committed | 模板，注释完整 ADR 引用 |
-| `.env.local` | gitignored | dev 真后端（aspnetcore :5000 / springboot :8080） |
+| `.env.local` | gitignored | dev 真后端（aspnetcore :5104 / springboot :5105） |
 | `.env.production` | committed | prod 默认（=aspnetcore + msw-http=false） |
 | `.env.test` | committed | vitest 隔离（空 baseURL → SW/MSW 拦截） |
 
