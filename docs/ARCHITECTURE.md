@@ -45,7 +45,7 @@ saas-identity-platform-vue 是 **saas-identity-platform 家族的前端 2/3 仓*
 
 - **orval (vue-query client) 消费 shared openapi.yaml**——本仓自己读 `../saas-identity-platform-shared/generated/openapi/openapi.yaml`（`orval.config.ts:10`），**不**走 `file:../saas/...` 依赖路径（v0.2.0 之前的老路径已废止）。
 - **env-driven 单 URL**——运行时不再切后端。`getApiBaseUrl()` 单一真源，部署平台覆盖 `.env.production`（ADR-0014）。
-- **msw-http 模式**——dev 默认连 `@saas/identity-platform-msw/src/server.ts` 起的 `:5174` 独立 HTTP server；Service Worker 模式 v0.3.0 已删（[v0.3.0 migration §1](saas-identity-platform-v0.3.0-shadcn-vue-migration.md)）。
+- **msw-http 模式**——dev 默认连 `@saas/identity-platform-msw/src/server.ts` 起的 `:5100` 独立 HTTP server；Service Worker 模式 v0.3.0 已删（[v0.3.0 migration §1](saas-identity-platform-v0.3.0-shadcn-vue-migration.md)）。
 
 **与 react 仓的 1:1 对称性**：
 
@@ -290,16 +290,16 @@ export const useTenantStore = defineStore("tenant", () => {
 ```
 1. 启动 mock 后端:
    cd ../saas-identity-platform-msw && npm start
-   → http://localhost:5174   ← GET /healthz → { mode: "msw-http", uptime }
+   → http://localhost:5100   ← GET /healthz → { mode: "msw-http", uptime }
 
 2. 启动 vue 仓 dev:
    npm run dev
-   → http://localhost:5173
+   → http://localhost:5103
 
 3. 浏览器调 API:
    userList = useTenantUsersListUsers(tenantIdRef)
    → orval codegen 调用 src/api/endpoints/endpoints.ts
-   → 实际 fetch http://localhost:5174/api/v1/tenants/{id}/users  (baseURL 由 interceptor 注入)
+   → 实际 fetch http://localhost:5100/api/v1/tenants/{id}/users  (baseURL 由 interceptor 注入)
    → saas-msw handlers 拦截 → in-memory fixture
    → 返回 JSON
 ```
@@ -308,14 +308,14 @@ export const useTenantStore = defineStore("tenant", () => {
 
 ```
 1. 编辑 .env.local（gitignored）:
-   VITE_API_BASE_URL=http://localhost:5000     ← aspnetcore dev
+   VITE_API_BASE_URL=http://localhost:5104     ← aspnetcore dev
    # 或
-   VITE_API_BASE_URL=http://localhost:8080     ← springboot dev
+   VITE_API_BASE_URL=http://localhost:5105     ← springboot dev
 
 2. 重启 npm run dev（Vite env 变更需要重启）
 
 3. axios request interceptor 自动注入新 baseURL
-   → 浏览器 fetch http://localhost:5000/api/v1/...
+   → 浏览器 fetch http://localhost:5104/api/v1/...
    → springboot/aspnetcore NimbusJwtDecoder 验 HS256 真签 JWT（prod 走 JWKS，dev 走对称密钥 `Jwt:SigningKey`）
    → 返回真数据
 ```
@@ -354,7 +354,7 @@ export const useTenantStore = defineStore("tenant", () => {
 ### 4.4 路由 + 鉴权流程
 
 ```
-浏览器访问 http://localhost:5173/tenants
+浏览器访问 http://localhost:5103/tenants
   ↓ vue-router 创建 router
   ↓ router.beforeEach 守卫
     tenantStore.isAuthenticated?  (从 localStorage 同步读)
@@ -395,7 +395,7 @@ v0.4.0 是**后端配置塌缩到 env** 的一次硬迁移（ADR-0014），把�
 | `src/components/app/backend-switcher.vue` | 删除（backend-badge.vue 无交互替代） |
 | `localStorage["saas.backend"]` 持久化 | 删除（部署期 env 取代） |
 | `BackendMode = "msw" \| "aspnetcore" \| "springboot" \| "nextjs-self"` 联合类型 | 删除（env-driven 单 URL） |
-| `isMswEnabled()` getter + `VITE_ENABLE_MSW` env | 删除（v0.3.0 已删 SW 模式，dev 默认走 :5174 msw-http） |
+| `isMswEnabled()` getter + `VITE_ENABLE_MSW` env | 删除（v0.3.0 已删 SW 模式，dev 默认走 :5100 msw-http） |
 
 ### 5.3 反转的旧规则
 
@@ -430,7 +430,7 @@ v0.4.0 是**后端配置塌缩到 env** 的一次硬迁移（ADR-0014），把�
 | ADR-0003 function-tree 需人批 | [父仓](../../../docs/adr/0003-function-tree-requires-human-approval.md) | 新增/废弃 I 必须 `/tree-change` |
 | ADR-0007 shared 双 SSOT | [父仓](../../../docs/adr/0007-shared-sql-ssot.md) | 本仓只读 yaml，不 import shared TS |
 | ADR-0008 nextjs 全栈 | [父仓](../../../docs/adr/0008-nextjs-full-stack.md) | vue 仓不兼全栈 |
-| ADR-0012 msw 升级为 HTTP 服务 | [父仓](../../../docs/adr/0012-msw-as-http-server.md) | dev 默认连 :5174，删除 SW 模式 |
+| ADR-0012 msw 升级为 HTTP 服务 | [父仓](../../../docs/adr/0012-msw-as-http-server.md) | dev 默认连 :5100，删除 SW 模式 |
 | **ADR-0014 env-driven 单 URL** | [父仓 multi-repo-family.md §4](../../../docs/conventions/multi-repo-family.md#4-后端配置env-driven-单-urladr-0014) | v0.4.0 落地（§5） |
 | v0.2.0 自己 orval | [迁移 doc](saas-identity-platform-v0.3.0-shadcn-vue-migration.md)（背景段） | orval.config.ts 自治 |
 | v0.3.0 shadcn-vue 化 | [迁移 doc](saas-identity-platform-v0.3.0-shadcn-vue-migration.md) | 14 UI + 8 app 组件 + 嵌套路由 |
@@ -450,7 +450,7 @@ v0.4.0 是**后端配置塌缩到 env** 的一次硬迁移（ADR-0014），把�
 | **`data-fn`** | DOM 锚点，挂 M/F/I 子项 ID 给 L5 引用完整性门检查 | CLAUDE.md §2 禁止未登记 fnId 挂上 |
 | **installHttpClient** | axios interceptor 安装函数（Vue 仓只用一次） | `http-client.ts:42` |
 | **tenant-store** | 唯一 Pinia store，承载 session + tenant + user + lookup | `state/tenant-store.ts` |
-| **msw-http** | msw 仓 ADR-0012 B 强度的 HTTP server 形态 | `:5174` 默认 |
+| **msw-http** | msw 仓 ADR-0012 B 强度的 HTTP server 形态 | `:5100` 默认 |
 | **msw SW** | Service Worker 拦截模式——**已废弃**（v0.3.0 删除） | `env.ts` 注释 |
 | **env 三层** | `.env.example`（committed）/ `.env.local`（gitignored）/ `.env.test`（committed） | §5.4 |
 | **AD-0014** | env-driven 单 URL 决策（父仓） | [multi-repo-family.md §4](../../../docs/conventions/multi-repo-family.md#4-后端配置env-driven-单-urladr-0014) |
@@ -479,7 +479,7 @@ v0.4.0 是**后端配置塌缩到 env** 的一次硬迁移（ADR-0014），把�
 | 陷阱 | 后果 | 修法（本仓视角） |
 |---|---|---|
 | orval + axios 没 `installHttpClient` 拦截器 | prod 永远走同 origin 被 nginx 405 | `main.ts:19` 调 `installHttpClient(() => tenantStore.accessToken)` |
-| axios baseURL 含 `/api/v1` 前缀 | path 前缀重复 | baseURL = root URL（`http://localhost:5174`），path 自带 `/api/v1` |
+| axios baseURL 含 `/api/v1` 前缀 | path 前缀重复 | baseURL = root URL（`http://localhost:5100`），path 自带 `/api/v1` |
 | orval transitive `openapi-types` 锁文件 | npm install 不动 / npm ci EUSAGE | `package.json` devDeps 显式钉 openapi-types（待补） |
 | 改 store 在 `onMounted` 才 hydrate | 路由守卫先判 false → 跳 /login | tenant-store 同步 lazy hydrate（line 73） |
 | `import { ... } from "@saas/identity-platform-shared"` | 走 npm 依赖循环 | 只读 yaml；orval 本地生成（CLAUDE.md §2） |
@@ -491,7 +491,7 @@ v0.4.0 是**后端配置塌缩到 env** 的一次硬迁移（ADR-0014），把�
 
 | 命令 | 用途 |
 |---|---|
-| `npm run dev` | 启动 Vite dev server（:5173），自动 gen:shared？**否**——需手动 |
+| `npm run dev` | 启动 Vite dev server（:5103），自动 gen:shared？**否**——需手动 |
 | `npm run gen:shared` | orval 重读 shared yaml → 刷 `src/api/endpoints/` |
 | `npm run build` | `vue-tsc -b && vite build`（前置 `prebuild` 自动跑 `gen:shared`） |
 | `npm run typecheck` | `vue-tsc --noEmit`（无产物，纯检查） |
