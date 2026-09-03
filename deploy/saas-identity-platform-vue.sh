@@ -24,7 +24,8 @@ VERSION="${3:-latest}"
 IMAGE="${USERNAME}/saas-identity-platform-vue:${VERSION}"
 BASE="/home/deploy/saas-identity-platform-vue"
 CONTAINER_NAME="saas-identity-platform-vue"
-HOST_PORT=8020
+# saas-vue:容器内 nginx:alpine 监听 :80(privileged),host 端口走 family 段 5103(ADR-0018)
+HOST_PORT=5103
 
 # nginx domain (vue SPA 没有 CORS / cross-origin runtime env, 但 deploy 脚本
 # 自举 nginx vhost 时仍要用到, 提前到 bootstrap 块之前)
