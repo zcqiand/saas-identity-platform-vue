@@ -573,7 +573,9 @@
       "requirements": [],
       "flows": [],
       "designs": [],
-      "tests": [],
+      "tests": [
+        "每个菜单行挂 data-fn=M08.F01.I05 删除按钮"
+      ],
       "entry": [
         "src\\pages\\AppListPage.vue",
         "src\\pages\\MenuTreePage.vue"
