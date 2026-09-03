@@ -1,9 +1,10 @@
 <script setup lang="ts">
 // M08 — 应用下树形菜单 CRUD
+// v0.4.x：真树表格（可展开/收起）。后端返回扁平 Menu[]，前端按 parentId 自构树。
 
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import { ChevronRight, FolderTree } from "lucide-vue-next";
+import { ChevronDown, ChevronRight, FolderTree } from "lucide-vue-next";
 import { useAdminAppMenusCreateMenu } from "../api/endpoints/endpoints";
 import { useAdminAppMenusDeleteMenu } from "../api/endpoints/endpoints";
 import { useAdminAppMenusListMenus } from "../api/endpoints/endpoints";
@@ -17,15 +18,17 @@ import type {
 } from "../api/endpoints/endpoints.schemas";
 import Button from "../components/ui/button.vue";
 import Card from "../components/ui/card.vue";
-import CardContent from "../components/ui/card-content.vue"
-import CardHeader from "../components/ui/card-header.vue"
-import CardTitle from "../components/ui/card-title.vue"
+import CardContent from "../components/ui/card-content.vue";
+import CardHeader from "../components/ui/card-header.vue";
+import CardTitle from "../components/ui/card-title.vue";
+import EmptyState from "../components/app/empty-state.vue";
+import PageLoading from "../components/app/page-loading.vue";
 import Table from "../components/ui/table.vue";
-import TableBody from "../components/ui/table-body.vue"
-import TableCell from "../components/ui/table-cell.vue"
-import TableHead from "../components/ui/table-head.vue"
-import TableHeader from "../components/ui/table-header.vue"
-import TableRow from "../components/ui/table-row.vue"
+import TableBody from "../components/ui/table-body.vue";
+import TableCell from "../components/ui/table-cell.vue";
+import TableHead from "../components/ui/table-head.vue";
+import TableHeader from "../components/ui/table-header.vue";
+import TableRow from "../components/ui/table-row.vue";
 import PageHeader from "../components/app/page-header.vue";
 import StatusBadge from "../components/app/status-badge.vue";
 import ConfirmDialog from "../components/app/confirm-dialog.vue";
@@ -93,17 +96,84 @@ const editTarget = ref<Menu | null>(null);
 const deleteTarget = ref<Menu | null>(null);
 const moveTarget = ref<Menu | null>(null);
 
-function flatten(items: Menu[], depth = 0): Array<Menu & { depth: number }> {
-  const out: Array<Menu & { depth: number }> = [];
-  for (const n of items) {
-    out.push({ ...n, depth });
-    const children = (n as unknown as { children?: Menu[] }).children;
-    if (children && children.length) out.push(...flatten(children, depth + 1));
-  }
-  return out;
+// 树表状态：所有有子级的父 ID 默认展开。用户点击 Chevron 切换。
+interface MenuNode {
+  menu: Menu;
+  children: MenuNode[];
+  hasChildren: boolean;
 }
 
-const rows = computed(() => flatten((menusQ.data.value?.data ?? []) as Menu[]));
+function buildTree(menus: Menu[]): MenuNode[] {
+  const byId = new Map<string, MenuNode>();
+  for (const m of menus) byId.set(m.id, { menu: m, children: [], hasChildren: false });
+  const roots: MenuNode[] = [];
+  for (const m of menus) {
+    const node = byId.get(m.id)!;
+    if (m.parentId && byId.has(m.parentId)) {
+      byId.get(m.parentId)!.children.push(node);
+    } else {
+      roots.push(node);
+    }
+  }
+  for (const n of byId.values()) n.hasChildren = n.children.length > 0;
+  // 兄弟内按 sortOrder,再按 code 二级排序
+  const sortByOrder = (a: MenuNode, b: MenuNode) =>
+    a.menu.sortOrder - b.menu.sortOrder || a.menu.code.localeCompare(b.menu.code);
+  const recurse = (ns: MenuNode[]) => {
+    ns.sort(sortByOrder);
+    for (const n of ns) recurse(n.children);
+  };
+  recurse(roots);
+  return roots;
+}
+
+function flattenTree(
+  nodes: MenuNode[],
+  expanded: Set<string>,
+  depth: number,
+  out: Array<Menu & { depth: number; hasChildren: boolean }>,
+) {
+  for (const n of nodes) {
+    out.push({ ...n.menu, depth, hasChildren: n.hasChildren });
+    if (n.hasChildren && expanded.has(n.menu.id)) {
+      flattenTree(n.children, expanded, depth + 1, out);
+    }
+  }
+}
+
+const expandedIds = ref<Set<string>>(new Set());
+
+const allMenus = computed<Menu[]>(() => (menusQ.data.value?.data ?? []) as Menu[]);
+
+// 默认展开所有有子级的父级（首屏不折叠）。已选应用变化或菜单整体刷新就重置一次。
+function defaultParentIds(menus: Menu[]): Set<string> {
+  const s = new Set<string>();
+  for (const m of menus) if (m.parentId) s.add(m.parentId);
+  return s;
+}
+
+watch(
+  [allMenus, selectedAppId],
+  ([menus]) => {
+    if (menus.length > 0) expandedIds.value = defaultParentIds(menus);
+  },
+  { immediate: true },
+);
+
+const rows = computed<Array<Menu & { depth: number; hasChildren: boolean }>>(() => {
+  const tree = buildTree(allMenus.value);
+  const out: Array<Menu & { depth: number; hasChildren: boolean }> = [];
+  flattenTree(tree, expandedIds.value, 0, out);
+  return out;
+});
+
+// 切换父级展开/折叠
+function toggleExpand(id: string) {
+  const next = new Set(expandedIds.value);
+  if (next.has(id)) next.delete(id);
+  else next.add(id);
+  expandedIds.value = next;
+}
 
 async function onCreate(values: Record<string, unknown>) {
   const parentId = values.parentId && values.parentId !== "" ? String(values.parentId) : undefined;
@@ -206,7 +276,17 @@ async function confirmDelete() {
         </CardTitle>
       </CardHeader>
       <CardContent class="px-0">
-        <Table>
+        <PageLoading v-if="menusQ.isLoading.value" />
+        <EmptyState
+          v-else-if="rows.length === 0"
+          title="暂无菜单"
+          description="点击右上“新建菜单”开始"
+        >
+          <template #action>
+            <Button data-fn="M08.F01.I02" @click="createOpen = true">新建菜单</Button>
+          </template>
+        </EmptyState>
+        <Table v-else>
           <TableHeader>
             <TableRow>
               <TableHead>Code / 路径</TableHead>
@@ -218,13 +298,30 @@ async function confirmDelete() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow v-for="r in rows" :key="r.id" data-testid="menu-row" :data-depth="r.depth">
+            <TableRow
+              v-for="r in rows"
+              :key="r.id"
+              data-testid="menu-row"
+              :data-depth="r.depth"
+              :data-menu-id="r.id"
+            >
               <TableCell class="font-mono text-xs">
                 <span
                   :style="{ paddingLeft: `${r.depth * 16}px` }"
                   class="inline-flex items-center"
                 >
-                  <ChevronRight v-if="r.depth > 0" class="h-3 w-3 text-slate-400 mr-1" />
+                  <button
+                    v-if="r.hasChildren"
+                    type="button"
+                    :aria-label="expandedIds.has(r.id) ? '折叠子菜单' : '展开子菜单'"
+                    :data-testid="`menu-toggle-${r.id}`"
+                    class="mr-1 inline-flex h-4 w-4 items-center justify-center rounded text-slate-400 hover:bg-slate-100 hover:text-slate-700"
+                    @click="toggleExpand(r.id)"
+                  >
+                    <ChevronDown v-if="expandedIds.has(r.id)" class="h-3 w-3" />
+                    <ChevronRight v-else class="h-3 w-3" />
+                  </button>
+                  <span v-else class="mr-1 inline-block h-4 w-4" />
                   <span>{{ r.code }}</span>
                 </span>
               </TableCell>

@@ -96,14 +96,14 @@ vi.mock("../src/api/endpoints/endpoints", () => {
     useTenantApiKeysRotateApiKey: () => makeMutationStub(),
 
     useAdminAppsListApps: () =>
-      makeQueryStub({ items: apps, page: 1, pageSize: 10, total: apps.length }),
+      makeQueryStub({ data: { items: apps, page: 1, pageSize: apps.length, total: apps.length } }),
     useAdminAppsCreateApp: () => makeMutationStub(),
     useAdminAppsGetApp: () => makeQueryStub(apps[0]),
     useAdminAppsUpdateApp: () => makeMutationStub(),
     useAdminAppsDeleteApp: () => makeMutationStub(),
     useAdminAppsSetAppStatus: () => makeMutationStub(),
 
-    useAdminAppMenusListMenus: () => makeQueryStub(menus),
+    useAdminAppMenusListMenus: () => makeQueryStub({ data: menus }),
     useAdminAppMenusCreateMenu: () => makeMutationStub(),
     useAdminAppMenusGetMenu: () => makeQueryStub(menus[0]),
     useAdminAppMenusUpdateMenu: () => makeMutationStub(),

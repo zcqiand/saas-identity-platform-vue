@@ -1,15 +1,26 @@
 {
   "schema": 2,
   "project": "saas-identity-platform-vue",
-  "current_task": "VITE_* ENV 烘焙(v0.3.24 GREEN)",
-  "last_session_at": "2026-08-29",
-  "last_session_summary": "新建 src/state/tenant-store.ts；5 page + app-shell 收敛到 store；删 mocks/{handlers,node}.ts；历史注释清零；commit 940bdac + tag v0.3.10-20260822 pushed",
+  "current_task": "菜单树表化 + 统一加载图（v0.4.x 已 gate 绿）",
+  "last_session_at": "2026-09-03",
+  "last_session_summary": "MenuTreePage 从拍扁+paddingLeft 改成真树表（Set<string> 维护展开态，默认全展开）；新增 PageLoading 组件（LoaderCircle spinner + 中文文本）；7 个 list page + MenuTreePage 都 inline 用 PageLoading；AppShell 路由级不动（vue 无现成 hook）。后端 `Menu.children` 字段不存在（TypeSpec 注释明示「前端按 parentId 自构树」），原始代码误读 n.children 顺手在这里修了。tests/setup.ts 修 menus/apps mock 形状以匹配真实 AxiosResponse 包装。",
   "done": [
-    "untrack + ENV(saas-vue→saas-aspnetcore)",
-    "v0.3.24 GREEN"
+    "PageLoading.vue：用 LoaderCircle + 居中文本",
+    "MenuTreePage.vue：buildTree/flattenTree 按 parentId 构树 + ChevronDown/Right 切换按钮 + PageLoading + EmptyState",
+    "tests/integration/menu-tree.test.ts：5 个用例（行数/嵌套 depth/toggle 收起/按钮挂 data-fn）",
+    "tests/setup.ts：useAdminAppMenusListMenus / useAdminAppsListApps mock 改成 {data: ...} 包装以匹配真实 Axios 响应",
+    "vue: 5 page data-fn 全部不动（M08.F01.I02/I04/I05/F02.I07）",
+    "gate.py -p saas-identity-platform-vue → L0/L0.5/L1/L2/L3/L4/L5 全绿，软告警 0"
   ],
-  "next": [],
+  "next": [
+    "git add + commit（建议消息：feat(suite/vue): 菜单管理页改真树表 + 统一加载图）；不打 tag 等用户发车"
+  ],
   "open_questions": [],
-  "dont": [],
+  "dont": [
+    "不要改 version-lock.json（CLAUDE.md §2）",
+    "不要给按钮加图标（CLAUDE.md §2）",
+    "MenuTreePage 不要手写 axios fetch（必须走 orval useAdminAppMenusListMenus）",
+    "不要相信旧代码 `(n as any).children` —— 后端契约只有 parentId，已修但易复发"
+  ],
   "active_branch": "master"
 }
