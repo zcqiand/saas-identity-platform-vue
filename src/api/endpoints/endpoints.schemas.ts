@@ -276,6 +276,22 @@ export interface ErrorResponse {
   details?: ErrorResponseDetails;
 }
 
+/**
+ * M01.F04.I02 — 失败锁定响应（HTTP 423 Locked）
+ * 连续失败超过阈值时由后端返回；lockedUntil 给客户端倒计时展示。
+ */
+export interface LockedAccountResponse {
+  code: string;
+  message: string;
+  /** ISO-8601 — 锁定解除时间 */
+  lockedUntil: string;
+  /** 距离下次允许再尝试的剩余次数（提示用；非必需） */
+  remainingAttempts?: number;
+}
+
+/** M01.F04.I02 — login 端点 default 响应的并集（423 / 4xx / 5xx） */
+export type SessionsLoginDefault = LockedAccountResponse | ErrorResponse;
+
 export interface LoginRequest {
   /**
    * @minLength 1
@@ -535,6 +551,9 @@ export interface User {
   username: string;
   email: string;
   displayName?: string;
+  // M01.F04.I02 — 失败锁定（5 次/15min 阈值由后端决定）
+  failedAttempts?: number;
+  lockedUntil?: string;
   status: UserStatus;
   roleIds: string[];
   createdAt: string;

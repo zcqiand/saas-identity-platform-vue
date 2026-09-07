@@ -7,8 +7,11 @@
 // SSO 返回（OAuth 2.0 授权码模式，RFC 6749）：URL 带 ?code=&redirect_uri=&state=
 // （lab RP 经 /api/auth/sso/authorize 领 code 后跳来）。saas 认证资源所有者后，
 // 302 redirect_uri?code&state（§4.1.2）原样透传给 RP。镜像 saas-nextjs app/login。
+//
+// M01.F04.I02 — 失败锁定（5 次/15min，后端阈值）：
+// 423 + LockedAccountResponse → 锁定期间提交按钮禁用，显示倒计时到 lockedUntil。
 
-import { onMounted, ref } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import Button from "../components/ui/button.vue";
 import Card from "../components/ui/card.vue";
@@ -38,6 +41,38 @@ const tenantStore = useTenantStore();
 const apiMode = getApiMode();
 const loginMut = useAuthLogin();
 const authorizeMut = useOAuthAuthorize();
+
+// M01.F04.I02 — 锁定状态（来自 423 LockedAccountResponse.lockedUntil）
+const lockoutUntil = ref<Date | null>(null);
+const nowTick = ref(Date.now());
+let lockoutTicker: number | null = null;
+function startLockoutTicker() {
+  if (lockoutTicker !== null) return;
+  // 1Hz tick — 倒计时按秒刷新
+  lockoutTicker = window.setInterval(() => {
+    nowTick.value = Date.now();
+    // 锁定已过期 → 自动解锁（清状态 + 允许重试）
+    if (lockoutUntil.value && nowTick.value >= lockoutUntil.value.getTime()) {
+      clearLockout();
+    }
+  }, 1000);
+}
+function clearLockout() {
+  lockoutUntil.value = null;
+  if (lockoutTicker !== null) {
+    window.clearInterval(lockoutTicker);
+    lockoutTicker = null;
+  }
+}
+onBeforeUnmount(() => clearLockout());
+const lockoutRemaining = computed(() => {
+  if (!lockoutUntil.value) return null;
+  const ms = Math.max(0, lockoutUntil.value.getTime() - nowTick.value);
+  const totalSec = Math.floor(ms / 1000);
+  const mm = Math.floor(totalSec / 60).toString().padStart(2, "0");
+  const ss = (totalSec % 60).toString().padStart(2, "0");
+  return `${mm}:${ss}`;
+});
 // RFC 6749 §4.1.1 授权码范式：lab 后端（confidential client）已替浏览器领到 code，
 // saas 登录页只负责认证资源所有者，成功后 302 redirect_uri?code&state（§4.1.2）。
 const oauthReturn = ref<{
@@ -181,7 +216,13 @@ async function onSubmit(e: Event) {
     }, 0);
   } catch (err) {
     const apiErr = toApiError(err);
-    // M03.F01.I02 - 423 = 失败 5 次锁定（后端 15min 自动解锁）
+    // M01.F04.I02 - 423 = 失败锁定（shared LockedAccountResponse）
+    if (apiErr.status === 423 && apiErr.body?.lockedUntil) {
+      lockoutUntil.value = new Date(apiErr.body.lockedUntil);
+      startLockoutTicker();
+      toast.error(`账号已被锁定，请 ${lockoutRemaining.value ?? "15 分钟"} 后再试`);
+      return;
+    }
     const msg =
       apiErr.status === 423
         ? "账号已被锁定，请 15 分钟后再试"
@@ -227,10 +268,19 @@ async function onSubmit(e: Event) {
               autocomplete="current-password"
             />
           </div>
+          <!-- M01.F04.I02 — 锁定倒计时（共享契约 LockedAccountResponse.lockedUntil） -->
+          <div
+            v-if="lockoutRemaining"
+            data-testid="lockout-countdown"
+            class="rounded-md bg-red-50 border border-red-200 px-3 py-2 text-xs text-red-700"
+            role="alert"
+          >
+            账号已锁定，剩余 <span class="font-mono font-semibold">{{ lockoutRemaining }}</span> 后可重试
+          </div>
           <Button
             type="submit"
             class="w-full"
-            :disabled="loginMut.isPending.value"
+            :disabled="loginMut.isPending.value || lockoutRemaining !== null"
             data-fn="M03.F01.I01"
           >
             {{ loginMut.isPending.value ? "登录中…" : "登录" }}

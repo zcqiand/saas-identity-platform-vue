@@ -94,6 +94,30 @@ describe("M03.F01.I01 账号密码登录", () => {
     expect(String(toastError.mock.calls[0]?.[0])).toContain("锁定");
   });
 
+  // M01.F04.I02 - 423 + LockedAccountResponse：锁定时显示 countdown + 禁用提交按钮
+  it("账号锁定（423 + lockedUntil）-> 显示倒计时 + 禁用提交按钮", async () => {
+    // 锁定到 15 分钟之后
+    const lockedUntil = new Date(Date.now() + 15 * 60 * 1000).toISOString();
+    loginMut.mutateAsync.mockRejectedValue(
+      new ApiError(
+        423,
+        { code: "ACCOUNT_LOCKED", message: "account locked", lockedUntil },
+        "account locked",
+      ),
+    );
+    const wrapper = mountWithProviders(LoginPage);
+    await fillAndSubmit(wrapper);
+    // 倒计时元素出现
+    await vi.waitFor(() => {
+      expect(wrapper.find('[data-testid="lockout-countdown"]').exists()).toBe(true);
+    });
+    // 提交按钮禁用
+    const btn = wrapper.find('[data-fn="M03.F01.I01"]');
+    expect((btn.element as HTMLButtonElement).disabled).toBe(true);
+    // 倒计时文本含「分钟」或秒数提示
+    expect(wrapper.find('[data-testid="lockout-countdown"]').text()).toMatch(/\d/);
+  });
+
   it("登录成功 -> tenant-store 写 session + 跳 /tenants", async () => {
     loginMut.mutateAsync.mockResolvedValue({
       data: {

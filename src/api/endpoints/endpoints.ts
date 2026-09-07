@@ -57,6 +57,7 @@ import type {
   ErrorResponse,
   LoginRequest,
   LoginResponse,
+  SessionsLoginDefault,
   MeGetMyMenus200,
   Menu,
   OAuthAuthorize200,
@@ -1241,7 +1242,7 @@ export const authLogin = (
 
 
 
-export const getAuthLoginMutationOptions = <TError = AxiosError<ErrorResponse>,
+export const getAuthLoginMutationOptions = <TError = AxiosError<SessionsLoginDefault>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authLogin>>, TError,{data: LoginRequest}, TContext>, axios?: AxiosRequestConfig}
 ): UseMutationOptions<Awaited<ReturnType<typeof authLogin>>, TError,{data: LoginRequest}, TContext> => {
 
@@ -1268,9 +1269,9 @@ const {mutation: mutationOptions, axios: axiosOptions} = options ?
 
     export type AuthLoginMutationResult = NonNullable<Awaited<ReturnType<typeof authLogin>>>
     export type AuthLoginMutationBody = LoginRequest
-    export type AuthLoginMutationError = AxiosError<ErrorResponse>
+    export type AuthLoginMutationError = AxiosError<SessionsLoginDefault>
 
-    export const useAuthLogin = <TError = AxiosError<ErrorResponse>,
+    export const useAuthLogin = <TError = AxiosError<SessionsLoginDefault>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authLogin>>, TError,{data: LoginRequest}, TContext>, axios?: AxiosRequestConfig}
  , queryClient?: QueryClient): UseMutationReturnType<
         Awaited<ReturnType<typeof authLogin>>,
