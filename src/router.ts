@@ -8,8 +8,6 @@ import RoleListPage from "./pages/RoleListPage.vue";
 import AppListPage from "./pages/AppListPage.vue";
 import MenuTreePage from "./pages/MenuTreePage.vue";
 import RoleMenuGrantPage from "./pages/RoleMenuGrantPage.vue";
-import ApiKeyListPage from "./pages/ApiKeyListPage.vue";
-import AuditListPage from "./pages/AuditListPage.vue";
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -32,10 +30,7 @@ export const router = createRouter({
           props: true,
         },
         { path: "admin/apps", component: AppListPage },
-        { path: "admin/apps/:appId/menus", component: MenuTreePage, props: true },
-        { path: "tenants/:tenantId/api-keys", component: ApiKeyListPage, props: true },
-        { path: "tenants/:tenantId/audit", component: AuditListPage, props: true },
-      ],
+        { path: "admin/apps/:appId/menus", component: MenuTreePage, props: true },      ],
     },
 
     { path: "/:pathMatch(.*)*", redirect: "/tenants" },
