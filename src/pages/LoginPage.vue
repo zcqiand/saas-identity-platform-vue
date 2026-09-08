@@ -23,7 +23,8 @@ import Input from "../components/ui/input.vue";
 import Label from "../components/ui/label.vue";
 import { useTenantStore } from "../state/tenant-store";
 import { getApiMode } from "../api/backend-config";
-import { useAuthLogin, useOAuthAuthorize } from "../api/endpoints/endpoints";
+import { useSessionsLogin } from "../api/endpoints/auth/auth";
+import { useOAuthAuthorize } from "../api/endpoints/oauth/oauth";
 import { toApiError } from "../api/http-client";
 import { toast } from "vue-sonner";
 
@@ -39,8 +40,19 @@ const password = ref("");
 const router = useRouter();
 const tenantStore = useTenantStore();
 const apiMode = getApiMode();
-const loginMut = useAuthLogin();
+const loginMut = useSessionsLogin();
 const authorizeMut = useOAuthAuthorize();
+
+// M03.F01 — RFC 6749 §4.1.1 跳板: ?client_id= 表示此次密码登录是给哪个 OAuth client。
+// 直接打开登录页（无 client_id）时：取 VITE_LOGIN_CLIENT_ID env,无值则提示用户。
+// 禁止 fallback 到 demo 字面量(ADR-0019)。
+const loginClientId = computed(() => {
+  const fromUrl = new URLSearchParams(window.location.search).get("client_id");
+  if (fromUrl) return fromUrl;
+  const fromEnv = (import.meta.env.VITE_LOGIN_CLIENT_ID ?? "").trim();
+  if (fromEnv) return fromEnv;
+  return "";
+});
 
 // M01.F04.I02 — 锁定状态（来自 423 LockedAccountResponse.lockedUntil）
 const lockoutUntil = ref<Date | null>(null);
@@ -131,11 +143,7 @@ onMounted(async () => {
         redirectUri,
         responseType: "code",
         scope: "lab.read lab.write",
-        state,
-        tenantId:
-          tenantStore.currentTenantId ??
-          "00000000-0000-0000-0000-000000000001",
-      },
+        state,      },
     });
     const target = new URL(redirectUri);
     target.searchParams.set("code", res.data.code);
@@ -149,17 +157,31 @@ onMounted(async () => {
 
 async function onSubmit(e: Event) {
   e.preventDefault();
+  if (!loginClientId.value) {
+    toast.error("缺少 clientId：请通过 OAuth 跳转访问，或配置 VITE_LOGIN_CLIENT_ID");
+    return;
+  }
   try {
     const res = await loginMut.mutateAsync({
-      data: { username: username.value, password: password.value },
+      data: {
+        username: username.value,
+        password: password.value,
+        clientId: loginClientId.value,
+      },
     });
-    const { accessToken, refreshToken, userId, currentTenantId } = res.data;
+    const { accessToken, refreshToken } = res.data;
+    if (!accessToken || !refreshToken) {
+      toast.error("登录响应缺少 token，请联系管理员");
+      return;
+    }
+    const userId = res.data.user?.id ?? "";
+    const currentTenantId = res.data.availableTenants?.[0]?.tenantId ?? "";
     tenantStore.login({
       accessToken,
       refreshToken,
       userId,
       username: username.value,
-      email: undefined,
+      email: res.data.user?.email,
       currentTenantId,
       tenantCode: null,
     });
@@ -196,9 +218,6 @@ async function onSubmit(e: Event) {
               responseType: "code",
               scope: "lab.read lab.write",
               state,
-              tenantId:
-                tenantStore.currentTenantId ??
-                "00000000-0000-0000-0000-000000000001",
             },
           });
           const target = new URL(redirectUri);

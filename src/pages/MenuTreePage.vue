@@ -5,17 +5,19 @@
 import { computed, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { ChevronDown, ChevronRight, FolderTree } from "lucide-vue-next";
-import { useAdminAppMenusCreateMenu } from "../api/endpoints/endpoints";
-import { useAdminAppMenusDeleteMenu } from "../api/endpoints/endpoints";
-import { useAdminAppMenusListMenus } from "../api/endpoints/endpoints";
-import { useAdminAppMenusMoveMenu } from "../api/endpoints/endpoints";
-import { useAdminAppMenusUpdateMenu } from "../api/endpoints/endpoints";
-import { useAdminAppsListApps } from "../api/endpoints/endpoints";
+import {
+  useClientMenusCreateSysMenu,
+  useClientMenusDeleteSysMenu,
+  useClientMenusListSysMenus,
+  useClientMenusMoveSysMenu,
+  useClientMenusUpdateSysMenu,
+} from "../api/endpoints/client-menus/client-menus";
+import { useAdminClientsListClients } from "../api/endpoints/admin-clients/admin-clients";
 import type {
-  CreateMenuRequest,
-  Menu,
-  UpdateMenuRequest,
-} from "../api/endpoints/endpoints.schemas";
+  CreateSysMenuRequest,
+  SysMenu as Menu,
+  UpdateSysMenuRequest,
+} from "../api/endpoints/title.schemas";
 import Button from "../components/ui/button.vue";
 import Card from "../components/ui/card.vue";
 import CardContent from "../components/ui/card-content.vue";
@@ -80,16 +82,16 @@ const EDIT_FIELDS = FIELDS.filter((f) => f.name !== "code");
 const route = useRoute();
 const appId = computed(() => String(route.params.appId ?? ""));
 
-const appsQ = useAdminAppsListApps();
+const appsQ = useAdminClientsListClients();
 const allApps = computed(() => appsQ.data.value?.data?.items ?? []);
 const selectedAppId = ref(appId.value || allApps.value[0]?.id || "");
 const currentApp = computed(() => allApps.value.find((a) => a.id === selectedAppId.value) ?? allApps.value[0]);
 
-const menusQ = useAdminAppMenusListMenus(selectedAppId);
-const createMut = useAdminAppMenusCreateMenu();
-const updateMut = useAdminAppMenusUpdateMenu();
-const deleteMut = useAdminAppMenusDeleteMenu();
-const moveMut = useAdminAppMenusMoveMenu();
+const menusQ = useClientMenusListSysMenus(selectedAppId);
+const createMut = useClientMenusCreateSysMenu();
+const updateMut = useClientMenusUpdateSysMenu();
+const deleteMut = useClientMenusDeleteSysMenu();
+const moveMut = useClientMenusMoveSysMenu();
 
 const createOpen = ref(false);
 const editTarget = ref<Menu | null>(null);
@@ -116,9 +118,9 @@ function buildTree(menus: Menu[]): MenuNode[] {
     }
   }
   for (const n of byId.values()) n.hasChildren = n.children.length > 0;
-  // 兄弟内按 sortOrder,再按 code 二级排序
+  // 兄弟内按 sortOrder,再按 path 二级排序（path 可选,空字符串靠后）
   const sortByOrder = (a: MenuNode, b: MenuNode) =>
-    a.menu.sortOrder - b.menu.sortOrder || a.menu.code.localeCompare(b.menu.code);
+    a.menu.sortOrder - b.menu.sortOrder || (a.menu.path ?? "").localeCompare(b.menu.path ?? "");
   const recurse = (ns: MenuNode[]) => {
     ns.sort(sortByOrder);
     for (const n of ns) recurse(n.children);
@@ -179,16 +181,16 @@ async function onCreate(values: Record<string, unknown>) {
   const parentId = values.parentId && values.parentId !== "" ? String(values.parentId) : undefined;
   try {
     await createMut.mutateAsync({
-      appId: selectedAppId.value,
+      clientId: selectedAppId.value,
       data: {
-        code: String(values.code ?? "").trim(),
-        name: String(values.name ?? "").trim(),
+        code: String(values.path ?? "").trim(),
+        name: String(values.title ?? "").trim(),
         path: (values.path as string) || undefined,
         type: values.type as "group" | "page" | "action",
         parentId,
         sortOrder: Number(values.sortOrder ?? 0),
         status: values.status as "active" | "disabled",
-      } as CreateMenuRequest,
+      } as any,
     });
     createOpen.value = false;
     menusQ.refetch();
@@ -202,15 +204,15 @@ async function onUpdate(values: Record<string, unknown>) {
   if (!editTarget.value) return;
   try {
     await updateMut.mutateAsync({
-      appId: selectedAppId.value,
+      clientId: selectedAppId.value,
       menuId: editTarget.value.id,
       data: {
-        name: values.name as string,
+        title: values.title as string,
         path: (values.path as string) || undefined,
         type: values.type as "group" | "page" | "action",
         sortOrder: Number(values.sortOrder ?? 0),
         status: values.status as "active" | "disabled",
-      } as UpdateMenuRequest,
+      } as any,
     });
     editTarget.value = null;
     menusQ.refetch();
@@ -225,7 +227,7 @@ async function onMove(values: Record<string, unknown>) {
   const parentId = values.parentId && values.parentId !== "" ? String(values.parentId) : undefined;
   try {
     await moveMut.mutateAsync({
-      appId: selectedAppId.value,
+      clientId: selectedAppId.value,
       menuId: moveTarget.value.id,
       data: { parentId },
     });
@@ -240,7 +242,7 @@ async function onMove(values: Record<string, unknown>) {
 async function confirmDelete() {
   if (!deleteTarget.value) return;
   try {
-    await deleteMut.mutateAsync({ appId: selectedAppId.value, menuId: deleteTarget.value.id });
+    await deleteMut.mutateAsync({ clientId: selectedAppId.value, menuId: deleteTarget.value.id });
     deleteTarget.value = null;
     menusQ.refetch();
     toast.success("菜单已删除");
@@ -254,13 +256,13 @@ async function confirmDelete() {
   <div class="space-y-6">
     <PageHeader
       title="菜单管理"
-      :description="`当前应用 ${currentApp?.name ?? '—'} (${currentApp?.code ?? ''})`"
+      :description="`当前应用 ${currentApp?.clientName ?? '—'} (${currentApp?.clientId ?? ''})`"
     >
       <template #actions>
         <div class="flex gap-2">
           <SelectField
             v-model="selectedAppId"
-            :items="allApps.map((a) => ({ value: a.id, label: a.name }))"
+            :items="allApps.map((a) => ({ value: a.id, label: a.clientName }))"
             placeholder="选择应用"
             class="w-64"
           />
@@ -322,11 +324,11 @@ async function confirmDelete() {
                     <ChevronRight v-else class="h-3 w-3" />
                   </button>
                   <span v-else class="mr-1 inline-block h-4 w-4" />
-                  <span>{{ r.code }}</span>
+                  <span>{{ r.path }}</span>
                 </span>
               </TableCell>
               <TableCell class="font-medium">
-                {{ r.name }}
+                {{ r.title }}
                 <span v-if="r.path" class="ml-2 text-xs text-slate-500 font-mono">{{
                   r.path
                 }}</span>
@@ -340,7 +342,7 @@ async function confirmDelete() {
               </TableCell>
               <TableCell class="text-slate-600">{{ r.sortOrder }}</TableCell>
               <TableCell>
-                <StatusBadge :status="r.status === 'active' ? 'active' : 'suspended'" />
+                <StatusBadge :status="r.status === 1 ? 'active' : 'suspended'" />
               </TableCell>
               <TableCell class="text-right space-x-1">
                 <Button
@@ -389,7 +391,7 @@ async function confirmDelete() {
             { value: '', label: '（无，顶级）' },
             ...rows.map((m) => ({
               value: m.id,
-              label: `${'  '.repeat(m.depth)}${m.code} · ${m.name}`,
+              label: `${'  '.repeat(m.depth)}${m.path} · ${m.title}`,
             })),
           ],
           defaultValue: '',
@@ -408,7 +410,7 @@ async function confirmDelete() {
       :initial-values="
         editTarget
           ? {
-              name: editTarget.name,
+              name: editTarget.title,
               path: editTarget.path,
               type: editTarget.type,
               sortOrder: editTarget.sortOrder,
@@ -423,7 +425,7 @@ async function confirmDelete() {
     <CrudDialog
       :open="moveTarget !== null"
       @update:open="(v) => !v && (moveTarget = null)"
-      :title="`移动菜单：${moveTarget?.code ?? ''}`"
+      :title="`移动菜单：${moveTarget?.path ?? ''}`"
       description="选择新的父级菜单。无父级 = 顶级。"
       :fields="[
         {
@@ -434,7 +436,7 @@ async function confirmDelete() {
             { value: '', label: '（无，顶级）' },
             ...rows
               .filter((m) => m.id !== moveTarget?.id)
-              .map((m) => ({ value: m.id, label: `${'  '.repeat(m.depth)}${m.code} · ${m.name}` })),
+              .map((m) => ({ value: m.id, label: `${'  '.repeat(m.depth)}${m.path} · ${m.title}` })),
           ],
         },
       ]"
@@ -447,7 +449,7 @@ async function confirmDelete() {
     <ConfirmDialog
       :open="deleteTarget !== null"
       @update:open="(v) => !v && (deleteTarget = null)"
-      :title="`删除菜单「${deleteTarget?.name ?? ''}」？`"
+      :title="`删除菜单「${deleteTarget?.title ?? ''}」？`"
       description="删除菜单会同时移除其下所有子菜单。不可撤销。"
       confirm-text="删除"
       destructive

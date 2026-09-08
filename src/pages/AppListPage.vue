@@ -3,12 +3,18 @@
 
 import { ref, computed } from "vue";
 import { useRouter, RouterLink } from "vue-router";
-import { useAdminAppsCreateApp } from "../api/endpoints/endpoints";
-import { useAdminAppsDeleteApp } from "../api/endpoints/endpoints";
-import { useAdminAppsListApps } from "../api/endpoints/endpoints";
-import { useAdminAppsSetAppStatus } from "../api/endpoints/endpoints";
-import { useAdminAppsUpdateApp } from "../api/endpoints/endpoints";
-import type { App, CreateAppRequest, UpdateAppRequest } from "../api/endpoints/endpoints.schemas";
+import {
+  useAdminClientsCreateClient,
+  useAdminClientsDeleteClient,
+  useAdminClientsListClients,
+  useAdminClientsSetClientStatus,
+  useAdminClientsUpdateClient,
+} from "../api/endpoints/admin-clients/admin-clients";
+import type {
+  OAuthClient,
+  CreateOAuthClientRequest,
+  UpdateOAuthClientRequest,
+} from "../api/endpoints/title.schemas";
 import Button from "../components/ui/button.vue";
 import Card from "../components/ui/card.vue";
 import CardContent from "../components/ui/card-content.vue";
@@ -30,22 +36,32 @@ import { toApiError } from "../api/http-client";
 import { toast } from "vue-sonner";
 
 const FIELDS: FieldDef[] = [
-  { name: "code", label: "Code", required: true, placeholder: "lab-management" },
+  { name: "clientId", label: "Client ID", required: true, placeholder: "lab-mgmt" },
+  { name: "clientSecret", label: "Client Secret", required: true, placeholder: "••••••" },
   {
-    name: "name",
+    name: "clientName",
     label: "名称",
     required: true,
     placeholder: "建筑工程实验室管理系统",
   },
-  { name: "clientId", label: "Client ID", required: true, placeholder: "lab-mgmt" },
-  { name: "icon", label: "图标（lucide 名称）", placeholder: "FlaskConical" },
-  { name: "sortOrder", label: "排序", type: "number", defaultValue: 0 },
+  { name: "grantTypes", label: "Grant Types（逗号分隔）", placeholder: "authorization_code,client_credentials" },
+  { name: "redirectUris", label: "Redirect URIs（逗号分隔）", placeholder: "https://app.example.com/callback" },
+  { name: "scopesText", label: "Scopes（逗号分隔）", placeholder: "lab.read, lab.write" },
+  { name: "accessTokenValidity", label: "Access Token Validity（秒）", type: "number", defaultValue: 3600 },
+  { name: "refreshTokenValidity", label: "Refresh Token Validity（秒）", type: "number", defaultValue: 2592000 },
   {
-    name: "isFirstParty",
-    label: "一方应用",
+    name: "autoApprove",
+    label: "Auto Approve",
     type: "checkbox",
-    defaultValue: true,
-    hint: "一方应用对租户可见",
+    defaultValue: false,
+  },
+];
+
+const EDIT_FIELDS: FieldDef[] = [
+  {
+    name: "clientName",
+    label: "名称",
+    required: true,
   },
   {
     name: "status",
@@ -61,40 +77,38 @@ const FIELDS: FieldDef[] = [
   { name: "scopesText", label: "Scopes（逗号分隔）", placeholder: "lab.read, lab.write" },
 ];
 
-const EDIT_FIELDS = FIELDS.filter((f) => f.name !== "code" && f.name !== "clientId");
-
-function toAppInput(values: Record<string, unknown>): CreateAppRequest {
+function toAppInput(values: Record<string, unknown>): CreateOAuthClientRequest {
   return {
-    code: String(values.code ?? "").trim(),
-    name: String(values.name ?? "").trim(),
     clientId: String(values.clientId ?? "").trim(),
-    icon: values.icon ? String(values.icon) : undefined,
-    sortOrder: Number(values.sortOrder ?? 0),
-    status: (values.status as "active" | "disabled") ?? "active",
-    isFirstParty: Boolean(values.isFirstParty),
+    clientSecret: String(values.clientSecret ?? "").trim(),
+    clientName: String(values.clientName ?? "").trim(),
+    grantTypes: String(values.grantTypes ?? "authorization_code,client_credentials").trim(),
+    redirectUris: String(values.redirectUris ?? "").trim(),
     scopes: values.scopesText
       ? String(values.scopesText)
           .split(",")
           .map((s) => s.trim())
           .filter(Boolean)
-      : [],
-    grantTypes: ["authorization_code", "client_credentials"],
-    redirectUris: [],
+          .join(",")
+      : undefined,
+    accessTokenValidity: Number(values.accessTokenValidity ?? 3600),
+    refreshTokenValidity: Number(values.refreshTokenValidity ?? 2592000),
+    autoApprove: Boolean(values.autoApprove),
   };
 }
 
 const router = useRouter();
-const list = useAdminAppsListApps();
-const createMut = useAdminAppsCreateApp();
-const updateMut = useAdminAppsUpdateApp();
-const deleteMut = useAdminAppsDeleteApp();
-const statusMut = useAdminAppsSetAppStatus();
+const list = useAdminClientsListClients();
+const createMut = useAdminClientsCreateClient();
+const updateMut = useAdminClientsUpdateClient();
+const deleteMut = useAdminClientsDeleteClient();
+const statusMut = useAdminClientsSetClientStatus();
 
 const createOpen = ref(false);
-const editTarget = ref<App | null>(null);
-const deleteTarget = ref<App | null>(null);
+const editTarget = ref<OAuthClient | null>(null);
+const deleteTarget = ref<OAuthClient | null>(null);
 
-const apps = computed<App[]>(() => list.data.value?.data?.items ?? []);
+const apps = computed<OAuthClient[]>(() => list.data.value?.data?.items ?? []);
 
 function goMenus(appId: string) {
   router.push(`/admin/apps/${appId}/menus`);
@@ -115,19 +129,10 @@ async function onUpdate(values: Record<string, unknown>) {
   if (!editTarget.value) return;
   try {
     await updateMut.mutateAsync({
-      appId: editTarget.value.id,
+      clientId: editTarget.value.id,
       data: {
-        name: values.name as string,
-        icon: (values.icon as string) || undefined,
-        sortOrder: Number(values.sortOrder ?? 0),
-        status: values.status as "active" | "disabled",
-        isFirstParty: Boolean(values.isFirstParty),
-        scopes: values.scopesText
-          ? String(values.scopesText)
-              .split(",")
-              .map((s) => s.trim())
-              .filter(Boolean)
-          : [],
+        clientName: values.name as string,
+        status: values.status === "active" ? 1 : 0,
       },
     });
     editTarget.value = null;
@@ -138,11 +143,11 @@ async function onUpdate(values: Record<string, unknown>) {
   }
 }
 
-async function toggleStatus(a: App) {
+async function toggleStatus(a: OAuthClient) {
   try {
     await statusMut.mutateAsync({
-      appId: a.id,
-      data: { status: a.status === "active" ? "disabled" : "active" },
+      clientId: a.id,
+      data: { status: a.status === 1 ? 0 : 1 },
     });
     list.refetch();
     toast.success("状态已切换");
@@ -154,7 +159,7 @@ async function toggleStatus(a: App) {
 async function confirmDelete() {
   if (!deleteTarget.value) return;
   try {
-    await deleteMut.mutateAsync({ appId: deleteTarget.value.id });
+    await deleteMut.mutateAsync({ clientId: deleteTarget.value.id });
     deleteTarget.value = null;
     list.refetch();
     toast.success("应用已删除");
@@ -190,8 +195,8 @@ async function confirmDelete() {
               <TableHead>Code / ClientID</TableHead>
               <TableHead>名称</TableHead>
               <TableHead>Scopes</TableHead>
-              <TableHead>一方</TableHead>
-              <TableHead>排序</TableHead>
+              <TableHead>Grant Types</TableHead>
+              <TableHead>Access Token Validity</TableHead>
               <TableHead>状态</TableHead>
               <TableHead class="text-right">操作</TableHead>
             </TableRow>
@@ -199,32 +204,29 @@ async function confirmDelete() {
           <TableBody>
             <TableRow v-for="a in apps" :key="a.id" data-testid="app-row">
               <TableCell>
-                <div class="font-mono text-xs">{{ a.code }}</div>
-                <div class="font-mono text-[10px] text-slate-500">clientId: {{ a.clientId }}</div>
+                <div class="font-mono text-xs">{{ a.clientId }}</div>
+                <div class="font-mono text-[10px] text-slate-500">name: {{ a.clientName }}</div>
               </TableCell>
-              <TableCell class="font-medium">{{ a.name }}</TableCell>
+              <TableCell class="font-medium">{{ a.clientName }}</TableCell>
               <TableCell class="text-xs text-slate-600">
-                {{ a.scopes.length > 0 ? a.scopes.join(", ") : "—" }}
+                {{ a.scopes ? a.scopes : "—" }}
               </TableCell>
               <TableCell>
                 <span
-                  class="inline-flex items-center rounded-md px-2 py-0.5 text-xs"
-                  :class="
-                    a.isFirstParty ? 'bg-blue-50 text-blue-700' : 'bg-slate-100 text-slate-600'
-                  "
+                  class="inline-flex items-center rounded-md bg-slate-100 px-2 py-0.5 text-xs text-slate-700"
                 >
-                  {{ a.isFirstParty ? "一方" : "三方" }}
+                  {{ a.grantTypes }}
                 </span>
               </TableCell>
               <TableCell>
                 <span
                   class="inline-flex items-center rounded-md bg-slate-100 px-2 py-0.5 text-xs text-slate-700"
                 >
-                  {{ a.sortOrder }}
+                  {{ a.accessTokenValidity }}s
                 </span>
               </TableCell>
               <TableCell>
-                <StatusBadge :status="a.status === 'active' ? 'active' : 'suspended'" />
+                <StatusBadge :status="a.status === 1 ? 'active' : 'suspended'" />
               </TableCell>
               <TableCell class="text-right space-x-1">
                 <Button
@@ -233,7 +235,7 @@ async function confirmDelete() {
                   data-fn="M04.F02.I06"
                   @click="() => toggleStatus(a)"
                 >
-                  {{ a.status === "active" ? "停用" : "启用" }}
+                  {{ a.status === 1 ? "停用" : "启用" }}
                 </Button>
                 <Button
                   variant="ghost"
@@ -281,12 +283,9 @@ async function confirmDelete() {
       :initial-values="
         editTarget
           ? {
-              name: editTarget.name,
-              icon: editTarget.icon,
-              sortOrder: editTarget.sortOrder,
-              isFirstParty: editTarget.isFirstParty,
-              status: editTarget.status,
-              scopesText: editTarget.scopes.join(', '),
+              name: editTarget.clientName,
+              status: editTarget.status === 1 ? 'active' : 'disabled',
+              scopesText: editTarget.scopes ?? '',
             }
           : undefined
       "
@@ -297,7 +296,7 @@ async function confirmDelete() {
     <ConfirmDialog
       :open="deleteTarget !== null"
       @update:open="(v) => !v && (deleteTarget = null)"
-      :title="`删除应用「${deleteTarget?.name ?? ''}」？`"
+      :title="`删除应用「${deleteTarget?.clientName ?? ''}」？`"
       description="应用删除将一并删除其下所有菜单。不可撤销。"
       confirm-text="删除"
       destructive

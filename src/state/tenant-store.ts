@@ -12,8 +12,11 @@
 
 import { defineStore } from "pinia";
 import { computed, ref, toRef, type ComputedRef, type MaybeRefOrGetter } from "vue";
-import { useAdminTenantsGetTenant, useAdminTenantsListTenants } from "../api/endpoints/endpoints";
-import type { Tenant } from "../api/endpoints/endpoints.schemas";
+import {
+  useAdminTenantsGetTenant,
+  useAdminTenantsListTenants,
+} from "../api/endpoints/admin-tenants/admin-tenants";
+import type { Tenant } from "../api/endpoints/title.schemas";
 
 const STORAGE_KEY = "saas.tenant";
 

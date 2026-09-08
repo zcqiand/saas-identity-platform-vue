@@ -4,11 +4,13 @@
 import { computed, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useQuery } from "@tanstack/vue-query";
-import { adminAppMenusListMenus } from "../api/endpoints/endpoints";
-import { useAdminAppsListApps } from "../api/endpoints/endpoints";
-import { useTenantRoleMenusListRoleMenus } from "../api/endpoints/endpoints";
-import { useTenantRoleMenusSetRoleMenus } from "../api/endpoints/endpoints";
-import type { SetRoleMenusRequest } from "../api/endpoints/endpoints.schemas";
+import { clientMenusListSysMenus } from "../api/endpoints/client-menus/client-menus";
+import { useAdminClientsListClients } from "../api/endpoints/admin-clients/admin-clients";
+import {
+  useTenantRoleMenusListSysRoleMenus,
+  useTenantRoleMenusSetSysRoleMenus,
+} from "../api/endpoints/tenant-role-menus/tenant-role-menus";
+import type { SetSysRoleMenusRequest } from "../api/endpoints/title.schemas";
 import Button from "../components/ui/button.vue";
 import Card from "../components/ui/card.vue";
 import CardContent from "../components/ui/card-content.vue"
@@ -26,10 +28,10 @@ const roleId = computed(() => String(route.params.roleId ?? ""));
 // 集中到 tenant-store.tenantFor()，缓存交给 vue-query。
 const tenant = tenantStore.tenantFor(tenantId);
 const tenantLabel = computed(() => {
-  return tenant.value ? `${tenant.value.name}（${tenant.value.code}）` : "未知租户";
+  return tenant.value ? `${tenant.value.name}（${tenant.value.tenantKey}）` : "未知租户";
 });
 
-const appsQ = useAdminAppsListApps();
+const appsQ = useAdminClientsListClients();
 const apps = computed(() => appsQ.data.value?.data?.items ?? []);
 
 // 一次性拉所有 app 的 menus（修 apps[0] bug：之前每张 Card 共享同一份 menus）
@@ -39,22 +41,22 @@ const groupsQ = useQuery({
     const items = apps.value;
     return Promise.all(
       items.map(async (a) => ({
-        appCode: a.code,
-        appName: a.name,
-        menus: (await adminAppMenusListMenus(a.id)).data,
+        appCode: a.clientId,
+        appName: a.clientName,
+        menus: (await clientMenusListSysMenus(a.id)).data,
       })),
     );
   },
   enabled: computed(() => !!tenantId.value && !!roleId.value && apps.value.length > 0),
 });
 
-const grantQ = useTenantRoleMenusListRoleMenus(tenantId, roleId);
-const saveMut = useTenantRoleMenusSetRoleMenus();
+const grantQ = useTenantRoleMenusListSysRoleMenus(tenantId, roleId, {} as any);
+const saveMut = useTenantRoleMenusSetSysRoleMenus();
 
 const granted = ref<Set<string>>(new Set());
 
 watch(
-  () => grantQ.data.value?.data?.menuIds,
+  () => grantQ.data.value?.data?.map(r => r.menuId) ?? [],
   (ids) => {
     granted.value = new Set(ids ?? []);
   },
@@ -77,7 +79,8 @@ async function save() {
     await saveMut.mutateAsync({
       tenantId: tenantId.value,
       roleId: roleId.value,
-      data: { menuIds: Array.from(granted.value) } as SetRoleMenusRequest,
+      data: { menuIds: Array.from(granted.value) } as SetSysRoleMenusRequest,
+      params: {} as any,
     });
     grantQ.refetch();
     toast.success("菜单授权已保存");
@@ -124,8 +127,8 @@ async function save() {
             class="h-4 w-4"
             @change="() => toggle(m.id)"
           />
-          <span class="font-medium text-sm">{{ m.name }}</span>
-          <span class="font-mono text-xs text-slate-500">{{ m.code }}</span>
+          <span class="font-medium text-sm">{{ m.title }}</span>
+          <span class="font-mono text-xs text-slate-500">{{ m.path }}</span>
         </label>
       </CardContent>
     </Card>

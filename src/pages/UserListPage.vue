@@ -3,17 +3,20 @@
 
 import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
-import { useTenantRolesListRoles } from "../api/endpoints/endpoints";
-import { useTenantUsersAssignRoles } from "../api/endpoints/endpoints";
-import { useTenantUsersCreateUser } from "../api/endpoints/endpoints";
-import { useTenantUsersDeleteUser } from "../api/endpoints/endpoints";
-import { useTenantUsersListUsers } from "../api/endpoints/endpoints";
-import { useTenantUsersUpdateUser } from "../api/endpoints/endpoints";
+import { useTenantRolesListSysRoles } from "../api/endpoints/tenant-roles/tenant-roles";
+import {
+  useTenantMembersAssignTenantMemberRoles,
+  useTenantMembersCreateTenantUser,
+  useTenantMembersDeleteTenantUser,
+  useTenantMembersListTenantUsers,
+  useTenantMembersUpdateTenantUser,
+} from "../api/endpoints/tenant-members/tenant-members";
 import type {
-  CreateUserRequest,
-  UpdateUserRequest,
-  User,
-} from "../api/endpoints/endpoints.schemas";
+  CreateSysUserRequest,
+  UpdateSysUserRequest,
+  TenantMemberView,
+  TenantMember,
+} from "../api/endpoints/title.schemas";
 import Button from "../components/ui/button.vue";
 import Card from "../components/ui/card.vue";
 import CardContent from "../components/ui/card-content.vue"
@@ -61,29 +64,29 @@ const tenantId = computed(() => String(route.params.tenantId ?? ""));
 // 集中到 tenant-store.tenantFor()，缓存交给 vue-query。
 const tenant = tenantStore.tenantFor(tenantId);
 const tenantLabel = computed(() => {
-  return tenant.value ? `租户 ${tenant.value.name}（${tenant.value.code}）` : "租户未知";
+  return tenant.value ? `租户 ${tenant.value.name}（${tenant.value.tenantKey}）` : "租户未知";
 });
 
-const usersQ = useTenantUsersListUsers(tenantId);
-const rolesQ = useTenantRolesListRoles(tenantId);
-const createMut = useTenantUsersCreateUser();
-const updateMut = useTenantUsersUpdateUser();
-const deleteMut = useTenantUsersDeleteUser();
-const roleAssignMut = useTenantUsersAssignRoles();
+const usersQ = useTenantMembersListTenantUsers(tenantId, {} as any);
+const rolesQ = useTenantRolesListSysRoles(tenantId, {} as any);
+const createMut = useTenantMembersCreateTenantUser();
+const updateMut = useTenantMembersUpdateTenantUser();
+const deleteMut = useTenantMembersDeleteTenantUser();
+const roleAssignMut = useTenantMembersAssignTenantMemberRoles();
 
 const createOpen = ref(false);
-const editTarget = ref<User | null>(null);
-const deleteTarget = ref<User | null>(null);
-const roleTarget = ref<User | null>(null);
+const editTarget = ref<TenantMemberView | null>(null);
+const deleteTarget = ref<TenantMemberView | null>(null);
+const roleTarget = ref<TenantMemberView | null>(null);
 
-const users = computed<User[]>(() => usersQ.data.value?.data?.items ?? []);
+const users = computed<TenantMemberView[]>(() => usersQ.data.value?.data?.items ?? []);
 const roles = computed(() => rolesQ.data.value?.data?.items ?? []);
 
 async function onCreate(values: Record<string, unknown>) {
   try {
     await createMut.mutateAsync({
       tenantId: tenantId.value,
-      data: values as unknown as CreateUserRequest,
+      data: values as unknown as CreateSysUserRequest,
     });
     createOpen.value = false;
     usersQ.refetch();
@@ -98,11 +101,11 @@ async function onUpdate(values: Record<string, unknown>) {
   try {
     await updateMut.mutateAsync({
       tenantId: tenantId.value,
-      userId: editTarget.value.id,
+      userId: editTarget.value.member.id,
       data: {
         email: values.email as string,
-        status: values.status as User["status"],
-      } as UpdateUserRequest,
+        status: values.status as TenantMember["status"],
+      } as UpdateSysUserRequest,
     });
     editTarget.value = null;
     usersQ.refetch();
@@ -118,7 +121,7 @@ async function onAssignRoles(values: Record<string, unknown>) {
   try {
     await roleAssignMut.mutateAsync({
       tenantId: tenantId.value,
-      userId: roleTarget.value.id,
+      userId: roleTarget.value.member.id,
       data: { roleIds },
     });
     roleTarget.value = null;
@@ -132,7 +135,7 @@ async function onAssignRoles(values: Record<string, unknown>) {
 async function confirmDelete() {
   if (!deleteTarget.value) return;
   try {
-    await deleteMut.mutateAsync({ tenantId: tenantId.value, userId: deleteTarget.value.id });
+    await deleteMut.mutateAsync({ tenantId: tenantId.value, userId: deleteTarget.value.member.id });
     deleteTarget.value = null;
     usersQ.refetch();
     toast.success("用户已删除");
@@ -165,14 +168,14 @@ async function confirmDelete() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow v-for="u in users" :key="u.id" data-testid="user-row">
-              <TableCell class="font-medium">{{ u.username }}</TableCell>
-              <TableCell class="text-slate-500">{{ u.email }}</TableCell>
+            <TableRow v-for="u in users" :key="u.member.id" data-testid="user-row">
+              <TableCell class="font-medium">{{ u.user.username }}</TableCell>
+              <TableCell class="text-slate-500">{{ u.user.email }}</TableCell>
               <TableCell>
-                <StatusBadge :status="u.status" />
+                <StatusBadge :status="u.member.status" />
               </TableCell>
               <TableCell>
-                <span class="text-xs text-slate-500">{{ (u.roleIds ?? []).length }} 项</span>
+                <span class="text-xs text-slate-500">{{ (u.roles ?? []).length }} 项</span>
               </TableCell>
               <TableCell class="text-right space-x-1">
                 <Button
@@ -224,7 +227,7 @@ async function confirmDelete() {
       title="编辑用户"
       :fields="EDIT_FIELDS"
       :initial-values="
-        editTarget ? { email: editTarget.email, status: editTarget.status } : undefined
+        editTarget ? { email: editTarget.user.email, status: editTarget.member.status } : undefined
       "
       :loading="updateMut.isPending.value"
       @submit="onUpdate"
@@ -233,18 +236,18 @@ async function confirmDelete() {
     <CrudDialog
       :open="roleTarget !== null"
       @update:open="(v) => !v && (roleTarget = null)"
-      :title="`分配角色：${roleTarget?.username ?? ''}`"
+      :title="`分配角色：${roleTarget?.user.username ?? ''}`"
       :fields="[
         {
           name: 'roleIds',
           label: '角色（多选）',
           type: 'select',
-          options: roles.map((r) => ({ value: r.id, label: `${r.code} · ${r.name}` })),
+          options: roles.map((r) => ({ value: r.id, label: `${r.roleCode} · ${r.roleName}` })),
         },
       ]"
       submit-text="保存角色"
       :loading="roleAssignMut.isPending.value"
-      :initial-values="roleTarget ? { roleIds: roleTarget.roleIds ?? [] } : undefined"
+      :initial-values="roleTarget ? { roleIds: roleTarget.roles ?? [] } : undefined"
       :render-field-names="['roleIds']"
       @submit="onAssignRoles"
     >
@@ -268,8 +271,8 @@ async function confirmDelete() {
                 }
               "
             />
-            <span class="font-mono text-xs">{{ r.code }}</span>
-            <span>{{ r.name }}</span>
+            <span class="font-mono text-xs">{{ r.roleCode }}</span>
+            <span>{{ r.roleName }}</span>
           </label>
         </div>
       </template>
@@ -278,7 +281,7 @@ async function confirmDelete() {
     <ConfirmDialog
       :open="deleteTarget !== null"
       @update:open="(v) => !v && (deleteTarget = null)"
-      :title="`删除用户「${deleteTarget?.username ?? ''}」？`"
+      :title="`删除用户「${deleteTarget?.user.username ?? ''}」？`"
       description="用户删除后不可恢复，已分配的关联角色也会一并解除。"
       confirm-text="删除"
       destructive

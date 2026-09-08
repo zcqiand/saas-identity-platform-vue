@@ -3,15 +3,17 @@
 
 import { ref } from "vue";
 import { Check } from "lucide-vue-next";
-import { useAdminTenantsCreateTenant } from "../api/endpoints/endpoints";
-import { useAdminTenantsDeleteTenant } from "../api/endpoints/endpoints";
-import { useAdminTenantsListTenants } from "../api/endpoints/endpoints";
-import { useAdminTenantsUpdateTenant } from "../api/endpoints/endpoints";
+import {
+  useAdminTenantsCreateTenant,
+  useAdminTenantsDeleteTenant,
+  useAdminTenantsListTenants,
+  useAdminTenantsUpdateTenant,
+} from "../api/endpoints/admin-tenants/admin-tenants";
 import type {
   CreateTenantRequest,
   Tenant,
   UpdateTenantRequest,
-} from "../api/endpoints/endpoints.schemas";
+} from "../api/endpoints/title.schemas";
 import Button from "../components/ui/button.vue";
 import Card from "../components/ui/card.vue";
 import CardContent from "../components/ui/card-content.vue"
@@ -139,7 +141,7 @@ async function confirmDelete() {
               <TableCell>
                 <Check class="h-4 w-4 invisible" />
               </TableCell>
-              <TableCell class="font-mono text-xs">{{ t.code }}</TableCell>
+              <TableCell class="font-mono text-xs">{{ t.tenantKey }}</TableCell>
               <TableCell class="font-medium">{{ t.name }}</TableCell>
               <TableCell>
                 <StatusBadge :status="t.status as 'active' | 'suspended' | 'archived'" />
@@ -195,7 +197,7 @@ async function confirmDelete() {
       :fields="FIELDS"
       :initial-values="
         editTarget
-          ? { code: editTarget.code, name: editTarget.name, status: editTarget.status }
+          ? { code: editTarget.tenantKey, name: editTarget.name, status: editTarget.status }
           : undefined
       "
       :loading="updateMut.isPending.value"

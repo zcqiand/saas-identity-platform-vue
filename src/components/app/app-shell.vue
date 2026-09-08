@@ -11,8 +11,8 @@ import {
   Building2,
   Users,
   Shield,
-  KeyRound,
-  ScrollText,
+
+
   LogOut,
   ChevronRight,
   Home,
@@ -36,9 +36,7 @@ interface Crumb {
 
 const SUB_PATH_LABEL: Record<string, string> = {
   users: "用户",
-  roles: "角色",
-  "api-keys": "API Key",
-  audit: "审计日志",
+  roles: "角色",  audit: "审计日志",
   menus: "菜单",
   apps: "应用",
 };
@@ -83,7 +81,7 @@ const crumbs = computed<Crumb[]>(() => {
     if (prev === "tenants") {
       const tenant = tenantById.value.get(seg) ?? tenantById.value.get(tenantForNav.value);
       if (tenant) {
-        result.push({ label: tenant.name, to: path, hint: tenant.code });
+        result.push({ label: tenant.name, to: path, hint: tenant.tenantKey });
       } else {
         result.push({ label: "未知租户", to: path, hint: seg.slice(0, 8) });
       }
@@ -109,20 +107,6 @@ const navItems = computed<NavItem[]>(() => [
     group: "身份管理",
     icon: Shield,
     fnId: "M02.F01.I01",
-  },
-  {
-    to: `/tenants/${tenantForNav.value}/api-keys`,
-    label: "API Key",
-    group: "平台运营",
-    icon: KeyRound,
-    fnId: "M05.F01.I01",
-  },
-  {
-    to: `/tenants/${tenantForNav.value}/audit`,
-    label: "审计日志",
-    group: "平台运营",
-    icon: ScrollText,
-    fnId: "M06.F01.I01",
   },
   { to: "/admin/apps", label: "应用管理", group: "应用与菜单", icon: Boxes, fnId: "M04.F01.I01" },
   {

@@ -3,16 +3,17 @@
 
 import { computed, ref } from "vue";
 import { useRoute, RouterLink } from "vue-router";
-import { useTenantRolesCreateRole } from "../api/endpoints/endpoints";
-import { useTenantRolesDeleteRole } from "../api/endpoints/endpoints";
-import { useTenantRolesListRoles } from "../api/endpoints/endpoints";
-import { useTenantRolesSetPermissions } from "../api/endpoints/endpoints";
-import { useTenantRolesUpdateRole } from "../api/endpoints/endpoints";
+import {
+  useTenantRolesCreateSysRole,
+  useTenantRolesDeleteSysRole,
+  useTenantRolesListSysRoles,
+  useTenantRolesUpdateSysRole,
+} from "../api/endpoints/tenant-roles/tenant-roles";
 import type {
-  CreateRoleRequest,
-  Role,
-  UpdateRoleRequest,
-} from "../api/endpoints/endpoints.schemas";
+  CreateSysRoleRequest,
+  SysRole,
+  UpdateSysRoleRequest,
+} from "../api/endpoints/title.schemas";
 import Button from "../components/ui/button.vue";
 import Card from "../components/ui/card.vue";
 import CardContent from "../components/ui/card-content.vue"
@@ -32,22 +33,14 @@ import { toApiError } from "../api/http-client";
 import { toast } from "vue-sonner";
 import { useTenantStore } from "../state/tenant-store";
 
-const PERMISSION_OPTIONS = [
-  { value: "users.read", label: "users.read" },
-  { value: "users.write", label: "users.write" },
-  { value: "roles.read", label: "roles.read" },
-  { value: "roles.write", label: "roles.write" },
-  { value: "api_keys.read", label: "api_keys.read" },
-  { value: "api_keys.write", label: "api_keys.write" },
-  { value: "audit.read", label: "audit.read" },
-];
-
 const FIELDS: FieldDef[] = [
-  { name: "code", label: "Code", required: true, placeholder: "admin" },
-  { name: "name", label: "名称", required: true, placeholder: "管理员" },
+  { name: "roleCode", label: "Code", required: true, placeholder: "admin" },
+  { name: "roleName", label: "名称", required: true, placeholder: "管理员" },
 ];
 
-const EDIT_FIELDS = FIELDS.filter((f) => f.name !== "code");
+const EDIT_FIELDS: FieldDef[] = [
+  { name: "roleName", label: "名称", required: true, placeholder: "管理员" },
+];
 
 const route = useRoute();
 const tenantStore = useTenantStore();
@@ -56,27 +49,25 @@ const tenantId = computed(() => String(route.params.tenantId ?? ""));
 // 集中到 tenant-store.tenantFor()，缓存交给 vue-query。
 const tenant = tenantStore.tenantFor(tenantId);
 const tenantLabel = computed(() => {
-  return tenant.value ? `租户 ${tenant.value.name}（${tenant.value.code}）` : "租户未知";
+  return tenant.value ? `租户 ${tenant.value.name}（${tenant.value.tenantKey}）` : "租户未知";
 });
 
-const list = useTenantRolesListRoles(tenantId);
-const createMut = useTenantRolesCreateRole();
-const updateMut = useTenantRolesUpdateRole();
-const deleteMut = useTenantRolesDeleteRole();
-const permMut = useTenantRolesSetPermissions();
+const list = useTenantRolesListSysRoles(tenantId, {} as any);
+const createMut = useTenantRolesCreateSysRole();
+const deleteMut = useTenantRolesDeleteSysRole();
+const updateMut = useTenantRolesUpdateSysRole();
 
 const createOpen = ref(false);
-const editTarget = ref<Role | null>(null);
-const deleteTarget = ref<Role | null>(null);
-const permTarget = ref<Role | null>(null);
+const editTarget = ref<SysRole | null>(null);
+const deleteTarget = ref<SysRole | null>(null);
 
-const roles = computed<Role[]>(() => list.data.value?.data?.items ?? []);
+const roles = computed<SysRole[]>(() => list.data.value?.data?.items ?? []);
 
 async function onCreate(values: Record<string, unknown>) {
   try {
     await createMut.mutateAsync({
       tenantId: tenantId.value,
-      data: values as unknown as CreateRoleRequest,
+      data: values as unknown as CreateSysRoleRequest,
     });
     createOpen.value = false;
     list.refetch();
@@ -92,32 +83,13 @@ async function onUpdate(values: Record<string, unknown>) {
     await updateMut.mutateAsync({
       tenantId: tenantId.value,
       roleId: editTarget.value.id,
-      data: { name: values.name as string } as UpdateRoleRequest,
+      data: { roleName: values.roleName as string } as UpdateSysRoleRequest,
     });
     editTarget.value = null;
     list.refetch();
     toast.success("角色已更新");
   } catch (err) {
     toast.error(`更新失败：${toApiError(err).message}`);
-  }
-}
-
-async function onSetPermissions(values: Record<string, unknown>) {
-  if (!permTarget.value) return;
-  const permissionIds = Array.isArray(values.permissionIds)
-    ? (values.permissionIds as string[])
-    : [];
-  try {
-    await permMut.mutateAsync({
-      tenantId: tenantId.value,
-      roleId: permTarget.value.id,
-      data: { permissionIds },
-    });
-    permTarget.value = null;
-    list.refetch();
-    toast.success("权限已更新");
-  } catch (err) {
-    toast.error(`权限更新失败：${toApiError(err).message}`);
   }
 }
 
@@ -151,30 +123,14 @@ async function confirmDelete() {
             <TableRow>
               <TableHead>Code</TableHead>
               <TableHead>名称</TableHead>
-              <TableHead>权限</TableHead>
               <TableHead class="text-right">操作</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             <TableRow v-for="r in roles" :key="r.id" data-testid="role-row">
-              <TableCell class="font-mono text-xs">{{ r.code }}</TableCell>
-              <TableCell class="font-medium">{{ r.name }}</TableCell>
-              <TableCell>
-                <span
-                  class="inline-flex items-center rounded-md bg-slate-100 px-2 py-0.5 text-xs text-slate-700"
-                >
-                  {{ (r.permissionIds ?? []).length }} 项
-                </span>
-              </TableCell>
+              <TableCell class="font-mono text-xs">{{ r.roleCode }}</TableCell>
+              <TableCell class="font-medium">{{ r.roleName }}</TableCell>
               <TableCell class="text-right space-x-1">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  data-fn="M02.F02.I01"
-                  @click="() => (permTarget = r)"
-                >
-                  权限矩阵
-                </Button>
                 <Button variant="ghost" size="sm" data-fn="M09.F01.I01" as-child>
                   <RouterLink :to="`/tenants/${tenantId}/roles/${r.id}/menus`">菜单授权</RouterLink>
                 </Button>
@@ -217,58 +173,15 @@ async function confirmDelete() {
       @update:open="(v) => !v && (editTarget = null)"
       title="编辑角色"
       :fields="EDIT_FIELDS"
-      :initial-values="editTarget ? { name: editTarget.name } : undefined"
+      :initial-values="editTarget ? { roleName: editTarget.roleName } : undefined"
       :loading="updateMut.isPending.value"
       @submit="onUpdate"
     />
 
-    <CrudDialog
-      :open="permTarget !== null"
-      @update:open="(v) => !v && (permTarget = null)"
-      :title="`权限矩阵：${permTarget?.name ?? ''}`"
-      :fields="[
-        {
-          name: 'permissionIds',
-          label: '权限（多选）',
-          type: 'select',
-          options: PERMISSION_OPTIONS,
-        },
-      ]"
-      submit-text="保存权限"
-      :loading="permMut.isPending.value"
-      :render-field-names="['permissionIds']"
-      @submit="onSetPermissions"
-    >
-      <template #field.permissionIds="{ value, onChange }">
-        <div class="space-y-1 max-h-48 overflow-y-auto border rounded p-2">
-          <label
-            v-for="p in PERMISSION_OPTIONS"
-            :key="p.value"
-            class="flex items-center gap-2 text-sm"
-          >
-            <input
-              type="checkbox"
-              :checked="Array.isArray(value) && value.includes(p.value)"
-              class="h-4 w-4"
-              @change="
-                (e) => {
-                  const next = new Set(Array.isArray(value) ? value : []);
-                  if ((e.target as HTMLInputElement).checked) next.add(p.value);
-                  else next.delete(p.value);
-                  onChange(Array.from(next));
-                }
-              "
-            />
-            <span class="font-mono text-xs">{{ p.value }}</span>
-          </label>
-        </div>
-      </template>
-    </CrudDialog>
-
     <ConfirmDialog
       :open="deleteTarget !== null"
       @update:open="(v) => !v && (deleteTarget = null)"
-      :title="`删除角色「${deleteTarget?.name ?? ''}」？`"
+      :title="`删除角色「${deleteTarget?.roleName ?? ''}」？`"
       description="角色删除将一并解除角色与用户的绑定关系。"
       confirm-text="删除"
       destructive
