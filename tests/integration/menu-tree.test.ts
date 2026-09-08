@@ -50,7 +50,7 @@ describe("M08.F01 菜单树（树表化）", () => {
     expect(after).toBeLessThan(before);
   });
 
-  it("每个菜单行挂 data-fn=M08.F01.I05 删除按钮", async () => {
+  it("每个菜单行挂 data-fn=M04.F04.I05 删除按钮", async () => {
     const wrapper = mountWithProviders(MenuTreePage, {
       router: { initialRoute: "/admin/apps/00000000-0000-0000-0000-000000000001/menus" },
     });
@@ -58,7 +58,7 @@ describe("M08.F01 菜单树（树表化）", () => {
     await new Promise((resolve) => setTimeout(resolve, 50));
     const rows = wrapper.findAll('[data-testid="menu-row"]');
     expect(rows.length).toBeGreaterThan(0);
-    const deleteBtns = wrapper.findAll('button[data-fn="M08.F01.I05"]');
+    const deleteBtns = wrapper.findAll('button[data-fn="M04.F04.I05"]');
     expect(deleteBtns.length).toBe(rows.length);
   });
 });

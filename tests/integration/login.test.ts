@@ -1,4 +1,4 @@
-// M03.F01.I01 - 账号密码登录 (PLAN-2026-001 T-8)
+// M01.F04.I03 - 账号密码登录 (PLAN-2026-001 T-8)
 //
 // 策略：mock `useAuthLogin`（orval mutation）与 vue-sonner toast，
 // 验证表单提交 -> POST /auth/login 参数、错误提示（401 / 423 锁定）、
@@ -44,7 +44,7 @@ async function fillAndSubmit(wrapper: Awaited<ReturnType<typeof mountWithProvide
   await wrapper.find("form").trigger("submit");
 }
 
-describe("M03.F01.I01 账号密码登录", () => {
+describe("M01.F04.I03 账号密码登录", () => {
   beforeEach(() => {
     loginMut.mutateAsync.mockReset();
     toastError.mockReset();
@@ -54,9 +54,9 @@ describe("M03.F01.I01 账号密码登录", () => {
     localStorage.removeItem("saas.tenant");
   });
 
-  it("渲染登录表单，挂 data-fn=M03.F01.I01 的提交按钮", () => {
+  it("渲染登录表单，挂 data-fn=M01.F04.I03 的提交按钮", () => {
     const wrapper = mountWithProviders(LoginPage);
-    const btn = wrapper.find('[data-fn="M03.F01.I01"]');
+    const btn = wrapper.find('[data-fn="M01.F04.I03"]');
     expect(btn.exists()).toBe(true);
   });
 
@@ -112,7 +112,7 @@ describe("M03.F01.I01 账号密码登录", () => {
       expect(wrapper.find('[data-testid="lockout-countdown"]').exists()).toBe(true);
     });
     // 提交按钮禁用
-    const btn = wrapper.find('[data-fn="M03.F01.I01"]');
+    const btn = wrapper.find('[data-fn="M01.F04.I03"]');
     expect((btn.element as HTMLButtonElement).disabled).toBe(true);
     // 倒计时文本含「分钟」或秒数提示
     expect(wrapper.find('[data-testid="lockout-countdown"]').text()).toMatch(/\d/);
@@ -138,7 +138,7 @@ describe("M03.F01.I01 账号密码登录", () => {
   });
 });
 
-// === M03.F01.I01 OAuth 2.0 授权码回跳（RFC 6749 §4.1.2）===
+// === M01.F04.I03 OAuth 2.0 授权码回跳（RFC 6749 §4.1.2）===
 
 // jsdom 的 window.location.href 只读 — 用 Proxy 拦截赋值记录目标 URL（lab-react 同款手法）。
 function interceptLocationHref(): { assigned: () => string; restore: () => void } {
@@ -168,7 +168,7 @@ function interceptLocationHref(): { assigned: () => string; restore: () => void 
   };
 }
 
-describe("M03.F01.I01 OAuth code 回跳", () => {
+describe("M01.F04.I03 OAuth code 回跳", () => {
   it("带 ?code=&redirect_uri=&state= 登录成功 -> 302 redirect_uri?code&state（不跳 /tenants）", async () => {
     const loc = interceptLocationHref();
     loginMut.mutateAsync.mockResolvedValue({

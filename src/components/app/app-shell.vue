@@ -106,7 +106,7 @@ const navItems = computed<NavItem[]>(() => [
     label: "角色管理",
     group: "身份管理",
     icon: Shield,
-    fnId: "M02.F01.I01",
+    fnId: "M00.F03.I01",
   },
   { to: "/admin/apps", label: "应用管理", group: "应用与菜单", icon: Boxes, fnId: "M04.F01.I01" },
   {
@@ -114,7 +114,7 @@ const navItems = computed<NavItem[]>(() => [
     label: "菜单管理",
     group: "应用与菜单",
     icon: FolderTree,
-    fnId: "M08.F01.I01",
+    fnId: "M04.F04.I01",
   },
 ]);
 
@@ -134,7 +134,7 @@ async function onLogout() {
           size="sm"
           class="w-full justify-start gap-2 text-white/70 hover:text-white hover:bg-white/10"
           data-testid="logout-btn"
-          data-fn="M03.F03.I05"
+          data-fn="M01.F04.I06"
           @click="onLogout"
         >
           <LogOut class="h-4 w-4" />

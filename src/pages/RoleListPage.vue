@@ -110,7 +110,7 @@ async function confirmDelete() {
   <div class="space-y-6">
     <PageHeader title="角色权限" :description="`${tenantLabel} 的角色矩阵`">
       <template #actions>
-        <Button data-fn="M02.F01.I02" @click="createOpen = true">新建角色</Button>
+        <Button data-fn="M00.F03.I02" @click="createOpen = true">新建角色</Button>
       </template>
     </PageHeader>
     <Card>
@@ -131,13 +131,13 @@ async function confirmDelete() {
               <TableCell class="font-mono text-xs">{{ r.roleCode }}</TableCell>
               <TableCell class="font-medium">{{ r.roleName }}</TableCell>
               <TableCell class="text-right space-x-1">
-                <Button variant="ghost" size="sm" data-fn="M09.F01.I01" as-child>
+                <Button variant="ghost" size="sm" data-fn="M00.F04.I02" as-child>
                   <RouterLink :to="`/tenants/${tenantId}/roles/${r.id}/menus`">菜单授权</RouterLink>
                 </Button>
                 <Button
                   variant="ghost"
                   size="sm"
-                  data-fn="M02.F01.I04"
+                  data-fn="M00.F03.I04"
                   @click="() => (editTarget = r)"
                 >
                   编辑
@@ -145,7 +145,7 @@ async function confirmDelete() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  data-fn="M02.F01.I05"
+                  data-fn="M00.F03.I05"
                   class="text-red-600 hover:text-red-700"
                   @click="() => (deleteTarget = r)"
                 >

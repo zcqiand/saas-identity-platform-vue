@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// M03.F01.I01 — 账号密码登录（独立布局：登录页绕过 AppShell）
+// M01.F04.I03 — 账号密码登录（独立布局：登录页绕过 AppShell）
 //
 // 提交：调 authLogin（orval 1:1 端点函数）；成功后写 tenant-store session；
 // 失败：toast.error（vue-sonner）。
@@ -300,7 +300,7 @@ async function onSubmit(e: Event) {
             type="submit"
             class="w-full"
             :disabled="loginMut.isPending.value || lockoutRemaining !== null"
-            data-fn="M03.F01.I01"
+            data-fn="M01.F04.I03"
           >
             {{ loginMut.isPending.value ? "登录中…" : "登录" }}
           </Button>

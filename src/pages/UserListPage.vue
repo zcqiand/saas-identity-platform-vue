@@ -149,7 +149,7 @@ async function confirmDelete() {
   <div class="space-y-6">
     <PageHeader title="用户管理" :description="`${tenantLabel} 的所有用户`">
       <template #actions>
-        <Button data-fn="M01.F01.I02" @click="createOpen = true">邀请用户</Button>
+        <Button data-fn="M01.F04.I03" @click="createOpen = true">邀请用户</Button>
       </template>
     </PageHeader>
     <Card>
@@ -189,7 +189,7 @@ async function confirmDelete() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  data-fn="M01.F01.I04"
+                  data-fn="M00.F02.I04"
                   @click="() => (editTarget = u)"
                 >
                   编辑
@@ -197,7 +197,7 @@ async function confirmDelete() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  data-fn="M01.F01.I05"
+                  data-fn="M00.F02.I05"
                   class="text-red-600 hover:text-red-700"
                   @click="() => (deleteTarget = u)"
                 >

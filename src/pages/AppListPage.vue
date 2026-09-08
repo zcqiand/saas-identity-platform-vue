@@ -176,7 +176,7 @@ async function confirmDelete() {
       description="平台级业务应用（同时承载 OAuth client）。每个应用有菜单树，租户通过订阅获得应用，再在租户内部分发菜单给角色。"
     >
       <template #actions>
-        <Button data-fn="M08.F01.I02" @click="createOpen = true">新建应用</Button>
+        <Button data-fn="M04.F04.I02" @click="createOpen = true">新建应用</Button>
       </template>
     </PageHeader>
     <Card>
@@ -232,7 +232,7 @@ async function confirmDelete() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  data-fn="M04.F02.I06"
+                  data-fn="M04.F02.I01"
                   @click="() => toggleStatus(a)"
                 >
                   {{ a.status === 1 ? "停用" : "启用" }}
@@ -240,7 +240,7 @@ async function confirmDelete() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  data-fn="M08.F01.I04"
+                  data-fn="M04.F04.I04"
                   @click="() => (editTarget = a)"
                 >
                   编辑
@@ -248,7 +248,7 @@ async function confirmDelete() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  data-fn="M08.F01.I05"
+                  data-fn="M04.F04.I05"
                   class="text-red-600 hover:text-red-700"
                   @click="() => (deleteTarget = a)"
                 >

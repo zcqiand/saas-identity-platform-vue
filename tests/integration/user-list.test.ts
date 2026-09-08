@@ -4,9 +4,9 @@ import { mountWithProviders } from "../helper";
 import UserListPage from "../../src/pages/UserListPage.vue";
 
 describe("M01.F01 用户管理（tenant-scoped）", () => {
-  it("渲染用户列表，邀请按钮挂 data-fn=M01.F01.I02", () => {
+  it("渲染用户列表，邀请按钮挂 data-fn=M01.F04.I03", () => {
     const wrapper = mountWithProviders(UserListPage, { props: { tenantId: "abc" } });
-    const btn = wrapper.find('[data-fn="M01.F01.I02"]');
+    const btn = wrapper.find('[data-fn="M01.F04.I03"]');
     expect(btn.exists()).toBe(true);
   });
 });

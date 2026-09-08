@@ -98,8 +98,8 @@ async function save() {
     >
       <template #actions>
         <div class="flex gap-2">
-          <Button variant="outline" data-fn="M09.F02.I03" @click="clearAll">清空</Button>
-          <Button data-fn="M09.F02.I02" :disabled="saveMut.isPending.value" @click="save">
+          <Button variant="outline" data-fn="M00.F04.I04" @click="clearAll">清空</Button>
+          <Button data-fn="M00.F04.I03" :disabled="saveMut.isPending.value" @click="save">
             {{ saveMut.isPending.value ? "保存中…" : `保存 (${granted.size})` }}
           </Button>
         </div>

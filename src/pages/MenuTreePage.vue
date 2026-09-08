@@ -266,7 +266,7 @@ async function confirmDelete() {
             placeholder="选择应用"
             class="w-64"
           />
-          <Button data-fn="M08.F01.I02" @click="createOpen = true">新建菜单</Button>
+          <Button data-fn="M04.F04.I02" @click="createOpen = true">新建菜单</Button>
         </div>
       </template>
     </PageHeader>
@@ -285,7 +285,7 @@ async function confirmDelete() {
           description="点击右上“新建菜单”开始"
         >
           <template #action>
-            <Button data-fn="M08.F01.I02" @click="createOpen = true">新建菜单</Button>
+            <Button data-fn="M04.F04.I02" @click="createOpen = true">新建菜单</Button>
           </template>
         </EmptyState>
         <Table v-else>
@@ -348,7 +348,7 @@ async function confirmDelete() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  data-fn="M08.F02.I07"
+                  data-fn="M04.F04.I07"
                   @click="() => (moveTarget = r)"
                 >
                   移动
@@ -356,7 +356,7 @@ async function confirmDelete() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  data-fn="M08.F01.I04"
+                  data-fn="M04.F04.I04"
                   @click="() => (editTarget = r)"
                 >
                   编辑
@@ -364,7 +364,7 @@ async function confirmDelete() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  data-fn="M08.F01.I05"
+                  data-fn="M04.F04.I05"
                   class="text-red-600 hover:text-red-700"
                   @click="() => (deleteTarget = r)"
                 >
