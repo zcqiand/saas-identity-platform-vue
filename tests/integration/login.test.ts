@@ -1,6 +1,6 @@
 // M01.F04.I03 - 账号密码登录 (PLAN-2026-001 T-8)
 //
-// 策略：mock `useAuthLogin`（orval mutation）与 vue-sonner toast，
+// 策略：mock `useSessionsLogin`（orval mutation）与 vue-sonner toast，
 // 验证表单提交 -> POST /auth/login 参数、错误提示（401 / 423 锁定）、
 // 成功后写 tenant-store + 跳 /tenants。
 //
@@ -23,10 +23,13 @@ const { loginMut, authorizeMut } = vi.hoisted(() => {
     authorizeMut: { mutateAsync: vi.fn(), isPending: { value: false } },
   };
 });
-vi.mock("../../src/api/endpoints/endpoints", () => ({
-  // 只 mock 登录 mutation；tenant-store 引用的 useAdminTenants* 仅在
-  // 函数体内惰性调用，模块加载期缺省无碍
-  useAuthLogin: () => loginMut,
+// 2026-09-09 L4 收尾: LoginPage 实际 import 路径是 ../api/endpoints/auth/auth
+// （不是旧 endpoints barrel），同时 hook 名是 useSessionsLogin。
+// OAuth 跳板从 ../api/endpoints/oauth/oauth 拿 useOAuthAuthorize。
+vi.mock("../../src/api/endpoints/auth/auth", () => ({
+  useSessionsLogin: () => loginMut,
+}));
+vi.mock("../../src/api/endpoints/oauth/oauth", () => ({
   // 2026-08-29 OAuth 跳板场景: 已登录 + ?redirect_uri=&state=&client_id= 时,
   // LoginPage 自动调 useOAuthAuthorize 拿 code 跳回 RP。
   useOAuthAuthorize: () => authorizeMut,
@@ -65,14 +68,17 @@ describe("M01.F04.I03 账号密码登录", () => {
       data: {
         accessToken: "at-1",
         refreshToken: "rt-1",
-        userId: "u-1",
-        currentTenantId: "t-1",
+        user: { id: "u-1", username: "alice" },
+        availableTenants: [{ tenantId: "t-1", tenantCode: null, tenantName: "ACME", roleCodes: [] }],
+        clientId: "test-client-id",
       },
     });
     const wrapper = mountWithProviders(LoginPage);
     await fillAndSubmit(wrapper);
+    // LoginPage 拼上 clientId（业务身份字段，从 VITE_LOGIN_CLIENT_ID 来），
+    // 不能只断言 username/password，但 clientId 必须等于 setup 注入值。
     expect(loginMut.mutateAsync).toHaveBeenCalledWith({
-      data: { username: "alice", password: "dev123456" },
+      data: { username: "alice", password: "dev123456", clientId: "test-client-id" },
     });
   });
 
@@ -123,8 +129,9 @@ describe("M01.F04.I03 账号密码登录", () => {
       data: {
         accessToken: "at-1",
         refreshToken: "rt-1",
-        userId: "u-1",
-        currentTenantId: "t-1",
+        user: { id: "u-1", username: "alice" },
+        availableTenants: [{ tenantId: "t-1", tenantCode: null, tenantName: "ACME", roleCodes: [] }],
+        clientId: "test-client-id",
       },
     });
     const wrapper = mountWithProviders(LoginPage);
@@ -175,8 +182,9 @@ describe("M01.F04.I03 OAuth code 回跳", () => {
       data: {
         accessToken: "at-1",
         refreshToken: "rt-1",
-        userId: "u-1",
-        currentTenantId: "t-1",
+        user: { id: "u-1", username: "alice" },
+        availableTenants: [{ tenantId: "t-1", tenantCode: null, tenantName: "ACME", roleCodes: [] }],
+        clientId: "test-client-id",
       },
     });
     try {
@@ -211,8 +219,9 @@ describe("M01.F04.I03 OAuth code 回跳", () => {
       data: {
         accessToken: "at-1",
         refreshToken: "rt-1",
-        userId: "u-1",
-        currentTenantId: "t-1",
+        user: { id: "u-1", username: "alice" },
+        availableTenants: [{ tenantId: "t-1", tenantCode: null, tenantName: "ACME", roleCodes: [] }],
+        clientId: "test-client-id",
       },
     });
     try {
