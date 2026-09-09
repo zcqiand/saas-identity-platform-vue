@@ -6,7 +6,7 @@
     "features": 13,
     "items": 51
   },
-  "warnings_total": 88,
+  "warnings_total": 84,
   "warnings": {
     "已上线但无设计映射": [
       "M00.F01.I01",
@@ -50,15 +50,11 @@
       "M00.F01.I05",
       "M00.F04.I01",
       "M01.F02.I01",
-      "M04.F01.I01",
-      "M04.F01.I02",
       "M04.F01.I03",
       "M04.F01.I04",
       "M04.F01.I05",
       "M04.F01.I06",
       "M04.F02.I01",
-      "M04.F04.I01",
-      "M04.F04.I02",
       "M04.F04.I03",
       "M04.F04.I04",
       "M04.F04.I06",
@@ -177,7 +173,12 @@
       "requirements": [],
       "flows": [],
       "designs": [],
-      "tests": [],
+      "tests": [
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-members-read.test.ts:2501 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-members-read.test.ts:963 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-members-write-2.test.ts:1241 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-members-write.test.ts:987 (path)"
+      ],
       "entry": []
     },
     "M00.F02.I02": {
@@ -187,7 +188,12 @@
       "requirements": [],
       "flows": [],
       "designs": [],
-      "tests": [],
+      "tests": [
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-members-read.test.ts:2501 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-members-read.test.ts:963 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-members-write-2.test.ts:1241 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-members-write.test.ts:987 (path)"
+      ],
       "entry": []
     },
     "M00.F02.I03": {
@@ -198,6 +204,7 @@
       "flows": [],
       "designs": [],
       "tests": [
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-members-read.test.ts:3675 (path)",
         "渲染 TenantSwitcher，下拉框挂 data-fn=M00.F02.I03"
       ],
       "entry": [
@@ -211,7 +218,9 @@
       "requirements": [],
       "flows": [],
       "designs": [],
-      "tests": [],
+      "tests": [
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-members-read.test.ts:3675 (path)"
+      ],
       "entry": [
         "src\\pages\\UserListPage.vue"
       ]
@@ -223,7 +232,9 @@
       "requirements": [],
       "flows": [],
       "designs": [],
-      "tests": [],
+      "tests": [
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-members-read.test.ts:3675 (path)"
+      ],
       "entry": [
         "src\\pages\\UserListPage.vue"
       ]
@@ -392,7 +403,9 @@
       "requirements": [],
       "flows": [],
       "designs": [],
-      "tests": [],
+      "tests": [
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:970 (path)"
+      ],
       "entry": []
     },
     "M00.F05.I02": {
@@ -402,7 +415,9 @@
       "requirements": [],
       "flows": [],
       "designs": [],
-      "tests": [],
+      "tests": [
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:970 (path)"
+      ],
       "entry": []
     },
     "M00.F05.I03": {
@@ -525,7 +540,9 @@
       "requirements": [],
       "flows": [],
       "designs": [],
-      "tests": [],
+      "tests": [
+        "output\\saas-identity-platform-contract-test\\tests\\admin-clients-write.test.ts:891 (path)"
+      ],
       "entry": []
     },
     "M04.F01.I02": {
@@ -535,7 +552,9 @@
       "requirements": [],
       "flows": [],
       "designs": [],
-      "tests": [],
+      "tests": [
+        "output\\saas-identity-platform-contract-test\\tests\\admin-clients-write.test.ts:891 (path)"
+      ],
       "entry": []
     },
     "M04.F01.I03": {
@@ -651,7 +670,9 @@
       "requirements": [],
       "flows": [],
       "designs": [],
-      "tests": [],
+      "tests": [
+        "output\\saas-identity-platform-contract-test\\tests\\client-menus-write.test.ts:1047 (path)"
+      ],
       "entry": []
     },
     "M04.F04.I02": {
@@ -661,7 +682,9 @@
       "requirements": [],
       "flows": [],
       "designs": [],
-      "tests": [],
+      "tests": [
+        "output\\saas-identity-platform-contract-test\\tests\\client-menus-write.test.ts:1047 (path)"
+      ],
       "entry": [
         "src\\pages\\AppListPage.vue",
         "src\\pages\\MenuTreePage.vue"
