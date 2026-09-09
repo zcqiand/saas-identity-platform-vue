@@ -40,7 +40,11 @@ const orderedGroups = computed(() => Object.keys(groups.value));
 </script>
 
 <template>
-  <aside class="w-60 shrink-0 bg-slate-900 text-white flex flex-col" data-testid="sidebar-nav">
+  <aside
+    class="w-60 shrink-0 bg-slate-900 text-white flex flex-col"
+    data-testid="sidebar-nav"
+    data-fn="M04.F04.I08"
+  >
     <!-- Title -->
     <div class="px-5 py-5 border-b border-white/10">
       <div class="flex items-center gap-2">
