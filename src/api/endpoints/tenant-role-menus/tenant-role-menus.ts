@@ -37,8 +37,8 @@ import type {
 
 import type {
   ErrorResponse,
+  RoleMenuGrant,
   SetSysRoleMenusRequest,
-  SysRoleMenu,
   TenantRoleMenusClearSysRoleMenusParams,
   TenantRoleMenusListSysRoleMenusParams,
   TenantRoleMenusSetSysRoleMenusParams
@@ -52,7 +52,7 @@ export const tenantRoleMenusListSysRoleMenus = (
     tenantId: MaybeRef<string>,
     roleId: MaybeRef<string>,
     params: MaybeRef<TenantRoleMenusListSysRoleMenusParams>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<SysRoleMenu[]>> => {
+ ): Promise<AxiosResponse<RoleMenuGrant>> => {
     tenantId = unref(tenantId);
 roleId = unref(roleId);
 params = unref(params);
@@ -125,7 +125,7 @@ export const tenantRoleMenusSetSysRoleMenus = (
     roleId: MaybeRef<string>,
     setSysRoleMenusRequest: MaybeRef<SetSysRoleMenusRequest>,
     params: MaybeRef<TenantRoleMenusSetSysRoleMenusParams>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<SysRoleMenu[]>> => {
+ ): Promise<AxiosResponse<RoleMenuGrant>> => {
     tenantId = unref(tenantId);
 roleId = unref(roleId);
 setSysRoleMenusRequest = unref(setSysRoleMenusRequest);

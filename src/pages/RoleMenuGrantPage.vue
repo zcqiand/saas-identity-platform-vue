@@ -56,7 +56,7 @@ const saveMut = useTenantRoleMenusSetSysRoleMenus();
 const granted = ref<Set<string>>(new Set());
 
 watch(
-  () => grantQ.data.value?.data?.map(r => r.menuId) ?? [],
+  () => grantQ.data.value?.data?.menuIds ?? [],
   (ids) => {
     granted.value = new Set(ids ?? []);
   },
