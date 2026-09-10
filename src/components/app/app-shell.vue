@@ -36,7 +36,7 @@ interface Crumb {
 
 const SUB_PATH_LABEL: Record<string, string> = {
   users: "用户",
-  roles: "角色",  audit: "审计日志",
+  roles: "角色",
   menus: "菜单",
   apps: "应用",
 };

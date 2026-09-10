@@ -19,11 +19,9 @@ import {
   tenants,
   users,
   roles,
-  apiKeys,
   apps,
   menus,
   roleMenuGrants,
-  auditEvents,
 } from "@saas/identity-platform-msw/fixtures";
 
 // 给登录页兜底合法 clientId（业务身份字段，测试用固定值；生产走 OAuth URL 注入）
@@ -116,12 +114,9 @@ function buildHooksMock() {
     useTenantRolesDeleteSysRole: () => makeMutationStub(),
     useTenantRolesSetPermissions: () => makeMutationStub(),
 
-    // === TenantApplications (api keys) ===
-    useTenantApplicationsListTenantApiKeys: () =>
-      makeQueryStub({ items: apiKeys, page: 1, pageSize: 10, total: apiKeys.length }),
-    useTenantApplicationsCreateTenantApiKey: () => makeMutationStub(),
-    useTenantApplicationsRevokeTenantApiKey: () => makeMutationStub(),
-    useTenantApplicationsRotateTenantApiKey: () => makeMutationStub(),
+    // === TenantApplications (M00.F05) ===
+    useTenantApplicationsListTenantApplications: () =>
+      makeQueryStub({ items: [], page: 1, pageSize: 10, total: 0 }),
     useTenantApplicationsSubscribeTenantApplication: () => makeMutationStub(),
     useTenantApplicationsUpdateTenantApplication: () => makeMutationStub(),
     useTenantApplicationsRemoveTenantApplication: () => makeMutationStub(),
@@ -161,15 +156,6 @@ function buildHooksMock() {
       makeQueryStub(roleMenuGrants[0] ?? { roleId: "r1", menuIds: [], updatedAt: "" }),
     useTenantRoleMenusSetRoleMenus: () => makeMutationStub(),
     useTenantRoleMenusClearRoleMenus: () => makeMutationStub(),
-
-    // === TenantAudit ===
-    useTenantAuditListAuditEvents: () =>
-      makeQueryStub({ items: auditEvents, page: 1, pageSize: 10, total: auditEvents.length }),
-    useTenantAuditListAuditEventsByUser: () =>
-      makeQueryStub({ items: auditEvents, page: 1, pageSize: 10, total: auditEvents.length }),
-    useTenantAuditExportAuditEvents: () => makeMutationStub(),
-    useTenantAuditGetRetentionPolicy: () => makeQueryStub({ retentionDays: 90 }),
-    useTenantAuditSetRetentionPolicy: () => makeMutationStub(),
 
     // === Me ===
     useMeWhoami: () => makeQueryStub(users[0]),
@@ -217,10 +203,7 @@ vi.mock("../src/api/endpoints/tenant-roles/tenant-roles", () => ({
   useTenantRolesSetPermissions: hookMocks.useTenantRolesSetPermissions,
 }));
 vi.mock("../src/api/endpoints/tenant-applications/tenant-applications", () => ({
-  useTenantApplicationsListTenantApiKeys: hookMocks.useTenantApplicationsListTenantApiKeys,
-  useTenantApplicationsCreateTenantApiKey: hookMocks.useTenantApplicationsCreateTenantApiKey,
-  useTenantApplicationsRevokeTenantApiKey: hookMocks.useTenantApplicationsRevokeTenantApiKey,
-  useTenantApplicationsRotateTenantApiKey: hookMocks.useTenantApplicationsRotateTenantApiKey,
+  useTenantApplicationsListTenantApplications: hookMocks.useTenantApplicationsListTenantApplications,
   useTenantApplicationsSubscribeTenantApplication: hookMocks.useTenantApplicationsSubscribeTenantApplication,
   useTenantApplicationsUpdateTenantApplication: hookMocks.useTenantApplicationsUpdateTenantApplication,
   useTenantApplicationsRemoveTenantApplication: hookMocks.useTenantApplicationsRemoveTenantApplication,

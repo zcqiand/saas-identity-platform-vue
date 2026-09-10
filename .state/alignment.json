@@ -278,7 +278,7 @@
       "designs": [],
       "tests": [
         "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:1078 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-write.test.ts:1167 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-write.test.ts:1089 (path)"
       ],
       "entry": []
     },
@@ -291,7 +291,7 @@
       "designs": [],
       "tests": [
         "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:1078 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-write.test.ts:1167 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-write.test.ts:1089 (path)",
         "渲染角色列表，新建角色按钮挂 data-fn=M00.F03.I02"
       ],
       "entry": [
@@ -358,7 +358,7 @@
       "tests": [
         "output\\saas-identity-platform-contract-test\\tests\\tenant-role-menus-write.test.ts:1223 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:3698 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-write.test.ts:1271 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-write.test.ts:1193 (path)"
       ],
       "entry": [
         "src\\pages\\RoleListPage.vue"
@@ -374,7 +374,7 @@
       "tests": [
         "output\\saas-identity-platform-contract-test\\tests\\tenant-role-menus-write.test.ts:1223 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:3698 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-write.test.ts:1271 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-write.test.ts:1193 (path)"
       ],
       "entry": [
         "src\\pages\\RoleMenuGrantPage.vue"
@@ -390,7 +390,7 @@
       "tests": [
         "output\\saas-identity-platform-contract-test\\tests\\tenant-role-menus-write.test.ts:1223 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:3698 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-write.test.ts:1271 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-write.test.ts:1193 (path)"
       ],
       "entry": [
         "src\\pages\\RoleMenuGrantPage.vue"
