@@ -37,6 +37,7 @@ interface Crumb {
 const SUB_PATH_LABEL: Record<string, string> = {
   users: "用户",
   roles: "角色",
+  applications: "应用",
   menus: "菜单",
   apps: "应用",
 };
@@ -107,6 +108,13 @@ const navItems = computed<NavItem[]>(() => [
     group: "身份管理",
     icon: Shield,
     fnId: "M00.F03.I01",
+  },
+  {
+    to: `/tenants/${tenantForNav.value}/applications`,
+    label: "租户应用",
+    group: "应用与菜单",
+    icon: Boxes,
+    fnId: "M00.F05.I01",
   },
   { to: "/admin/apps", label: "应用管理", group: "应用与菜单", icon: Boxes, fnId: "M04.F01.I01" },
   {

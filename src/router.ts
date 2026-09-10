@@ -8,6 +8,7 @@ import RoleListPage from "./pages/RoleListPage.vue";
 import AppListPage from "./pages/AppListPage.vue";
 import MenuTreePage from "./pages/MenuTreePage.vue";
 import RoleMenuGrantPage from "./pages/RoleMenuGrantPage.vue";
+import TenantApplicationsListPage from "./pages/TenantApplicationsListPage.vue";
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -27,6 +28,11 @@ export const router = createRouter({
         {
           path: "tenants/:tenantId/roles/:roleId/menus",
           component: RoleMenuGrantPage,
+          props: true,
+        },
+        {
+          path: "tenants/:tenantId/applications",
+          component: TenantApplicationsListPage,
           props: true,
         },
         { path: "admin/apps", component: AppListPage },

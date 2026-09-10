@@ -418,7 +418,9 @@
       "tests": [
         "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:970 (path)"
       ],
-      "entry": []
+      "entry": [
+        "src\\pages\\TenantApplicationsListPage.vue"
+      ]
     },
     "M00.F05.I03": {
       "name": "更新应用订阅",
@@ -428,7 +430,9 @@
       "flows": [],
       "designs": [],
       "tests": [],
-      "entry": []
+      "entry": [
+        "src\\pages\\TenantApplicationsListPage.vue"
+      ]
     },
     "M00.F05.I04": {
       "name": "移除应用订阅",
@@ -438,7 +442,9 @@
       "flows": [],
       "designs": [],
       "tests": [],
-      "entry": []
+      "entry": [
+        "src\\pages\\TenantApplicationsListPage.vue"
+      ]
     },
     "M01.F01.I01": {
       "name": "当前用户 whoami",
