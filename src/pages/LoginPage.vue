@@ -27,6 +27,9 @@ import { useSessionsLogin } from "../api/endpoints/auth/auth";
 import { useOAuthAuthorize } from "../api/endpoints/oauth/oauth";
 import { toApiError } from "../api/http-client";
 import { toast } from "vue-sonner";
+// 登录页绕过 AppShell（其内才有全局 <Toaster/>）——错误 toast 靠这里自挂
+// （2026-09-11 E2E 首跑抓到的三端同款缺口：缺 clientId / 错密码提示无声丢失）
+import Toaster from "../components/ui/sonner.vue";
 
 const DEMO_ACCOUNTS = [
   { username: "alice", tenant: "ACME Corp" },
@@ -259,6 +262,7 @@ async function onSubmit(e: Event) {
   <div
     class="min-h-screen w-full flex items-center justify-center bg-linear-to-br from-slate-100 via-white to-slate-200 p-4"
   >
+    <Toaster />
     <Card class="w-full max-w-md shadow-lg">
       <CardHeader class="space-y-2">
         <CardTitle class="text-lg">SaaS 多租户多应用身份平台</CardTitle>

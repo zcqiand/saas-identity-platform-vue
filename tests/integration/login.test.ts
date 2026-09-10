@@ -39,6 +39,8 @@ vi.mock("../../src/api/endpoints/oauth/oauth", () => ({
 const { toastError } = vi.hoisted(() => ({ toastError: vi.fn() }));
 vi.mock("vue-sonner", () => ({
   toast: { error: toastError, success: vi.fn() },
+  // LoginPage 自挂 <Toaster/>（2026-09-11）——mock 成空渲染
+  Toaster: () => null,
 }));
 
 async function fillAndSubmit(wrapper: Awaited<ReturnType<typeof mountWithProviders>>) {
@@ -76,9 +78,14 @@ describe("M01.F04.I03 账号密码登录", () => {
     const wrapper = mountWithProviders(LoginPage);
     await fillAndSubmit(wrapper);
     // LoginPage 拼上 clientId（业务身份字段，从 VITE_LOGIN_CLIENT_ID 来），
-    // 不能只断言 username/password，但 clientId 必须等于 setup 注入值。
+    // 不能只断言 username/password；clientId 必须等于 env 实际注入值
+    // （2026-09-11 起 .env.test 提供真值 saas-console …1114，setup 兜底不再触发）
     expect(loginMut.mutateAsync).toHaveBeenCalledWith({
-      data: { username: "alice", password: "dev123456", clientId: "test-client-id" },
+      data: {
+        username: "alice",
+        password: "dev123456",
+        clientId: import.meta.env.VITE_LOGIN_CLIENT_ID,
+      },
     });
   });
 
