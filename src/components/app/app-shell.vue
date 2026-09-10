@@ -100,7 +100,7 @@ const navItems = computed<NavItem[]>(() => [
     label: "用户管理",
     group: "身份管理",
     icon: Users,
-    fnId: "M01.F01.I01",
+    fnId: "M00.F02.I01",
   },
   {
     to: `/tenants/${tenantForNav.value}/roles`,
