@@ -304,10 +304,8 @@ async function confirmDelete() {
         <Table v-else>
           <TableHeader>
             <TableRow>
-              <TableHead>Code / 路径</TableHead>
               <TableHead>名称</TableHead>
               <TableHead>类型</TableHead>
-              <TableHead>排序</TableHead>
               <TableHead>状态</TableHead>
               <TableHead class="text-right">操作</TableHead>
             </TableRow>
@@ -320,7 +318,7 @@ async function confirmDelete() {
               :data-depth="r.depth"
               :data-menu-id="r.id"
             >
-              <TableCell class="font-mono text-xs">
+              <TableCell>
                 <span
                   :style="{ paddingLeft: `${r.depth * 16}px` }"
                   class="inline-flex items-center"
@@ -337,25 +335,26 @@ async function confirmDelete() {
                     <ChevronRight v-else class="h-3 w-3" />
                   </button>
                   <span v-else class="mr-1 inline-block h-4 w-4" />
-                  <span>{{ r.path }}</span>
                 </span>
               </TableCell>
               <TableCell class="font-medium">
                 {{ r.title }}
-                <span v-if="r.path" class="ml-2 text-xs text-slate-500 font-mono">{{
-                  r.path
-                }}</span>
               </TableCell>
               <TableCell>
                 <span
                   class="inline-flex items-center rounded-md bg-slate-100 px-2 py-0.5 text-xs text-slate-700"
                 >
-                  {{ r.type }}
+                  {{
+                  r.type === "directory" ? "目录" : r.type === "button" ? "按钮" : "菜单"
+                }}
                 </span>
               </TableCell>
-              <TableCell class="text-slate-600">{{ r.sortOrder }}</TableCell>
               <TableCell>
-                <StatusBadge :status="r.status === 1 ? 'active' : 'suspended'" />
+                <span
+                  class="inline-flex items-center rounded-md bg-slate-100 px-2 py-0.5 text-xs text-slate-700"
+                >
+                  {{ r.status === 0 ? "停用" : "启用" }}
+                </span>
               </TableCell>
               <TableCell class="text-right space-x-1">
                 <Button
