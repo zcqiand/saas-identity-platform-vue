@@ -86,8 +86,25 @@ const editTarget = ref<MemberUserRow | null>(null);
 const deleteTarget = ref<MemberUserRow | null>(null);
 const roleTarget = ref<MemberUserRow | null>(null);
 
+/** ADR-0029 双形态兼容：嵌套 TenantMemberView（aspnetcore）/扁平 User（msw/nextjs）统一归一化 */
+function normalizeMemberRow(raw: unknown): MemberUserRow {
+  const r = raw as Record<string, unknown>;
+  if (r.member && r.user) {
+    const member = r.member as { id: string; status?: MemberUserRow["status"] };
+    const user = r.user as { id: string; username: string; email: string; status?: MemberUserRow["status"] };
+    const memberStatus = (member.status ?? user.status ?? "active") as MemberUserRow["status"];
+    return {
+      id: user.id ?? member.id,
+      username: user.username,
+      email: user.email,
+      status: memberStatus,
+      roleIds: (r.roles as string[] | undefined) ?? [],
+    };
+  }
+  return r as unknown as MemberUserRow;
+}
 const users = computed<MemberUserRow[]>(
-  () => (usersQ.data.value?.data?.items ?? []) as unknown as MemberUserRow[],
+  () => ((usersQ.data.value?.data?.items ?? []) as unknown as MemberUserRow[]).map(normalizeMemberRow),
 );
 const roles = computed(() => rolesQ.data.value?.data?.items ?? []);
 
