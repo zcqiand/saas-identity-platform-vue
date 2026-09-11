@@ -321,24 +321,21 @@ async function confirmDelete() {
               <TableCell>
                 <span
                   :style="{ paddingLeft: `${r.depth * 16}px` }"
-                  class="inline-flex items-center"
+                  class="inline-flex items-center gap-1 font-medium"
                 >
                   <button
                     v-if="r.hasChildren"
                     type="button"
                     :aria-label="expandedIds.has(r.id) ? '折叠子菜单' : '展开子菜单'"
                     :data-testid="`menu-toggle-${r.id}`"
-                    class="mr-1 inline-flex h-4 w-4 items-center justify-center rounded text-slate-400 hover:bg-slate-100 hover:text-slate-700"
+                    class="inline-flex h-4 w-4 items-center justify-center rounded text-slate-400 hover:bg-slate-100 hover:text-slate-700"
                     @click="toggleExpand(r.id)"
                   >
                     <ChevronDown v-if="expandedIds.has(r.id)" class="h-3 w-3" />
                     <ChevronRight v-else class="h-3 w-3" />
                   </button>
-                  <span v-else class="mr-1 inline-block h-4 w-4" />
+                  {{ r.title }}
                 </span>
-              </TableCell>
-              <TableCell class="font-medium">
-                {{ r.title }}
               </TableCell>
               <TableCell>
                 <span

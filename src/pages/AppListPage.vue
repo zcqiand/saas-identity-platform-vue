@@ -194,9 +194,6 @@ async function confirmDelete() {
             <TableRow>
               <TableHead>Code / ClientID</TableHead>
               <TableHead>名称</TableHead>
-              <TableHead>Scopes</TableHead>
-              <TableHead>Grant Types</TableHead>
-              <TableHead>Access Token Validity</TableHead>
               <TableHead>状态</TableHead>
               <TableHead class="text-right">操作</TableHead>
             </TableRow>
@@ -208,23 +205,6 @@ async function confirmDelete() {
                 <div class="font-mono text-[10px] text-slate-500">name: {{ a.clientName }}</div>
               </TableCell>
               <TableCell class="font-medium">{{ a.clientName }}</TableCell>
-              <TableCell class="text-xs text-slate-600">
-                {{ a.scopes ? a.scopes : "—" }}
-              </TableCell>
-              <TableCell>
-                <span
-                  class="inline-flex items-center rounded-md bg-slate-100 px-2 py-0.5 text-xs text-slate-700"
-                >
-                  {{ a.grantTypes }}
-                </span>
-              </TableCell>
-              <TableCell>
-                <span
-                  class="inline-flex items-center rounded-md bg-slate-100 px-2 py-0.5 text-xs text-slate-700"
-                >
-                  {{ a.accessTokenValidity }}s
-                </span>
-              </TableCell>
               <TableCell>
                 <StatusBadge :status="a.status === 1 ? 'active' : 'suspended'" />
               </TableCell>
