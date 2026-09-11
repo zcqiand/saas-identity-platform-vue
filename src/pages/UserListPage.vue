@@ -14,7 +14,6 @@ import {
 import type {
   CreateSysUserRequest,
   UpdateSysUserRequest,
-  TenantMemberView,
   TenantMember,
 } from "../api/endpoints/title.schemas";
 import Button from "../components/ui/button.vue";
@@ -75,11 +74,21 @@ const deleteMut = useTenantMembersDeleteTenantUser();
 const roleAssignMut = useTenantMembersAssignTenantMemberRoles();
 
 const createOpen = ref(false);
-const editTarget = ref<TenantMemberView | null>(null);
-const deleteTarget = ref<TenantMemberView | null>(null);
-const roleTarget = ref<TenantMemberView | null>(null);
+/** 扁平 User 行（contract-test M96.F02.I10 仲裁现实；ADR-0029 待裁决） */
+interface MemberUserRow {
+  id: string;
+  username: string;
+  email: string;
+  status: "active" | "suspended" | "archived" | "invited" | "disabled" | "revoked" | "expired";
+  roleIds?: string[];
+}
+const editTarget = ref<MemberUserRow | null>(null);
+const deleteTarget = ref<MemberUserRow | null>(null);
+const roleTarget = ref<MemberUserRow | null>(null);
 
-const users = computed<TenantMemberView[]>(() => usersQ.data.value?.data?.items ?? []);
+const users = computed<MemberUserRow[]>(
+  () => (usersQ.data.value?.data?.items ?? []) as unknown as MemberUserRow[],
+);
 const roles = computed(() => rolesQ.data.value?.data?.items ?? []);
 
 async function onCreate(values: Record<string, unknown>) {
@@ -101,10 +110,10 @@ async function onUpdate(values: Record<string, unknown>) {
   try {
     await updateMut.mutateAsync({
       tenantId: tenantId.value,
-      userId: editTarget.value.member.id,
+      userId: editTarget.value.id,
       data: {
         email: values.email as string,
-        status: values.status as TenantMember["status"],
+        status: values.status as MemberUserRow["status"],
       } as UpdateSysUserRequest,
     });
     editTarget.value = null;
@@ -121,7 +130,7 @@ async function onAssignRoles(values: Record<string, unknown>) {
   try {
     await roleAssignMut.mutateAsync({
       tenantId: tenantId.value,
-      userId: roleTarget.value.member.id,
+      userId: roleTarget.value.id,
       data: { roleIds },
     });
     roleTarget.value = null;
@@ -135,7 +144,7 @@ async function onAssignRoles(values: Record<string, unknown>) {
 async function confirmDelete() {
   if (!deleteTarget.value) return;
   try {
-    await deleteMut.mutateAsync({ tenantId: tenantId.value, userId: deleteTarget.value.member.id });
+    await deleteMut.mutateAsync({ tenantId: tenantId.value, userId: deleteTarget.value.id });
     deleteTarget.value = null;
     usersQ.refetch();
     toast.success("用户已删除");
@@ -168,14 +177,14 @@ async function confirmDelete() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow v-for="u in users" :key="u.member.id" data-testid="user-row">
-              <TableCell class="font-medium">{{ u.user.username }}</TableCell>
-              <TableCell class="text-slate-500">{{ u.user.email }}</TableCell>
+            <TableRow v-for="u in users" :key="u.id" data-testid="user-row">
+              <TableCell class="font-medium">{{ u.username }}</TableCell>
+              <TableCell class="text-slate-500">{{ u.email }}</TableCell>
               <TableCell>
-                <StatusBadge :status="u.member.status" />
+                <StatusBadge :status="u.status" />
               </TableCell>
               <TableCell>
-                <span class="text-xs text-slate-500">{{ (u.roles ?? []).length }} 项</span>
+                <span class="text-xs text-slate-500">{{ (u.roleIds ?? []).length }} 项</span>
               </TableCell>
               <TableCell class="text-right space-x-1">
                 <Button
@@ -227,7 +236,7 @@ async function confirmDelete() {
       title="编辑用户"
       :fields="EDIT_FIELDS"
       :initial-values="
-        editTarget ? { email: editTarget.user.email, status: editTarget.member.status } : undefined
+        editTarget ? { email: editTarget.email, status: editTarget.status } : undefined
       "
       :loading="updateMut.isPending.value"
       @submit="onUpdate"
@@ -236,7 +245,7 @@ async function confirmDelete() {
     <CrudDialog
       :open="roleTarget !== null"
       @update:open="(v) => !v && (roleTarget = null)"
-      :title="`分配角色：${roleTarget?.user.username ?? ''}`"
+      :title="`分配角色：${roleTarget?.username ?? ''}`"
       :fields="[
         {
           name: 'roleIds',
@@ -247,7 +256,7 @@ async function confirmDelete() {
       ]"
       submit-text="保存角色"
       :loading="roleAssignMut.isPending.value"
-      :initial-values="roleTarget ? { roleIds: roleTarget.roles ?? [] } : undefined"
+      :initial-values="roleTarget ? { roleIds: roleTarget.roleIds ?? [] } : undefined"
       :render-field-names="['roleIds']"
       @submit="onAssignRoles"
     >
@@ -281,7 +290,7 @@ async function confirmDelete() {
     <ConfirmDialog
       :open="deleteTarget !== null"
       @update:open="(v) => !v && (deleteTarget = null)"
-      :title="`删除用户「${deleteTarget?.user.username ?? ''}」？`"
+      :title="`删除用户「${deleteTarget?.username ?? ''}」？`"
       description="用户删除后不可恢复，已分配的关联角色也会一并解除。"
       confirm-text="删除"
       destructive

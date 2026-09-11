@@ -5,7 +5,7 @@
 // 切完下一个请求即生效，无需刷新。未选择 = env 默认目标。
 import { computed, ref } from "vue";
 import { Check, ChevronsUpDown, Server } from "lucide-vue-next";
-import Button from "./ui/button.vue";
+import Button from "../ui/button.vue";
 import {
   DropdownMenuRoot,
   DropdownMenuTrigger,
