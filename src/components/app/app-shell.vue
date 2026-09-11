@@ -127,7 +127,9 @@ const navItems = computed<NavItem[]>(() => [
 ]);
 
 async function onLogout() {
-  tenantStore.logout();
+  // logout() 先调 API 再清 session（async）；不 await 的话 router.push 时
+  // isAuthenticated 仍 true，路由守卫把 /login 拦回工作区（E2E REQ-2026-004 抓出）
+  await tenantStore.logout();
   router.push("/login");
 }
 </script>

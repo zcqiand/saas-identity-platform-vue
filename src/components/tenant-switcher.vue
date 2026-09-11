@@ -1,10 +1,14 @@
 <script setup lang="ts">
 // TenantSwitcher — 顶部栏右侧 Dropdown，切换当前用户可访问的租户。
-// 用于跨租户操作场景（admin 视角）。
+// M00.F02.I03 / M01.F03.I02（2026-09-11 接真 API，E2E REQ-2026-004）：
+// 成员关系 GET /me/tenants（TenantMember[]，契约无租户名）；
+// 显示名 join 平台租户列表（管理控制台自身页面数据源，复用同一 query key 缓存）；
+// 切换 POST /me/tenants/:id/switch → 新 token 落 store → 进该租户工作区。
 
-import { computed, onMounted, ref } from "vue";
+import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { Building2, ChevronsUpDown } from "lucide-vue-next";
+import { useQuery, useQueryClient } from "@tanstack/vue-query";
 import Button from "./ui/button.vue";
 import {
   DropdownMenuRoot,
@@ -16,54 +20,45 @@ import {
   DropdownMenuSeparator,
 } from "reka-ui";
 import { useTenantStore } from "../state/tenant-store";
-
-interface Membership {
-  id: string;
-  tenantId: string;
-  code: string;
-  name: string;
-  status: "active" | "invited" | "removed";
-}
+import { useMeListMyTenants, useMeSwitchTenant } from "../api/endpoints/me/me";
+import { useAdminTenantsListTenants } from "../api/endpoints/admin-tenants/admin-tenants";
+import { toApiError } from "../api/http-client";
+import { toast } from "vue-sonner";
 
 const tenantStore = useTenantStore();
 const router = useRouter();
-const memberships = ref<Membership[]>([]);
+const qc = useQueryClient();
 
-onMounted(() => {
-  // M00.F02.I02 — list current user memberships (mocked)
-  memberships.value = [
-    {
-      id: "m1",
-      tenantId: "00000000-0000-0000-0000-000000000001",
-      code: "acme",
-      name: "ACME Corp",
-      status: "active",
-    },
-    {
-      id: "m2",
-      tenantId: "00000000-0000-0000-0000-000000000002",
-      code: "globex",
-      name: "Globex Industries",
-      status: "active",
-    },
-    {
-      id: "m3",
-      tenantId: "00000000-0000-0000-0000-000000000003",
-      code: "initech",
-      name: "Initech",
-      status: "active",
-    },
-  ];
-});
+const membershipsQ = useMeListMyTenants({ clientId: "" });
+const tenantsQ = useAdminTenantsListTenants();
+const switchMut = useMeSwitchTenant();
+
+const memberships = computed(() => membershipsQ.data.value?.data ?? []);
+const nameById = computed(
+  () =>
+    new Map((tenantsQ.data.value?.data?.items ?? []).map((t) => [t.id, t.name])),
+);
+const tenantKeyById = computed(
+  () =>
+    new Map((tenantsQ.data.value?.data?.items ?? []).map((t) => [t.id, t.tenantKey])),
+);
 
 const current = computed(() =>
   memberships.value.find((m) => m.tenantId === tenantStore.currentTenantId),
 );
 
-function onSwitch(tenantId: string) {
-  // M00.F02.I03 — switch tenant via POST /api/me/tenants/{tenantId}/switch
-  tenantStore.setTenant(tenantId, null, "mock-token-" + tenantId);
-  router.push(`/tenants/${tenantId}/users`);
+async function onSwitch(tenantId: string) {
+  try {
+    const res = await switchMut.mutateAsync({ tenantId, params: { clientId: "" } });
+    tenantStore.setTenant(tenantId, null, res.data.accessToken);
+    void qc.invalidateQueries(); // 租户切换后列表数据全部失效
+    router.push(`/tenants/${tenantId}/users`);
+  } catch (err) {
+    const apiErr = toApiError(err);
+    toast.error(
+      apiErr.status === 404 ? "该租户不存在或你不是其成员" : `切换失败：${apiErr.message}`,
+    );
+  }
 }
 </script>
 
@@ -78,7 +73,9 @@ function onSwitch(tenantId: string) {
         data-fn="M00.F02.I03"
       >
         <Building2 class="h-4 w-4 text-slate-500" />
-        <span class="font-medium">{{ current?.name ?? "选择租户" }}</span>
+        <span class="font-medium">
+          {{ current ? (nameById.get(current.tenantId) ?? "…") : "选择租户" }}
+        </span>
         <ChevronsUpDown class="h-3.5 w-3.5 text-slate-400" />
       </Button>
     </DropdownMenuTrigger>
@@ -90,15 +87,15 @@ function onSwitch(tenantId: string) {
         <DropdownMenuLabel class="px-2 py-1.5 text-sm font-semibold">切换租户</DropdownMenuLabel>
         <DropdownMenuSeparator class="-mx-1 my-1 h-px bg-muted" />
         <DropdownMenuItem
-          v-for="m in memberships"
+          v-for="m in memberships.filter((x) => x.status !== 'disabled')"
           :key="m.id"
           class="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground cursor-pointer"
           @select="onSwitch(m.tenantId)"
         >
           <Building2 class="h-4 w-4 mr-2 text-slate-500" />
           <div class="flex flex-col">
-            <span class="font-medium">{{ m.name }}</span>
-            <span class="text-xs text-slate-500 font-mono">{{ m.code }}</span>
+            <span class="font-medium">{{ nameById.get(m.tenantId) ?? m.tenantId.slice(0, 8) }}</span>
+            <span class="text-xs text-slate-500 font-mono">{{ tenantKeyById.get(m.tenantId) ?? "" }}</span>
           </div>
         </DropdownMenuItem>
       </DropdownMenuContent>

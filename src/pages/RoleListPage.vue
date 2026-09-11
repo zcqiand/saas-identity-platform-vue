@@ -65,9 +65,14 @@ const roles = computed<SysRole[]>(() => list.data.value?.data?.items ?? []);
 
 async function onCreate(values: Record<string, unknown>) {
   try {
+    // CreateSysRoleRequest 契约 required clientId（9/7 SSOT）；管理台自建角色
+    // 归属 saas-console 自身 client（表单不暴露；语义见 shared ui-interaction-spec）
     await createMut.mutateAsync({
       tenantId: tenantId.value,
-      data: values as unknown as CreateSysRoleRequest,
+      data: {
+        ...(values as unknown as CreateSysRoleRequest),
+        clientId: "saas-console",
+      },
     });
     createOpen.value = false;
     list.refetch();
