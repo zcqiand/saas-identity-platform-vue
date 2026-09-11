@@ -53,7 +53,11 @@ defineEmits<{
         )
       "
     >
-      <SelectValue :placeholder="props.placeholder" />
+      <SelectValue :placeholder="props.placeholder">
+        <!-- reka SelectValue 在内容未挂载时不解析已选值文本（回落 placeholder），
+             显式按 items 渲染选中项 label，保证编辑回显可靠 -->
+        {{ props.items.find((i) => i.value === props.modelValue)?.label }}
+      </SelectValue>
       <SelectIcon as-child>
         <ChevronDown class="h-4 w-4 opacity-50" />
       </SelectIcon>

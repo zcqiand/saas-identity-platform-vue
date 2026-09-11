@@ -49,11 +49,11 @@ const FIELDS: FieldDef[] = [
     label: "类型",
     type: "select",
     required: true,
-    defaultValue: "page",
+    defaultValue: "menu",
     options: [
-      { value: "group", label: "分组（容器）" },
-      { value: "page", label: "页面（叶子）" },
-      { value: "action", label: "操作（按钮）" },
+      { value: "directory", label: "分组（容器）" },
+      { value: "menu", label: "页面（叶子）" },
+      { value: "button", label: "操作（按钮）" },
     ],
   },
   {
@@ -69,10 +69,10 @@ const FIELDS: FieldDef[] = [
     label: "状态",
     type: "select",
     required: true,
-    defaultValue: "active",
+    defaultValue: "1",
     options: [
-      { value: "active", label: "启用" },
-      { value: "disabled", label: "停用" },
+      { value: "1", label: "启用" },
+      { value: "0", label: "停用" },
     ],
   },
 ];
@@ -88,6 +88,19 @@ const selectedAppId = ref(appId.value || allApps.value[0]?.id || "");
 const currentApp = computed(() => allApps.value.find((a) => a.id === selectedAppId.value) ?? allApps.value[0]);
 
 const menusQ = useClientMenusListSysMenus(selectedAppId);
+// 父菜单下拉用：无视展开状态的扁平视图（深度缩进）
+const flatForSelect = computed<Array<{ menu: Menu; depth: number }>>(() => {
+  const out: Array<{ menu: Menu; depth: number }> = [];
+  const walk = (nodes: MenuNode[], depth: number) => {
+    for (const n of nodes) {
+      out.push({ menu: n.menu, depth });
+      walk(n.children, depth + 1);
+    }
+  };
+  walk(buildTree(allMenus.value), 0);
+  return out;
+});
+
 const createMut = useClientMenusCreateSysMenu();
 const updateMut = useClientMenusUpdateSysMenu();
 const deleteMut = useClientMenusDeleteSysMenu();
@@ -406,15 +419,33 @@ async function confirmDelete() {
       :open="editTarget !== null"
       @update:open="(v) => !v && (editTarget = null)"
       title="编辑菜单"
-      :fields="EDIT_FIELDS"
+      :fields="
+        EDIT_FIELDS.map((f) =>
+          f.name === 'parentId'
+            ? {
+                ...f,
+                options: [
+                  { value: '', label: '（无，顶级）' },
+                  ...flatForSelect
+                    .filter((m) => m.menu.id !== editTarget?.id)
+                    .map((m) => ({
+                      value: m.menu.id,
+                      label: `${'  '.repeat(m.depth)}${m.menu.path ?? ''} · ${m.menu.title}`,
+                    })),
+                ],
+              }
+            : f,
+        )
+      "
       :initial-values="
         editTarget
           ? {
               name: editTarget.title,
               path: editTarget.path,
               type: editTarget.type,
+              parentId: editTarget.parentId ?? '',
               sortOrder: editTarget.sortOrder,
-              status: editTarget.status,
+              status: String(editTarget.status ?? 1),
             }
           : undefined
       "
