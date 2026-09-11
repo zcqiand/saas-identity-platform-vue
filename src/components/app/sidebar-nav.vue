@@ -25,7 +25,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   title: "SaaS 多租户多应用身份平台",
   subtitle: "Identity Platform",
-  version: "v0.2.0 · SaaS 多租户多应用身份平台",
+  version: "v0.2.0",
 });
 
 const groups = computed(() => {

@@ -93,19 +93,6 @@ async function onLogout() {
   <div class="min-h-screen flex bg-gradient-to-br from-slate-50 via-white to-slate-100">
     <Toaster />
     <SidebarNav :items="navItems">
-      <template #footerAction>
-        <Button
-          variant="ghost"
-          size="sm"
-          class="w-full justify-start gap-2 text-white/70 hover:text-white hover:bg-white/10"
-          data-testid="logout-btn"
-          data-fn="M01.F04.I06"
-          @click="onLogout"
-        >
-          <LogOut class="h-4 w-4" />
-          登出
-        </Button>
-      </template>
       <template #footerExtras>
         <BackendBadge />
       </template>
@@ -138,6 +125,18 @@ async function onLogout() {
         </nav>
         <div class="flex items-center gap-3">
           <TenantSwitcher v-if="tenantStore.currentTenantId" />
+          <!-- 登出（用户裁定 2026-09-11：移到右上角，切换租户旁） -->
+          <Button
+            variant="ghost"
+            size="sm"
+            class="gap-2 text-slate-600 hover:text-slate-900"
+            data-testid="logout-btn"
+            data-fn="M01.F04.I06"
+            @click="onLogout"
+          >
+            <LogOut class="h-4 w-4" />
+            登出
+          </Button>
         </div>
       </header>
       <Separator />
