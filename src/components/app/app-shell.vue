@@ -2,27 +2,21 @@
 // AppShell — top bar with breadcrumbs + left sidebar + main content.
 //
 // Sidebar links with `:tenantId` placeholder are dynamically substituted with
-// `currentTenantId` (from tenant-store). This way clicking "用户管理" while
+// `currentTenantId` (from tenant-store). This way clicking "租户成员" while
 // tenant = globex goes to `/tenants/globex/users`, not literal `/tenants/:tenantId/users`.
 
 import { computed } from "vue";
 import { useRoute, useRouter, RouterLink } from "vue-router";
 import {
-  Building2,
-  Users,
-  Shield,
-
-
   LogOut,
   ChevronRight,
   Home,
-  Boxes,
-  FolderTree,
 } from "lucide-vue-next";
 import Button from "../ui/button.vue";
 import Separator from "../ui/separator.vue";
 import Toaster from "../ui/sonner.vue";
 import SidebarNav from "./sidebar-nav.vue";
+import { buildNavItems } from "./nav-items";
 import TenantSwitcher from "../tenant-switcher.vue";
 import BackendBadge from "./backend-badge.vue";
 import { useTenantStore } from "../../state/tenant-store";
@@ -41,14 +35,6 @@ const SUB_PATH_LABEL: Record<string, string> = {
   menus: "菜单",
   apps: "应用",
 };
-
-interface NavItem {
-  to: string;
-  label: string;
-  group: string;
-  icon?: unknown;
-  fnId?: string;
-}
 
 const route = useRoute();
 const router = useRouter();
@@ -93,38 +79,7 @@ const crumbs = computed<Crumb[]>(() => {
   return result;
 });
 
-const navItems = computed<NavItem[]>(() => [
-  { to: "/tenants", label: "租户管理", group: "首页", icon: Building2, fnId: "M00.F01.I01" },
-  {
-    to: `/tenants/${tenantForNav.value}/users`,
-    label: "用户管理",
-    group: "身份管理",
-    icon: Users,
-    fnId: "M00.F02.I01",
-  },
-  {
-    to: `/tenants/${tenantForNav.value}/roles`,
-    label: "角色管理",
-    group: "身份管理",
-    icon: Shield,
-    fnId: "M00.F03.I01",
-  },
-  {
-    to: `/tenants/${tenantForNav.value}/applications`,
-    label: "租户应用",
-    group: "应用与菜单",
-    icon: Boxes,
-    fnId: "M00.F05.I01",
-  },
-  { to: "/admin/apps", label: "应用管理", group: "应用与菜单", icon: Boxes, fnId: "M04.F01.I01" },
-  {
-    to: "/admin/apps/lab-management/menus",
-    label: "菜单管理",
-    group: "应用与菜单",
-    icon: FolderTree,
-    fnId: "M04.F04.I01",
-  },
-]);
+const navItems = computed(() => buildNavItems(tenantForNav.value));
 
 async function onLogout() {
   // logout() 先调 API 再清 session（async）；不 await 的话 router.push 时
