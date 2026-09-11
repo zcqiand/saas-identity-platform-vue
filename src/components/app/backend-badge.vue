@@ -1,39 +1,73 @@
 <script setup lang="ts">
 // 后端切换器（2026-09-11 用户裁定恢复运行时切换，覆盖 ADR-0014 dev 单 URL）。
+// 视觉对齐 TenantSwitcher（DropdownMenu + 图标 + ChevronsUpDown）。
 // 选择持久化 localStorage（saas.api.backend），http-client 每次请求动态读取，
-// 切完下一个请求即生效，无需刷新。env 未选择时显示 env 默认目标。
-import { ref } from "vue";
+// 切完下一个请求即生效，无需刷新。未选择 = env 默认目标。
+import { computed, ref } from "vue";
+import { Check, ChevronsUpDown, Server } from "lucide-vue-next";
+import Button from "./ui/button.vue";
 import {
-  BACKENDS,
-  getApiBaseUrl,
-  getSelectedBackend,
-  setSelectedBackend,
-} from "../../api/backend-config";
+  DropdownMenuRoot,
+  DropdownMenuTrigger,
+  DropdownMenuPortal,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "reka-ui";
+import { BACKENDS, getSelectedBackend, setSelectedBackend } from "../../api/backend-config";
 
 const selected = ref(getSelectedBackend());
-const baseUrl = getApiBaseUrl() || "(同源)";
+const currentLabel = computed(
+  () => BACKENDS.find((b) => b.key === selected.value)?.key ?? "(env 默认)",
+);
 
-function onChange(e: Event) {
-  const v = (e.target as HTMLSelectElement).value;
-  setSelectedBackend(v);
-  selected.value = v;
+function pick(key: string) {
+  setSelectedBackend(key);
+  selected.value = key;
 }
 </script>
 
 <template>
-  <div class="flex flex-col gap-1 px-2 py-1 text-xs">
-    <div class="flex min-w-0 items-center gap-2">
-      <span class="font-mono text-white/40">backend:</span>
-      <select
-        data-testid="backend-badge"
-        :value="selected"
-        class="w-full max-w-[10.5rem] rounded border border-white/20 bg-slate-900 px-1 py-0.5 font-mono text-xs text-white"
-        @change="onChange"
-      >
-        <option value="">(env 默认)</option>
-        <option v-for="b in BACKENDS" :key="b.key" :value="b.key">{{ b.key }} {{ b.baseUrl.replace('http://localhost', '') }}</option>
-      </select>
-    </div>
-    <div class="font-mono text-white/40 truncate" :title="baseUrl">{{ baseUrl }}</div>
+  <div class="w-full px-2 py-1 text-xs" data-testid="backend-badge">
+    <DropdownMenuRoot>
+      <DropdownMenuTrigger as-child>
+        <Button
+          variant="ghost"
+          size="sm"
+          class="w-full justify-between gap-2 border border-white/20 bg-transparent text-white/80 hover:bg-white/10 hover:text-white"
+        >
+          <span class="flex min-w-0 items-center gap-2">
+            <Server class="h-4 w-4 text-slate-500" />
+            <span class="truncate font-medium">{{ currentLabel }}</span>
+          </span>
+          <ChevronsUpDown class="h-3.5 w-3.5 shrink-0 text-slate-400" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuPortal>
+        <DropdownMenuContent align="start" :side-offset="4" class="w-56">
+          <DropdownMenuLabel>切换后端</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem class="cursor-pointer" @select="pick('')">
+            <Server class="mr-2 h-4 w-4 text-slate-400" />
+            <span class="flex-1">env 默认（部署配置）</span>
+            <Check v-if="!selected" class="h-4 w-4" />
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            v-for="b in BACKENDS"
+            :key="b.key"
+            class="cursor-pointer"
+            @select="pick(b.key)"
+          >
+            <Server class="mr-2 h-4 w-4 text-slate-500" />
+            <div class="flex flex-1 flex-col">
+              <span class="font-medium">{{ b.key }}</span>
+              <span class="font-mono text-xs text-slate-500">{{ b.baseUrl }}</span>
+            </div>
+            <Check v-if="selected === b.key" class="h-4 w-4" />
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenuPortal>
+    </DropdownMenuRoot>
   </div>
 </template>

@@ -49,7 +49,13 @@ const tenantForNav = computed(
 const tenantsQ = tenantStore.tenants();
 const tenantById = computed(() => {
   const items = tenantsQ.data.value?.data?.items ?? [];
-  return new Map(items.map((t) => [t.id, t]));
+  // 双键索引：URL 段既可能是 UUID 也可能是 tenantKey
+  const m = new Map<string, (typeof items)[number]>();
+  for (const t of items) {
+    m.set(t.id, t);
+    if (t.tenantKey) m.set(t.tenantKey, t);
+  }
+  return m;
 });
 
 const crumbs = computed<Crumb[]>(() => {
@@ -66,12 +72,9 @@ const crumbs = computed<Crumb[]>(() => {
     const prev = i > 0 ? segments[i - 1] : null;
     if (seg === "tenants" && i + 1 < segments.length) continue;
     if (prev === "tenants") {
+      // 用户裁定 2026-09-11：面包屑显示租户名称，不再展示括号中的 ID
       const tenant = tenantById.value.get(seg) ?? tenantById.value.get(tenantForNav.value);
-      if (tenant) {
-        result.push({ label: tenant.name, to: path, hint: tenant.tenantKey });
-      } else {
-        result.push({ label: "未知租户", to: path, hint: seg.slice(0, 8) });
-      }
+      result.push({ label: tenant ? tenant.name : "未知租户", to: path });
       continue;
     }
     result.push({ label: SUB_PATH_LABEL[seg] ?? seg, to: path });
