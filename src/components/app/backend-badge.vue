@@ -22,16 +22,16 @@ function onChange(e: Event) {
 
 <template>
   <div class="flex flex-col gap-1 px-2 py-1 text-xs">
-    <div class="flex items-center gap-2">
+    <div class="flex min-w-0 items-center gap-2">
       <span class="font-mono text-white/40">backend:</span>
       <select
         data-testid="backend-badge"
         :value="selected"
-        class="rounded border border-white/20 bg-slate-900 px-1 py-0.5 font-mono text-xs text-white"
+        class="w-full max-w-[10.5rem] rounded border border-white/20 bg-slate-900 px-1 py-0.5 font-mono text-xs text-white"
         @change="onChange"
       >
         <option value="">(env 默认)</option>
-        <option v-for="b in BACKENDS" :key="b.key" :value="b.key">{{ b.key }} · {{ b.baseUrl }}</option>
+        <option v-for="b in BACKENDS" :key="b.key" :value="b.key">{{ b.key }} {{ b.baseUrl.replace('http://localhost', '') }}</option>
       </select>
     </div>
     <div class="font-mono text-white/40 truncate" :title="baseUrl">{{ baseUrl }}</div>
