@@ -17,14 +17,12 @@ export interface NavItem {
 interface Props {
   items: NavItem[];
   title?: string;
-  subtitle?: string;
   /** Version text rendered below the footer action */
   version?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   title: "SaaS 多租户多应用身份平台",
-  subtitle: "Identity Platform",
   version: "v0.2.0",
 });
 
@@ -55,7 +53,7 @@ const orderedGroups = computed(() => Object.keys(groups.value));
         </div>
         <div class="flex-1 min-w-0">
           <h1 class="text-sm font-bold leading-tight truncate">{{ props.title }}</h1>
-          <p class="text-xs text-white/50 truncate">{{ props.subtitle }}</p>
+          <p class="text-xs text-white/50 truncate">{{ props.version }}</p>
         </div>
       </div>
     </div>
@@ -96,7 +94,6 @@ const orderedGroups = computed(() => Object.keys(groups.value));
       <slot name="footerAction" />
       <!-- 次要操作（如后端模式切换器），渲染在主操作之下、版本号之上 -->
       <slot name="footerExtras" />
-      <div v-if="props.version" class="text-xs text-white/40 px-2">{{ props.version }}</div>
     </div>
   </aside>
 </template>
