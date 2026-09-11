@@ -9,6 +9,7 @@ import {
   useTenantApplicationsSubscribeTenantApplication,
   useTenantApplicationsUpdateTenantApplication,
 } from "../api/endpoints/tenant-applications/tenant-applications";
+import { useAdminClientsListClients } from "../api/endpoints/admin-clients/admin-clients";
 import type {
   SubscribeTenantApplicationRequest,
   TenantApplication,
@@ -76,6 +77,28 @@ const editTarget = ref<TenantApplication | null>(null);
 const removeTarget = ref<TenantApplication | null>(null);
 
 const apps = computed<TenantApplication[]>(() => list.data.value?.data?.items ?? []);
+
+// 应用名称解析：clientId 兼容 code / 内部 UUID / OAuthClient.clientId 三路。
+// OAuthClient 契约字段是 clientName，msw App fixture 是 name/code —— 双路兜底。
+const clientsQ = useAdminClientsListClients();
+const appNameBy = computed(() => {
+  const items = (clientsQ.data.value?.data?.items ?? []) as Array<{
+    id?: string;
+    clientId?: string;
+    clientName?: string;
+    name?: string;
+    code?: string;
+  }>;
+  const m = new Map<string, string>();
+  for (const c of items) {
+    const label = c.clientName ?? c.name ?? c.code ?? "";
+    for (const key of [c.clientId, c.code, c.id].filter(Boolean) as string[]) {
+      m.set(key, label);
+    }
+  }
+  return m;
+});
+const appName = (clientId: string) => appNameBy.value.get(clientId) ?? "未知应用";
 
 function statusLabel(s: number): string {
   return STATUS_OPTIONS.find((o) => o.value === String(s))?.label ?? `状态 ${s}`;
@@ -153,6 +176,7 @@ async function confirmRemove() {
         <Table v-if="apps.length > 0">
           <TableHeader>
             <TableRow>
+              <TableHead>应用名称</TableHead>
               <TableHead>Client ID</TableHead>
               <TableHead>状态</TableHead>
               <TableHead>到期时间</TableHead>
@@ -161,6 +185,7 @@ async function confirmRemove() {
           </TableHeader>
           <TableBody>
             <TableRow v-for="a in apps" :key="a.id" data-testid="tenant-app-row">
+              <TableCell class="font-medium">{{ appName(a.clientId) }}</TableCell>
               <TableCell class="font-mono text-xs">{{ a.clientId }}</TableCell>
               <TableCell>
                 <span
