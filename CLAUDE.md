@@ -24,6 +24,9 @@ dev server 端口：**5103**（2026-09-02 端口分段 §6；saas 段 X03）。
 - 禁止组件内直接 fetch（走 orval 具名函数）；禁止 `vi.mock('axios')`；禁止 axios 升 1.19
 - 禁止给按钮加 lucide 图标（纯文字按钮）；禁止 demo 密码出现在 UI / 注释 / 断言
 - 禁止手写 `<table>` / `<select>` / 内联样式 / `window.confirm` / 未登记 fnId 挂 data-fn
+- msw 是**独立 HTTP mock server**（传统 Mock Server 模式，真 TCP :5100）：本仓**零 npm 依赖**；
+  单测 fixtures 相对路径直连 `../../saas-identity-platform-msw/src/fixtures/seed`（2026-09-11 起）；
+  禁止回引 `@saas/identity-platform-msw` 包依赖或浏览器 SW 模式
 - 细则（shadcn-vue、data-fn 登记等）→ `docs/conventions/`
 
 ## 3. 技术栈与版本（钉死于 version-lock.json）

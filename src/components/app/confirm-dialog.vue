@@ -4,7 +4,6 @@
 
 import {
   AlertDialogRoot,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -63,7 +62,13 @@ function onConfirm(e: Event) {
         >
           {{ props.cancelText }}
         </AlertDialogCancel>
-        <AlertDialogAction
+        <!-- 2026-09-11 E2E 抓到：reka 的 AlertDialogAction 点击会先自动关闭弹窗
+             （update:open(false) 先于 @confirm 到达），调用方在 update:open 里清
+             target 后 confirmDelete 读到 null 静默早退（radix 版靠 preventDefault
+             挡住自动关闭，reka 不遵循）。改普通 button：关闭权完全交还调用方，
+             与本组件注释的受控契约一致（onConfirm 做异步、成功后由调用方关闭）。 -->
+        <button
+          type="button"
           :disabled="props.loading"
           :class="
             cn(
@@ -74,7 +79,7 @@ function onConfirm(e: Event) {
           @click="onConfirm"
         >
           {{ props.confirmText }}
-        </AlertDialogAction>
+        </button>
       </div>
     </AlertDialogContent>
   </AlertDialogRoot>

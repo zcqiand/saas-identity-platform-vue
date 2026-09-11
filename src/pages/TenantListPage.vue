@@ -35,7 +35,8 @@ import { toApiError } from "../api/http-client";
 import { toast } from "vue-sonner";
 
 const FIELDS: FieldDef[] = [
-  { name: "code", label: "Code", required: true, placeholder: "acme" },
+  // 契约字段 tenantKey（shared OpenAPI；表单名随契约，POST body 才合法）
+  { name: "tenantKey", label: "Code", required: true, placeholder: "acme" },
   { name: "name", label: "名称", required: true, placeholder: "ACME Corp" },
   {
     name: "status",
@@ -46,7 +47,6 @@ const FIELDS: FieldDef[] = [
     options: [
       { value: "active", label: "启用" },
       { value: "suspended", label: "暂停" },
-      { value: "archived", label: "归档" },
     ],
   },
 ];
@@ -80,7 +80,7 @@ async function onUpdate(values: Record<string, unknown>) {
       id: editTarget.value.id,
       data: {
         name: values.name as string,
-        status: values.status as "active" | "suspended" | "archived",
+        status: values.status as "active" | "suspended",
       } as UpdateTenantRequest,
     });
     editTarget.value = null;
@@ -144,7 +144,7 @@ async function confirmDelete() {
               <TableCell class="font-mono text-xs">{{ t.tenantKey }}</TableCell>
               <TableCell class="font-medium">{{ t.name }}</TableCell>
               <TableCell>
-                <StatusBadge :status="t.status as 'active' | 'suspended' | 'archived'" />
+                <StatusBadge :status="t.status as 'active' | 'suspended'" />
               </TableCell>
               <TableCell class="text-right space-x-1">
                 <Button
@@ -197,7 +197,7 @@ async function confirmDelete() {
       :fields="FIELDS"
       :initial-values="
         editTarget
-          ? { code: editTarget.tenantKey, name: editTarget.name, status: editTarget.status }
+          ? { tenantKey: editTarget.tenantKey, name: editTarget.name, status: editTarget.status }
           : undefined
       "
       :loading="updateMut.isPending.value"
