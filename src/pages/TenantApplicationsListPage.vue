@@ -78,23 +78,13 @@ const removeTarget = ref<TenantApplication | null>(null);
 
 const apps = computed<TenantApplication[]>(() => list.data.value?.data?.items ?? []);
 
-// 应用名称解析：clientId 兼容 code / 内部 UUID / OAuthClient.clientId 三路。
-// OAuthClient 契约字段是 clientName，msw App fixture 是 name/code —— 双路兜底。
+// 应用名称解析：OAuthClient 契约形状（2026-09-12 收敛，双路兜底已删）
+// —— msw fixture 即 OAuthClient（clientId/clientName/status:number），无 name/code 旧键。
 const clientsQ = useAdminClientsListClients();
 const appNameBy = computed(() => {
-  const items = (clientsQ.data.value?.data?.items ?? []) as Array<{
-    id?: string;
-    clientId?: string;
-    clientName?: string;
-    name?: string;
-    code?: string;
-  }>;
   const m = new Map<string, string>();
-  for (const c of items) {
-    const label = c.clientName ?? c.name ?? c.code ?? "";
-    for (const key of [c.clientId, c.code, c.id].filter(Boolean) as string[]) {
-      m.set(key, label);
-    }
+  for (const c of clientsQ.data.value?.data?.items ?? []) {
+    m.set(c.clientId, c.clientName);
   }
   return m;
 });

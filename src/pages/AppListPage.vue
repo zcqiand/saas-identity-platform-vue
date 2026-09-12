@@ -68,10 +68,10 @@ const EDIT_FIELDS: FieldDef[] = [
     label: "状态",
     type: "select",
     required: true,
-    defaultValue: "active",
+    defaultValue: "1",
     options: [
-      { value: "active", label: "启用" },
-      { value: "disabled", label: "停用" },
+      { value: "1", label: "启用" },
+      { value: "0", label: "停用" },
     ],
   },
   { name: "scopesText", label: "Scopes（逗号分隔）", placeholder: "lab.read, lab.write" },
@@ -131,8 +131,8 @@ async function onUpdate(values: Record<string, unknown>) {
     await updateMut.mutateAsync({
       clientId: editTarget.value.id,
       data: {
-        clientName: values.name as string,
-        status: values.status === "active" ? 1 : 0,
+        clientName: values.clientName as string,
+        status: Number(values.status ?? 1),
       },
     });
     editTarget.value = null;
@@ -263,8 +263,8 @@ async function confirmDelete() {
       :initial-values="
         editTarget
           ? {
-              name: editTarget.clientName,
-              status: editTarget.status === 1 ? 'active' : 'disabled',
+              clientName: editTarget.clientName,
+              status: editTarget.status === 1 ? '1' : '0',
               scopesText: editTarget.scopes ?? '',
             }
           : undefined
