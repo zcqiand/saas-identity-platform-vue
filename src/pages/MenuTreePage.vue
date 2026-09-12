@@ -84,8 +84,10 @@ const appId = computed(() => String(route.params.appId ?? ""));
 
 const appsQ = useAdminClientsListClients();
 const allApps = computed(() => appsQ.data.value?.data?.items ?? []);
-const selectedAppId = ref(appId.value || allApps.value[0]?.id || "");
-const currentApp = computed(() => allApps.value.find((a) => a.id === selectedAppId.value) ?? allApps.value[0]);
+// selectedAppId 值域 = OAuthClient.clientId（code 形）——上游 RouterLink 传参、
+// 应用下拉 value、菜单 CRUD 写路径、真后端 client_id 列查询四处一致；行 UUID 只作 key。
+const selectedAppId = ref(appId.value || allApps.value[0]?.clientId || "");
+const currentApp = computed(() => allApps.value.find((a) => a.clientId === selectedAppId.value) ?? allApps.value[0]);
 
 const menusQ = useClientMenusListSysMenus(selectedAppId);
 // 父菜单下拉用：无视展开状态的扁平视图（深度缩进）
@@ -275,7 +277,7 @@ async function confirmDelete() {
         <div class="flex gap-2">
           <SelectField
             v-model="selectedAppId"
-            :items="allApps.map((a) => ({ value: a.id, label: a.clientName }))"
+            :items="allApps.map((a) => ({ value: a.clientId, label: a.clientName }))"
             placeholder="选择应用"
             class="w-64"
           />
