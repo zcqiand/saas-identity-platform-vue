@@ -43,7 +43,7 @@ const groupsQ = useQuery({
       items.map(async (a) => ({
         appCode: a.clientId,
         appName: a.clientName,
-        menus: (await clientMenusListSysMenus(a.id)).data,
+        menus: (await clientMenusListSysMenus(a.clientId)).data,
       })),
     );
   },
