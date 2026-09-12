@@ -85,7 +85,8 @@ describe("M04 应用编辑", () => {
 
     expect(updateClientMut.mutateAsync).toHaveBeenCalledTimes(1);
     const vars = updateClientMut.mutateAsync.mock.calls[0][0];
-    expect(vars.clientId).toBe(apps[0].id);
+    // 按契约 clientId（code 形）寻址——真后端按 client_id 列查，行 UUID 会 404
+    expect(vars.clientId).toBe(apps[0].clientId);
     // 核心回归断言：payload 带新 clientName（旧代码读 values.name → undefined）
     expect(vars.data.clientName).toBe("新名");
     // status 表单选项 "1"/"0" → 提交 Number 映射

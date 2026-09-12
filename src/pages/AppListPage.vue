@@ -129,7 +129,7 @@ async function onUpdate(values: Record<string, unknown>) {
   if (!editTarget.value) return;
   try {
     await updateMut.mutateAsync({
-      clientId: editTarget.value.id,
+      clientId: editTarget.value.clientId,
       data: {
         clientName: values.clientName as string,
         status: Number(values.status ?? 1),
@@ -146,7 +146,7 @@ async function onUpdate(values: Record<string, unknown>) {
 async function toggleStatus(a: OAuthClient) {
   try {
     await statusMut.mutateAsync({
-      clientId: a.id,
+      clientId: a.clientId,
       data: { status: a.status === 1 ? 0 : 1 },
     });
     list.refetch();
@@ -159,7 +159,7 @@ async function toggleStatus(a: OAuthClient) {
 async function confirmDelete() {
   if (!deleteTarget.value) return;
   try {
-    await deleteMut.mutateAsync({ clientId: deleteTarget.value.id });
+    await deleteMut.mutateAsync({ clientId: deleteTarget.value.clientId });
     deleteTarget.value = null;
     list.refetch();
     toast.success("应用已删除");
@@ -235,7 +235,7 @@ async function confirmDelete() {
                   删除
                 </Button>
                 <Button variant="ghost" size="sm" as-child>
-                  <RouterLink :to="`/admin/apps/${a.id}/menus`">菜单</RouterLink>
+                  <RouterLink :to="`/admin/apps/${a.clientId}/menus`">菜单</RouterLink>
                 </Button>
               </TableCell>
             </TableRow>
