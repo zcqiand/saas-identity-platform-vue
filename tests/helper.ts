@@ -41,7 +41,12 @@ export function mountWithProviders(
       ],
       stubs: {
         ...(options.global?.stubs ?? {}),
-        teleport: true,
+        // 默认 stub Teleport（断言不依赖 document.body）；需要断言 portal 内容的
+        // 用例显式传 stubs: { teleport: false } 覆盖（2026-09-12 登录页后端切换器）
+        // （VTU 的 Stubs 类型没收录 'teleport' 字面键，这里过 Record 断言）
+        teleport:
+          (options.global?.stubs as Record<string, boolean | undefined> | undefined)
+            ?.teleport ?? true,
       },
     },
   });

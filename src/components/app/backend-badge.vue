@@ -3,6 +3,8 @@
 // 视觉对齐 TenantSwitcher（DropdownMenu + 图标 + ChevronsUpDown）。
 // 选择持久化 localStorage（saas.api.backend），http-client 每次请求动态读取，
 // 切完下一个请求即生效，无需刷新。未选择 = env 默认目标。
+// variant="sidebar"（默认）：深色侧边栏 footer 用白字样式；
+// variant="plain"：浅色背景（登录页卡片）用默认 ghost 样式（2026-09-12，对齐 saas-nextjs/react）。
 import { computed, ref } from "vue";
 import { Check, ChevronsUpDown, Server } from "lucide-vue-next";
 import Button from "../ui/button.vue";
@@ -17,9 +19,21 @@ import {
 } from "reka-ui";
 import { BACKENDS, getSelectedBackend, setSelectedBackend } from "../../api/backend-config";
 
+const props = withDefaults(defineProps<{ variant?: "sidebar" | "plain" }>(), {
+  variant: "sidebar",
+});
+
 const selected = ref(getSelectedBackend());
 const currentLabel = computed(
   () => BACKENDS.find((b) => b.key === selected.value)?.key ?? "(env 默认)",
+);
+const wrapperClass = computed(() =>
+  props.variant === "sidebar" ? "w-full px-2 py-1 text-xs" : "w-full text-xs",
+);
+const triggerClass = computed(() =>
+  props.variant === "sidebar"
+    ? "w-full justify-between gap-2 border border-white/20 bg-transparent text-white/80 hover:bg-white/10 hover:text-white"
+    : "w-full justify-between gap-2 border border-slate-200 bg-white text-slate-700 hover:bg-slate-50",
 );
 
 function pick(key: string) {
@@ -29,14 +43,10 @@ function pick(key: string) {
 </script>
 
 <template>
-  <div class="w-full px-2 py-1 text-xs" data-testid="backend-badge">
+  <div :class="wrapperClass" data-testid="backend-badge">
     <DropdownMenuRoot>
       <DropdownMenuTrigger as-child>
-        <Button
-          variant="ghost"
-          size="sm"
-          class="w-full justify-between gap-2 border border-white/20 bg-transparent text-white/80 hover:bg-white/10 hover:text-white"
-        >
+        <Button variant="ghost" size="sm" :class="triggerClass">
           <span class="flex min-w-0 items-center gap-2">
             <Server class="h-4 w-4 text-slate-500" />
             <span class="truncate font-medium">{{ currentLabel }}</span>

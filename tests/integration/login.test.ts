@@ -9,6 +9,7 @@
 // 登录成功后 302 redirect_uri?code&state 回 RP；无参数时行为不变。
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createPinia, setActivePinia } from "pinia";
+import { flushPromises } from "@vue/test-utils";
 import { mountWithProviders } from "../helper";
 import LoginPage from "../../src/pages/LoginPage.vue";
 import { ApiError } from "../../src/api/http-client";
@@ -241,5 +242,58 @@ describe("M01.F04.I03 OAuth code 回跳", () => {
     } finally {
       loc.restore();
     }
+  });
+});
+
+// === 2026-09-12 登录页后端切换器（对齐 saas-nextjs/react；dev 诊断，不挂功能 ID）===
+
+describe("登录页后端切换器", () => {
+  // VTU 默认 stub Teleport（portal 内容进 <teleport-stub> 而非 document.body）；
+  // teleport: false = 关掉 stub 渲染真 teleport，才能断言菜单项。
+  const mountOpts = { attachTo: document.body, global: { stubs: { teleport: false } } };
+
+  function badgeTrigger(wrapper: ReturnType<typeof mountWithProviders>) {
+    const badge = wrapper.find('[data-testid="backend-badge"]');
+    expect(badge.exists()).toBe(true);
+    return badge.find("button");
+  }
+
+  function menuItems(): HTMLElement[] {
+    // DropdownMenuPortal 把内容挂 document.body
+    return [...document.body.querySelectorAll('[role="menuitem"]')] as HTMLElement[];
+  }
+
+  it("渲染 BackendBadge，未选择时显示 env 默认", () => {
+    const wrapper = mountWithProviders(LoginPage);
+    expect(badgeTrigger(wrapper).text()).toContain("(env 默认)");
+    wrapper.unmount();
+  });
+
+  it("选 springboot -> localStorage 持久化 + 触发按钮显示 springboot", async () => {
+    const wrapper = mountWithProviders(LoginPage, mountOpts);
+    // reka DropdownMenuTrigger：onClick 且 button===0 && !ctrlKey 开菜单（与 Radix 的 pointerdown 不同）
+    await badgeTrigger(wrapper).trigger("click", { button: 0, ctrlKey: false });
+    const target = menuItems().find((el) => el.textContent?.includes("springboot"));
+    expect(target).toBeTruthy();
+    // reka MenuItem 选中走 onClick
+    target!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    await flushPromises();
+    expect(localStorage.getItem("saas.api.backend")).toBe("springboot");
+    expect(badgeTrigger(wrapper).text()).toContain("springboot");
+    wrapper.unmount();
+  });
+
+  it("切回 env 默认 -> localStorage 清除", async () => {
+    localStorage.setItem("saas.api.backend", "springboot");
+    const wrapper = mountWithProviders(LoginPage, mountOpts);
+    expect(badgeTrigger(wrapper).text()).toContain("springboot");
+    await badgeTrigger(wrapper).trigger("click", { button: 0, ctrlKey: false });
+    const target = menuItems().find((el) => el.textContent?.includes("env 默认"));
+    expect(target).toBeTruthy();
+    target!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    await flushPromises();
+    expect(localStorage.getItem("saas.api.backend")).toBeNull();
+    expect(badgeTrigger(wrapper).text()).toContain("(env 默认)");
+    wrapper.unmount();
   });
 });

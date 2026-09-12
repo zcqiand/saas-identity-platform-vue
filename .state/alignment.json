@@ -278,7 +278,7 @@
       "flows": [],
       "designs": [],
       "tests": [
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:1078 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:1307 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-write.test.ts:1089 (path)"
       ],
       "entry": []
@@ -291,7 +291,7 @@
       "flows": [],
       "designs": [],
       "tests": [
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:1078 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:1307 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-write.test.ts:1089 (path)",
         "渲染角色列表，新建角色按钮挂 data-fn=M00.F03.I02"
       ],
@@ -307,7 +307,7 @@
       "flows": [],
       "designs": [],
       "tests": [
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:2381 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:2514 (path)"
       ],
       "entry": []
     },
@@ -319,7 +319,7 @@
       "flows": [],
       "designs": [],
       "tests": [
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:2381 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:2514 (path)"
       ],
       "entry": [
         "src\\pages\\RoleListPage.vue"
@@ -333,7 +333,7 @@
       "flows": [],
       "designs": [],
       "tests": [
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:2381 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:2514 (path)"
       ],
       "entry": [
         "src\\pages\\RoleListPage.vue"
@@ -358,7 +358,7 @@
       "designs": [],
       "tests": [
         "output\\saas-identity-platform-contract-test\\tests\\tenant-role-menus-write.test.ts:1223 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:3698 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:3831 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-write.test.ts:1193 (path)"
       ],
       "entry": [
@@ -374,7 +374,7 @@
       "designs": [],
       "tests": [
         "output\\saas-identity-platform-contract-test\\tests\\tenant-role-menus-write.test.ts:1223 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:3698 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:3831 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-write.test.ts:1193 (path)"
       ],
       "entry": [
@@ -390,7 +390,7 @@
       "designs": [],
       "tests": [
         "output\\saas-identity-platform-contract-test\\tests\\tenant-role-menus-write.test.ts:1223 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:3698 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:3831 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-write.test.ts:1193 (path)"
       ],
       "entry": [
@@ -496,7 +496,7 @@
       "flows": [],
       "designs": [],
       "tests": [
-        "output\\saas-identity-platform-contract-test\\tests\\me-switch.test.ts:2204 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\me-switch.test.ts:2224 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\me-switch.test.ts:729 (path)"
       ],
       "entry": []
@@ -525,7 +525,7 @@
       "flows": [],
       "designs": [],
       "tests": [
-        "output\\saas-identity-platform-contract-test\\tests\\auth.test.ts:3307 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\auth.test.ts:3830 (path)"
       ],
       "entry": [
         "src\\components\\app\\app-shell.vue"
@@ -549,7 +549,10 @@
       "flows": [],
       "designs": [],
       "tests": [
-        "output\\saas-identity-platform-contract-test\\tests\\admin-clients-write.test.ts:891 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\admin-clients-write.test.ts:891 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:3311 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:5216 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:7961 (path)"
       ],
       "entry": []
     },
@@ -561,7 +564,10 @@
       "flows": [],
       "designs": [],
       "tests": [
-        "output\\saas-identity-platform-contract-test\\tests\\admin-clients-write.test.ts:891 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\admin-clients-write.test.ts:891 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:3311 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:5216 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:7961 (path)"
       ],
       "entry": []
     },
@@ -625,8 +631,8 @@
       "flows": [],
       "designs": [],
       "tests": [
-        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:1738 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:2639 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:1791 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:2692 (path)",
         "returns 400 INVALID_REDIRECT_URI when redirect not in whitelist M04.F03.I01",
         "returns {code, state} for a valid request M04.F03.I01",
         "saveState + consumeState round-trips and clears M04.F03.I01"
@@ -642,10 +648,10 @@
       "designs": [],
       "tests": [
         "exchanges code for access_token + refresh_token M04.F03.I02",
-        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:3423 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:4655 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:5703 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:6653 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:3442 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:4674 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:5722 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:6672 (path)",
         "persistTokens preserves user metadata M04.F03.I02",
         "persistTokens tolerates malformed prior session M04.F03.I02",
         "writes access/refresh to localStorage M04.F03.I02"
@@ -662,10 +668,10 @@
       "tests": [
         "clearTokens on empty session is a no-op M04.F03.I03",
         "clearTokens removes only token fields M04.F03.I03",
-        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:3423 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:4655 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:5703 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:6653 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:3442 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:4674 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:5722 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:6672 (path)",
         "rejects unknown refresh_token with 400 INVALID_GRANT M04.F03.I03",
         "rotates refresh_token M04.F03.I03"
       ],
@@ -766,8 +772,8 @@
       "flows": [],
       "designs": [],
       "tests": [
-        "output\\saas-identity-platform-contract-test\\tests\\me.test.ts:1845 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\me.test.ts:2074 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\me.test.ts:2247 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\me.test.ts:2476 (path)"
       ],
       "entry": [
         "src\\components\\app\\sidebar-nav.vue"
