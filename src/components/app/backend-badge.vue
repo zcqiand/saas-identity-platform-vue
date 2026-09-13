@@ -17,7 +17,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "reka-ui";
-import { BACKENDS, getSelectedBackend, setSelectedBackend } from "../../api/backend-config";
+import {
+  SELECTABLE_BACKENDS,
+  getSelectedBackend,
+  resolveSelectedBackendUrl,
+  setSelectedBackend,
+} from "../../api/backend-config";
 
 const props = withDefaults(defineProps<{ variant?: "sidebar" | "plain" }>(), {
   variant: "sidebar",
@@ -25,7 +30,7 @@ const props = withDefaults(defineProps<{ variant?: "sidebar" | "plain" }>(), {
 
 const selected = ref(getSelectedBackend());
 const currentLabel = computed(
-  () => BACKENDS.find((b) => b.key === selected.value)?.key ?? "(env 默认)",
+  () => SELECTABLE_BACKENDS.find((b) => b.key === selected.value)?.key ?? "(env 默认)",
 );
 const wrapperClass = computed(() =>
   props.variant === "sidebar" ? "w-full px-2 py-1 text-xs" : "w-full text-xs",
@@ -64,7 +69,7 @@ function pick(key: string) {
             <Check v-if="!selected" class="h-4 w-4" />
           </DropdownMenuItem>
           <DropdownMenuItem
-            v-for="b in BACKENDS"
+            v-for="b in SELECTABLE_BACKENDS"
             :key="b.key"
             class="cursor-pointer"
             @select="pick(b.key)"
@@ -72,7 +77,9 @@ function pick(key: string) {
             <Server class="mr-2 h-4 w-4 text-slate-500" />
             <div class="flex flex-1 flex-col">
               <span class="font-medium">{{ b.key }}</span>
-              <span class="font-mono text-xs text-slate-500">{{ b.baseUrl }}</span>
+              <span class="font-mono text-xs text-slate-500">
+                {{ resolveSelectedBackendUrl(b.key) }}
+              </span>
             </div>
             <Check v-if="selected === b.key" class="h-4 w-4" />
           </DropdownMenuItem>
