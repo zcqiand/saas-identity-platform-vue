@@ -36,7 +36,7 @@ import { toApiError } from "../api/http-client";
 import { toast } from "vue-sonner";
 
 const FIELDS: FieldDef[] = [
-  { name: "clientId", label: "Client ID", required: true, placeholder: "lab-mgmt" },
+  { name: "clientId", label: "Client ID", required: true, placeholder: "lab-management" },
   { name: "clientSecret", label: "Client Secret", required: true, placeholder: "••••••" },
   {
     name: "clientName",
@@ -44,11 +44,29 @@ const FIELDS: FieldDef[] = [
     required: true,
     placeholder: "建筑工程实验室管理系统",
   },
-  { name: "grantTypes", label: "Grant Types（逗号分隔）", placeholder: "authorization_code,client_credentials" },
-  { name: "redirectUris", label: "Redirect URIs（逗号分隔）", placeholder: "https://app.example.com/callback" },
+  {
+    name: "grantTypes",
+    label: "Grant Types（逗号分隔）",
+    placeholder: "authorization_code,client_credentials",
+  },
+  {
+    name: "redirectUris",
+    label: "Redirect URIs（逗号分隔）",
+    placeholder: "https://app.example.com/callback",
+  },
   { name: "scopesText", label: "Scopes（逗号分隔）", placeholder: "lab.read, lab.write" },
-  { name: "accessTokenValidity", label: "Access Token Validity（秒）", type: "number", defaultValue: 3600 },
-  { name: "refreshTokenValidity", label: "Refresh Token Validity（秒）", type: "number", defaultValue: 2592000 },
+  {
+    name: "accessTokenValidity",
+    label: "Access Token Validity（秒）",
+    type: "number",
+    defaultValue: 3600,
+  },
+  {
+    name: "refreshTokenValidity",
+    label: "Refresh Token Validity（秒）",
+    type: "number",
+    defaultValue: 2592000,
+  },
   {
     name: "autoApprove",
     label: "Auto Approve",
