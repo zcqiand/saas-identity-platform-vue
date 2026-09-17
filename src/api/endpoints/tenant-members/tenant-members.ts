@@ -39,6 +39,7 @@ import type {
   CreateSysUserRequest,
   ErrorResponse,
   SetTenantMemberRolesRequest,
+  TenantMemberUserView,
   TenantMemberView,
   TenantMembersChangeTenantUserStatusBody,
   TenantMembersInviteTenantUserBody,
@@ -121,7 +122,7 @@ export function useTenantMembersListTenantUsers<TData = Awaited<ReturnType<typeo
 export const tenantMembersCreateTenantUser = (
     tenantId: MaybeRef<string>,
     createSysUserRequest: MaybeRef<CreateSysUserRequest>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<TenantMemberView>> => {
+ ): Promise<AxiosResponse<TenantMemberUserView>> => {
     tenantId = unref(tenantId);
 createSysUserRequest = unref(createSysUserRequest);
     
@@ -235,7 +236,7 @@ const {mutation: mutationOptions, axios: axiosOptions} = options ?
     export const tenantMembersGetTenantUser = (
     tenantId: MaybeRef<string>,
     userId: MaybeRef<string>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<TenantMemberView>> => {
+ ): Promise<AxiosResponse<TenantMemberUserView>> => {
     tenantId = unref(tenantId);
 userId = unref(userId);
     
@@ -301,7 +302,7 @@ export const tenantMembersUpdateTenantUser = (
     tenantId: MaybeRef<string>,
     userId: MaybeRef<string>,
     updateSysUserRequest: MaybeRef<UpdateSysUserRequest>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<TenantMemberView>> => {
+ ): Promise<AxiosResponse<TenantMemberUserView>> => {
     tenantId = unref(tenantId);
 userId = unref(userId);
 updateSysUserRequest = unref(updateSysUserRequest);
@@ -416,7 +417,7 @@ const {mutation: mutationOptions, axios: axiosOptions} = options ?
     tenantId: MaybeRef<string>,
     userId: MaybeRef<string>,
     setTenantMemberRolesRequest: MaybeRef<SetTenantMemberRolesRequest>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<TenantMemberView>> => {
+ ): Promise<AxiosResponse<TenantMemberUserView>> => {
     tenantId = unref(tenantId);
 userId = unref(userId);
 setTenantMemberRolesRequest = unref(setTenantMemberRolesRequest);
@@ -475,7 +476,7 @@ const {mutation: mutationOptions, axios: axiosOptions} = options ?
     tenantId: MaybeRef<string>,
     userId: MaybeRef<string>,
     tenantMembersChangeTenantUserStatusBody: MaybeRef<TenantMembersChangeTenantUserStatusBody>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<TenantMemberView>> => {
+ ): Promise<AxiosResponse<TenantMemberUserView>> => {
     tenantId = unref(tenantId);
 userId = unref(userId);
 tenantMembersChangeTenantUserStatusBody = unref(tenantMembersChangeTenantUserStatusBody);

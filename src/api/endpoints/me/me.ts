@@ -42,7 +42,7 @@ import type {
   MeListMyTenantsParams,
   MeSwitchTenantParams,
   SwitchTenantResponse,
-  TenantMember
+  TenantMembership
 } from '../title.schemas';
 
 
@@ -110,7 +110,7 @@ export function useMeWhoami<TData = Awaited<ReturnType<typeof meWhoami>>, TError
 
 
 export const meGetMyMenus = (
-    params: MaybeRef<MeGetMyMenusParams>, options?: AxiosRequestConfig
+    params?: MaybeRef<MeGetMyMenusParams>, options?: AxiosRequestConfig
  ): Promise<AxiosResponse<MeGetMyMenus200>> => {
     params = unref(params);
     
@@ -131,7 +131,7 @@ export const getMeGetMyMenusQueryKey = (params?: MaybeRef<MeGetMyMenusParams>,) 
     }
 
     
-export const getMeGetMyMenusQueryOptions = <TData = Awaited<ReturnType<typeof meGetMyMenus>>, TError = AxiosError<ErrorResponse>>(params: MaybeRef<MeGetMyMenusParams>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof meGetMyMenus>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const getMeGetMyMenusQueryOptions = <TData = Awaited<ReturnType<typeof meGetMyMenus>>, TError = AxiosError<ErrorResponse>>(params?: MaybeRef<MeGetMyMenusParams>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof meGetMyMenus>>, TError, TData>>, axios?: AxiosRequestConfig}
 ) => {
 
 const {query: queryOptions, axios: axiosOptions} = options ?? {};
@@ -155,7 +155,7 @@ export type MeGetMyMenusQueryError = AxiosError<ErrorResponse>
 
 
 export function useMeGetMyMenus<TData = Awaited<ReturnType<typeof meGetMyMenus>>, TError = AxiosError<ErrorResponse>>(
- params: MaybeRef<MeGetMyMenusParams>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof meGetMyMenus>>, TError, TData>>, axios?: AxiosRequestConfig}
+ params?: MaybeRef<MeGetMyMenusParams>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof meGetMyMenus>>, TError, TData>>, axios?: AxiosRequestConfig}
  , queryClient?: QueryClient 
  ): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
@@ -172,8 +172,8 @@ export function useMeGetMyMenus<TData = Awaited<ReturnType<typeof meGetMyMenus>>
 
 
 export const meListMyTenants = (
-    params: MaybeRef<MeListMyTenantsParams>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<TenantMember[]>> => {
+    params?: MaybeRef<MeListMyTenantsParams>, options?: AxiosRequestConfig
+ ): Promise<AxiosResponse<TenantMembership[]>> => {
     params = unref(params);
     
     return axios.get(
@@ -193,7 +193,7 @@ export const getMeListMyTenantsQueryKey = (params?: MaybeRef<MeListMyTenantsPara
     }
 
     
-export const getMeListMyTenantsQueryOptions = <TData = Awaited<ReturnType<typeof meListMyTenants>>, TError = AxiosError<ErrorResponse>>(params: MaybeRef<MeListMyTenantsParams>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof meListMyTenants>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const getMeListMyTenantsQueryOptions = <TData = Awaited<ReturnType<typeof meListMyTenants>>, TError = AxiosError<ErrorResponse>>(params?: MaybeRef<MeListMyTenantsParams>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof meListMyTenants>>, TError, TData>>, axios?: AxiosRequestConfig}
 ) => {
 
 const {query: queryOptions, axios: axiosOptions} = options ?? {};
@@ -217,7 +217,7 @@ export type MeListMyTenantsQueryError = AxiosError<ErrorResponse>
 
 
 export function useMeListMyTenants<TData = Awaited<ReturnType<typeof meListMyTenants>>, TError = AxiosError<ErrorResponse>>(
- params: MaybeRef<MeListMyTenantsParams>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof meListMyTenants>>, TError, TData>>, axios?: AxiosRequestConfig}
+ params?: MaybeRef<MeListMyTenantsParams>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof meListMyTenants>>, TError, TData>>, axios?: AxiosRequestConfig}
  , queryClient?: QueryClient 
  ): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
@@ -235,7 +235,7 @@ export function useMeListMyTenants<TData = Awaited<ReturnType<typeof meListMyTen
 
 export const meSwitchTenant = (
     tenantId: MaybeRef<string>,
-    params: MaybeRef<MeSwitchTenantParams>, options?: AxiosRequestConfig
+    params?: MaybeRef<MeSwitchTenantParams>, options?: AxiosRequestConfig
  ): Promise<AxiosResponse<SwitchTenantResponse>> => {
     tenantId = unref(tenantId);
 params = unref(params);
@@ -250,8 +250,8 @@ params = unref(params);
 
 
 export const getMeSwitchTenantMutationOptions = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof meSwitchTenant>>, TError,{tenantId: string;params: MeSwitchTenantParams}, TContext>, axios?: AxiosRequestConfig}
-): UseMutationOptions<Awaited<ReturnType<typeof meSwitchTenant>>, TError,{tenantId: string;params: MeSwitchTenantParams}, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof meSwitchTenant>>, TError,{tenantId: string;params?: MeSwitchTenantParams}, TContext>, axios?: AxiosRequestConfig}
+): UseMutationOptions<Awaited<ReturnType<typeof meSwitchTenant>>, TError,{tenantId: string;params?: MeSwitchTenantParams}, TContext> => {
 
 const mutationKey = ['meSwitchTenant'];
 const {mutation: mutationOptions, axios: axiosOptions} = options ?
@@ -263,7 +263,7 @@ const {mutation: mutationOptions, axios: axiosOptions} = options ?
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof meSwitchTenant>>, {tenantId: string;params: MeSwitchTenantParams}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof meSwitchTenant>>, {tenantId: string;params?: MeSwitchTenantParams}> = (props) => {
           const {tenantId,params} = props ?? {};
 
           return  meSwitchTenant(tenantId,params,axiosOptions)
@@ -279,11 +279,11 @@ const {mutation: mutationOptions, axios: axiosOptions} = options ?
     export type MeSwitchTenantMutationError = AxiosError<ErrorResponse>
 
     export const useMeSwitchTenant = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof meSwitchTenant>>, TError,{tenantId: string;params: MeSwitchTenantParams}, TContext>, axios?: AxiosRequestConfig}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof meSwitchTenant>>, TError,{tenantId: string;params?: MeSwitchTenantParams}, TContext>, axios?: AxiosRequestConfig}
  , queryClient?: QueryClient): UseMutationReturnType<
         Awaited<ReturnType<typeof meSwitchTenant>>,
         TError,
-        {tenantId: string;params: MeSwitchTenantParams},
+        {tenantId: string;params?: MeSwitchTenantParams},
         TContext
       > => {
 
