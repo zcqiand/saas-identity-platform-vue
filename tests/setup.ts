@@ -22,7 +22,7 @@ import {
   apps,
   menus,
   roleMenuGrants,
-} from "../../saas-identity-platform-msw/src/fixtures/seed";
+} from "../../saas-identity-platform-shared/seeds";
 
 // 给登录页兜底合法 clientId（业务身份字段，测试用固定值；生产走 OAuth URL 注入）
 // vite/vitest 把 VITE_LOGIN_CLIENT_ID 注入到 import.meta.env 上

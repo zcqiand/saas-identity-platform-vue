@@ -11,7 +11,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { DOMWrapper, flushPromises } from "@vue/test-utils";
 import { mountWithProviders } from "../helper";
 import AppListPage from "../../src/pages/AppListPage.vue";
-import { apps } from "../../../saas-identity-platform-msw/src/fixtures/seed";
+import { apps } from "../../../saas-identity-platform-shared/seeds";
 
 // mock orval mutation：mutateAsync 可检（vi.hoisted 先于 import 执行，不能在里面调 ref()
 // —— 会撞 TDZ，所以 isPending 用普通 { value } 对象，与 login.test.ts 同配方）
@@ -22,7 +22,7 @@ const { updateClientMut, toastSuccess } = vi.hoisted(() => ({
 
 vi.mock("../../src/api/endpoints/admin-clients/admin-clients", async () => {
   const { apps: seedApps } = await import(
-    "../../../saas-identity-platform-msw/src/fixtures/seed"
+    "../../../saas-identity-platform-shared/seeds"
   );
   const listStub = {
     data: {
