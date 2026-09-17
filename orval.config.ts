@@ -11,6 +11,9 @@ export default defineConfig({
     output: {
       mode: "tags-split",
       target: "./src/api/endpoints/",
+      // clean：生成前清空目标目录（2026-09-17 SSOT 清理）。本仓 tags-split 无独立
+      // schemas 目录，schema 落在生成物 title.schemas.ts（属 orval 产物，可清可重生成）。
+      clean: ["./src/api/endpoints/"],
       client: "vue-query",
       override: {
         useDates: false,
