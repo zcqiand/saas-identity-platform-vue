@@ -20,12 +20,14 @@ import type { Tenant } from "../api/endpoints/title.schemas";
 
 const STORAGE_KEY = "saas.tenant";
 
+/** 持久化层形状，非 API DTO；API 形状以 endpoints 生成物为准（CurrentUser/LoginResponse）。 */
 export interface AuthUser {
   id: string;
   username: string;
   email?: string;
 }
 
+/** 持久化层形状，非 API DTO；API 形状以 endpoints 生成物为准（TokenResponse/CurrentUser）。 */
 interface PersistedSession {
   currentTenantId: string | null;
   tenantCode: string | null;

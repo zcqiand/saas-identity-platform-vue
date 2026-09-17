@@ -14,6 +14,7 @@ import {
   oAuthAuthorize,
   oAuthToken,
 } from "@/api/endpoints/oauth/oauth";
+import type { TokenResponse } from "@/api/endpoints/title.schemas";
 
 const STATE_KEY = "saas.vue.oauth.state";
 const SESSION_KEY = "saas.vue.session";
@@ -83,7 +84,7 @@ export async function oauthExchangeCode(args: {
   code: string;
   clientId: string;
   redirectUri: string;
-}): Promise<TokenResponsePersisted> {
+}): Promise<TokenResponse> {
   const resp = await oAuthToken({
     grantType: "authorization_code",
     code: args.code,
@@ -98,7 +99,7 @@ export async function oauthExchangeCode(args: {
 export async function oauthRefresh(args: {
   refreshToken: string;
   clientId: string;
-}): Promise<TokenResponsePersisted> {
+}): Promise<TokenResponse> {
   const resp = await oAuthToken({
     grantType: "refresh_token",
     refreshToken: args.refreshToken,
@@ -108,19 +109,9 @@ export async function oauthRefresh(args: {
   return resp.data;
 }
 
-export interface TokenResponsePersisted {
-  accessToken: string;
-  refreshToken: string;
-  tokenType: string;
-  expiresIn: number;
-  scope?: string;
-  userId: string;
-  clientId: string;
-  tenantId: string;
-}
-
-/** 写入 localStorage（与 saas-vue 现有 session 字段兼容）。 */
-export function persistTokens(tokens: TokenResponsePersisted): void {
+/** 写入 localStorage（与 saas-vue 现有 session 字段兼容）。
+ * 入参直接用 orval 生成 TokenResponse（本仓不做 API DTO 平行形状）。 */
+export function persistTokens(tokens: TokenResponse): void {
   const raw = window.localStorage.getItem(SESSION_KEY);
   let session: Record<string, unknown> = {};
   if (raw) {
