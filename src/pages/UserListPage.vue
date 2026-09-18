@@ -1,5 +1,7 @@
 <script setup lang="ts">
 // M01.F01 — tenant-scoped 用户列表（CRUD）
+// @entry M00.F02.I01 — 成员列表（本页表格，tenantMembersListTenantUsers）
+// @entry M00.F02.I02 — 创建成员（「邀请用户」弹窗，createTenantUser）
 
 import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
