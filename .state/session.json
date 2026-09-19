@@ -1,16 +1,16 @@
 {
   "schema": 2,
   "project": "saas-identity-platform-vue",
-  "current_task": "三端收口盘点（2026-09-10）：34/51 已上线，横向 I 级与 react/nextjs 对齐一致，gate 全绿",
-  "last_session_at": "2026-09-10",
-  "last_session_summary": "本仓无代码改动，纯盘点收口。三端缺口完全一致：M00.F02 成员管理 I01-I06/I08 开发中（列表/创建/邀请/状态切换连 UI entry 都没有）、M00.F04.I02 角色已授权菜单查询、M00.F05 应用订阅 4 项（页面已建状态未转）、M01.F01.I01 whoami / M01.F03.I01（API 侧已覆盖纯前端欠账）、M01.F04.I03/I07 规划。warnings 84 条（已上线无设计映射/无测试引用）。",
+  "current_task": "2026-09-19 family-leftovers wave 收口（Task 6）：--all 三轮判读完成，本仓三轮全绿 exit 0",
+  "last_session_at": "2026-09-19",
+  "last_session_summary": "无代码改动，纯验证收口：R1 裸环境/R2/R3 注入 --all 三轮全绿",
   "done": [
     "盘点：34/51 已上线 + 14 开发中 + 3 规划，与 react 完全对齐",
-    "gate.py -p saas-identity-platform-vue → 全绿（2026-09-10 21:10 gate --all 确认）"
+    "gate.py -p saas-identity-platform-vue → 全绿（2026-09-10 21:10 gate --all 确认）",
+    "Task 6 收口：--all 三轮全绿（gate-snapshots-r1/r2/r3）"
   ],
   "next": [
-    "M00.F02 成员管理：先建 src/pages/members/ 列表页 + 路由 entry，走 orval useAdminMembers 系",
-    "抄 react 仓同步实现（三端缺口清单一致，可按功能 ID 逐项并行收口）"
+    "无代码欠账；剩余项见 docs/superpowers/plans/2026-09-18-family-leftovers-remediation.md"
   ],
   "open_questions": [
     "M00.F05 状态转「已上线」流程同 react 仓疑问——/tree-change 还是补测试自然转？"
@@ -18,7 +18,8 @@
   "dont": [
     "不要改 version-lock.json / 给按钮加 lucide 图标 / 手写 <table>（CLAUDE.md §2）",
     "不要手写 axios fetch（走 orval 具名函数）",
-    "注意 Boolean prop 转型坑：不传 = false 不是 undefined，默认 true 必须 withDefaults（见 memory vue-boolean-prop-cast）"
+    "注意 Boolean prop 转型坑：不传 = false 不是 undefined，默认 true 必须 withDefaults（见 memory vue-boolean-prop-cast）",
+    "--all 单值 DATABASE_URL 误连 lab_test 的教训见 saas-react session.json dont"
   ],
   "active_branch": "master"
 }
