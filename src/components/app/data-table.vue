@@ -4,11 +4,11 @@
 
 import { cn } from "../../lib/utils";
 import Table from "../ui/table.vue";
-import TableBody from "../ui/table-body.vue"
-import TableCell from "../ui/table-cell.vue"
-import TableHead from "../ui/table-head.vue"
-import TableHeader from "../ui/table-header.vue"
-import TableRow from "../ui/table-row.vue"
+import TableBody from "../ui/table-body.vue";
+import TableCell from "../ui/table-cell.vue";
+import TableHead from "../ui/table-head.vue";
+import TableHeader from "../ui/table-header.vue";
+import TableRow from "../ui/table-row.vue";
 import Skeleton from "../ui/skeleton.vue";
 import EmptyState from "empty-state.vue";
 

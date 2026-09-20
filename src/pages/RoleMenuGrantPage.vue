@@ -13,9 +13,9 @@ import {
 import type { SetSysRoleMenusRequest } from "../api/endpoints/title.schemas";
 import Button from "../components/ui/button.vue";
 import Card from "../components/ui/card.vue";
-import CardContent from "../components/ui/card-content.vue"
-import CardHeader from "../components/ui/card-header.vue"
-import CardTitle from "../components/ui/card-title.vue"
+import CardContent from "../components/ui/card-content.vue";
+import CardHeader from "../components/ui/card-header.vue";
+import CardTitle from "../components/ui/card-title.vue";
 import PageHeader from "../components/app/page-header.vue";
 import { toApiError } from "../api/http-client";
 import { toast } from "vue-sonner";
@@ -106,7 +106,7 @@ async function save() {
       </template>
     </PageHeader>
 
-    <Card v-for="g in (groupsQ.data.value ?? [])" :key="g.appCode">
+    <Card v-for="g in groupsQ.data.value ?? []" :key="g.appCode">
       <CardHeader>
         <CardTitle>
           {{ g.appName }}

@@ -36,12 +36,10 @@ const switchMut = useMeSwitchTenant();
 
 const memberships = computed(() => membershipsQ.data.value?.data ?? []);
 const nameById = computed(
-  () =>
-    new Map((tenantsQ.data.value?.data?.items ?? []).map((t) => [t.id, t.name])),
+  () => new Map((tenantsQ.data.value?.data?.items ?? []).map((t) => [t.id, t.name])),
 );
 const tenantKeyById = computed(
-  () =>
-    new Map((tenantsQ.data.value?.data?.items ?? []).map((t) => [t.id, t.tenantKey])),
+  () => new Map((tenantsQ.data.value?.data?.items ?? []).map((t) => [t.id, t.tenantKey])),
 );
 
 const current = computed(() =>
@@ -95,8 +93,12 @@ async function onSwitch(tenantId: string) {
         >
           <Building2 class="h-4 w-4 mr-2 text-slate-500" />
           <div class="flex flex-col">
-            <span class="font-medium">{{ nameById.get(m.tenantId) ?? m.tenantId.slice(0, 8) }}</span>
-            <span class="text-xs text-slate-500 font-mono">{{ tenantKeyById.get(m.tenantId) ?? "" }}</span>
+            <span class="font-medium">{{
+              nameById.get(m.tenantId) ?? m.tenantId.slice(0, 8)
+            }}</span>
+            <span class="text-xs text-slate-500 font-mono">{{
+              tenantKeyById.get(m.tenantId) ?? ""
+            }}</span>
           </div>
         </DropdownMenuItem>
       </DropdownMenuContent>

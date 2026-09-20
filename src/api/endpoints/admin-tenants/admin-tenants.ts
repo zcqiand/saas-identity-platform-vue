@@ -4,10 +4,7 @@
  * (title)
  * OpenAPI spec version: 0.0.0
  */
-import {
-  useMutation,
-  useQuery
-} from '@tanstack/vue-query';
+import { useMutation, useQuery } from "@tanstack/vue-query";
 import type {
   DataTag,
   MutationFunction,
@@ -17,23 +14,14 @@ import type {
   UseMutationOptions,
   UseMutationReturnType,
   UseQueryOptions,
-  UseQueryReturnType
-} from '@tanstack/vue-query';
+  UseQueryReturnType,
+} from "@tanstack/vue-query";
 
-import axios from 'axios';
-import type {
-  AxiosError,
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
+import axios from "axios";
+import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
-import {
-  computed,
-  unref
-} from 'vue';
-import type {
-  MaybeRef
-} from 'vue';
+import { computed, unref } from "vue";
+import type { MaybeRef } from "vue";
 
 import type {
   AdminTenantsListTenants200,
@@ -41,299 +29,367 @@ import type {
   CreateTenantRequest,
   ErrorResponse,
   Tenant,
-  UpdateTenantRequest
-} from '../title.schemas';
-
-
-
-
+  UpdateTenantRequest,
+} from "../title.schemas";
 
 export const adminTenantsListTenants = (
-    params?: MaybeRef<AdminTenantsListTenantsParams>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<AdminTenantsListTenants200>> => {
-    params = unref(params);
-    
-    return axios.get(
-      `/api/v1/admin/tenants`,{
+  params?: MaybeRef<AdminTenantsListTenantsParams>,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<AdminTenantsListTenants200>> => {
+  params = unref(params);
+
+  return axios.get(`/api/v1/admin/tenants`, {
     ...options,
-        params: {...unref(params), ...options?.params},}
-    );
-  }
+    params: { ...unref(params), ...options?.params },
+  });
+};
 
-
-
-
-export const getAdminTenantsListTenantsQueryKey = (params?: MaybeRef<AdminTenantsListTenantsParams>,) => {
-    return [
-    'api','v1','admin','tenants', ...(params ? [params]: [])
-    ] as const;
-    }
-
-    
-export const getAdminTenantsListTenantsQueryOptions = <TData = Awaited<ReturnType<typeof adminTenantsListTenants>>, TError = AxiosError<ErrorResponse>>(params?: MaybeRef<AdminTenantsListTenantsParams>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminTenantsListTenants>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const getAdminTenantsListTenantsQueryKey = (
+  params?: MaybeRef<AdminTenantsListTenantsParams>,
 ) => {
+  return ["api", "v1", "admin", "tenants", ...(params ? [params] : [])] as const;
+};
 
-const {query: queryOptions, axios: axiosOptions} = options ?? {};
+export const getAdminTenantsListTenantsQueryOptions = <
+  TData = Awaited<ReturnType<typeof adminTenantsListTenants>>,
+  TError = AxiosError<ErrorResponse>,
+>(
+  params?: MaybeRef<AdminTenantsListTenantsParams>,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof adminTenantsListTenants>>, TError, TData>
+    >;
+    axios?: AxiosRequestConfig;
+  },
+) => {
+  const { query: queryOptions, axios: axiosOptions } = options ?? {};
 
-  const queryKey =  getAdminTenantsListTenantsQueryKey(params);
+  const queryKey = getAdminTenantsListTenantsQueryKey(params);
 
-  
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof adminTenantsListTenants>>> = ({
+    signal,
+  }) => adminTenantsListTenants(params, { signal, ...axiosOptions });
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminTenantsListTenants>>> = ({ signal }) => adminTenantsListTenants(params, { signal, ...axiosOptions });
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof adminTenantsListTenants>>,
+    TError,
+    TData
+  >;
+};
 
-      
+export type AdminTenantsListTenantsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof adminTenantsListTenants>>
+>;
+export type AdminTenantsListTenantsQueryError = AxiosError<ErrorResponse>;
 
-      
+export function useAdminTenantsListTenants<
+  TData = Awaited<ReturnType<typeof adminTenantsListTenants>>,
+  TError = AxiosError<ErrorResponse>,
+>(
+  params?: MaybeRef<AdminTenantsListTenantsParams>,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof adminTenantsListTenants>>, TError, TData>
+    >;
+    axios?: AxiosRequestConfig;
+  },
+  queryClient?: QueryClient,
+): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+  const queryOptions = getAdminTenantsListTenantsQueryOptions(params, options);
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminTenantsListTenants>>, TError, TData> 
-}
-
-export type AdminTenantsListTenantsQueryResult = NonNullable<Awaited<ReturnType<typeof adminTenantsListTenants>>>
-export type AdminTenantsListTenantsQueryError = AxiosError<ErrorResponse>
-
-
-
-export function useAdminTenantsListTenants<TData = Awaited<ReturnType<typeof adminTenantsListTenants>>, TError = AxiosError<ErrorResponse>>(
- params?: MaybeRef<AdminTenantsListTenantsParams>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminTenantsListTenants>>, TError, TData>>, axios?: AxiosRequestConfig}
- , queryClient?: QueryClient 
- ): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getAdminTenantsListTenantsQueryOptions(params,options)
-
-  const query = useQuery(queryOptions, queryClient) as UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions, queryClient) as UseQueryReturnType<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 
   query.queryKey = unref(queryOptions).queryKey as DataTag<QueryKey, TData, TError>;
 
   return query;
 }
-
-
-
 
 export const adminTenantsCreateTenant = (
-    createTenantRequest: MaybeRef<CreateTenantRequest>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<Tenant>> => {
-    createTenantRequest = unref(createTenantRequest);
-    
-    return axios.post(
-      `/api/v1/admin/tenants`,
-      createTenantRequest,options
-    );
-  }
+  createTenantRequest: MaybeRef<CreateTenantRequest>,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<Tenant>> => {
+  createTenantRequest = unref(createTenantRequest);
 
+  return axios.post(`/api/v1/admin/tenants`, createTenantRequest, options);
+};
 
+export const getAdminTenantsCreateTenantMutationOptions = <
+  TError = AxiosError<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof adminTenantsCreateTenant>>,
+    TError,
+    { data: CreateTenantRequest },
+    TContext
+  >;
+  axios?: AxiosRequestConfig;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof adminTenantsCreateTenant>>,
+  TError,
+  { data: CreateTenantRequest },
+  TContext
+> => {
+  const mutationKey = ["adminTenantsCreateTenant"];
+  const { mutation: mutationOptions, axios: axiosOptions } = options
+    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, axios: undefined };
 
-export const getAdminTenantsCreateTenantMutationOptions = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminTenantsCreateTenant>>, TError,{data: CreateTenantRequest}, TContext>, axios?: AxiosRequestConfig}
-): UseMutationOptions<Awaited<ReturnType<typeof adminTenantsCreateTenant>>, TError,{data: CreateTenantRequest}, TContext> => {
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof adminTenantsCreateTenant>>,
+    { data: CreateTenantRequest }
+  > = (props) => {
+    const { data } = props ?? {};
 
-const mutationKey = ['adminTenantsCreateTenant'];
-const {mutation: mutationOptions, axios: axiosOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, axios: undefined};
+    return adminTenantsCreateTenant(data, axiosOptions);
+  };
 
-      
+  return { mutationFn, ...mutationOptions };
+};
 
+export type AdminTenantsCreateTenantMutationResult = NonNullable<
+  Awaited<ReturnType<typeof adminTenantsCreateTenant>>
+>;
+export type AdminTenantsCreateTenantMutationBody = CreateTenantRequest;
+export type AdminTenantsCreateTenantMutationError = AxiosError<ErrorResponse>;
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminTenantsCreateTenant>>, {data: CreateTenantRequest}> = (props) => {
-          const {data} = props ?? {};
+export const useAdminTenantsCreateTenant = <TError = AxiosError<ErrorResponse>, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof adminTenantsCreateTenant>>,
+      TError,
+      { data: CreateTenantRequest },
+      TContext
+    >;
+    axios?: AxiosRequestConfig;
+  },
+  queryClient?: QueryClient,
+): UseMutationReturnType<
+  Awaited<ReturnType<typeof adminTenantsCreateTenant>>,
+  TError,
+  { data: CreateTenantRequest },
+  TContext
+> => {
+  const mutationOptions = getAdminTenantsCreateTenantMutationOptions(options);
 
-          return  adminTenantsCreateTenant(data,axiosOptions)
-        }
+  return useMutation(mutationOptions, queryClient);
+};
+export const adminTenantsGetTenant = (
+  id: MaybeRef<string>,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<Tenant>> => {
+  id = unref(id);
 
-        
+  return axios.get(`/api/v1/admin/tenants/${id}`, options);
+};
 
+export const getAdminTenantsGetTenantQueryKey = (id?: MaybeRef<string>) => {
+  return ["api", "v1", "admin", "tenants", id] as const;
+};
 
-  return  { mutationFn, ...mutationOptions }}
-
-    export type AdminTenantsCreateTenantMutationResult = NonNullable<Awaited<ReturnType<typeof adminTenantsCreateTenant>>>
-    export type AdminTenantsCreateTenantMutationBody = CreateTenantRequest
-    export type AdminTenantsCreateTenantMutationError = AxiosError<ErrorResponse>
-
-    export const useAdminTenantsCreateTenant = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminTenantsCreateTenant>>, TError,{data: CreateTenantRequest}, TContext>, axios?: AxiosRequestConfig}
- , queryClient?: QueryClient): UseMutationReturnType<
-        Awaited<ReturnType<typeof adminTenantsCreateTenant>>,
-        TError,
-        {data: CreateTenantRequest},
-        TContext
-      > => {
-
-      const mutationOptions = getAdminTenantsCreateTenantMutationOptions(options);
-
-      return useMutation(mutationOptions, queryClient);
-    }
-    export const adminTenantsGetTenant = (
-    id: MaybeRef<string>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<Tenant>> => {
-    id = unref(id);
-    
-    return axios.get(
-      `/api/v1/admin/tenants/${id}`,options
-    );
-  }
-
-
-
-
-export const getAdminTenantsGetTenantQueryKey = (id?: MaybeRef<string>,) => {
-    return [
-    'api','v1','admin','tenants',id
-    ] as const;
-    }
-
-    
-export const getAdminTenantsGetTenantQueryOptions = <TData = Awaited<ReturnType<typeof adminTenantsGetTenant>>, TError = AxiosError<ErrorResponse>>(id: MaybeRef<string>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminTenantsGetTenant>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const getAdminTenantsGetTenantQueryOptions = <
+  TData = Awaited<ReturnType<typeof adminTenantsGetTenant>>,
+  TError = AxiosError<ErrorResponse>,
+>(
+  id: MaybeRef<string>,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof adminTenantsGetTenant>>, TError, TData>
+    >;
+    axios?: AxiosRequestConfig;
+  },
 ) => {
+  const { query: queryOptions, axios: axiosOptions } = options ?? {};
 
-const {query: queryOptions, axios: axiosOptions} = options ?? {};
+  const queryKey = getAdminTenantsGetTenantQueryKey(id);
 
-  const queryKey =  getAdminTenantsGetTenantQueryKey(id);
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof adminTenantsGetTenant>>> = ({ signal }) =>
+    adminTenantsGetTenant(id, { signal, ...axiosOptions });
 
-  
+  return {
+    queryKey,
+    queryFn,
+    enabled: computed(() => !!unref(id)),
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof adminTenantsGetTenant>>, TError, TData>;
+};
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminTenantsGetTenant>>> = ({ signal }) => adminTenantsGetTenant(id, { signal, ...axiosOptions });
+export type AdminTenantsGetTenantQueryResult = NonNullable<
+  Awaited<ReturnType<typeof adminTenantsGetTenant>>
+>;
+export type AdminTenantsGetTenantQueryError = AxiosError<ErrorResponse>;
 
-      
+export function useAdminTenantsGetTenant<
+  TData = Awaited<ReturnType<typeof adminTenantsGetTenant>>,
+  TError = AxiosError<ErrorResponse>,
+>(
+  id: MaybeRef<string>,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof adminTenantsGetTenant>>, TError, TData>
+    >;
+    axios?: AxiosRequestConfig;
+  },
+  queryClient?: QueryClient,
+): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+  const queryOptions = getAdminTenantsGetTenantQueryOptions(id, options);
 
-      
-
-   return  { queryKey, queryFn, enabled: computed(() => !!(unref(id))), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminTenantsGetTenant>>, TError, TData> 
-}
-
-export type AdminTenantsGetTenantQueryResult = NonNullable<Awaited<ReturnType<typeof adminTenantsGetTenant>>>
-export type AdminTenantsGetTenantQueryError = AxiosError<ErrorResponse>
-
-
-
-export function useAdminTenantsGetTenant<TData = Awaited<ReturnType<typeof adminTenantsGetTenant>>, TError = AxiosError<ErrorResponse>>(
- id: MaybeRef<string>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminTenantsGetTenant>>, TError, TData>>, axios?: AxiosRequestConfig}
- , queryClient?: QueryClient 
- ): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getAdminTenantsGetTenantQueryOptions(id,options)
-
-  const query = useQuery(queryOptions, queryClient) as UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions, queryClient) as UseQueryReturnType<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 
   query.queryKey = unref(queryOptions).queryKey as DataTag<QueryKey, TData, TError>;
 
   return query;
 }
 
-
-
-
 export const adminTenantsUpdateTenant = (
-    id: MaybeRef<string>,
-    updateTenantRequest: MaybeRef<UpdateTenantRequest>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<Tenant>> => {
-    id = unref(id);
-updateTenantRequest = unref(updateTenantRequest);
-    
-    return axios.patch(
-      `/api/v1/admin/tenants/${id}`,
-      updateTenantRequest,options
-    );
-  }
+  id: MaybeRef<string>,
+  updateTenantRequest: MaybeRef<UpdateTenantRequest>,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<Tenant>> => {
+  id = unref(id);
+  updateTenantRequest = unref(updateTenantRequest);
 
+  return axios.patch(`/api/v1/admin/tenants/${id}`, updateTenantRequest, options);
+};
 
+export const getAdminTenantsUpdateTenantMutationOptions = <
+  TError = AxiosError<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof adminTenantsUpdateTenant>>,
+    TError,
+    { id: string; data: UpdateTenantRequest },
+    TContext
+  >;
+  axios?: AxiosRequestConfig;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof adminTenantsUpdateTenant>>,
+  TError,
+  { id: string; data: UpdateTenantRequest },
+  TContext
+> => {
+  const mutationKey = ["adminTenantsUpdateTenant"];
+  const { mutation: mutationOptions, axios: axiosOptions } = options
+    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, axios: undefined };
 
-export const getAdminTenantsUpdateTenantMutationOptions = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminTenantsUpdateTenant>>, TError,{id: string;data: UpdateTenantRequest}, TContext>, axios?: AxiosRequestConfig}
-): UseMutationOptions<Awaited<ReturnType<typeof adminTenantsUpdateTenant>>, TError,{id: string;data: UpdateTenantRequest}, TContext> => {
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof adminTenantsUpdateTenant>>,
+    { id: string; data: UpdateTenantRequest }
+  > = (props) => {
+    const { id, data } = props ?? {};
 
-const mutationKey = ['adminTenantsUpdateTenant'];
-const {mutation: mutationOptions, axios: axiosOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, axios: undefined};
+    return adminTenantsUpdateTenant(id, data, axiosOptions);
+  };
 
-      
+  return { mutationFn, ...mutationOptions };
+};
 
+export type AdminTenantsUpdateTenantMutationResult = NonNullable<
+  Awaited<ReturnType<typeof adminTenantsUpdateTenant>>
+>;
+export type AdminTenantsUpdateTenantMutationBody = UpdateTenantRequest;
+export type AdminTenantsUpdateTenantMutationError = AxiosError<ErrorResponse>;
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminTenantsUpdateTenant>>, {id: string;data: UpdateTenantRequest}> = (props) => {
-          const {id,data} = props ?? {};
+export const useAdminTenantsUpdateTenant = <TError = AxiosError<ErrorResponse>, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof adminTenantsUpdateTenant>>,
+      TError,
+      { id: string; data: UpdateTenantRequest },
+      TContext
+    >;
+    axios?: AxiosRequestConfig;
+  },
+  queryClient?: QueryClient,
+): UseMutationReturnType<
+  Awaited<ReturnType<typeof adminTenantsUpdateTenant>>,
+  TError,
+  { id: string; data: UpdateTenantRequest },
+  TContext
+> => {
+  const mutationOptions = getAdminTenantsUpdateTenantMutationOptions(options);
 
-          return  adminTenantsUpdateTenant(id,data,axiosOptions)
-        }
+  return useMutation(mutationOptions, queryClient);
+};
+export const adminTenantsDeleteTenant = (
+  id: MaybeRef<string>,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<void>> => {
+  id = unref(id);
 
-        
+  return axios.delete(`/api/v1/admin/tenants/${id}`, options);
+};
 
+export const getAdminTenantsDeleteTenantMutationOptions = <
+  TError = AxiosError<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof adminTenantsDeleteTenant>>,
+    TError,
+    { id: string },
+    TContext
+  >;
+  axios?: AxiosRequestConfig;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof adminTenantsDeleteTenant>>,
+  TError,
+  { id: string },
+  TContext
+> => {
+  const mutationKey = ["adminTenantsDeleteTenant"];
+  const { mutation: mutationOptions, axios: axiosOptions } = options
+    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, axios: undefined };
 
-  return  { mutationFn, ...mutationOptions }}
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof adminTenantsDeleteTenant>>,
+    { id: string }
+  > = (props) => {
+    const { id } = props ?? {};
 
-    export type AdminTenantsUpdateTenantMutationResult = NonNullable<Awaited<ReturnType<typeof adminTenantsUpdateTenant>>>
-    export type AdminTenantsUpdateTenantMutationBody = UpdateTenantRequest
-    export type AdminTenantsUpdateTenantMutationError = AxiosError<ErrorResponse>
+    return adminTenantsDeleteTenant(id, axiosOptions);
+  };
 
-    export const useAdminTenantsUpdateTenant = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminTenantsUpdateTenant>>, TError,{id: string;data: UpdateTenantRequest}, TContext>, axios?: AxiosRequestConfig}
- , queryClient?: QueryClient): UseMutationReturnType<
-        Awaited<ReturnType<typeof adminTenantsUpdateTenant>>,
-        TError,
-        {id: string;data: UpdateTenantRequest},
-        TContext
-      > => {
+  return { mutationFn, ...mutationOptions };
+};
 
-      const mutationOptions = getAdminTenantsUpdateTenantMutationOptions(options);
+export type AdminTenantsDeleteTenantMutationResult = NonNullable<
+  Awaited<ReturnType<typeof adminTenantsDeleteTenant>>
+>;
 
-      return useMutation(mutationOptions, queryClient);
-    }
-    export const adminTenantsDeleteTenant = (
-    id: MaybeRef<string>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<void>> => {
-    id = unref(id);
-    
-    return axios.delete(
-      `/api/v1/admin/tenants/${id}`,options
-    );
-  }
+export type AdminTenantsDeleteTenantMutationError = AxiosError<ErrorResponse>;
 
+export const useAdminTenantsDeleteTenant = <TError = AxiosError<ErrorResponse>, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof adminTenantsDeleteTenant>>,
+      TError,
+      { id: string },
+      TContext
+    >;
+    axios?: AxiosRequestConfig;
+  },
+  queryClient?: QueryClient,
+): UseMutationReturnType<
+  Awaited<ReturnType<typeof adminTenantsDeleteTenant>>,
+  TError,
+  { id: string },
+  TContext
+> => {
+  const mutationOptions = getAdminTenantsDeleteTenantMutationOptions(options);
 
-
-export const getAdminTenantsDeleteTenantMutationOptions = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminTenantsDeleteTenant>>, TError,{id: string}, TContext>, axios?: AxiosRequestConfig}
-): UseMutationOptions<Awaited<ReturnType<typeof adminTenantsDeleteTenant>>, TError,{id: string}, TContext> => {
-
-const mutationKey = ['adminTenantsDeleteTenant'];
-const {mutation: mutationOptions, axios: axiosOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, axios: undefined};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminTenantsDeleteTenant>>, {id: string}> = (props) => {
-          const {id} = props ?? {};
-
-          return  adminTenantsDeleteTenant(id,axiosOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type AdminTenantsDeleteTenantMutationResult = NonNullable<Awaited<ReturnType<typeof adminTenantsDeleteTenant>>>
-    
-    export type AdminTenantsDeleteTenantMutationError = AxiosError<ErrorResponse>
-
-    export const useAdminTenantsDeleteTenant = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminTenantsDeleteTenant>>, TError,{id: string}, TContext>, axios?: AxiosRequestConfig}
- , queryClient?: QueryClient): UseMutationReturnType<
-        Awaited<ReturnType<typeof adminTenantsDeleteTenant>>,
-        TError,
-        {id: string},
-        TContext
-      > => {
-
-      const mutationOptions = getAdminTenantsDeleteTenantMutationOptions(options);
-
-      return useMutation(mutationOptions, queryClient);
-    }
-    
+  return useMutation(mutationOptions, queryClient);
+};

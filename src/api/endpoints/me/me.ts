@@ -4,10 +4,7 @@
  * (title)
  * OpenAPI spec version: 0.0.0
  */
-import {
-  useMutation,
-  useQuery
-} from '@tanstack/vue-query';
+import { useMutation, useQuery } from "@tanstack/vue-query";
 import type {
   DataTag,
   MutationFunction,
@@ -17,22 +14,14 @@ import type {
   UseMutationOptions,
   UseMutationReturnType,
   UseQueryOptions,
-  UseQueryReturnType
-} from '@tanstack/vue-query';
+  UseQueryReturnType,
+} from "@tanstack/vue-query";
 
-import axios from 'axios';
-import type {
-  AxiosError,
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
+import axios from "axios";
+import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
-import {
-  unref
-} from 'vue';
-import type {
-  MaybeRef
-} from 'vue';
+import { unref } from "vue";
+import type { MaybeRef } from "vue";
 
 import type {
   CurrentUser,
@@ -42,253 +31,264 @@ import type {
   MeListMyTenantsParams,
   MeSwitchTenantParams,
   SwitchTenantResponse,
-  TenantMembership
-} from '../title.schemas';
+  TenantMembership,
+} from "../title.schemas";
 
-
-
-
-
-export const meWhoami = (
-     options?: AxiosRequestConfig
- ): Promise<AxiosResponse<CurrentUser>> => {
-    
-    
-    return axios.get(
-      `/api/v1/me`,options
-    );
-  }
-
-
-
+export const meWhoami = (options?: AxiosRequestConfig): Promise<AxiosResponse<CurrentUser>> => {
+  return axios.get(`/api/v1/me`, options);
+};
 
 export const getMeWhoamiQueryKey = () => {
-    return [
-    'api','v1','me'
-    ] as const;
-    }
+  return ["api", "v1", "me"] as const;
+};
 
-    
-export const getMeWhoamiQueryOptions = <TData = Awaited<ReturnType<typeof meWhoami>>, TError = AxiosError<ErrorResponse>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof meWhoami>>, TError, TData>>, axios?: AxiosRequestConfig}
-) => {
+export const getMeWhoamiQueryOptions = <
+  TData = Awaited<ReturnType<typeof meWhoami>>,
+  TError = AxiosError<ErrorResponse>,
+>(options?: {
+  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof meWhoami>>, TError, TData>>;
+  axios?: AxiosRequestConfig;
+}) => {
+  const { query: queryOptions, axios: axiosOptions } = options ?? {};
 
-const {query: queryOptions, axios: axiosOptions} = options ?? {};
+  const queryKey = getMeWhoamiQueryKey();
 
-  const queryKey =  getMeWhoamiQueryKey();
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof meWhoami>>> = ({ signal }) =>
+    meWhoami({ signal, ...axiosOptions });
 
-  
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof meWhoami>>,
+    TError,
+    TData
+  >;
+};
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof meWhoami>>> = ({ signal }) => meWhoami({ signal, ...axiosOptions });
+export type MeWhoamiQueryResult = NonNullable<Awaited<ReturnType<typeof meWhoami>>>;
+export type MeWhoamiQueryError = AxiosError<ErrorResponse>;
 
-      
+export function useMeWhoami<
+  TData = Awaited<ReturnType<typeof meWhoami>>,
+  TError = AxiosError<ErrorResponse>,
+>(
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof meWhoami>>, TError, TData>>;
+    axios?: AxiosRequestConfig;
+  },
+  queryClient?: QueryClient,
+): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+  const queryOptions = getMeWhoamiQueryOptions(options);
 
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof meWhoami>>, TError, TData> 
-}
-
-export type MeWhoamiQueryResult = NonNullable<Awaited<ReturnType<typeof meWhoami>>>
-export type MeWhoamiQueryError = AxiosError<ErrorResponse>
-
-
-
-export function useMeWhoami<TData = Awaited<ReturnType<typeof meWhoami>>, TError = AxiosError<ErrorResponse>>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof meWhoami>>, TError, TData>>, axios?: AxiosRequestConfig}
- , queryClient?: QueryClient 
- ): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getMeWhoamiQueryOptions(options)
-
-  const query = useQuery(queryOptions, queryClient) as UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions, queryClient) as UseQueryReturnType<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 
   query.queryKey = unref(queryOptions).queryKey as DataTag<QueryKey, TData, TError>;
 
   return query;
 }
-
-
-
 
 export const meGetMyMenus = (
-    params?: MaybeRef<MeGetMyMenusParams>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<MeGetMyMenus200>> => {
-    params = unref(params);
-    
-    return axios.get(
-      `/api/v1/me/menus`,{
+  params?: MaybeRef<MeGetMyMenusParams>,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<MeGetMyMenus200>> => {
+  params = unref(params);
+
+  return axios.get(`/api/v1/me/menus`, {
     ...options,
-        params: {...unref(params), ...options?.params},}
-    );
-  }
+    params: { ...unref(params), ...options?.params },
+  });
+};
 
+export const getMeGetMyMenusQueryKey = (params?: MaybeRef<MeGetMyMenusParams>) => {
+  return ["api", "v1", "me", "menus", ...(params ? [params] : [])] as const;
+};
 
-
-
-export const getMeGetMyMenusQueryKey = (params?: MaybeRef<MeGetMyMenusParams>,) => {
-    return [
-    'api','v1','me','menus', ...(params ? [params]: [])
-    ] as const;
-    }
-
-    
-export const getMeGetMyMenusQueryOptions = <TData = Awaited<ReturnType<typeof meGetMyMenus>>, TError = AxiosError<ErrorResponse>>(params?: MaybeRef<MeGetMyMenusParams>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof meGetMyMenus>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const getMeGetMyMenusQueryOptions = <
+  TData = Awaited<ReturnType<typeof meGetMyMenus>>,
+  TError = AxiosError<ErrorResponse>,
+>(
+  params?: MaybeRef<MeGetMyMenusParams>,
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof meGetMyMenus>>, TError, TData>>;
+    axios?: AxiosRequestConfig;
+  },
 ) => {
+  const { query: queryOptions, axios: axiosOptions } = options ?? {};
 
-const {query: queryOptions, axios: axiosOptions} = options ?? {};
+  const queryKey = getMeGetMyMenusQueryKey(params);
 
-  const queryKey =  getMeGetMyMenusQueryKey(params);
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof meGetMyMenus>>> = ({ signal }) =>
+    meGetMyMenus(params, { signal, ...axiosOptions });
 
-  
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof meGetMyMenus>>,
+    TError,
+    TData
+  >;
+};
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof meGetMyMenus>>> = ({ signal }) => meGetMyMenus(params, { signal, ...axiosOptions });
+export type MeGetMyMenusQueryResult = NonNullable<Awaited<ReturnType<typeof meGetMyMenus>>>;
+export type MeGetMyMenusQueryError = AxiosError<ErrorResponse>;
 
-      
+export function useMeGetMyMenus<
+  TData = Awaited<ReturnType<typeof meGetMyMenus>>,
+  TError = AxiosError<ErrorResponse>,
+>(
+  params?: MaybeRef<MeGetMyMenusParams>,
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof meGetMyMenus>>, TError, TData>>;
+    axios?: AxiosRequestConfig;
+  },
+  queryClient?: QueryClient,
+): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+  const queryOptions = getMeGetMyMenusQueryOptions(params, options);
 
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof meGetMyMenus>>, TError, TData> 
-}
-
-export type MeGetMyMenusQueryResult = NonNullable<Awaited<ReturnType<typeof meGetMyMenus>>>
-export type MeGetMyMenusQueryError = AxiosError<ErrorResponse>
-
-
-
-export function useMeGetMyMenus<TData = Awaited<ReturnType<typeof meGetMyMenus>>, TError = AxiosError<ErrorResponse>>(
- params?: MaybeRef<MeGetMyMenusParams>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof meGetMyMenus>>, TError, TData>>, axios?: AxiosRequestConfig}
- , queryClient?: QueryClient 
- ): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getMeGetMyMenusQueryOptions(params,options)
-
-  const query = useQuery(queryOptions, queryClient) as UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions, queryClient) as UseQueryReturnType<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 
   query.queryKey = unref(queryOptions).queryKey as DataTag<QueryKey, TData, TError>;
 
   return query;
 }
-
-
-
 
 export const meListMyTenants = (
-    params?: MaybeRef<MeListMyTenantsParams>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<TenantMembership[]>> => {
-    params = unref(params);
-    
-    return axios.get(
-      `/api/v1/me/tenants`,{
+  params?: MaybeRef<MeListMyTenantsParams>,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<TenantMembership[]>> => {
+  params = unref(params);
+
+  return axios.get(`/api/v1/me/tenants`, {
     ...options,
-        params: {...unref(params), ...options?.params},}
-    );
-  }
+    params: { ...unref(params), ...options?.params },
+  });
+};
 
+export const getMeListMyTenantsQueryKey = (params?: MaybeRef<MeListMyTenantsParams>) => {
+  return ["api", "v1", "me", "tenants", ...(params ? [params] : [])] as const;
+};
 
-
-
-export const getMeListMyTenantsQueryKey = (params?: MaybeRef<MeListMyTenantsParams>,) => {
-    return [
-    'api','v1','me','tenants', ...(params ? [params]: [])
-    ] as const;
-    }
-
-    
-export const getMeListMyTenantsQueryOptions = <TData = Awaited<ReturnType<typeof meListMyTenants>>, TError = AxiosError<ErrorResponse>>(params?: MaybeRef<MeListMyTenantsParams>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof meListMyTenants>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const getMeListMyTenantsQueryOptions = <
+  TData = Awaited<ReturnType<typeof meListMyTenants>>,
+  TError = AxiosError<ErrorResponse>,
+>(
+  params?: MaybeRef<MeListMyTenantsParams>,
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof meListMyTenants>>, TError, TData>>;
+    axios?: AxiosRequestConfig;
+  },
 ) => {
+  const { query: queryOptions, axios: axiosOptions } = options ?? {};
 
-const {query: queryOptions, axios: axiosOptions} = options ?? {};
+  const queryKey = getMeListMyTenantsQueryKey(params);
 
-  const queryKey =  getMeListMyTenantsQueryKey(params);
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof meListMyTenants>>> = ({ signal }) =>
+    meListMyTenants(params, { signal, ...axiosOptions });
 
-  
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof meListMyTenants>>,
+    TError,
+    TData
+  >;
+};
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof meListMyTenants>>> = ({ signal }) => meListMyTenants(params, { signal, ...axiosOptions });
+export type MeListMyTenantsQueryResult = NonNullable<Awaited<ReturnType<typeof meListMyTenants>>>;
+export type MeListMyTenantsQueryError = AxiosError<ErrorResponse>;
 
-      
+export function useMeListMyTenants<
+  TData = Awaited<ReturnType<typeof meListMyTenants>>,
+  TError = AxiosError<ErrorResponse>,
+>(
+  params?: MaybeRef<MeListMyTenantsParams>,
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof meListMyTenants>>, TError, TData>>;
+    axios?: AxiosRequestConfig;
+  },
+  queryClient?: QueryClient,
+): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+  const queryOptions = getMeListMyTenantsQueryOptions(params, options);
 
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof meListMyTenants>>, TError, TData> 
-}
-
-export type MeListMyTenantsQueryResult = NonNullable<Awaited<ReturnType<typeof meListMyTenants>>>
-export type MeListMyTenantsQueryError = AxiosError<ErrorResponse>
-
-
-
-export function useMeListMyTenants<TData = Awaited<ReturnType<typeof meListMyTenants>>, TError = AxiosError<ErrorResponse>>(
- params?: MaybeRef<MeListMyTenantsParams>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof meListMyTenants>>, TError, TData>>, axios?: AxiosRequestConfig}
- , queryClient?: QueryClient 
- ): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getMeListMyTenantsQueryOptions(params,options)
-
-  const query = useQuery(queryOptions, queryClient) as UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions, queryClient) as UseQueryReturnType<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 
   query.queryKey = unref(queryOptions).queryKey as DataTag<QueryKey, TData, TError>;
 
   return query;
 }
 
-
-
-
 export const meSwitchTenant = (
-    tenantId: MaybeRef<string>,
-    params?: MaybeRef<MeSwitchTenantParams>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<SwitchTenantResponse>> => {
-    tenantId = unref(tenantId);
-params = unref(params);
-    
-    return axios.post(
-      `/api/v1/me/tenants/${tenantId}/switch`,undefined,{
+  tenantId: MaybeRef<string>,
+  params?: MaybeRef<MeSwitchTenantParams>,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<SwitchTenantResponse>> => {
+  tenantId = unref(tenantId);
+  params = unref(params);
+
+  return axios.post(`/api/v1/me/tenants/${tenantId}/switch`, undefined, {
     ...options,
-        params: {...unref(params), ...options?.params},}
-    );
-  }
+    params: { ...unref(params), ...options?.params },
+  });
+};
 
+export const getMeSwitchTenantMutationOptions = <
+  TError = AxiosError<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof meSwitchTenant>>,
+    TError,
+    { tenantId: string; params?: MeSwitchTenantParams },
+    TContext
+  >;
+  axios?: AxiosRequestConfig;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof meSwitchTenant>>,
+  TError,
+  { tenantId: string; params?: MeSwitchTenantParams },
+  TContext
+> => {
+  const mutationKey = ["meSwitchTenant"];
+  const { mutation: mutationOptions, axios: axiosOptions } = options
+    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, axios: undefined };
 
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof meSwitchTenant>>,
+    { tenantId: string; params?: MeSwitchTenantParams }
+  > = (props) => {
+    const { tenantId, params } = props ?? {};
 
-export const getMeSwitchTenantMutationOptions = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof meSwitchTenant>>, TError,{tenantId: string;params?: MeSwitchTenantParams}, TContext>, axios?: AxiosRequestConfig}
-): UseMutationOptions<Awaited<ReturnType<typeof meSwitchTenant>>, TError,{tenantId: string;params?: MeSwitchTenantParams}, TContext> => {
+    return meSwitchTenant(tenantId, params, axiosOptions);
+  };
 
-const mutationKey = ['meSwitchTenant'];
-const {mutation: mutationOptions, axios: axiosOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, axios: undefined};
+  return { mutationFn, ...mutationOptions };
+};
 
-      
+export type MeSwitchTenantMutationResult = NonNullable<Awaited<ReturnType<typeof meSwitchTenant>>>;
 
+export type MeSwitchTenantMutationError = AxiosError<ErrorResponse>;
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof meSwitchTenant>>, {tenantId: string;params?: MeSwitchTenantParams}> = (props) => {
-          const {tenantId,params} = props ?? {};
+export const useMeSwitchTenant = <TError = AxiosError<ErrorResponse>, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof meSwitchTenant>>,
+      TError,
+      { tenantId: string; params?: MeSwitchTenantParams },
+      TContext
+    >;
+    axios?: AxiosRequestConfig;
+  },
+  queryClient?: QueryClient,
+): UseMutationReturnType<
+  Awaited<ReturnType<typeof meSwitchTenant>>,
+  TError,
+  { tenantId: string; params?: MeSwitchTenantParams },
+  TContext
+> => {
+  const mutationOptions = getMeSwitchTenantMutationOptions(options);
 
-          return  meSwitchTenant(tenantId,params,axiosOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type MeSwitchTenantMutationResult = NonNullable<Awaited<ReturnType<typeof meSwitchTenant>>>
-    
-    export type MeSwitchTenantMutationError = AxiosError<ErrorResponse>
-
-    export const useMeSwitchTenant = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof meSwitchTenant>>, TError,{tenantId: string;params?: MeSwitchTenantParams}, TContext>, axios?: AxiosRequestConfig}
- , queryClient?: QueryClient): UseMutationReturnType<
-        Awaited<ReturnType<typeof meSwitchTenant>>,
-        TError,
-        {tenantId: string;params?: MeSwitchTenantParams},
-        TContext
-      > => {
-
-      const mutationOptions = getMeSwitchTenantMutationOptions(options);
-
-      return useMutation(mutationOptions, queryClient);
-    }
-    
+  return useMutation(mutationOptions, queryClient);
+};

@@ -4,99 +4,83 @@
  * (title)
  * OpenAPI spec version: 0.0.0
  */
-import {
-  useQuery
-} from '@tanstack/vue-query';
+import { useQuery } from "@tanstack/vue-query";
 import type {
   DataTag,
   QueryClient,
   QueryFunction,
   QueryKey,
   UseQueryOptions,
-  UseQueryReturnType
-} from '@tanstack/vue-query';
+  UseQueryReturnType,
+} from "@tanstack/vue-query";
 
-import axios from 'axios';
-import type {
-  AxiosError,
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
+import axios from "axios";
+import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
-import {
-  computed,
-  unref
-} from 'vue';
-import type {
-  MaybeRef
-} from 'vue';
+import { computed, unref } from "vue";
+import type { MaybeRef } from "vue";
 
-import type {
-  ErrorResponse,
-  OAuthClientPublicInfo
-} from '../title.schemas';
-
-
-
-
+import type { ErrorResponse, OAuthClientPublicInfo } from "../title.schemas";
 
 export const clientsGetClient = (
-    clientId: MaybeRef<string>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<OAuthClientPublicInfo>> => {
-    clientId = unref(clientId);
-    
-    return axios.get(
-      `/api/v1/clients/${clientId}`,options
-    );
-  }
+  clientId: MaybeRef<string>,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<OAuthClientPublicInfo>> => {
+  clientId = unref(clientId);
 
+  return axios.get(`/api/v1/clients/${clientId}`, options);
+};
 
+export const getClientsGetClientQueryKey = (clientId?: MaybeRef<string>) => {
+  return ["api", "v1", "clients", clientId] as const;
+};
 
-
-export const getClientsGetClientQueryKey = (clientId?: MaybeRef<string>,) => {
-    return [
-    'api','v1','clients',clientId
-    ] as const;
-    }
-
-    
-export const getClientsGetClientQueryOptions = <TData = Awaited<ReturnType<typeof clientsGetClient>>, TError = AxiosError<ErrorResponse>>(clientId: MaybeRef<string>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof clientsGetClient>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const getClientsGetClientQueryOptions = <
+  TData = Awaited<ReturnType<typeof clientsGetClient>>,
+  TError = AxiosError<ErrorResponse>,
+>(
+  clientId: MaybeRef<string>,
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof clientsGetClient>>, TError, TData>>;
+    axios?: AxiosRequestConfig;
+  },
 ) => {
+  const { query: queryOptions, axios: axiosOptions } = options ?? {};
 
-const {query: queryOptions, axios: axiosOptions} = options ?? {};
+  const queryKey = getClientsGetClientQueryKey(clientId);
 
-  const queryKey =  getClientsGetClientQueryKey(clientId);
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof clientsGetClient>>> = ({ signal }) =>
+    clientsGetClient(clientId, { signal, ...axiosOptions });
 
-  
+  return {
+    queryKey,
+    queryFn,
+    enabled: computed(() => !!unref(clientId)),
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof clientsGetClient>>, TError, TData>;
+};
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof clientsGetClient>>> = ({ signal }) => clientsGetClient(clientId, { signal, ...axiosOptions });
+export type ClientsGetClientQueryResult = NonNullable<Awaited<ReturnType<typeof clientsGetClient>>>;
+export type ClientsGetClientQueryError = AxiosError<ErrorResponse>;
 
-      
+export function useClientsGetClient<
+  TData = Awaited<ReturnType<typeof clientsGetClient>>,
+  TError = AxiosError<ErrorResponse>,
+>(
+  clientId: MaybeRef<string>,
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof clientsGetClient>>, TError, TData>>;
+    axios?: AxiosRequestConfig;
+  },
+  queryClient?: QueryClient,
+): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+  const queryOptions = getClientsGetClientQueryOptions(clientId, options);
 
-      
-
-   return  { queryKey, queryFn, enabled: computed(() => !!(unref(clientId))), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof clientsGetClient>>, TError, TData> 
-}
-
-export type ClientsGetClientQueryResult = NonNullable<Awaited<ReturnType<typeof clientsGetClient>>>
-export type ClientsGetClientQueryError = AxiosError<ErrorResponse>
-
-
-
-export function useClientsGetClient<TData = Awaited<ReturnType<typeof clientsGetClient>>, TError = AxiosError<ErrorResponse>>(
- clientId: MaybeRef<string>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof clientsGetClient>>, TError, TData>>, axios?: AxiosRequestConfig}
- , queryClient?: QueryClient 
- ): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getClientsGetClientQueryOptions(clientId,options)
-
-  const query = useQuery(queryOptions, queryClient) as UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions, queryClient) as UseQueryReturnType<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 
   query.queryKey = unref(queryOptions).queryKey as DataTag<QueryKey, TData, TError>;
 
   return query;
 }
-
-
-
-

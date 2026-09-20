@@ -85,7 +85,9 @@ const lockoutRemaining = computed(() => {
   if (!lockoutUntil.value) return null;
   const ms = Math.max(0, lockoutUntil.value.getTime() - nowTick.value);
   const totalSec = Math.floor(ms / 1000);
-  const mm = Math.floor(totalSec / 60).toString().padStart(2, "0");
+  const mm = Math.floor(totalSec / 60)
+    .toString()
+    .padStart(2, "0");
   const ss = (totalSec % 60).toString().padStart(2, "0");
   return `${mm}:${ss}`;
 });
@@ -147,7 +149,8 @@ onMounted(async () => {
         redirectUri,
         responseType: "code",
         scope: "lab.read lab.write",
-        state,      },
+        state,
+      },
     });
     const target = new URL(redirectUri);
     target.searchParams.set("code", res.data.code);
@@ -197,8 +200,7 @@ async function onSubmit(e: Event) {
         try {
           const target = new URL(oauthReturn.value.redirectUri);
           target.searchParams.set("code", oauthReturn.value.code);
-          if (oauthReturn.value.state)
-            target.searchParams.set("state", oauthReturn.value.state);
+          if (oauthReturn.value.state) target.searchParams.set("state", oauthReturn.value.state);
           window.location.href = target.toString();
         } catch (err) {
           console.error("[SSO/login] oauth redirect build failed:", err);
@@ -252,8 +254,8 @@ async function onSubmit(e: Event) {
         : apiErr.status === 401
           ? "用户名或密码错误"
           : apiErr.status === 0
-            // 显示实际请求目标（选择器可切，env 标签会误导）：未选择 = env 默认
-            ? `后端不可达（${getSelectedBackend() || `${apiMode}·env 默认`}）：${apiErr.message}`
+            ? // 显示实际请求目标（选择器可切，env 标签会误导）：未选择 = env 默认
+              `后端不可达（${getSelectedBackend() || `${apiMode}·env 默认`}）：${apiErr.message}`
             : apiErr.message;
     toast.error(msg);
   }
@@ -300,7 +302,8 @@ async function onSubmit(e: Event) {
             class="rounded-md bg-red-50 border border-red-200 px-3 py-2 text-xs text-red-700"
             role="alert"
           >
-            账号已锁定，剩余 <span class="font-mono font-semibold">{{ lockoutRemaining }}</span> 后可重试
+            账号已锁定，剩余
+            <span class="font-mono font-semibold">{{ lockoutRemaining }}</span> 后可重试
           </div>
           <Button
             type="submit"

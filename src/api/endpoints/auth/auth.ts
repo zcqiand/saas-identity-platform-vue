@@ -4,147 +4,134 @@
  * (title)
  * OpenAPI spec version: 0.0.0
  */
-import {
-  useMutation
-} from '@tanstack/vue-query';
+import { useMutation } from "@tanstack/vue-query";
 import type {
   MutationFunction,
   QueryClient,
   UseMutationOptions,
-  UseMutationReturnType
-} from '@tanstack/vue-query';
+  UseMutationReturnType,
+} from "@tanstack/vue-query";
 
-import axios from 'axios';
-import type {
-  AxiosError,
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
+import axios from "axios";
+import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
-import {
-  unref
-} from 'vue';
-import type {
-  MaybeRef
-} from 'vue';
+import { unref } from "vue";
+import type { MaybeRef } from "vue";
 
-import type {
-  LoginRequest,
-  LoginResponse,
-  SessionsLoginDefault
-} from '../title.schemas';
-
-
-
-
+import type { LoginRequest, LoginResponse, SessionsLoginDefault } from "../title.schemas";
 
 export const sessionsLogin = (
-    loginRequest: MaybeRef<LoginRequest>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<LoginResponse>> => {
-    loginRequest = unref(loginRequest);
-    
-    return axios.post(
-      `/api/v1/auth/login`,
-      loginRequest,options
-    );
-  }
+  loginRequest: MaybeRef<LoginRequest>,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<LoginResponse>> => {
+  loginRequest = unref(loginRequest);
 
+  return axios.post(`/api/v1/auth/login`, loginRequest, options);
+};
 
+export const getSessionsLoginMutationOptions = <
+  TError = AxiosError<SessionsLoginDefault>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof sessionsLogin>>,
+    TError,
+    { data: LoginRequest },
+    TContext
+  >;
+  axios?: AxiosRequestConfig;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof sessionsLogin>>,
+  TError,
+  { data: LoginRequest },
+  TContext
+> => {
+  const mutationKey = ["sessionsLogin"];
+  const { mutation: mutationOptions, axios: axiosOptions } = options
+    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, axios: undefined };
 
-export const getSessionsLoginMutationOptions = <TError = AxiosError<SessionsLoginDefault>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof sessionsLogin>>, TError,{data: LoginRequest}, TContext>, axios?: AxiosRequestConfig}
-): UseMutationOptions<Awaited<ReturnType<typeof sessionsLogin>>, TError,{data: LoginRequest}, TContext> => {
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof sessionsLogin>>,
+    { data: LoginRequest }
+  > = (props) => {
+    const { data } = props ?? {};
 
-const mutationKey = ['sessionsLogin'];
-const {mutation: mutationOptions, axios: axiosOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, axios: undefined};
+    return sessionsLogin(data, axiosOptions);
+  };
 
-      
+  return { mutationFn, ...mutationOptions };
+};
 
+export type SessionsLoginMutationResult = NonNullable<Awaited<ReturnType<typeof sessionsLogin>>>;
+export type SessionsLoginMutationBody = LoginRequest;
+export type SessionsLoginMutationError = AxiosError<SessionsLoginDefault>;
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof sessionsLogin>>, {data: LoginRequest}> = (props) => {
-          const {data} = props ?? {};
+export const useSessionsLogin = <TError = AxiosError<SessionsLoginDefault>, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof sessionsLogin>>,
+      TError,
+      { data: LoginRequest },
+      TContext
+    >;
+    axios?: AxiosRequestConfig;
+  },
+  queryClient?: QueryClient,
+): UseMutationReturnType<
+  Awaited<ReturnType<typeof sessionsLogin>>,
+  TError,
+  { data: LoginRequest },
+  TContext
+> => {
+  const mutationOptions = getSessionsLoginMutationOptions(options);
 
-          return  sessionsLogin(data,axiosOptions)
-        }
+  return useMutation(mutationOptions, queryClient);
+};
+export const sessionsLogout = (options?: AxiosRequestConfig): Promise<AxiosResponse<void>> => {
+  return axios.post(`/api/v1/auth/logout`, undefined, options);
+};
 
-        
+export const getSessionsLogoutMutationOptions = <
+  TError = AxiosError<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof sessionsLogout>>, TError, void, TContext>;
+  axios?: AxiosRequestConfig;
+}): UseMutationOptions<Awaited<ReturnType<typeof sessionsLogout>>, TError, void, TContext> => {
+  const mutationKey = ["sessionsLogout"];
+  const { mutation: mutationOptions, axios: axiosOptions } = options
+    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, axios: undefined };
 
+  const mutationFn: MutationFunction<Awaited<ReturnType<typeof sessionsLogout>>, void> = () => {
+    return sessionsLogout(axiosOptions);
+  };
 
-  return  { mutationFn, ...mutationOptions }}
+  return { mutationFn, ...mutationOptions };
+};
 
-    export type SessionsLoginMutationResult = NonNullable<Awaited<ReturnType<typeof sessionsLogin>>>
-    export type SessionsLoginMutationBody = LoginRequest
-    export type SessionsLoginMutationError = AxiosError<SessionsLoginDefault>
+export type SessionsLogoutMutationResult = NonNullable<Awaited<ReturnType<typeof sessionsLogout>>>;
 
-    export const useSessionsLogin = <TError = AxiosError<SessionsLoginDefault>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof sessionsLogin>>, TError,{data: LoginRequest}, TContext>, axios?: AxiosRequestConfig}
- , queryClient?: QueryClient): UseMutationReturnType<
-        Awaited<ReturnType<typeof sessionsLogin>>,
-        TError,
-        {data: LoginRequest},
-        TContext
-      > => {
+export type SessionsLogoutMutationError = AxiosError<unknown>;
 
-      const mutationOptions = getSessionsLoginMutationOptions(options);
+export const useSessionsLogout = <TError = AxiosError<unknown>, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof sessionsLogout>>,
+      TError,
+      void,
+      TContext
+    >;
+    axios?: AxiosRequestConfig;
+  },
+  queryClient?: QueryClient,
+): UseMutationReturnType<Awaited<ReturnType<typeof sessionsLogout>>, TError, void, TContext> => {
+  const mutationOptions = getSessionsLogoutMutationOptions(options);
 
-      return useMutation(mutationOptions, queryClient);
-    }
-    export const sessionsLogout = (
-     options?: AxiosRequestConfig
- ): Promise<AxiosResponse<void>> => {
-    
-    
-    return axios.post(
-      `/api/v1/auth/logout`,undefined,options
-    );
-  }
-
-
-
-export const getSessionsLogoutMutationOptions = <TError = AxiosError<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof sessionsLogout>>, TError,void, TContext>, axios?: AxiosRequestConfig}
-): UseMutationOptions<Awaited<ReturnType<typeof sessionsLogout>>, TError,void, TContext> => {
-
-const mutationKey = ['sessionsLogout'];
-const {mutation: mutationOptions, axios: axiosOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, axios: undefined};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof sessionsLogout>>, void> = () => {
-          
-
-          return  sessionsLogout(axiosOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type SessionsLogoutMutationResult = NonNullable<Awaited<ReturnType<typeof sessionsLogout>>>
-    
-    export type SessionsLogoutMutationError = AxiosError<unknown>
-
-    export const useSessionsLogout = <TError = AxiosError<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof sessionsLogout>>, TError,void, TContext>, axios?: AxiosRequestConfig}
- , queryClient?: QueryClient): UseMutationReturnType<
-        Awaited<ReturnType<typeof sessionsLogout>>,
-        TError,
-        void,
-        TContext
-      > => {
-
-      const mutationOptions = getSessionsLogoutMutationOptions(options);
-
-      return useMutation(mutationOptions, queryClient);
-    }
-    
+  return useMutation(mutationOptions, queryClient);
+};

@@ -4,150 +4,165 @@
  * (title)
  * OpenAPI spec version: 0.0.0
  */
-import {
-  useMutation
-} from '@tanstack/vue-query';
+import { useMutation } from "@tanstack/vue-query";
 import type {
   MutationFunction,
   QueryClient,
   UseMutationOptions,
-  UseMutationReturnType
-} from '@tanstack/vue-query';
+  UseMutationReturnType,
+} from "@tanstack/vue-query";
 
-import axios from 'axios';
-import type {
-  AxiosError,
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
+import axios from "axios";
+import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
-import {
-  unref
-} from 'vue';
-import type {
-  MaybeRef
-} from 'vue';
+import { unref } from "vue";
+import type { MaybeRef } from "vue";
 
 import type {
   AuthorizeCodeRequest,
   ErrorResponse,
   OAuthAuthorize200,
   TokenRequest,
-  TokenResponse
-} from '../title.schemas';
-
-
-
-
+  TokenResponse,
+} from "../title.schemas";
 
 export const oAuthAuthorize = (
-    authorizeCodeRequest: MaybeRef<AuthorizeCodeRequest>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<OAuthAuthorize200>> => {
-    authorizeCodeRequest = unref(authorizeCodeRequest);
-    
-    return axios.post(
-      `/api/v1/oauth/authorize`,
-      authorizeCodeRequest,options
-    );
-  }
+  authorizeCodeRequest: MaybeRef<AuthorizeCodeRequest>,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<OAuthAuthorize200>> => {
+  authorizeCodeRequest = unref(authorizeCodeRequest);
 
+  return axios.post(`/api/v1/oauth/authorize`, authorizeCodeRequest, options);
+};
 
+export const getOAuthAuthorizeMutationOptions = <
+  TError = AxiosError<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof oAuthAuthorize>>,
+    TError,
+    { data: AuthorizeCodeRequest },
+    TContext
+  >;
+  axios?: AxiosRequestConfig;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof oAuthAuthorize>>,
+  TError,
+  { data: AuthorizeCodeRequest },
+  TContext
+> => {
+  const mutationKey = ["oAuthAuthorize"];
+  const { mutation: mutationOptions, axios: axiosOptions } = options
+    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, axios: undefined };
 
-export const getOAuthAuthorizeMutationOptions = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof oAuthAuthorize>>, TError,{data: AuthorizeCodeRequest}, TContext>, axios?: AxiosRequestConfig}
-): UseMutationOptions<Awaited<ReturnType<typeof oAuthAuthorize>>, TError,{data: AuthorizeCodeRequest}, TContext> => {
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof oAuthAuthorize>>,
+    { data: AuthorizeCodeRequest }
+  > = (props) => {
+    const { data } = props ?? {};
 
-const mutationKey = ['oAuthAuthorize'];
-const {mutation: mutationOptions, axios: axiosOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, axios: undefined};
+    return oAuthAuthorize(data, axiosOptions);
+  };
 
-      
+  return { mutationFn, ...mutationOptions };
+};
 
+export type OAuthAuthorizeMutationResult = NonNullable<Awaited<ReturnType<typeof oAuthAuthorize>>>;
+export type OAuthAuthorizeMutationBody = AuthorizeCodeRequest;
+export type OAuthAuthorizeMutationError = AxiosError<ErrorResponse>;
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof oAuthAuthorize>>, {data: AuthorizeCodeRequest}> = (props) => {
-          const {data} = props ?? {};
+export const useOAuthAuthorize = <TError = AxiosError<ErrorResponse>, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof oAuthAuthorize>>,
+      TError,
+      { data: AuthorizeCodeRequest },
+      TContext
+    >;
+    axios?: AxiosRequestConfig;
+  },
+  queryClient?: QueryClient,
+): UseMutationReturnType<
+  Awaited<ReturnType<typeof oAuthAuthorize>>,
+  TError,
+  { data: AuthorizeCodeRequest },
+  TContext
+> => {
+  const mutationOptions = getOAuthAuthorizeMutationOptions(options);
 
-          return  oAuthAuthorize(data,axiosOptions)
-        }
+  return useMutation(mutationOptions, queryClient);
+};
+export const oAuthToken = (
+  tokenRequest: MaybeRef<TokenRequest>,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<TokenResponse>> => {
+  tokenRequest = unref(tokenRequest);
 
-        
+  return axios.post(`/api/v1/oauth/token`, tokenRequest, options);
+};
 
+export const getOAuthTokenMutationOptions = <
+  TError = AxiosError<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof oAuthToken>>,
+    TError,
+    { data: TokenRequest },
+    TContext
+  >;
+  axios?: AxiosRequestConfig;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof oAuthToken>>,
+  TError,
+  { data: TokenRequest },
+  TContext
+> => {
+  const mutationKey = ["oAuthToken"];
+  const { mutation: mutationOptions, axios: axiosOptions } = options
+    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, axios: undefined };
 
-  return  { mutationFn, ...mutationOptions }}
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof oAuthToken>>,
+    { data: TokenRequest }
+  > = (props) => {
+    const { data } = props ?? {};
 
-    export type OAuthAuthorizeMutationResult = NonNullable<Awaited<ReturnType<typeof oAuthAuthorize>>>
-    export type OAuthAuthorizeMutationBody = AuthorizeCodeRequest
-    export type OAuthAuthorizeMutationError = AxiosError<ErrorResponse>
+    return oAuthToken(data, axiosOptions);
+  };
 
-    export const useOAuthAuthorize = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof oAuthAuthorize>>, TError,{data: AuthorizeCodeRequest}, TContext>, axios?: AxiosRequestConfig}
- , queryClient?: QueryClient): UseMutationReturnType<
-        Awaited<ReturnType<typeof oAuthAuthorize>>,
-        TError,
-        {data: AuthorizeCodeRequest},
-        TContext
-      > => {
+  return { mutationFn, ...mutationOptions };
+};
 
-      const mutationOptions = getOAuthAuthorizeMutationOptions(options);
+export type OAuthTokenMutationResult = NonNullable<Awaited<ReturnType<typeof oAuthToken>>>;
+export type OAuthTokenMutationBody = TokenRequest;
+export type OAuthTokenMutationError = AxiosError<ErrorResponse>;
 
-      return useMutation(mutationOptions, queryClient);
-    }
-    export const oAuthToken = (
-    tokenRequest: MaybeRef<TokenRequest>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<TokenResponse>> => {
-    tokenRequest = unref(tokenRequest);
-    
-    return axios.post(
-      `/api/v1/oauth/token`,
-      tokenRequest,options
-    );
-  }
+export const useOAuthToken = <TError = AxiosError<ErrorResponse>, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof oAuthToken>>,
+      TError,
+      { data: TokenRequest },
+      TContext
+    >;
+    axios?: AxiosRequestConfig;
+  },
+  queryClient?: QueryClient,
+): UseMutationReturnType<
+  Awaited<ReturnType<typeof oAuthToken>>,
+  TError,
+  { data: TokenRequest },
+  TContext
+> => {
+  const mutationOptions = getOAuthTokenMutationOptions(options);
 
-
-
-export const getOAuthTokenMutationOptions = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof oAuthToken>>, TError,{data: TokenRequest}, TContext>, axios?: AxiosRequestConfig}
-): UseMutationOptions<Awaited<ReturnType<typeof oAuthToken>>, TError,{data: TokenRequest}, TContext> => {
-
-const mutationKey = ['oAuthToken'];
-const {mutation: mutationOptions, axios: axiosOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, axios: undefined};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof oAuthToken>>, {data: TokenRequest}> = (props) => {
-          const {data} = props ?? {};
-
-          return  oAuthToken(data,axiosOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type OAuthTokenMutationResult = NonNullable<Awaited<ReturnType<typeof oAuthToken>>>
-    export type OAuthTokenMutationBody = TokenRequest
-    export type OAuthTokenMutationError = AxiosError<ErrorResponse>
-
-    export const useOAuthToken = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof oAuthToken>>, TError,{data: TokenRequest}, TContext>, axios?: AxiosRequestConfig}
- , queryClient?: QueryClient): UseMutationReturnType<
-        Awaited<ReturnType<typeof oAuthToken>>,
-        TError,
-        {data: TokenRequest},
-        TContext
-      > => {
-
-      const mutationOptions = getOAuthTokenMutationOptions(options);
-
-      return useMutation(mutationOptions, queryClient);
-    }
-    
+  return useMutation(mutationOptions, queryClient);
+};

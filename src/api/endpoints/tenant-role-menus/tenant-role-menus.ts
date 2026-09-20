@@ -4,10 +4,7 @@
  * (title)
  * OpenAPI spec version: 0.0.0
  */
-import {
-  useMutation,
-  useQuery
-} from '@tanstack/vue-query';
+import { useMutation, useQuery } from "@tanstack/vue-query";
 import type {
   DataTag,
   MutationFunction,
@@ -17,23 +14,14 @@ import type {
   UseMutationOptions,
   UseMutationReturnType,
   UseQueryOptions,
-  UseQueryReturnType
-} from '@tanstack/vue-query';
+  UseQueryReturnType,
+} from "@tanstack/vue-query";
 
-import axios from 'axios';
-import type {
-  AxiosError,
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
+import axios from "axios";
+import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
-import {
-  computed,
-  unref
-} from 'vue';
-import type {
-  MaybeRef
-} from 'vue';
+import { computed, unref } from "vue";
+import type { MaybeRef } from "vue";
 
 import type {
   ErrorResponse,
@@ -41,206 +29,296 @@ import type {
   SetSysRoleMenusRequest,
   TenantRoleMenusClearSysRoleMenusParams,
   TenantRoleMenusListSysRoleMenusParams,
-  TenantRoleMenusSetSysRoleMenusParams
-} from '../title.schemas';
-
-
-
-
+  TenantRoleMenusSetSysRoleMenusParams,
+} from "../title.schemas";
 
 export const tenantRoleMenusListSysRoleMenus = (
-    tenantId: MaybeRef<string>,
-    roleId: MaybeRef<string>,
-    params?: MaybeRef<TenantRoleMenusListSysRoleMenusParams>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<RoleMenuGrant>> => {
-    tenantId = unref(tenantId);
-roleId = unref(roleId);
-params = unref(params);
-    
-    return axios.get(
-      `/api/v1/tenants/${tenantId}/roles/${roleId}/menus`,{
+  tenantId: MaybeRef<string>,
+  roleId: MaybeRef<string>,
+  params?: MaybeRef<TenantRoleMenusListSysRoleMenusParams>,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<RoleMenuGrant>> => {
+  tenantId = unref(tenantId);
+  roleId = unref(roleId);
+  params = unref(params);
+
+  return axios.get(`/api/v1/tenants/${tenantId}/roles/${roleId}/menus`, {
     ...options,
-        params: {...unref(params), ...options?.params},}
-    );
-  }
+    params: { ...unref(params), ...options?.params },
+  });
+};
 
-
-
-
-export const getTenantRoleMenusListSysRoleMenusQueryKey = (tenantId?: MaybeRef<string>,
-    roleId?: MaybeRef<string>,
-    params?: MaybeRef<TenantRoleMenusListSysRoleMenusParams>,) => {
-    return [
-    'api','v1','tenants',tenantId,'roles',roleId,'menus', ...(params ? [params]: [])
-    ] as const;
-    }
-
-    
-export const getTenantRoleMenusListSysRoleMenusQueryOptions = <TData = Awaited<ReturnType<typeof tenantRoleMenusListSysRoleMenus>>, TError = AxiosError<ErrorResponse>>(tenantId: MaybeRef<string>,
-    roleId: MaybeRef<string>,
-    params?: MaybeRef<TenantRoleMenusListSysRoleMenusParams>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof tenantRoleMenusListSysRoleMenus>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const getTenantRoleMenusListSysRoleMenusQueryKey = (
+  tenantId?: MaybeRef<string>,
+  roleId?: MaybeRef<string>,
+  params?: MaybeRef<TenantRoleMenusListSysRoleMenusParams>,
 ) => {
+  return [
+    "api",
+    "v1",
+    "tenants",
+    tenantId,
+    "roles",
+    roleId,
+    "menus",
+    ...(params ? [params] : []),
+  ] as const;
+};
 
-const {query: queryOptions, axios: axiosOptions} = options ?? {};
+export const getTenantRoleMenusListSysRoleMenusQueryOptions = <
+  TData = Awaited<ReturnType<typeof tenantRoleMenusListSysRoleMenus>>,
+  TError = AxiosError<ErrorResponse>,
+>(
+  tenantId: MaybeRef<string>,
+  roleId: MaybeRef<string>,
+  params?: MaybeRef<TenantRoleMenusListSysRoleMenusParams>,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof tenantRoleMenusListSysRoleMenus>>, TError, TData>
+    >;
+    axios?: AxiosRequestConfig;
+  },
+) => {
+  const { query: queryOptions, axios: axiosOptions } = options ?? {};
 
-  const queryKey =  getTenantRoleMenusListSysRoleMenusQueryKey(tenantId,roleId,params);
+  const queryKey = getTenantRoleMenusListSysRoleMenusQueryKey(tenantId, roleId, params);
 
-  
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof tenantRoleMenusListSysRoleMenus>>> = ({
+    signal,
+  }) => tenantRoleMenusListSysRoleMenus(tenantId, roleId, params, { signal, ...axiosOptions });
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof tenantRoleMenusListSysRoleMenus>>> = ({ signal }) => tenantRoleMenusListSysRoleMenus(tenantId,roleId,params, { signal, ...axiosOptions });
+  return {
+    queryKey,
+    queryFn,
+    enabled: computed(() => !!(unref(tenantId) && unref(roleId))),
+    ...queryOptions,
+  } as UseQueryOptions<Awaited<ReturnType<typeof tenantRoleMenusListSysRoleMenus>>, TError, TData>;
+};
 
-      
+export type TenantRoleMenusListSysRoleMenusQueryResult = NonNullable<
+  Awaited<ReturnType<typeof tenantRoleMenusListSysRoleMenus>>
+>;
+export type TenantRoleMenusListSysRoleMenusQueryError = AxiosError<ErrorResponse>;
 
-      
+export function useTenantRoleMenusListSysRoleMenus<
+  TData = Awaited<ReturnType<typeof tenantRoleMenusListSysRoleMenus>>,
+  TError = AxiosError<ErrorResponse>,
+>(
+  tenantId: MaybeRef<string>,
+  roleId: MaybeRef<string>,
+  params?: MaybeRef<TenantRoleMenusListSysRoleMenusParams>,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof tenantRoleMenusListSysRoleMenus>>, TError, TData>
+    >;
+    axios?: AxiosRequestConfig;
+  },
+  queryClient?: QueryClient,
+): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+  const queryOptions = getTenantRoleMenusListSysRoleMenusQueryOptions(
+    tenantId,
+    roleId,
+    params,
+    options,
+  );
 
-   return  { queryKey, queryFn, enabled: computed(() => !!(unref(tenantId) && unref(roleId))), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof tenantRoleMenusListSysRoleMenus>>, TError, TData> 
-}
-
-export type TenantRoleMenusListSysRoleMenusQueryResult = NonNullable<Awaited<ReturnType<typeof tenantRoleMenusListSysRoleMenus>>>
-export type TenantRoleMenusListSysRoleMenusQueryError = AxiosError<ErrorResponse>
-
-
-
-export function useTenantRoleMenusListSysRoleMenus<TData = Awaited<ReturnType<typeof tenantRoleMenusListSysRoleMenus>>, TError = AxiosError<ErrorResponse>>(
- tenantId: MaybeRef<string>,
-    roleId: MaybeRef<string>,
-    params?: MaybeRef<TenantRoleMenusListSysRoleMenusParams>, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof tenantRoleMenusListSysRoleMenus>>, TError, TData>>, axios?: AxiosRequestConfig}
- , queryClient?: QueryClient 
- ): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getTenantRoleMenusListSysRoleMenusQueryOptions(tenantId,roleId,params,options)
-
-  const query = useQuery(queryOptions, queryClient) as UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions, queryClient) as UseQueryReturnType<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
 
   query.queryKey = unref(queryOptions).queryKey as DataTag<QueryKey, TData, TError>;
 
   return query;
 }
 
-
-
-
 export const tenantRoleMenusSetSysRoleMenus = (
-    tenantId: MaybeRef<string>,
-    roleId: MaybeRef<string>,
-    setSysRoleMenusRequest: MaybeRef<SetSysRoleMenusRequest>,
-    params?: MaybeRef<TenantRoleMenusSetSysRoleMenusParams>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<RoleMenuGrant>> => {
-    tenantId = unref(tenantId);
-roleId = unref(roleId);
-setSysRoleMenusRequest = unref(setSysRoleMenusRequest);
-params = unref(params);
-    
-    return axios.put(
-      `/api/v1/tenants/${tenantId}/roles/${roleId}/menus`,
-      setSysRoleMenusRequest,{
+  tenantId: MaybeRef<string>,
+  roleId: MaybeRef<string>,
+  setSysRoleMenusRequest: MaybeRef<SetSysRoleMenusRequest>,
+  params?: MaybeRef<TenantRoleMenusSetSysRoleMenusParams>,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<RoleMenuGrant>> => {
+  tenantId = unref(tenantId);
+  roleId = unref(roleId);
+  setSysRoleMenusRequest = unref(setSysRoleMenusRequest);
+  params = unref(params);
+
+  return axios.put(`/api/v1/tenants/${tenantId}/roles/${roleId}/menus`, setSysRoleMenusRequest, {
     ...options,
-        params: {...unref(params), ...options?.params},}
-    );
-  }
+    params: { ...unref(params), ...options?.params },
+  });
+};
 
+export const getTenantRoleMenusSetSysRoleMenusMutationOptions = <
+  TError = AxiosError<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof tenantRoleMenusSetSysRoleMenus>>,
+    TError,
+    {
+      tenantId: string;
+      roleId: string;
+      data: SetSysRoleMenusRequest;
+      params?: TenantRoleMenusSetSysRoleMenusParams;
+    },
+    TContext
+  >;
+  axios?: AxiosRequestConfig;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof tenantRoleMenusSetSysRoleMenus>>,
+  TError,
+  {
+    tenantId: string;
+    roleId: string;
+    data: SetSysRoleMenusRequest;
+    params?: TenantRoleMenusSetSysRoleMenusParams;
+  },
+  TContext
+> => {
+  const mutationKey = ["tenantRoleMenusSetSysRoleMenus"];
+  const { mutation: mutationOptions, axios: axiosOptions } = options
+    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, axios: undefined };
 
-
-export const getTenantRoleMenusSetSysRoleMenusMutationOptions = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tenantRoleMenusSetSysRoleMenus>>, TError,{tenantId: string;roleId: string;data: SetSysRoleMenusRequest;params?: TenantRoleMenusSetSysRoleMenusParams}, TContext>, axios?: AxiosRequestConfig}
-): UseMutationOptions<Awaited<ReturnType<typeof tenantRoleMenusSetSysRoleMenus>>, TError,{tenantId: string;roleId: string;data: SetSysRoleMenusRequest;params?: TenantRoleMenusSetSysRoleMenusParams}, TContext> => {
-
-const mutationKey = ['tenantRoleMenusSetSysRoleMenus'];
-const {mutation: mutationOptions, axios: axiosOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, axios: undefined};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof tenantRoleMenusSetSysRoleMenus>>, {tenantId: string;roleId: string;data: SetSysRoleMenusRequest;params?: TenantRoleMenusSetSysRoleMenusParams}> = (props) => {
-          const {tenantId,roleId,data,params} = props ?? {};
-
-          return  tenantRoleMenusSetSysRoleMenus(tenantId,roleId,data,params,axiosOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type TenantRoleMenusSetSysRoleMenusMutationResult = NonNullable<Awaited<ReturnType<typeof tenantRoleMenusSetSysRoleMenus>>>
-    export type TenantRoleMenusSetSysRoleMenusMutationBody = SetSysRoleMenusRequest
-    export type TenantRoleMenusSetSysRoleMenusMutationError = AxiosError<ErrorResponse>
-
-    export const useTenantRoleMenusSetSysRoleMenus = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tenantRoleMenusSetSysRoleMenus>>, TError,{tenantId: string;roleId: string;data: SetSysRoleMenusRequest;params?: TenantRoleMenusSetSysRoleMenusParams}, TContext>, axios?: AxiosRequestConfig}
- , queryClient?: QueryClient): UseMutationReturnType<
-        Awaited<ReturnType<typeof tenantRoleMenusSetSysRoleMenus>>,
-        TError,
-        {tenantId: string;roleId: string;data: SetSysRoleMenusRequest;params?: TenantRoleMenusSetSysRoleMenusParams},
-        TContext
-      > => {
-
-      const mutationOptions = getTenantRoleMenusSetSysRoleMenusMutationOptions(options);
-
-      return useMutation(mutationOptions, queryClient);
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof tenantRoleMenusSetSysRoleMenus>>,
+    {
+      tenantId: string;
+      roleId: string;
+      data: SetSysRoleMenusRequest;
+      params?: TenantRoleMenusSetSysRoleMenusParams;
     }
-    export const tenantRoleMenusClearSysRoleMenus = (
-    tenantId: MaybeRef<string>,
-    roleId: MaybeRef<string>,
-    params?: MaybeRef<TenantRoleMenusClearSysRoleMenusParams>, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<void>> => {
-    tenantId = unref(tenantId);
-roleId = unref(roleId);
-params = unref(params);
-    
-    return axios.delete(
-      `/api/v1/tenants/${tenantId}/roles/${roleId}/menus`,{
+  > = (props) => {
+    const { tenantId, roleId, data, params } = props ?? {};
+
+    return tenantRoleMenusSetSysRoleMenus(tenantId, roleId, data, params, axiosOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type TenantRoleMenusSetSysRoleMenusMutationResult = NonNullable<
+  Awaited<ReturnType<typeof tenantRoleMenusSetSysRoleMenus>>
+>;
+export type TenantRoleMenusSetSysRoleMenusMutationBody = SetSysRoleMenusRequest;
+export type TenantRoleMenusSetSysRoleMenusMutationError = AxiosError<ErrorResponse>;
+
+export const useTenantRoleMenusSetSysRoleMenus = <
+  TError = AxiosError<ErrorResponse>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof tenantRoleMenusSetSysRoleMenus>>,
+      TError,
+      {
+        tenantId: string;
+        roleId: string;
+        data: SetSysRoleMenusRequest;
+        params?: TenantRoleMenusSetSysRoleMenusParams;
+      },
+      TContext
+    >;
+    axios?: AxiosRequestConfig;
+  },
+  queryClient?: QueryClient,
+): UseMutationReturnType<
+  Awaited<ReturnType<typeof tenantRoleMenusSetSysRoleMenus>>,
+  TError,
+  {
+    tenantId: string;
+    roleId: string;
+    data: SetSysRoleMenusRequest;
+    params?: TenantRoleMenusSetSysRoleMenusParams;
+  },
+  TContext
+> => {
+  const mutationOptions = getTenantRoleMenusSetSysRoleMenusMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};
+export const tenantRoleMenusClearSysRoleMenus = (
+  tenantId: MaybeRef<string>,
+  roleId: MaybeRef<string>,
+  params?: MaybeRef<TenantRoleMenusClearSysRoleMenusParams>,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<void>> => {
+  tenantId = unref(tenantId);
+  roleId = unref(roleId);
+  params = unref(params);
+
+  return axios.delete(`/api/v1/tenants/${tenantId}/roles/${roleId}/menus`, {
     ...options,
-        params: {...unref(params), ...options?.params},}
-    );
-  }
+    params: { ...unref(params), ...options?.params },
+  });
+};
 
+export const getTenantRoleMenusClearSysRoleMenusMutationOptions = <
+  TError = AxiosError<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof tenantRoleMenusClearSysRoleMenus>>,
+    TError,
+    { tenantId: string; roleId: string; params?: TenantRoleMenusClearSysRoleMenusParams },
+    TContext
+  >;
+  axios?: AxiosRequestConfig;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof tenantRoleMenusClearSysRoleMenus>>,
+  TError,
+  { tenantId: string; roleId: string; params?: TenantRoleMenusClearSysRoleMenusParams },
+  TContext
+> => {
+  const mutationKey = ["tenantRoleMenusClearSysRoleMenus"];
+  const { mutation: mutationOptions, axios: axiosOptions } = options
+    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, axios: undefined };
 
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof tenantRoleMenusClearSysRoleMenus>>,
+    { tenantId: string; roleId: string; params?: TenantRoleMenusClearSysRoleMenusParams }
+  > = (props) => {
+    const { tenantId, roleId, params } = props ?? {};
 
-export const getTenantRoleMenusClearSysRoleMenusMutationOptions = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tenantRoleMenusClearSysRoleMenus>>, TError,{tenantId: string;roleId: string;params?: TenantRoleMenusClearSysRoleMenusParams}, TContext>, axios?: AxiosRequestConfig}
-): UseMutationOptions<Awaited<ReturnType<typeof tenantRoleMenusClearSysRoleMenus>>, TError,{tenantId: string;roleId: string;params?: TenantRoleMenusClearSysRoleMenusParams}, TContext> => {
+    return tenantRoleMenusClearSysRoleMenus(tenantId, roleId, params, axiosOptions);
+  };
 
-const mutationKey = ['tenantRoleMenusClearSysRoleMenus'];
-const {mutation: mutationOptions, axios: axiosOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, axios: undefined};
+  return { mutationFn, ...mutationOptions };
+};
 
-      
+export type TenantRoleMenusClearSysRoleMenusMutationResult = NonNullable<
+  Awaited<ReturnType<typeof tenantRoleMenusClearSysRoleMenus>>
+>;
 
+export type TenantRoleMenusClearSysRoleMenusMutationError = AxiosError<ErrorResponse>;
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof tenantRoleMenusClearSysRoleMenus>>, {tenantId: string;roleId: string;params?: TenantRoleMenusClearSysRoleMenusParams}> = (props) => {
-          const {tenantId,roleId,params} = props ?? {};
+export const useTenantRoleMenusClearSysRoleMenus = <
+  TError = AxiosError<ErrorResponse>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof tenantRoleMenusClearSysRoleMenus>>,
+      TError,
+      { tenantId: string; roleId: string; params?: TenantRoleMenusClearSysRoleMenusParams },
+      TContext
+    >;
+    axios?: AxiosRequestConfig;
+  },
+  queryClient?: QueryClient,
+): UseMutationReturnType<
+  Awaited<ReturnType<typeof tenantRoleMenusClearSysRoleMenus>>,
+  TError,
+  { tenantId: string; roleId: string; params?: TenantRoleMenusClearSysRoleMenusParams },
+  TContext
+> => {
+  const mutationOptions = getTenantRoleMenusClearSysRoleMenusMutationOptions(options);
 
-          return  tenantRoleMenusClearSysRoleMenus(tenantId,roleId,params,axiosOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type TenantRoleMenusClearSysRoleMenusMutationResult = NonNullable<Awaited<ReturnType<typeof tenantRoleMenusClearSysRoleMenus>>>
-    
-    export type TenantRoleMenusClearSysRoleMenusMutationError = AxiosError<ErrorResponse>
-
-    export const useTenantRoleMenusClearSysRoleMenus = <TError = AxiosError<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof tenantRoleMenusClearSysRoleMenus>>, TError,{tenantId: string;roleId: string;params?: TenantRoleMenusClearSysRoleMenusParams}, TContext>, axios?: AxiosRequestConfig}
- , queryClient?: QueryClient): UseMutationReturnType<
-        Awaited<ReturnType<typeof tenantRoleMenusClearSysRoleMenus>>,
-        TError,
-        {tenantId: string;roleId: string;params?: TenantRoleMenusClearSysRoleMenusParams},
-        TContext
-      > => {
-
-      const mutationOptions = getTenantRoleMenusClearSysRoleMenusMutationOptions(options);
-
-      return useMutation(mutationOptions, queryClient);
-    }
-    
+  return useMutation(mutationOptions, queryClient);
+};

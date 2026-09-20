@@ -62,4 +62,3 @@ describe("M08.F01 菜单树（树表化）", () => {
     expect(deleteBtns.length).toBe(rows.length);
   });
 });
-

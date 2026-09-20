@@ -20,15 +20,15 @@ import type {
 } from "../api/endpoints/title.schemas";
 import Button from "../components/ui/button.vue";
 import Card from "../components/ui/card.vue";
-import CardContent from "../components/ui/card-content.vue"
-import CardHeader from "../components/ui/card-header.vue"
-import CardTitle from "../components/ui/card-title.vue"
+import CardContent from "../components/ui/card-content.vue";
+import CardHeader from "../components/ui/card-header.vue";
+import CardTitle from "../components/ui/card-title.vue";
 import Table from "../components/ui/table.vue";
-import TableBody from "../components/ui/table-body.vue"
-import TableCell from "../components/ui/table-cell.vue"
-import TableHead from "../components/ui/table-head.vue"
-import TableHeader from "../components/ui/table-header.vue"
-import TableRow from "../components/ui/table-row.vue"
+import TableBody from "../components/ui/table-body.vue";
+import TableCell from "../components/ui/table-cell.vue";
+import TableHead from "../components/ui/table-head.vue";
+import TableHeader from "../components/ui/table-header.vue";
+import TableRow from "../components/ui/table-row.vue";
 import PageHeader from "../components/app/page-header.vue";
 import StatusBadge from "../components/app/status-badge.vue";
 import ConfirmDialog from "../components/app/confirm-dialog.vue";
@@ -93,7 +93,12 @@ function normalizeMemberRow(raw: unknown): MemberUserRow {
   const r = raw as Record<string, unknown>;
   if (r.member && r.user) {
     const member = r.member as { id: string; status?: MemberUserRow["status"] };
-    const user = r.user as { id: string; username: string; email: string; status?: MemberUserRow["status"] };
+    const user = r.user as {
+      id: string;
+      username: string;
+      email: string;
+      status?: MemberUserRow["status"];
+    };
     const memberStatus = (member.status ?? user.status ?? "active") as MemberUserRow["status"];
     return {
       id: user.id ?? member.id,
@@ -105,8 +110,8 @@ function normalizeMemberRow(raw: unknown): MemberUserRow {
   }
   return r as unknown as MemberUserRow;
 }
-const users = computed<MemberUserRow[]>(
-  () => ((usersQ.data.value?.data?.items ?? []) as unknown as MemberUserRow[]).map(normalizeMemberRow),
+const users = computed<MemberUserRow[]>(() =>
+  ((usersQ.data.value?.data?.items ?? []) as unknown as MemberUserRow[]).map(normalizeMemberRow),
 );
 const roles = computed(() => rolesQ.data.value?.data?.items ?? []);
 
@@ -281,11 +286,7 @@ async function confirmDelete() {
     >
       <template #field.roleIds="{ value, onChange }">
         <div class="space-y-1 max-h-48 overflow-y-auto border rounded p-2">
-          <label
-            v-for="r in roles"
-            :key="r.id"
-            class="flex items-center gap-2 text-sm"
-          >
+          <label v-for="r in roles" :key="r.id" class="flex items-center gap-2 text-sm">
             <input
               type="checkbox"
               :checked="Array.isArray(value) && value.includes(r.id)"

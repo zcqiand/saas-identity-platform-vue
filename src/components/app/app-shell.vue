@@ -7,11 +7,7 @@
 
 import { computed } from "vue";
 import { useRoute, useRouter, RouterLink } from "vue-router";
-import {
-  LogOut,
-  ChevronRight,
-  Home,
-} from "lucide-vue-next";
+import { LogOut, ChevronRight, Home } from "lucide-vue-next";
 import Button from "../ui/button.vue";
 import Separator from "../ui/separator.vue";
 import Toaster from "../ui/sonner.vue";

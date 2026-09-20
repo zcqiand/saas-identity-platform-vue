@@ -16,15 +16,15 @@ import type {
 } from "../api/endpoints/title.schemas";
 import Button from "../components/ui/button.vue";
 import Card from "../components/ui/card.vue";
-import CardContent from "../components/ui/card-content.vue"
-import CardHeader from "../components/ui/card-header.vue"
-import CardTitle from "../components/ui/card-title.vue"
+import CardContent from "../components/ui/card-content.vue";
+import CardHeader from "../components/ui/card-header.vue";
+import CardTitle from "../components/ui/card-title.vue";
 import Table from "../components/ui/table.vue";
-import TableBody from "../components/ui/table-body.vue"
-import TableCell from "../components/ui/table-cell.vue"
-import TableHead from "../components/ui/table-head.vue"
-import TableHeader from "../components/ui/table-header.vue"
-import TableRow from "../components/ui/table-row.vue"
+import TableBody from "../components/ui/table-body.vue";
+import TableCell from "../components/ui/table-cell.vue";
+import TableHead from "../components/ui/table-head.vue";
+import TableHeader from "../components/ui/table-header.vue";
+import TableRow from "../components/ui/table-row.vue";
 import PageHeader from "../components/app/page-header.vue";
 import ConfirmDialog from "../components/app/confirm-dialog.vue";
 import CrudDialog from "../components/app/crud-dialog.vue";

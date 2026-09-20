@@ -36,7 +36,8 @@ export const router = createRouter({
           props: true,
         },
         { path: "admin/apps", component: AppListPage },
-        { path: "admin/apps/:appId/menus", component: MenuTreePage, props: true },      ],
+        { path: "admin/apps/:appId/menus", component: MenuTreePage, props: true },
+      ],
     },
 
     { path: "/:pathMatch(.*)*", redirect: "/tenants" },
@@ -55,8 +56,7 @@ router.beforeEach((to) => {
     // 签 code 跳回 RP。已登录用户也要走完 OAuth 流程(RFC 6749 §4.1.1)。
     // vue-router 4 RouteLocationNormalized 上无 search 字段,用 to.query 反查。
     const q = to.query as Record<string, unknown>;
-    const hasRedirectUri =
-      typeof q.redirect_uri === "string" && q.redirect_uri.length > 0;
+    const hasRedirectUri = typeof q.redirect_uri === "string" && q.redirect_uri.length > 0;
     if (!hasRedirectUri) {
       return { path: "/tenants" };
     }

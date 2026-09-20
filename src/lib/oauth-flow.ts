@@ -10,10 +10,7 @@
  * M01.F04.*（密码登录 / 失败锁定 / refresh）不在本仓——vue 通过 OAuth 跳板登录（ADR-0013）。
  */
 
-import {
-  oAuthAuthorize,
-  oAuthToken,
-} from "@/api/endpoints/oauth/oauth";
+import { oAuthAuthorize, oAuthToken } from "@/api/endpoints/oauth/oauth";
 import type { TokenResponse } from "@/api/endpoints/title.schemas";
 
 const STATE_KEY = "saas.vue.oauth.state";

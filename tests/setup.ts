@@ -203,10 +203,14 @@ vi.mock("../src/api/endpoints/tenant-roles/tenant-roles", () => ({
   useTenantRolesSetPermissions: hookMocks.useTenantRolesSetPermissions,
 }));
 vi.mock("../src/api/endpoints/tenant-applications/tenant-applications", () => ({
-  useTenantApplicationsListTenantApplications: hookMocks.useTenantApplicationsListTenantApplications,
-  useTenantApplicationsSubscribeTenantApplication: hookMocks.useTenantApplicationsSubscribeTenantApplication,
-  useTenantApplicationsUpdateTenantApplication: hookMocks.useTenantApplicationsUpdateTenantApplication,
-  useTenantApplicationsRemoveTenantApplication: hookMocks.useTenantApplicationsRemoveTenantApplication,
+  useTenantApplicationsListTenantApplications:
+    hookMocks.useTenantApplicationsListTenantApplications,
+  useTenantApplicationsSubscribeTenantApplication:
+    hookMocks.useTenantApplicationsSubscribeTenantApplication,
+  useTenantApplicationsUpdateTenantApplication:
+    hookMocks.useTenantApplicationsUpdateTenantApplication,
+  useTenantApplicationsRemoveTenantApplication:
+    hookMocks.useTenantApplicationsRemoveTenantApplication,
 }));
 vi.mock("../src/api/endpoints/admin-clients/admin-clients", () => ({
   useAdminClientsListClients: hookMocks.useAdminClientsListClients,

@@ -72,7 +72,9 @@ describe("M01.F04.I03 账号密码登录", () => {
         accessToken: "at-1",
         refreshToken: "rt-1",
         user: { id: "u-1", username: "alice" },
-        availableTenants: [{ tenantId: "t-1", tenantCode: null, tenantName: "ACME", roleCodes: [] }],
+        availableTenants: [
+          { tenantId: "t-1", tenantCode: null, tenantName: "ACME", roleCodes: [] },
+        ],
         clientId: "test-client-id",
       },
     });
@@ -138,7 +140,9 @@ describe("M01.F04.I03 账号密码登录", () => {
         accessToken: "at-1",
         refreshToken: "rt-1",
         user: { id: "u-1", username: "alice" },
-        availableTenants: [{ tenantId: "t-1", tenantCode: null, tenantName: "ACME", roleCodes: [] }],
+        availableTenants: [
+          { tenantId: "t-1", tenantCode: null, tenantName: "ACME", roleCodes: [] },
+        ],
         clientId: "test-client-id",
       },
     });
@@ -191,7 +195,9 @@ describe("M01.F04.I03 OAuth code 回跳", () => {
         accessToken: "at-1",
         refreshToken: "rt-1",
         user: { id: "u-1", username: "alice" },
-        availableTenants: [{ tenantId: "t-1", tenantCode: null, tenantName: "ACME", roleCodes: [] }],
+        availableTenants: [
+          { tenantId: "t-1", tenantCode: null, tenantName: "ACME", roleCodes: [] },
+        ],
         clientId: "test-client-id",
       },
     });
@@ -205,9 +211,7 @@ describe("M01.F04.I03 OAuth code 回跳", () => {
       await fillAndSubmit(wrapper);
       await vi.waitFor(() => expect(loc.assigned()).toBeTruthy());
       const target = new URL(loc.assigned());
-      expect(target.origin + target.pathname).toBe(
-        "https://lab-vue.xiangru.uk/login",
-      );
+      expect(target.origin + target.pathname).toBe("https://lab-vue.xiangru.uk/login");
       expect(target.searchParams.get("code")).toBe("auth-code-1");
       expect(target.searchParams.get("state")).toBe("xyz");
       // 回跳 RP，而不是进 saas 自己的 /tenants
@@ -228,7 +232,9 @@ describe("M01.F04.I03 OAuth code 回跳", () => {
         accessToken: "at-1",
         refreshToken: "rt-1",
         user: { id: "u-1", username: "alice" },
-        availableTenants: [{ tenantId: "t-1", tenantCode: null, tenantName: "ACME", roleCodes: [] }],
+        availableTenants: [
+          { tenantId: "t-1", tenantCode: null, tenantName: "ACME", roleCodes: [] },
+        ],
         clientId: "test-client-id",
       },
     });

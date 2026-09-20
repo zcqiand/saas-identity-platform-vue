@@ -21,9 +21,7 @@ const { updateClientMut, toastSuccess } = vi.hoisted(() => ({
 }));
 
 vi.mock("../../src/api/endpoints/admin-clients/admin-clients", async () => {
-  const { apps: seedApps } = await import(
-    "../../../saas-identity-platform-shared/seeds"
-  );
+  const { apps: seedApps } = await import("../../../saas-identity-platform-shared/seeds");
   const listStub = {
     data: {
       value: {

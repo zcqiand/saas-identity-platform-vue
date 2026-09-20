@@ -45,8 +45,8 @@ export function mountWithProviders(
         // 用例显式传 stubs: { teleport: false } 覆盖（2026-09-12 登录页后端切换器）
         // （VTU 的 Stubs 类型没收录 'teleport' 字面键，这里过 Record 断言）
         teleport:
-          (options.global?.stubs as Record<string, boolean | undefined> | undefined)
-            ?.teleport ?? true,
+          (options.global?.stubs as Record<string, boolean | undefined> | undefined)?.teleport ??
+          true,
       },
     },
   });

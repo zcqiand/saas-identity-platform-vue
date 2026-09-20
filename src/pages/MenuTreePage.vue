@@ -87,7 +87,9 @@ const allApps = computed(() => appsQ.data.value?.data?.items ?? []);
 // selectedAppId 值域 = OAuthClient.clientId（code 形）——上游 RouterLink 传参、
 // 应用下拉 value、菜单 CRUD 写路径、真后端 client_id 列查询四处一致；行 UUID 只作 key。
 const selectedAppId = ref(appId.value || allApps.value[0]?.clientId || "");
-const currentApp = computed(() => allApps.value.find((a) => a.clientId === selectedAppId.value) ?? allApps.value[0]);
+const currentApp = computed(
+  () => allApps.value.find((a) => a.clientId === selectedAppId.value) ?? allApps.value[0],
+);
 
 const menusQ = useClientMenusListSysMenus(selectedAppId);
 // 父菜单下拉用：无视展开状态的扁平视图（深度缩进）
@@ -343,9 +345,7 @@ async function confirmDelete() {
                 <span
                   class="inline-flex items-center rounded-md bg-slate-100 px-2 py-0.5 text-xs text-slate-700"
                 >
-                  {{
-                  r.type === "directory" ? "目录" : r.type === "button" ? "按钮" : "菜单"
-                }}
+                  {{ r.type === "directory" ? "目录" : r.type === "button" ? "按钮" : "菜单" }}
                 </span>
               </TableCell>
               <TableCell>
@@ -465,7 +465,10 @@ async function confirmDelete() {
             { value: '', label: '（无，顶级）' },
             ...rows
               .filter((m) => m.id !== moveTarget?.id)
-              .map((m) => ({ value: m.id, label: `${'  '.repeat(m.depth)}${m.path} · ${m.title}` })),
+              .map((m) => ({
+                value: m.id,
+                label: `${'  '.repeat(m.depth)}${m.path} · ${m.title}`,
+              })),
           ],
         },
       ]"
