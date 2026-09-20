@@ -7,6 +7,7 @@ import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useTenantRolesListSysRoles } from "../api/endpoints/tenant-roles/tenant-roles";
 import {
+  tenantMembersChangeTenantUserStatus,
   useTenantMembersAssignTenantMemberRoles,
   useTenantMembersCreateTenantUser,
   useTenantMembersDeleteTenantUser,
@@ -15,6 +16,7 @@ import {
 } from "../api/endpoints/tenant-members/tenant-members";
 import type {
   CreateSysUserRequest,
+  TenantMembersChangeTenantUserStatusBody,
   UpdateSysUserRequest,
   TenantMember,
 } from "../api/endpoints/title.schemas";
@@ -132,14 +134,20 @@ async function onCreate(values: Record<string, unknown>) {
 async function onUpdate(values: Record<string, unknown>) {
   if (!editTarget.value) return;
   try {
+    // 5.13-①（2026-09-20 人裁）：email 走 PATCH（契约 UpdateSysUserRequest 已删 status），
+    // status 走专职 /status 端点（tenantMembersChangeTenantUserStatus，成员级 4 值，
+    // 含契约外 "suspended" 的 UI 状态切换有了合法通道）。
     await updateMut.mutateAsync({
       tenantId: tenantId.value,
       userId: editTarget.value.id,
-      data: {
-        email: values.email as string,
-        status: values.status as MemberUserRow["status"],
-      } as UpdateSysUserRequest,
+      data: { email: values.email as string } as UpdateSysUserRequest,
     });
+    const nextStatus = values.status as TenantMembersChangeTenantUserStatusBody["status"];
+    if (nextStatus && nextStatus !== editTarget.value.status) {
+      await tenantMembersChangeTenantUserStatus(tenantId.value, editTarget.value.id, {
+        status: nextStatus,
+      });
+    }
     editTarget.value = null;
     usersQ.refetch();
     toast.success("用户已更新");

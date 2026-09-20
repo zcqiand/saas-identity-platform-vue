@@ -69,6 +69,10 @@ export interface CreateSysUserRequest {
    * @maxLength 64
    */
   username: string;
+  /**
+   * @minLength 8
+   * @maxLength 256
+   */
   password: string;
   email?: string;
   mobile?: string;
@@ -421,7 +425,6 @@ export interface UpdateSysRoleRequest {
 export interface UpdateSysUserRequest {
   email?: string;
   mobile?: string;
-  status?: SysUserStatus;
 }
 
 export interface UpdateTenantApplicationRequest {
