@@ -1,9 +1,9 @@
 {
   "schema": 2,
   "project": "saas-identity-platform-vue",
-  "current_task": "2026-09-19 family-leftovers wave 收口（Task 6）：--all 三轮判读完成，本仓三轮全绿 exit 0",
-  "last_session_at": "2026-09-19",
-  "last_session_summary": "无代码改动，纯验证收口：R1 裸环境/R2/R3 注入 --all 三轮全绿",
+  "current_task": "5.73② 终审 B1 修复：prettier 归位（f75ff37）；批尾 unit gate r2 EXIT=0",
+  "last_session_at": "2026-09-21",
+  "last_session_summary": "终审 M1 勘误：directive 实移除 6 条",
   "done": [
     "盘点：34/51 已上线 + 14 开发中 + 3 规划，与 react 完全对齐",
     "gate.py -p saas-identity-platform-vue → 全绿（2026-09-10 21:10 gate --all 确认）",
