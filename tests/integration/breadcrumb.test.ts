@@ -50,6 +50,13 @@ describe("面包屑 label map 防回潮", () => {
     expect(nav.text()).not.toContain("members");
   });
 
+  it("/tenants/{id}/applications 面包屑含「应用」，不含裸 applications 段", async () => {
+    const nav = await breadcrumbNavAt(`/tenants/${TENANT_ID}/applications`);
+    expect(nav.exists()).toBe(true);
+    expect(nav.text()).toContain("应用");
+    expect(nav.text()).not.toContain("applications");
+  });
+
   it("/admin/clients 面包屑翻齐 admin/clients 两段（平台管理/应用）", async () => {
     const nav = await breadcrumbNavAt("/admin/clients");
     expect(nav.exists()).toBe(true);
