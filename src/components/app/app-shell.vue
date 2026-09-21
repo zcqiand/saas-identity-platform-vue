@@ -3,7 +3,7 @@
 //
 // Sidebar links with `:tenantId` placeholder are dynamically substituted with
 // `currentTenantId` (from tenant-store). This way clicking "租户成员" while
-// tenant = globex goes to `/tenants/globex/users`, not literal `/tenants/:tenantId/users`.
+// tenant = globex goes to `/tenants/globex/members`, not literal `/tenants/:tenantId/members`.
 
 import { computed } from "vue";
 import { useRoute, useRouter, RouterLink } from "vue-router";
