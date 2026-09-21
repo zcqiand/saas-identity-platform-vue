@@ -135,7 +135,8 @@ async function onLogout() {
             data-testid="whoami-badge"
             class="text-sm text-slate-600"
             :title="whoami.id"
-          >{{ whoami.email ?? whoami.id }}</span>
+            >{{ whoami.email ?? whoami.id }}</span
+          >
           <TenantSwitcher v-if="tenantStore.currentTenantId" />
           <!-- 登出（用户裁定 2026-09-11：移到右上角，切换租户旁） -->
           <Button
