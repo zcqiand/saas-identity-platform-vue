@@ -123,7 +123,7 @@ async function waitRows(min = 1): Promise<void> {
 }
 
 describe("M01.F01 用户管理（tenant-scoped，真链路）", () => {
-  it("渲染用户列表，创建成员按钮挂 data-fn=M01.F04.I03", async () => {
+  it("渲染用户列表，创建成员按钮挂创建锚", async () => {
     await mountPage();
     await waitRows();
     expect(document.body.querySelector('button[data-fn="M01.F04.I03"]')).toBeTruthy();
