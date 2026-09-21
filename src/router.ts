@@ -23,7 +23,7 @@ export const router = createRouter({
       children: [
         { path: "", redirect: "/tenants" },
         { path: "tenants", component: TenantListPage },
-        { path: "tenants/:tenantId/users", component: UserListPage, props: true },
+        { path: "tenants/:tenantId/members", component: UserListPage, props: true },
         { path: "tenants/:tenantId/roles", component: RoleListPage, props: true },
         {
           path: "tenants/:tenantId/roles/:roleId/menus",
@@ -35,8 +35,8 @@ export const router = createRouter({
           component: TenantApplicationsListPage,
           props: true,
         },
-        { path: "admin/apps", component: AppListPage },
-        { path: "admin/apps/:appId/menus", component: MenuTreePage, props: true },
+        { path: "admin/clients", component: AppListPage },
+        { path: "admin/clients/:clientId/menus", component: MenuTreePage, props: true },
       ],
     },
 

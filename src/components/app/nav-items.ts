@@ -50,14 +50,14 @@ export function buildNavItems(tenantForNav: string): NavItem[] {
     },
     // M04 应用管理（模块）
     {
-      to: "/admin/apps",
+      to: "/admin/clients",
       label: "应用维护",
       group: "应用管理",
       icon: Boxes,
       fnId: "M04.F01.I01",
     },
     {
-      to: "/admin/apps/lab-management/menus",
+      to: "/admin/clients/lab-management/menus",
       label: "菜单管理",
       group: "应用管理",
       icon: FolderTree,

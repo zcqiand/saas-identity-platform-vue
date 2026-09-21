@@ -13,7 +13,7 @@ describe("M08.F01 菜单树（树表化）", () => {
 
   it("默认渲染所有菜单行（含嵌套子级），每行带 data-depth", async () => {
     const wrapper = mountWithProviders(MenuTreePage, {
-      router: { initialRoute: "/admin/apps/00000000-0000-0000-0000-000000000001/menus" },
+      router: { initialRoute: "/admin/clients/00000000-0000-0000-0000-000000000001/menus" },
     });
     await nextTick();
     await new Promise((resolve) => setTimeout(resolve, 50));
@@ -26,7 +26,7 @@ describe("M08.F01 菜单树（树表化）", () => {
 
   it("父级菜单行带 data-testid=menu-toggle-* 切换按钮", async () => {
     const wrapper = mountWithProviders(MenuTreePage, {
-      router: { initialRoute: "/admin/apps/00000000-0000-0000-0000-000000000001/menus" },
+      router: { initialRoute: "/admin/clients/00000000-0000-0000-0000-000000000001/menus" },
     });
     await nextTick();
     await new Promise((resolve) => setTimeout(resolve, 50));
@@ -36,7 +36,7 @@ describe("M08.F01 菜单树（树表化）", () => {
 
   it("点击父级切换按钮后子级行消失", async () => {
     const wrapper = mountWithProviders(MenuTreePage, {
-      router: { initialRoute: "/admin/apps/00000000-0000-0000-0000-000000000001/menus" },
+      router: { initialRoute: "/admin/clients/00000000-0000-0000-0000-000000000001/menus" },
     });
     await nextTick();
     await new Promise((resolve) => setTimeout(resolve, 50));
@@ -52,7 +52,7 @@ describe("M08.F01 菜单树（树表化）", () => {
 
   it("每个菜单行挂 data-fn=M04.F04.I05 删除按钮", async () => {
     const wrapper = mountWithProviders(MenuTreePage, {
-      router: { initialRoute: "/admin/apps/00000000-0000-0000-0000-000000000001/menus" },
+      router: { initialRoute: "/admin/clients/00000000-0000-0000-0000-000000000001/menus" },
     });
     await nextTick();
     await new Promise((resolve) => setTimeout(resolve, 50));

@@ -80,7 +80,7 @@ const FIELDS: FieldDef[] = [
 const EDIT_FIELDS = FIELDS.filter((f) => f.name !== "code");
 
 const route = useRoute();
-const appId = computed(() => String(route.params.appId ?? ""));
+const appId = computed(() => String(route.params.clientId ?? ""));
 
 const appsQ = useAdminClientsListClients();
 const allApps = computed(() => appsQ.data.value?.data?.items ?? []);

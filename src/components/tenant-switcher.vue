@@ -51,7 +51,7 @@ async function onSwitch(tenantId: string) {
     const res = await switchMut.mutateAsync({ tenantId, params: { clientId: "" } });
     tenantStore.setTenant(tenantId, null, res.data.accessToken);
     void qc.invalidateQueries(); // 租户切换后列表数据全部失效
-    router.push(`/tenants/${tenantId}/users`);
+    router.push(`/tenants/${tenantId}/members`);
   } catch (err) {
     const apiErr = toApiError(err);
     toast.error(

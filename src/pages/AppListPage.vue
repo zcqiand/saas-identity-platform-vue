@@ -129,7 +129,7 @@ const deleteTarget = ref<OAuthClient | null>(null);
 const apps = computed<OAuthClient[]>(() => list.data.value?.data?.items ?? []);
 
 function goMenus(appId: string) {
-  router.push(`/admin/apps/${appId}/menus`);
+  router.push(`/admin/clients/${appId}/menus`);
 }
 
 async function onCreate(values: Record<string, unknown>) {
@@ -253,7 +253,7 @@ async function confirmDelete() {
                   删除
                 </Button>
                 <Button variant="ghost" size="sm" as-child>
-                  <RouterLink :to="`/admin/apps/${a.clientId}/menus`">菜单</RouterLink>
+                  <RouterLink :to="`/admin/clients/${a.clientId}/menus`">菜单</RouterLink>
                 </Button>
               </TableCell>
             </TableRow>
