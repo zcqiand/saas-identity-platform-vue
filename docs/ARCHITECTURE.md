@@ -119,11 +119,11 @@ saas-identity-platform-vue/
 │   ├── pages/                           ← 9 个页面（与 router.ts 1:1）
 │   │   ├── LoginPage.vue                ← /login（独立，不走 AppShell）
 │   │   ├── TenantListPage.vue           ← /tenants（M00.F01.I01）
-│   │   ├── UserListPage.vue             ← /tenants/:tenantId/users
+│   │   ├── UserListPage.vue             ← /tenants/:tenantId/members
 │   │   ├── RoleListPage.vue             ← /tenants/:tenantId/roles
 │   │   ├── RoleMenuGrantPage.vue        ← /tenants/:tenantId/roles/:roleId/menus
-│   │   ├── AppListPage.vue              ← /admin/apps
-│   │   ├── MenuTreePage.vue             ← /admin/apps/:appId/menus
+│   │   ├── AppListPage.vue              ← /admin/clients
+│   │   ├── MenuTreePage.vue             ← /admin/clients/:clientId/menus
 │   │   ├── ApiKeyListPage.vue           ← /tenants/:tenantId/api-keys
 │   │   └── AuditListPage.vue            ← /tenants/:tenantId/audit
 │   └── state/
@@ -260,11 +260,11 @@ export const useTenantStore = defineStore("tenant", () => {
 |---|---|---|
 | `/login` | LoginPage.vue | M03.F01.I01 |
 | `/tenants` | TenantListPage.vue | M00.F01.I01 / I02 / I04 / I05 |
-| `/tenants/:tenantId/users` | UserListPage.vue | M01.F01.I01 + I02 / I04 / I05 + M01.F02.I01 |
+| `/tenants/:tenantId/members` | UserListPage.vue | M01.F01.I01 + I02 / I04 / I05 + M01.F02.I01 |
 | `/tenants/:tenantId/roles` | RoleListPage.vue | M02.F01 + M02.F02 + M09.F01.I01 |
 | `/tenants/:tenantId/roles/:roleId/menus` | RoleMenuGrantPage.vue | M09.F02.I02 / I03 |
-| `/admin/apps` | AppListPage.vue | M08.F01 + M04.F02.I06 |
-| `/admin/apps/:appId/menus` | MenuTreePage.vue | M08.F01 + M08.F02 |
+| `/admin/clients` | AppListPage.vue | M08.F01 + M04.F02.I06 |
+| `/admin/clients/:clientId/menus` | MenuTreePage.vue | M08.F01 + M08.F02 |
 | `/tenants/:tenantId/api-keys` | ApiKeyListPage.vue | M05.F01 |
 | `/tenants/:tenantId/audit` | AuditListPage.vue | M06.F01.I03 |
 
@@ -299,7 +299,7 @@ export const useTenantStore = defineStore("tenant", () => {
 3. 浏览器调 API:
    userList = useTenantUsersListUsers(tenantIdRef)
    → orval codegen 调用 src/api/endpoints/endpoints.ts
-   → 实际 fetch http://localhost:5100/api/v1/tenants/{id}/users  (baseURL 由 interceptor 注入)
+   → 实际 fetch http://localhost:5100/api/v1/tenants/{tenantId}/members  (baseURL 由 interceptor 注入)
    → saas-msw handlers 拦截 → in-memory fixture
    → 返回 JSON
 ```
