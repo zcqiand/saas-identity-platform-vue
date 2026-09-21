@@ -16,6 +16,7 @@ import { buildNavItems } from "./nav-items";
 import TenantSwitcher from "../tenant-switcher.vue";
 import BackendBadge from "./backend-badge.vue";
 import { useTenantStore } from "../../state/tenant-store";
+import { useMeWhoami } from "../../api/endpoints/me/me";
 
 interface Crumb {
   label: string;
@@ -81,6 +82,11 @@ const crumbs = computed<Crumb[]>(() => {
 
 const navItems = computed(() => buildNavItems(tenantForNav.value));
 
+// 顶栏 whoami 徽标（M01 用户管理接线）：失败静默降级（retry:false + v-if，
+// 不阻塞导航）；email 缺省降级 id，title 恒为 id。
+const whoamiQ = useMeWhoami({ query: { retry: false } });
+const whoami = computed(() => whoamiQ.data.value?.data);
+
 async function onLogout() {
   // logout() 先调 API 再清 session（async）；不 await 的话 router.push 时
   // isAuthenticated 仍 true，路由守卫把 /login 拦回工作区（E2E REQ-2026-004 抓出）
@@ -124,6 +130,12 @@ async function onLogout() {
           </template>
         </nav>
         <div class="flex items-center gap-3">
+          <span
+            v-if="whoami"
+            data-testid="whoami-badge"
+            class="text-sm text-slate-600"
+            :title="whoami.id"
+          >{{ whoami.email ?? whoami.id }}</span>
           <TenantSwitcher v-if="tenantStore.currentTenantId" />
           <!-- 登出（用户裁定 2026-09-11：移到右上角，切换租户旁） -->
           <Button
