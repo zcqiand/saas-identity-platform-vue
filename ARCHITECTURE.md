@@ -4,6 +4,8 @@
 
 生成日期：2026-09-22 ｜ 锚定 HEAD：c759d15 ｜ 生成方式：DeepWiki 风格架构扫描
 
+> 原 `docs/ARCHITECTURE.md`（旧式结构/边界/数据流长文）已于 2026-09-22 移除，由本文取代。
+
 ## 1. 总览
 
 - **家族角色**：前端仓（6 角色中的「前端」）。与 saas-identity-platform-react / -nextjs 平行，各自实现同一份 shared 契约；由 contract-test 仓黑盒校验、e2e 仓做跨端验收。
