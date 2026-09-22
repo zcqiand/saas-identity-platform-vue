@@ -23,7 +23,6 @@
     "dist",
     "build",
     "../saas-identity-platform-shared",
-    "../saas-identity-platform-shared/generated",
-    "../saas-identity-platform-msw"
+    "../saas-identity-platform-shared/generated"
   ]
 }

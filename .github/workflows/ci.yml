@@ -25,8 +25,7 @@ jobs:
           registry-url: https://registry.npmmirror.com/
       - name: Checkout shared sibling
         run: git clone --depth 1 https://x-access-token:${GITHUB_TOKEN}@github.com/zcqiand/saas-identity-platform-shared.git ../saas-identity-platform-shared
-      - name: Checkout msw sibling
-        run: git clone --depth 1 https://x-access-token:${GITHUB_TOKEN}@github.com/zcqiand/saas-identity-platform-msw.git ../saas-identity-platform-msw
+      # msw sibling 已随 2026-09-17 msw 剔除移除（2026-09-22 收尾清理，react 仓更早已同款处理）
       - name: Install dependencies
         run: npm ci
       - name: gen:shared

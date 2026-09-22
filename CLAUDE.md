@@ -27,7 +27,7 @@ dev server 端口：**5103**（2026-09-02 端口分段 §6；saas 段 X03）。
 - 单测走**真链路**（msw 剔除 Phase 2 终态）：jsdom 请求直连真 saas-nextjs :5101，
   `tests/global-setup.ts` 灌种子 + 起真后端 + 铸真 JWT，不许降级 mock；
   msw 仓已于 2026-09-17 删除——禁止回引 `@saas/identity-platform-msw` 包依赖、
-  msw fixtures 路径或浏览器 SW 模式（tsconfig/Dockerfile/CI 中残留引用属待清理项）
+  msw fixtures 路径或浏览器 SW 模式（tsconfig/Dockerfile/CI/.npmrc 残留引用已于 2026-09-22 收尾清理）
 - 细则（shadcn-vue、data-fn 登记等）→ `docs/conventions/`
 
 ## 3. 技术栈与版本（钉死于 version-lock.json）
