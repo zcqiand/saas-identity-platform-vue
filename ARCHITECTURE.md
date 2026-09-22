@@ -126,7 +126,7 @@ sequenceDiagram
 **对家族其他仓**：
 
 - `saas-identity-platform-nextjs`：单测真链路基座（globalSetup 拉起/复用 :5101，读其 `.env.local` 补 env）
-- `saas-identity-platform-msw`：本仓**零 npm 依赖**，仅单测 fixtures 以相对路径 `../../saas-identity-platform-msw/src/fixtures/seed` 直读；禁止回引包依赖或浏览器 SW 模式
+- msw 仓：已于 2026-09-17 删除——本仓单测走真链路（`tests/global-setup.ts` 直连真 nextjs :5101），零 npm 依赖；禁止回引 `@saas/identity-platform-msw` 包依赖、msw fixtures 路径或浏览器 SW 模式（tsconfig include / Dockerfile / CI 中残留引用属待清理项）
 - contract-test / e2e 仓：黑盒校验本仓实现的契约面（不在本仓内）
 
 **外部依赖**：PostgreSQL（经被测后端，间接依赖）；IdP 登录走 OAuth 授权码流；无其他第三方服务。
