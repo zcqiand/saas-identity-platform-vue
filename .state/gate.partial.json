@@ -1,20 +1,22 @@
 {
   "schema": 1,
   "project": "saas-identity-platform-vue",
+  "tier": "full",
+  "excluded_tier": [],
   "passed": true,
   "partial": true,
   "ran": [
-    "L0"
+    "L4"
   ],
-  "checked_at": "2026-09-11T10:19:01+0800",
+  "checked_at": "2026-09-23T08:02:13+0800",
   "gates": [
     {
-      "level": "L0",
-      "name": "结构完整性",
+      "level": "L4",
+      "name": "测试",
       "passed": true,
       "returncode": 0,
-      "duration_s": 0.094,
-      "output": ""
+      "duration_s": 56.719,
+      "output": "[INFO][gate-inject] DATABASE_URL <- L4_DB_INJECT_REPOS 表驱动通道（saas_test @ 100.79.128.25:5432，镜像 db-env.sh）\n[INFO][gate-inject] VITE_API_BASE_URL <- saas-identity-platform-vue/.env.test（通用通道，调用方未设）\n[INFO][gate-inject] VITE_API_MODE <- saas-identity-platform-vue/.env.test（通用通道，调用方未设）\n[INFO][gate-inject] VITE_DEV_PORT <- saas-identity-platform-vue/.env.test（通用通道，调用方未设）\n[INFO][gate-inject] VITE_LOGIN_CLIENT_ID <- saas-identity-platform-vue/.env.test（通用通道，调用方未设）\n\u001b[1m\u001b[7m\u001b[36m RUN \u001b[39m\u001b[27m\u001b[22m \u001b[36mv2.1.9 \u001b[39m\u001b[90mD:/qiand-life/1-projects/xr-code-suite/output/saas-identity-platform-vue\u001b[39m\n\n[global-setup] 1/5 灌种子（shared/scripts/seed-db.mjs → 目标库）…\n[seed-db] 连接 postgresql://postgres:***@100.79.128.25:5432/saas_test ...\n[seed-db] 已连接。\n[seed-db] 读入 seeds：tenants=3 users=5 roles=4 memberships=6 apps=4 menus=41 role_menu_grants=3\n[seed-db] 已清空业务表（RESTART IDENTITY CASCADE）。\n[seed-db] tenant: 3\n[seed-db] oauth_client: 4\n[seed-db] sys_user: 5\n[seed-db] sys_role: 4\n[seed-db] tenant_member: 6, tenant_member_role: 6\n[seed-db] tenant_application: 3\n[seed-db] sys_menu: 41\n[seed-db] sys_role_menu: 70 (fixture 43 + 补齐 27)\n\n[seed-db] 验证（各表行数）：\n  tenant                     3\n  oauth_client               4\n  sys_user                   5\n  sys_role                   4\n  tenant_member              6\n  tenant_member_role         6\n  tenant_application         3\n  sys_menu                   41\n  sys_role_menu              70\n\n[seed-db] ✅ 灌库完成。\n[global-setup] 2/5 :5101 已健康，复用现有进程（不重启不杀树）\n[global-setup] 3/5 真 JWT 铸造完成（sub=alice, tenant_id=acme，node:crypto HS256）\n[global-setup] 4/5 真服务验签探针通过（/me 200 + 无 Bearer 401）\n[global-setup] 5/5 库身份探针通过（服务与目标库同源）\n \u001b[32m✓\u001b[39m tests/integration/login.test.ts \u001b[2m(\u001b[22m\u001b[2m11 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 434\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/integration/user-list.test.ts \u001b[2m(\u001b[22m\u001b[2m9 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 16574\u001b[2mms\u001b[22m\u001b[39m\n   \u001b[33m\u001b[2m✓\u001b[22m\u001b[39m M01.F01 用户管理（tenant-scoped，真链路）\u001b[2m > \u001b[22m渲染用户列表，创建成员按钮挂创建锚 \u001b[33m609\u001b[2mms\u001b[22m\u001b[39m\n   \u001b[33m\u001b[2m✓\u001b[22m\u001b[39m 成员管理页（tenant-scoped 用户列表，真链路八用例）\u001b[2m > \u001b[22m渲染种子成员行：alice / bob 在列 \u001b[33m529\u001b[2mms\u001b[22m\u001b[39m\n   \u001b[33m\u001b[2m✓\u001b[22m\u001b[39m 成员管理页（tenant-scoped 用户列表，真链路八用例）\u001b[2m > \u001b[22m状态过滤 invited：只剩种子里的已邀请成员行 \u001b[33m1296\u001b[2mms\u001b[22m\u001b[39m\n   \u001b[33m\u001b[2m✓\u001b[22m\u001b[39m 成员管理页（tenant-scoped 用户列表，真链路八用例）\u001b[2m > \u001b[22m每页 2 条分页：翻到第 2 页页码指示更新 \u001b[33m1294\u001b[2mms\u001b[22m\u001b[39m\n   \u001b[33m\u001b[2m✓\u001b[22m\u001b[39m 成员管理页（tenant-scoped 用户列表，真链路八用例）\u001b[2m > \u001b[22m行内详情弹层：展示邮箱与角色码完整信息 \u001b[33m1298\u001b[2mms\u001b[22m\u001b[39m\n   \u001b[33m\u001b[2m✓\u001b[22m\u001b[39m 成员管理页（tenant-scoped 用户列表，真链路八用例）\u001b[2m > \u001b[22m创建成员并勾选 admin 角色：行内角色计数为 1 项 \u001b[33m3840\u001b[2mms\u001b[22m\u001b[39m\n   \u001b[33m\u001b[2m✓\u001b[22m\u001b[39m 成员管理页（tenant-scoped 用户列表，真链路八用例）\u001b[2m > \u001b[22m邀请成员：email 前缀用户名的行出现 \u001b[33m2559\u001b[2mms\u001b[22m\u001b[39m\n   \u001b[33m\u001b[2m✓\u001b[22m\u001b[39m 成员管理页（tenant-scoped 用户列表，真链路八用例）\u001b[2m > \u001b[22m编辑成员：可改邮箱与手机号，弹窗无状态字段 \u001b[33m1810\u001b[2mms\u001b[22m\u001b[39m\n   \u001b[33m\u001b[2m✓\u001b[22m\u001b[39m 成员管理页（tenant-scoped 用户列表，真链路八用例）\u001b[2m > \u001b[22m行内停用经确认后：状态徽标翻转为暂停 \u001b[33m3338\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/integration/oauth-client.test.ts \u001b[2m(\u001b[22m\u001b[2m13 tests\u001b[22m\u001b[2m | \u001b[22m\u001b[33m6 skipped\u001b[39m\u001b[2m)\u001b[22m\u001b[90m 8\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/integration/breadcrumb.test.ts \u001b[2m(\u001b[22m\u001b[2m5 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 2004\u001b[2mms\u001b[22m\u001b[39m\n   \u001b[33m\u001b[2m✓\u001b[22m\u001b[39m 顶栏 whoami 徽标（真链路）\u001b[2m > \u001b[22m顶栏渲染 whoami 徽标（email，降级 id） \u001b[33m1570\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/integration/app-list-page.test.ts \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[90m 163\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/integration/menu-tree.test.ts \u001b[2m(\u001b[22m\u001b[2m5 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 641\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/integration/nav-modules.test.ts \u001b[2m(\u001b[22m\u001b[2m4 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[90m 6\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/integration/tenant-applications-list.test.ts \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[90m 57\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/integration/tenant-switch.test.ts \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[90m 77\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/integration/role-list.test.ts \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[90m 51\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/integration/tena"
     }
   ]
 }
