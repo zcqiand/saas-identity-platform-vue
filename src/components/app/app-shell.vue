@@ -133,6 +133,7 @@ async function onLogout() {
           <span
             v-if="whoami"
             data-testid="whoami-badge"
+            data-fn="M01.F01.I01"
             class="text-sm text-slate-600"
             :title="whoami.id"
             >{{ whoami.email ?? whoami.id }}</span
