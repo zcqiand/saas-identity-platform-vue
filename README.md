@@ -2,16 +2,18 @@
 
 SaaS 身份平台的 Vue 前端 —— Vite + Pinia + shadcn-vue，env 驱动单 URL（ADR-0014）。
 
-本仓为《（书稿信息待补）》案例（待补）的可运行配套工程，是书稿代码块的 **source of truth**。
+本仓为《Vue从入门到项目实践》（亚马逊电子书）案例二「SaaS 多租户身份平台」（第 39-42 章）的可运行配套工程，是书稿代码块的 **source of truth**。
 
 ## 快速开始
 
 ```bash
 npm install        # 安装依赖
-npm test           # 全量测试（无 Key / 无 Docker / 无网可跑）
+npm test           # 全量测试（真链路基座：需 DATABASE_URL 与真 nextjs :5101，缺 env 时 fail-fast）
 npm run dev        # 本地开发（Vite）
 npm run build      # 生产构建
 ```
+
+以上为前端本仓；完整跑通业务链路还需按各章说明启动配套后端与数据库（见第 39 章）。
 
 ## 功能特性
 
@@ -38,9 +40,19 @@ npm run build      # 生产构建
 
 ## 配套书籍及章节映射
 
+> 同一案例仓后续接入其他书籍时，在此节下新增书籍小节。
+
+### 《Vue从入门到项目实践》（亚马逊电子书）
+
+- 书稿基线：tag `v0.3.55-20260925`（冻结，正文代码清单以此为准）
+- 书稿定位：案例二「SaaS 多租户身份平台」，覆盖第 39-42 章
+
 | 章 | 主题 | 对应源文件 |
 | :--- | :--- | :--- |
-| （待补） | | |
+| 39 | 案例二：SaaS 架构与多租户 | `src/pages/TenantListPage.vue`、`src/components/tenant-switcher.vue` |
+| 40 | 案例二：统一认证与 RBAC | `src/pages/LoginPage.vue`、`src/pages/RoleMenuGrantPage.vue`、`src/pages/MenuTreePage.vue` |
+| 41 | 案例二：成员全生命周期 | `src/pages/UserListPage.vue`、`src/components/tenant-switcher.vue` |
+| 42 | 全栈项目总结与部署 | `src/main.ts`、`vite.config.ts` |
 
 ## 快速链接
 
