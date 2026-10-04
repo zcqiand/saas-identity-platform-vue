@@ -6,7 +6,7 @@
     "features": 13,
     "items": 51
   },
-  "warnings_total": 94,
+  "warnings_total": 93,
   "warnings": {
     "已上线但无设计映射": [
       "M00.F01.I01",
@@ -108,9 +108,6 @@
       "M00.F04.I02",
       "M01.F01.I01",
       "M01.F03.I01"
-    ],
-    "开发中但代码里无 UI 入口(用户还点不到)": [
-      "M01.F01.I01"
     ]
   },
   "unreachable_shipped": [],
@@ -436,7 +433,7 @@
       "tests": [
         "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:1156 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:227 (annot)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:2831 (annot)"
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:3163 (annot)"
       ],
       "entry": [
         "src\\pages\\TenantApplicationsListPage.vue"
@@ -451,7 +448,7 @@
       "designs": [],
       "tests": [
         "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:259 (annot)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:5836 (annot)"
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:7746 (annot)"
       ],
       "entry": [
         "src\\pages\\TenantApplicationsListPage.vue"
@@ -466,7 +463,7 @@
       "designs": [],
       "tests": [
         "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:289 (annot)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:8021 (annot)"
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:9931 (annot)"
       ],
       "entry": [
         "src\\pages\\TenantApplicationsListPage.vue"
@@ -485,7 +482,9 @@
         "output\\saas-identity-platform-contract-test\\tests\\path.test.ts:1072 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\path.test.ts:1117 (path)"
       ],
-      "entry": []
+      "entry": [
+        "src\\components\\app\\app-shell.vue"
+      ]
     },
     "M01.F02.I01": {
       "name": "分配角色",
@@ -573,9 +572,9 @@
       "designs": [],
       "tests": [
         "output\\saas-identity-platform-contract-test\\tests\\admin-clients-write.test.ts:891 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:3624 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:5529 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:9758 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:11668 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:3956 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:7439 (path)"
       ],
       "entry": []
     },
@@ -588,9 +587,9 @@
       "designs": [],
       "tests": [
         "output\\saas-identity-platform-contract-test\\tests\\admin-clients-write.test.ts:891 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:3624 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:5529 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:9758 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:11668 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:3956 (path)",
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:7439 (path)"
       ],
       "entry": []
     },
