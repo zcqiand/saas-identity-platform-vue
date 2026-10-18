@@ -6,7 +6,7 @@
     "features": 13,
     "items": 51
   },
-  "warnings_total": 93,
+  "warnings_total": 90,
   "warnings": {
     "已上线但无设计映射": [
       "M00.F01.I01",
@@ -60,15 +60,12 @@
       "M00.F01.I05",
       "M00.F04.I01",
       "M01.F02.I01",
-      "M01.F04.I03",
       "M04.F01.I03",
       "M04.F01.I04",
       "M04.F01.I05",
       "M04.F02.I01",
-      "M04.F03.I03",
       "M04.F04.I03",
       "M04.F04.I04",
-      "M04.F04.I05",
       "M04.F04.I06",
       "M04.F04.I07"
     ],
@@ -132,7 +129,8 @@
       "flows": [],
       "designs": [],
       "tests": [
-        "output\\saas-identity-platform-contract-test\\tests\\admin-tenants.test.ts:1024 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\admin-tenants.test.ts:1024 (path)",
+        "渲染租户列表，新建按钮挂 data-fn=M00.F01.I02"
       ],
       "entry": [
         "src/pages/TenantListPage.vue"
@@ -214,7 +212,8 @@
       "flows": [],
       "designs": [],
       "tests": [
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-members-read.test.ts:3771 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-members-read.test.ts:3771 (path)",
+        "渲染 TenantSwitcher，下拉框挂 data-fn=M00.F02.I03"
       ],
       "entry": [
         "src/components/tenant-switcher.vue",
@@ -305,7 +304,8 @@
       "designs": [],
       "tests": [
         "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-read.test.ts:1365 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-write.test.ts:1089 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-roles-write.test.ts:1089 (path)",
+        "渲染角色列表，新建角色按钮挂 data-fn=M00.F03.I02"
       ],
       "entry": [
         "src/pages/RoleListPage.vue"
@@ -433,7 +433,8 @@
       "tests": [
         "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:1156 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:227 (annot)",
-        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:3163 (annot)"
+        "output\\saas-identity-platform-contract-test\\tests\\tenant-applications.test.ts:3163 (annot)",
+        "渲染订阅应用按钮挂 data-fn=M00.F05.I02"
       ],
       "entry": [
         "src/pages/TenantApplicationsListPage.vue"
@@ -533,7 +534,9 @@
       "requirements": [],
       "flows": [],
       "designs": [],
-      "tests": [],
+      "tests": [
+        "渲染登录表单，挂 data-fn=M01.F04.I03 的提交按钮"
+      ],
       "entry": [
         "src/pages/LoginPage.vue",
         "src/pages/UserListPage.vue"
@@ -662,7 +665,10 @@
         "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:4566 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:5331 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:8048 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:9541 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:9541 (path)",
+        "returns 400 INVALID_REDIRECT_URI when redirect not in whitelist M04.F03.I01",
+        "returns {code, state} for a valid request M04.F03.I01",
+        "saveState + consumeState round-trips and clears M04.F03.I01"
       ],
       "entry": []
     },
@@ -674,12 +680,16 @@
       "flows": [],
       "designs": [],
       "tests": [
+        "exchanges code for access_token + refresh_token M04.F03.I02",
         "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:11105 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:12055 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:6035 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:7267 (path)",
         "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:8493 (path)",
-        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:9983 (path)"
+        "output\\saas-identity-platform-contract-test\\tests\\oauth.test.ts:9983 (path)",
+        "persistTokens preserves user metadata M04.F03.I02",
+        "persistTokens tolerates malformed prior session M04.F03.I02",
+        "writes access/refresh to localStorage M04.F03.I02"
       ],
       "entry": []
     },
@@ -690,7 +700,12 @@
       "requirements": [],
       "flows": [],
       "designs": [],
-      "tests": [],
+      "tests": [
+        "clearTokens on empty session is a no-op M04.F03.I03",
+        "clearTokens removes only token fields M04.F03.I03",
+        "rejects unknown refresh_token with 400 INVALID_GRANT M04.F03.I03",
+        "rotates refresh_token M04.F03.I03"
+      ],
       "entry": []
     },
     "M04.F04.I01": {
@@ -750,7 +765,9 @@
       "requirements": [],
       "flows": [],
       "designs": [],
-      "tests": [],
+      "tests": [
+        "每个菜单行挂 data-fn=M04.F04.I05 删除按钮"
+      ],
       "entry": [
         "src/pages/AppListPage.vue",
         "src/pages/MenuTreePage.vue"
