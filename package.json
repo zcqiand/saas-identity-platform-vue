@@ -31,7 +31,7 @@
     "clsx": "^2.1.1",
     "eslint": "^9.16.0",
     "globals": "^15.13.0",
-    "jsdom": "^25.0.0",
+    "jsdom": "^29.1.1",
     "lucide-vue-next": "^0.577.0",
     "orval": "^7.5.0",
     "prettier": "^3.4.0",
