@@ -22,7 +22,8 @@ dev server 端口：**5103**（2026-09-02 端口分段 §6；saas 段 X03）。
   `VITE_API_BASE_URL` / `VITE_API_MODE` / `VITE_DEV_PORT` 必须写 `.env.example`（`VITE_ENABLE_MSW` 已随 msw 仓删除消亡）
 - 禁止 `<script>` 而非 `<script setup lang="ts">`；禁止 store 在 `onMounted` 才 hydrate
 - 禁止组件内直接 fetch（走 orval 具名函数）；禁止 `vi.mock('axios')`；禁止 axios 升 1.19
-- 禁止给按钮加 lucide 图标（纯文字按钮）；禁止 demo 密码出现在 UI / 注释 / 断言
+- 禁止给按钮加 lucide 图标（纯文字按钮）；登录页公开展示演示账号 alice/dev123456
+  （2026-11-03 人裁改版：原「禁止 demo 密码出现在 UI」随公众号/小红书引流文案下线一并废止）
 - 禁止手写 `<table>` / `<select>` / 内联样式 / `window.confirm` / 未登记 fnId 挂 data-fn
 - 单测走**真链路**（msw 剔除 Phase 2 终态）：jsdom 请求直连真 saas-nextjs :5101，
   `tests/global-setup.ts` 灌种子 + 起真后端 + 铸真 JWT，不许降级 mock；
