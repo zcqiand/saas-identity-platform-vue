@@ -1,91 +1,107 @@
-# Function Flow Map — saas-identity-platform-vue （已废段镜像豁免，9/7 迁移前快照）
+# Flow × Function 映射 — saas-shared
 
-> 本仓流程图与豁免清单。L5 alignment 脚本 `orphan_whitelist()` 读取 `### 孤儿功能` 段作为白名单锚点。
+> 用途：跨仓运行时流程 ↔ function-tree 子项 ID 映射。本文件被 L5 alignment 脚本读取：
+> 1. 「已上线但不在任何流程」告警需要本文件列出 flow ↔ ID 关联
+> 2. `### 孤儿功能` 段是孤儿白名单（脚本 `orphan_whitelist()` 解析）
 >
-> **依据**：[ADR-0020 §2 子集约束](../../../docs/adr/0020-base-tree-collects-i-level.md)（消费仓 ⊆ BASE = 合法；少镜像 = DECLARED_GAP 声明豁免）+ [`docs/conventions/sync-architecture.md` §11.5](../../../docs/conventions/sync-architecture.md#115-同步流程补充字段值变更)。
+> **2026-09-07 模块重组**：本文件 §1 流程涉及 ID 全部按新结构更新（迁移表见
+> [function-tree.md §0.x](../functions/function-tree.md#0x-模块重组迁移记录2026-09-07)）。
+> 旧 ID 不再使用；新 ID 与 function-tree.md 一一对应。
 
-## 1. 流程图（占位）
+## 1. 主要流程
 
-> 本仓是 SaaS 家族消费仓，跨仓流程锚点在 shared 仓 [docs/design/flow-function-map.md](../../saas-identity-platform-shared/docs/design/flow-function-map.md)。本仓无独立流程图。
+### 1.1 OAuth 登录 + session 建立
 
-## 2. 孤儿功能（declared_gap 豁免清单）
+触发：用户未登录访问业务前端 → 业务前端跳 saas SSO 登录页
 
-> 镜像豁免：本仓不参与以下 BASE I ID 的实现，按 ADR-0020 §2 DECLARED_GAP 声明豁免。
-
-| I ID | 名称 | 豁免理由 |
+| 步骤 | 端点 | 涉及 ID |
 |---|---|---|
-| **M01.F04.I01** | 密码登录 API | react/vue 是前端仓，不实现后端 op；saas-shared M01.F04.I01 由 saas-aspnetcore / saas-springboot / saas-msw 提供 |
-| **M04.F03.I01** | 授权码签发 | react/vue 是前端仓，不实现 saas IdP；saas-shared M04.F03 由 saas-aspnetcore / saas-springboot / saas-msw 提供 OAuth 协议实现 |
-| **M04.F03.I02** | 令牌交换 | 同上 |
-| **M04.F03.I03** | 令牌刷新 | 同上 |
+| 用户输密码 | `POST /auth/login` | **M01.F04.I01** |
+| 业务后端 authorize 跳 saas | 302 → saas 登录页带 client_id | (业务仓；saas 仓只列下游)|
+| saas authorize 检查 session | `POST /oauth/authorize` | **M04.F03.I01** |
+| token 交换 + 刷新 | `POST /oauth/token`（双 grant）| **M04.F03.I02** |
+| 业务后端验 JWT → 业务 API | — | (业务仓)|
+| 登出（本地清理）| `POST /auth/logout` | **M01.F04.I06** |
 
-> 豁免类别：**前端仓不实现纯后端 op**（按 [spec §2 子项表交付列判定](https://example.com/spec) + [iid-binding-rules.md §7 R5](../../saas-identity-platform-shared/docs/design/iid-binding-rules.md#7-例外清单rule-based)）。
->
-> - react/vue 不实现纯后端 API（密码登录 / OAuth 协议签发）—— 由 saas 后端仓 + msw 提供
-> - 镜像行已删除（不在 function-tree.md 中）
-> - L5 matrix 不报这 7 个 I ID 的 react/vue delivery 错位（不再参与镜像比对）
+详见 [oauth-architecture.md](oauth-architecture.md) + [REQ-2026-020](../requirements/REQ-2026-020-oauth-session-real-auth.md)。
 
-# Function Flow Map — saas-identity-platform-vue
+### 1.2 me/menus 装配
 
-> 本仓流程图与豁免清单。L5 alignment 脚本 `orphan_whitelist()` 读取 `### 孤儿功能` 段作为白名单锚点。
->
-> **依据**：[ADR-0020 §2 子集约束](../../../docs/adr/0020-base-tree-collects-i-level.md)（消费仓 ⊆ BASE = 合法；少镜像 = DECLARED_GAP 声明豁免）+ [`docs/conventions/sync-architecture.md` §11.5](../../../docs/conventions/sync-architecture.md#115-同步流程补充字段值变更)。
+触发：登录后用户进入业务首页，前端调 `GET /me/menus` 渲染侧边栏。
 
-## § 1. 纯后端 op declared_gap 豁免清单（M01.F04 + M04.F03）
+涉及 ID：**M04.F04.I08**（按新结构合并到一个 I，覆盖 session 校验 + 角色联表 + 父链补全 + client 分组的端到端逻辑）。
 
+详见 [me-menus.md](me-menus.md)。
 
-| I ID | 名称 | 豁免理由 |
+### 1.3 用户 / 成员 CRUD + 角色分配
+
+触发：tenant admin 在用户管理页操作。
+
+| 操作 | 端点 | 涉及 ID |
 |---|---|---|
-| **M01.F04.I01** | 密码登录 API | react/vue 是前端仓，不实现后端 op；saas-shared M01.F04.I01 由 saas-aspnetcore / saas-springboot / saas-msw 提供 |
-| **M04.F03.I01** | 授权码签发 | react/vue 是前端仓，不实现 saas IdP；saas-shared M04.F03 由 saas-aspnetcore / saas-springboot / saas-msw 提供 OAuth 协议实现 |
-| **M04.F03.I02** | 令牌交换 | 同上 |
-| **M04.F03.I03** | 令牌刷新 | 同上 |
+| 列表 | `GET /tenants/{t}/users` | **M00.F02.I01** |
+| 创建（直接落地）| `POST /tenants/{t}/users` | **M00.F02.I02** |
+| 详情 | `GET .../users/{u}` | **M00.F02.I03** |
+| 更新 | `PATCH .../users/{u}` | **M00.F02.I04** |
+| 删除 | `DELETE .../users/{u}` | **M00.F02.I05** |
+| 邀请用户 | `POST /tenants/{t}/invitations` | **M00.F02.I06** |
+| 接受邀请 | `POST /invitations/{token}/accept` | **M00.F02.I07** |
+| 状态切换 | `PATCH .../users/{u}/status` | **M00.F02.I08** |
+| 分配角色 | `PUT .../users/{u}/roles` | **M01.F02.I01** |
 
+详见 [user-model.md](user-model.md) + [REQ-2026-024](../requirements/REQ-2026-024-tenant-switch-and-user-invite.md)。
 
-### 1.1 豁免类别
+### 1.4 API Key 生命周期（已废弃）
 
-> 豁免类别：**前端仓不实现纯后端 op**（按 [spec §2 子项表交付列判定](https://example.com/spec) + [iid-binding-rules.md §7 R5](../../saas-identity-platform-shared/docs/design/iid-binding-rules.md#7-例外清单rule-based)）。
->
-> - react/vue 不实现纯后端 API（密码登录 / OAuth 协议签发）—— 由 saas 后端仓 + msw 提供
-> - 镜像行已删除（不在 function-tree.md 中）
-> - L5 matrix 不报这 7 个 I ID 的 react/vue delivery 错位（不再参与镜像比对）
+> **状态：已废弃** — 目标 DDL 不再包含 `api_keys`，保留历史编号供合同测试对齐。
 
+### 1.5 审计日志查询 + 留存（已废弃）
 
+> **状态：已废弃** — 目标 DDL 不再包含 `audit_events` / `audit_retention_policies`。
 
-## § 3. 已废弃段镜像豁免（2026-09-09 扩展）
+### 1.6 跨租户切换（当前用户视图）
 
-> react/vue 仓对 [deprecated-items.md](../../saas-identity-platform-shared/docs/functions/deprecated-items.md) § 1 已废弃 I ID 的镜像全部删除（合计 35 行 / 仓），按 ADR-0020 §2 子集约束声明豁免。
->
-> 豁免类别：
-> - **前端仓不镜像已迁移段**：react/vue 不实现旧 op（由新 canonical ID 实现）
-> - **前端仓不镜像已废段**：react/vue 不实现废弃 op（M05 / M06）
+触发：用户在多租户 UI 切换当前 tenant scope。
 
-
-| I ID | 模块 | 豁免理由 |
+| 操作 | 端点 | 涉及 ID |
 |---|---|---|
-| **M01.F01.I02** | 已迁 | 旧版：在租户下创建用户 → M00.F02.I02（已迁） |
-| **M02.F01.I01-I05** | 已迁 | 旧版角色 CRUD → M00.F03（已迁）|
-| **M02.F02.I01** | 已迁 | 旧版权限矩阵 → M00.F04.I01（已迁）|
-| **M03.F01.I01-I02** | 已迁 | 旧版密码登录 → M01.F04.I01-I02（已迁）|
-| **M03.F02.I03-I04** | 已迁 | 旧版 OIDC/refresh → M01.F04.I04-I05（已迁，2026-09-16 I04/I05 再合并到 M04.F03.I02 双 grant）|
-| **M03.F03.I05-I06** | 已迁 | 旧版登出 → M01.F04.I06-I07（已迁）|
-| **M05.F01.I01-I05** | 已废 | 旧版 API Key（目标 DDL 不再包含 `api_keys`）|
-| **M06.F01.I01-I03** | 已废 | 旧版审计事件（目标 DDL 不再包含 `audit_events`）|
-| **M06.F02.I04** | 已废 | 旧版留存策略（重复编号）|
-| **M08.F01.I01-I05** | 已迁 | 旧版菜单 CRUD → M04.F04.I01-I05（已迁）|
-| **M08.F02.I06-I07** | 已迁 | 旧版菜单排序/切父 → M04.F04.I06-I07（已迁）|
-| **M09.F01.I01** | 已迁 | 旧版角色菜单查询 → M00.F04.I02（已迁）|
-| **M09.F02.I02-I03** | 已迁 | 旧版角色菜单设置/清空 → M00.F04.I03-I04（已迁）|
-| **M09.F03.I02-I04** | 已迁 | 旧版角色菜单 ID 查询/装配/client 分组 → M04.F04.I08（已迁）|
+| whoami | `GET /me` | **M01.F01.I01** |
+| 列我的租户 | `GET /me/tenants?clientId=...` | **M01.F03.I01** |
+| 切换 | `POST /me/tenants/{tenantId}/switch` | **M01.F03.I02** |
 
+详见 [REQ-2026-024](../requirements/REQ-2026-024-tenant-switch-and-user-invite.md)。
 
-### 3.1 变更历史（增量）
+### 1.7 菜单结构维护
 
-- **2026-09-09 § 3**：react/vue 仓删除 35 行已废弃段镜像（M01.F01.I02 + M02/M03/M05/M06/M08/M09 全段），按 ADR-0020 §2 子集约束声明豁免。matrix fork 数从 19 → 7（预期）。
+触发：app admin 在菜单管理页拖动 / 移动节点。
 
+| 操作 | 端点 | 涉及 ID |
+|---|---|---|
+| 菜单 CRUD | `GET/POST/PATCH/DELETE /admin/clients/{c}/menus[/{m}]` | **M04.F04.I01-I05** |
+| 同级排序 | `PUT /admin/clients/{c}/menus/{m}/reorder` | **M04.F04.I06** |
+| 切父级 | `PATCH /admin/clients/{c}/menus/{m}/parent` | **M04.F04.I07** |
 
+详见 [REQ-2026-025](../requirements/REQ-2026-025-menu-structure-move-reorder.md)。
 
-### 4. 变更历史（合并）
+### 1.8 租户应用订阅（tenant-admin 配置面）
 
+触发：tenant admin 在租户应用页管理本租户订阅了哪些应用。
 
-- **2026-09-09**：按 sync-architecture.md §11.5 推荐 + ADR-0020 §2 子集约束，react/vue 仓新建本文件，声明 7 个 I ID declared_gap（[iid-binding-rules.md §8](../../saas-identity-platform-shared/docs/design/iid-binding-rules.md) §7 R5 同步记录）。function-tree.md 删除对应 7 行镜像。
+| 操作 | 端点 | 涉及 ID |
+|---|---|---|
+| 列出订阅 | `GET /tenants/{t}/applications` | **M00.F05.I01** |
+| 订阅应用 | `POST /tenants/{t}/applications` | **M00.F05.I02** |
+| 改订阅状态/到期时间 | `PATCH /tenants/{t}/applications/{clientId}` | **M00.F05.I03** |
+| 取消订阅 | `DELETE /tenants/{t}/applications/{clientId}` | **M00.F05.I04** |
+
+详见 [tenant-applications.md](tenant-applications.md)。
+
+---
+
+## 2. 孤儿功能
+
+> 孤儿 = 已上线但未在上述任何流程里出现。如果某个已上线 ID 不在 §1 任何步骤表里，加到这里给 L5 白名单吃掉。
+
+<!-- 当无孤儿时保留空段：L5 alignment 脚本识别 `### 孤儿功能` 这个段名作为锚点，删除本注释即可 -->
+
+（当前无孤儿功能。所有新结构下已上线 ID 均映射到 §1 流程之一。）

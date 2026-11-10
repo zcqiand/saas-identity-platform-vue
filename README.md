@@ -1,6 +1,6 @@
 # SaaS 多租户多应用身份平台 · Vue 前端
 
-SaaS 身份平台的 Vue 前端 —— Vite + Pinia + shadcn-vue，env 驱动单 URL（ADR-0014）。
+SaaS 多租户多应用身份平台的 Vue 前端 —— Vite + Pinia + shadcn-vue，env 驱动单 URL（ADR-0014）。
 
 本仓为《Vue从入门到项目实践》（亚马逊电子书）案例二「SaaS 多租户多应用身份平台」（第 39-42 章）的可运行配套工程，是书稿代码块的 **source of truth**。
 
